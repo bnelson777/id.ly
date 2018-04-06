@@ -11,6 +11,12 @@
       "label":"Student",
       "first":"John",
       "last":"Doe"
+    },
+    {
+      "id":3,
+      "label":"Casual",
+      "first":"Johnny",
+      "last":"Doe"
     }
   ]
 }

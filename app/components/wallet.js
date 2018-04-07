@@ -7,7 +7,8 @@ import {
     Text,
     TouchableHighlight,
     TouchableOpacity,
-    Image
+    Image,
+    Dimensions
 } from 'react-native';
 
 import {bindActionCreators} from 'redux';
@@ -17,11 +18,16 @@ import * as ReduxActions from '../actions';
 
 import {Actions} from 'react-native-router-flux';
 
+const {width} = Dimensions.get('window');
+
+const screenWidth = width;
+const buttonSide = width * 0.10;
+
 class Wallet extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {color: 0};
         this.renderItem = this.renderItem.bind(this);
     }
 
@@ -51,7 +57,11 @@ class Wallet extends Component {
             <View style={styles.buttonContainer}>
                 <View style={styles.leftButton}>
                     <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
-                        <Image source={require("./assets/person.png")}/>
+                        <Image
+                            style={{width: buttonSide, height: buttonSide}}
+                            source={require('../assets/person.png')}
+                            resizeMode = 'contain'
+                        />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.midButton}>
@@ -61,7 +71,11 @@ class Wallet extends Component {
                 </View>
                 <View style={styles.rightButton}>
                     <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
-                        <Image source={require("./assets/arrow.png")}/>
+                        <Image
+                            style={{width: buttonSide, height: buttonSide}}
+                            source={require('../assets/arrow.png')}
+                            resizeMode = 'contain'
+                        />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -92,40 +106,37 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        width: width,
     },
 
     leftButton: {
-        flex:1,
-        backgroundColor: '#F5F5F5',
-        justifyContent: 'center',
+        width: buttonSide,
+        height: buttonSide,
+        alignItems: 'center',
         borderRadius: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginTop: 5,
+        marginTop: 6,
+        marginLeft: screenWidth * 0.05,
+        backgroundColor: '#F5F5F5'
     },
 
     midButton: {
-        flex:4,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center',
-        backgroundColor: '#00FF00',
+        width: screenWidth * 0.6,
+        height: buttonSide,
+        alignItems: 'center',
         borderRadius: 5,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginTop: 5,
+        marginTop: 6,
+        marginLeft: screenWidth * 0.05,
+        marginRight: screenWidth * 0.05,
+        backgroundColor: '#FF0000'
     },
 
     rightButton: {
-        flex:1,
-        backgroundColor: '#F5F5F5',
-        justifyContent: 'center',
+        width: buttonSide,
+        height: buttonSide,
+        alignItems: 'flex-start',
         borderRadius: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginTop: 5,
+        marginTop: 6,
+        marginRight: screenWidth * 0.05,
+        backgroundColor: '#F5F5F5'
     }
 });

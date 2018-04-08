@@ -18,17 +18,19 @@ import * as ReduxActions from '../actions';
 
 import {Actions} from 'react-native-router-flux';
 
+// Get screen width for button width/height
 const {width} = Dimensions.get('window');
-
 const screenWidth = width;
 const buttonHeight = screenWidth * 0.10;
+
+// Set alternating colors for ID buttons
 const COLORS = ['#FF0000', '#00FF00', '#0000FF']
 
 class Wallet extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {color: 0};
+        this.state = {};
         this.renderItem = this.renderItem.bind(this);
     }
 
@@ -36,12 +38,15 @@ class Wallet extends Component {
         this.props.getCards();
     }
 
+    // Dummy function for button presses
     pressButton(label){
         Alert.alert(label);
     }
 
     render(){
         return (
+            // Display Home and Add buttons
+            // Display ID buttons as a list
             <View style={styles.container}>
                 <View
                     style={styles.buttonContainer}
@@ -80,6 +85,8 @@ class Wallet extends Component {
 
     renderItem({item, index}) {
         return (
+            // Display person icon, ID button, and arrow icon
+            // ID buttons are displayed in alternating color based on index
             <View
                 style={styles.buttonContainer}
                 flex={0.9}>
@@ -102,7 +109,7 @@ class Wallet extends Component {
                     width={screenWidth * 0.6}
                     marginLeft={screenWidth * 0.05}
                     marginRight={screenWidth * 0.05}
-                    backgroundColor={COLORS[index % 3]}
+                    backgroundColor={COLORS[index % COLORS.length]}
                 >
                     <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
                         <Text>{item.label}</Text>

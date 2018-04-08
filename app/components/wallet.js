@@ -21,7 +21,8 @@ import {Actions} from 'react-native-router-flux';
 const {width} = Dimensions.get('window');
 
 const screenWidth = width;
-const buttonSide = width * 0.10;
+const buttonHeight = screenWidth * 0.10;
+const COLORS = ['#FF0000', '#00FF00', '#0000FF']
 
 class Wallet extends Component {
     constructor(props) {
@@ -42,6 +43,31 @@ class Wallet extends Component {
     render(){
         return (
             <View style={styles.container}>
+                <View
+                    style={styles.buttonContainer}
+                    flex={0.1}
+                >
+                    <View
+                        style={styles.button}
+                        width={screenWidth * 0.3}
+                        marginLeft={screenWidth * 0.05}
+                        marginRight={screenWidth * 0.15}
+                    >
+                        <TouchableOpacity onPress={() => {this.pressButton("Return home")}}>
+                            <Text style={styles.topButtonText}>Home</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View
+                        style={styles.button}
+                        width={screenWidth * 0.3}
+                        marginLeft={screenWidth * 0.15}
+                        marginRight={screenWidth * 0.05}
+                    >
+                        <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
+                            <Text style={styles.topButtonText}>Add</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <FlatList
                     ref='listRef'
                     data={this.props.cards}
@@ -54,25 +80,43 @@ class Wallet extends Component {
 
     renderItem({item, index}) {
         return (
-            <View style={styles.buttonContainer}>
-                <View style={styles.leftButton}>
+            <View
+                style={styles.buttonContainer}
+                flex={0.9}>
+                <View
+                    style={styles.button}
+                    width={buttonHeight}
+                    marginLeft={screenWidth * 0.05}
+                    backgroundColor={'#F5F5F5'}
+                >
                     <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
                         <Image
-                            style={{width: buttonSide, height: buttonSide}}
+                            style={{width: buttonHeight, height: buttonHeight}}
                             source={require('../assets/person.png')}
                             resizeMode = 'contain'
                         />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.midButton}>
+                <View
+                    style={styles.button}
+                    width={screenWidth * 0.6}
+                    marginLeft={screenWidth * 0.05}
+                    marginRight={screenWidth * 0.05}
+                    backgroundColor={COLORS[index % 3]}
+                >
                     <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
                         <Text>{item.label}</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.rightButton}>
+                <View
+                    style={styles.button}
+                    width={buttonHeight}
+                    marginRight={screenWidth * 0.05}
+                    backgroundColor={'#F5F5F5'}
+                >
                     <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
                         <Image
-                            style={{width: buttonSide, height: buttonSide}}
+                            style={{width: buttonHeight, height: buttonHeight}}
                             source={require('../assets/arrow.png')}
                             resizeMode = 'contain'
                         />
@@ -102,41 +146,21 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        flex:1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        width: width,
+        width: screenWidth,
     },
 
-    leftButton: {
-        width: buttonSide,
-        height: buttonSide,
+    button: {
+        height: buttonHeight,
         alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 5,
         marginTop: 6,
-        marginLeft: screenWidth * 0.05,
-        backgroundColor: '#F5F5F5'
     },
 
-    midButton: {
-        width: screenWidth * 0.6,
-        height: buttonSide,
-        alignItems: 'center',
-        borderRadius: 5,
-        marginTop: 6,
-        marginLeft: screenWidth * 0.05,
-        marginRight: screenWidth * 0.05,
-        backgroundColor: '#FF0000'
-    },
-
-    rightButton: {
-        width: buttonSide,
-        height: buttonSide,
-        alignItems: 'flex-start',
-        borderRadius: 5,
-        marginTop: 6,
-        marginRight: screenWidth * 0.05,
-        backgroundColor: '#F5F5F5'
+    topButtonText: {
+        color: '#6666EE'
     }
 });

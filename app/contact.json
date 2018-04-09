@@ -1,0 +1,20 @@
+{
+    "contact": [
+      {
+        "id":1,
+        "name": "Person1",
+        "info": "Accountant\nNike\n503-222-1234"
+      },
+      {
+        "id":2,
+        "name": "Person2",
+        "info": "Student\nSeinor\nPortland State University"
+      },
+      {
+        "id":3,
+        "name": "Person3",
+        "info": "Recruiter\nIntel\nIntelRecruiter@intel.com"
+      }
+    ]
+  }
+  

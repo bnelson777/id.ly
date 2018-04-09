@@ -11,15 +11,15 @@ export default class MessageThread extends Component {
         this.state = {
             userIdentity: "Lil Wayne"
         };
-    }
+    };
 
     returnToInbox() {
         alert('Oops, something broke! Better luck next time.');
-    }
+    };
 
     sendMessage() {
         alert('Message sent!');
-    }
+    };
 
     render() {
         // If loading, display the loading animation.

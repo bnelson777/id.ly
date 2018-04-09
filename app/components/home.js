@@ -23,6 +23,8 @@ class Home extends Component {
         Alert.alert(label);
     }
 
+    // Displays animation if loading, otherwise displays a popup indicating the
+    // TouchableHighlight pressed
 
     render() {
 

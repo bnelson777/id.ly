@@ -42,9 +42,9 @@ class Main extends Component{
         return (
             <Router>
                 <Scene key="root">
+                    <Scene key="home" component={Home} title="Home"/>
                     <Scene key="scan" component={Scan} title="Scan"/>
                     <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
-                    <Scene key="home" component={Home} title="Home"/>
                     <Scene key="wallet" component={Wallet} title="Wallet"/>
                     <Scene key="share" component={Share} title="Share"/>
                     <Scene key="message_thread" component={MessageThread} title="MessageThread"/>

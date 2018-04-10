@@ -121,10 +121,10 @@ class Wallet extends Component {
                     marginRight={screenWidth * 0.05}
                     backgroundColor={'#F5F5F5'}
                 >
-                    <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
+                    <TouchableOpacity onPress={() => Actions.share({card: item})}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
-                            source={require('../assets/arrow.png')}
+                            source={require('../assets/share.png')}
                             resizeMode = 'contain'
                         />
                     </TouchableOpacity>

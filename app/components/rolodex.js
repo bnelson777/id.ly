@@ -41,34 +41,9 @@ class Rolodex extends Component {
             </View>
         );
     }
-    //             <TouchableHighlight onPress={() => {this.pressButton("Contact Info")}}>
-    //                 <Text style={{fontSize: 25, color: 'white'}}>+</Text>
-    //             </TouchableHighlight>
-    //         </View>
-    //     );
-    // }
-    
 
     renderItem({item, index}) {
         return (
-
-            // <View
-            //         style={styles.button}
-            //         width={screenWidth * 0.6}
-            //         marginLeft={screenWidth * 0.05}
-            //         marginRight={screenWidth * 0.05}
-            //         backgroundColor={COLORS[index % COLORS.length]}
-            //     >
-            //         <TouchableOpacity onPress={() => {this.pressButton(item.name)}}>
-            //             <Text>{item.name}</Text>
-            //         </TouchableOpacity>
-            //     </View>
-
-            // <TouchableOpacity onPress={() => {this.pressButton(item.name)}}>
-            //             <Text>{item.name}</Text>
-            //         </TouchableOpacity>
-
-
             <TouchableHighlight onPress={() => {this.pressButton(item.name)}}>
                 <View style={styles.row}>
                     <Text style={styles.name}>

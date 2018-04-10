@@ -1,13 +1,13 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
-import { CONTACT_AVAILABLE} from "../actions/" //Import the actions types constant we defined in our actions
+import {CARDS_AVAILABLE} from "../actions/"
 
-let dataState = { info: [], loading:true };
+let dataState = {cards: []};
 
 const dataReducer = (state = dataState, action) => {
-    switch (action.type) {
-        case CONTACT_AVAILABLE:
-            state = Object.assign({}, state, { contact: action.contact});
+    switch(action.type){
+        case CARDS_AVAILABLE:
+            state = Object.assign({}, state, {cards: action.cards});
             return state;
 
         default:
@@ -15,9 +15,8 @@ const dataReducer = (state = dataState, action) => {
     }
 };
 
-// Combine all the reducers
 const rootReducer = combineReducers({
     dataReducer
-})
+});
 
 export default rootReducer;

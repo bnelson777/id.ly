@@ -7,9 +7,9 @@ import Home from './components/home';
 import Wallet from './components/wallet';
 import Share from './components/share';
 import MessageThread from './components/message_thread';
-import Rolodex from './components/rolodex'
+import Rolodex from './components/rolodex';
 import Inbox from './components/inbox';
-
+import Scan from './components/Scan';
 import CardData from './cards.json';
 import ContactData from './contact.json';
 import MessageData from './messages.json';
@@ -54,8 +54,9 @@ class Main extends Component{
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
                     <Scene key="home" component={Home} title="Home"/>
+                    <Scene key="scan" component={Scan} title="Scan"/>
+                    <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
                     <Scene key="wallet" component={Wallet} title="Wallet"/>
                     <Scene key="share" component={Share} title="Share"/>
                     <Scene key="message_thread" component={MessageThread} title="MessageThread"/>

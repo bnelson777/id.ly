@@ -37,7 +37,6 @@ class Home extends Component {
         } else {
             return (
                 <View style={styles.container}>
-            
                     <TouchableHighlight onPress={() => {this.pressButton("Inbox")}}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
@@ -46,7 +45,7 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => {this.pressButton("Wallet")}}>
+                    <TouchableHighlight onPress={() => Actions.wallet()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Wallet
@@ -54,13 +53,13 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => {this.pressButton("Rolodex")}}>
+                    <TouchableHighlight onPress={() => Actions.rolodex()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Rolodex
                             </Text>
                         </View>
-                    </TouchableHighlight>                
+                    </TouchableHighlight>
 
                     <TouchableHighlight onPress={() => {this.pressButton("Share")}}>
                         <View style={styles.row}>
@@ -70,7 +69,7 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => {this.pressButton("Scan")}}>
+                    <TouchableHighlight onPress={() => Actions.scan()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Scan
@@ -92,10 +91,10 @@ class Home extends Component {
                                 Message Thread
                             </Text>
                         </View>
-                    </TouchableHighlight> 
+                    </TouchableHighlight>
                 </View>
 
-            );    
+            );
         }
     }
 }

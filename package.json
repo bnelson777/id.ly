@@ -20,10 +20,13 @@
   },
   "dependencies": {
     "expo": "^26.0.0",
+    "prop-types": "^15.6.1",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
+    "react-native-camera": "^0.7.0",
     "react-native-qrcode": "^0.2.6",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-simple-toast": "0.0.8",
     "react-redux": "^5.0.7",
     "redux-thunk": "^2.2.0"
   }

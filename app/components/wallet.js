@@ -132,7 +132,7 @@ class Wallet extends Component {
             </View>
       )
     }
-};
+}
 
 function mapStateToProps(state, props) {
     return {

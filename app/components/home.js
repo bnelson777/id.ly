@@ -84,8 +84,15 @@ class Home extends Component {
                                 About
                             </Text>
                         </View>
-                    </TouchableHighlight>                
+                    </TouchableHighlight>
 
+                    <TouchableHighlight onPress={() => Actions.message_thread()}>
+                        <View style={styles.row}>
+                            <Text style={styles.title}>
+                                Message Thread
+                            </Text>
+                        </View>
+                    </TouchableHighlight> 
                 </View>
 
             );    

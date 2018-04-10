@@ -6,6 +6,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import Home from './components/home';
 import Wallet from './components/wallet';
 import Share from './components/share';
+import MessageThread from './components/message_thread';
 
 import CardData from './cards.json';
 
@@ -33,6 +34,7 @@ class Main extends Component{
                     <Scene key="home" component={Home} title="Home"/>
                     <Scene key="wallet" component={Wallet} title="Wallet"/>
                     <Scene key="share" component={Share} title="Share"/>
+                    <Scene key="message_thread" component={MessageThread} title="MessageThread"/>
                 </Scene>
             </Router>
         );

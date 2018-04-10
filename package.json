@@ -22,14 +22,10 @@
     "expo": "^26.0.0",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
-<<<<<<< HEAD
-    "react-native-camera": "^0.7.0",
-    "react-native-router-flux": "^4.0.0-beta.28",
-    "react-native-simple-toast": "0.0.8"
-=======
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-redux": "^5.0.7",
-    "redux-thunk": "^2.2.0"
->>>>>>> master
+    "redux-thunk": "^2.2.0",
+    "react-native-camera": "^0.7.0",
+    "react-native-simple-toast": "0.0.8"
   }
 }

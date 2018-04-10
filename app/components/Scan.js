@@ -6,10 +6,10 @@
 //Import Libraries
 import React, {Component} from 'react';
 import { Permissions, BarCodeScanner} from 'expo';
-import { Text, View, StyleSheet,
-        Animated, Easing,
+import { Text, View, StyleSheet, ActivityIndicator,
+        Animated, Easing, LayoutAnimation, Image, Vibration
     } from 'react-native';
-
+import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -26,6 +26,7 @@ class Scan extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            scanning: false,
             moveAnim: new Animated.Value(0)
         };
         this.title = 'QRScan';
@@ -48,13 +49,40 @@ class Scan extends Component {
         ).start(() => this.startAnimation());
     };
 
+    // Set the value of scanning
+    _setScanning(value) {
+        this.setState({ scanning: value });
+    }
+
+    // Turn off the scanning status
+    reactivate() {
+        this._setScanning(false);
+    }
+ 
     // Try to read the QRCode
-    onBarCodeRead = (result) => {
-        const {qrCodeRead} = this.props.route;
-        const {data} = result;
-        qrCodeRead && qrCodeRead(data);
-        this.back();
-    };
+    _handleBarCodeRead(e) {
+        if(!this.state.scanning) {
+            Vibration.vibrate();
+            this._setScanning(true);
+            this.props.ScanResult(e);
+            console.log(e);
+            if(this.props.reactivate) {
+                setTimeout(() => (this._setScanning(false)), this.props)
+            }
+        }
+    }
+
+      static propTypes = {
+        ScanResult: PropTypes.func.isRequired,
+        reactivate: PropTypes.bool,
+        reactivateTimeout: PropTypes.number,       
+      };
+
+      static defaultProps = {
+        ScanResult: () => (console.log('QR code scanned!')),
+        reactivate: false,
+        reactivateTimeout: 0,
+      };
 
     render() {
         const { hasCameraPermission } = this.state;
@@ -67,7 +95,7 @@ class Scan extends Component {
             <View style={styles.container}>
                 <BarCodeScanner
                     style={styles.preview}
-                    onBarCodeRead={this.onBarCodeRead}>
+                    onBarCodeRead={this._handleBarCodeRead.bind(this)}>
                     <View style={styles.rectangleContainer}>
                         <View style={styles.rectangle}/>
                         <Animated.View style={[

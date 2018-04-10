@@ -42,8 +42,10 @@ class Rolodex extends Component {
         );
     }
 
+    //displays a list of the contacts with their information
     renderItem({item, index}) {
         return (
+            //displays the name of the contact when touched
             <TouchableHighlight onPress={() => {this.pressButton(item.name)}}>
                 <View style={styles.row}>
                     <Text style={styles.name}>

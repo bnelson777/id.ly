@@ -6,11 +6,18 @@
 //Import Libraries
 import React, {Component} from 'react';
 import { Permissions, BarCodeScanner} from 'expo';
-import { Text, View, StyleSheet, 
+import { Text, View, StyleSheet,
         Animated, Easing,
     } from 'react-native';
 
-export default class Scan extends Component {
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import * as ReduxActions from '../actions';
+
+import {Actions} from 'react-native-router-flux';
+
+class Scan extends Component {
     async componentWillMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
@@ -28,7 +35,7 @@ export default class Scan extends Component {
         this.startAnimation();
     }
 
-    // Make the animated scan bar 
+    // Make the animated scan bar
     startAnimation = () => {
         this.state.moveAnim.setValue(0);
         Animated.timing(
@@ -48,7 +55,7 @@ export default class Scan extends Component {
         qrCodeRead && qrCodeRead(data);
         this.back();
     };
-    
+
     render() {
         const { hasCameraPermission } = this.state;
         if (hasCameraPermission === null) {
@@ -74,6 +81,18 @@ export default class Scan extends Component {
         }
     }
 }
+
+function mapStateToProps(state, props) {
+    return {
+        cards: state.dataReducer.cards
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ReduxActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scan);
 
 const styles = StyleSheet.create({
     container: {

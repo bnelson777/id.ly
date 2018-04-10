@@ -4,6 +4,7 @@ import { View, AsyncStorage } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
 import Wallet from './components/wallet';
+import Scan from './components/scan';
 
 import CardData from './cards.json';
 
@@ -28,6 +29,7 @@ class Main extends Component{
         return (
             <Router>
                 <Scene key="root">
+                    <Scene key="scan" component={Scan} title="Scan"/>
                     <Scene key="wallet" component={Wallet} title="Wallet"/>
                 </Scene>
             </Router>

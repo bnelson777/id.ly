@@ -1,0 +1,25 @@
+{
+    "messages": [
+      {
+        "id":3,
+        "to":1,
+        "from":2,
+        "message": "Hello, how are you?",
+        "date": 1523345649331
+      },
+      {
+        "id":2,
+        "to":1,
+        "from":3,
+        "message": "What is your favorite kind of coffee?",
+        "date": 1523345649331
+      },
+      {
+        "id":1,
+        "to":1,
+        "from":2,
+        "message": "Will you be studying today?",
+        "date": 1523345649331
+      }
+    ]
+  }

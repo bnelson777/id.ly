@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 
-import {CARDS_AVAILABLE, CONTACT_AVAILABLE} from "../actions/"
+import {CARDS_AVAILABLE, CONTACT_AVAILABLE, MESSAGES_AVAILABLE} from "../actions/"
 
-let dataState = {cards: []};
+let dataState = {cards: [], messages: []};
 
 const dataReducer = (state = dataState, action) => {
     switch(action.type){
@@ -12,6 +12,10 @@ const dataReducer = (state = dataState, action) => {
 
         case CONTACT_AVAILABLE:
             state = Object.assign({}, state, {contact: action.contact});
+            return state;
+
+        case MESSAGES_AVAILABLE:
+            state = Object.assign({}, state, { messages: action.messages});
             return state;
 
         default:

@@ -7,14 +7,17 @@ import Home from './components/home';
 import Wallet from './components/wallet';
 import Share from './components/share';
 import MessageThread from './components/message_thread';
-import Rolodex from './components/rolodex'
+import Rolodex from './components/rolodex';
+import Inbox from './components/inbox';
 import Scan from './components/Scan';
 import CardData from './cards.json';
 import ContactData from './contact.json';
+import MessageData from './messages.json';
 
 import {connect} from 'react-redux';
 import {getCards} from './actions';
 import { getContact} from './actions'
+import {getMessages} from './actions';
 
 class Main extends Component{
     componentDidMount() {
@@ -36,6 +39,15 @@ class Main extends Component{
                 _this.props.getContact();
             }
         });
+        // check if any message data exists
+        AsyncStorage.getItem('messagedata', (err, messagedata) => {
+            //if it doesn't exist, extract from json file
+            //save the initial data in Async
+            if (messagedata === null){
+                AsyncStorage.setItem('messagedata', JSON.stringify(MessageData.messages));
+                _this.props.getMessages();
+            }
+        });
     }
 
     render() {
@@ -48,10 +60,11 @@ class Main extends Component{
                     <Scene key="wallet" component={Wallet} title="Wallet"/>
                     <Scene key="share" component={Share} title="Share"/>
                     <Scene key="message_thread" component={MessageThread} title="MessageThread"/>
+                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => alert('')} leftTitle='Home' onRight={() => alert('')} rightTitle='Message'/>
                 </Scene>
             </Router>
         );
     }
 };
 
-export default connect(null, {getCards, getContact})(Main);
+export default connect(null, {getCards, getContact, getMessages})(Main);

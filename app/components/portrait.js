@@ -30,7 +30,7 @@ class Portrait extends React.Component {
     }
 
     getPortrait = () => {
-        let portrait = null;
+        let portrait = '';
         for (card of this.props.cards) {
             if (card.id === this.props.cardId) {
                 portrait = card.portrait;

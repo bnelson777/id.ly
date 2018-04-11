@@ -4,6 +4,7 @@ import {
     FlatList,
     View,
     Text,
+    Image,
     ActivityIndicator, TouchableHighlight, ActionSheetIOS
 } from 'react-native';
 
@@ -13,8 +14,6 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../actions';
 
 import {Actions} from 'react-native-router-flux'
-
-import Portrait from '../components/portrait'
 
 class Inbox extends Component {
     constructor(props) {
@@ -43,9 +42,11 @@ class Inbox extends Component {
     renderItem = ({item, index}) => {
         /* get author name for each message */
         let author = '';
+        let portrait = '';
         for (card of this.props.cards) {
             if (card.id === item.id) {
                 author = card.first + ' ' + card.last;
+                portrait = card.portrait;
                 break;
             }
         };
@@ -53,7 +54,9 @@ class Inbox extends Component {
         return (
             <TouchableHighlight  onPress={() => alert()} >
                 <View style={styles.itemContainer}>
-                    <Portrait cardId={item.from} />
+                    <View style={styles.imageContainer}>
+                        <Image style={styles.imageStyle} source={{uri: portrait}} />
+                    </View>
                     <View style={styles.textContainer}>
                         <View style={styles.headerContainer}>
                             <Text style={styles.authorText}> {author} </Text>
@@ -101,6 +104,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10
     },
+    imageContainer: {
+        borderWidth: 1,
+        borderColor: 'grey'
+    },
     textContainer: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -118,6 +125,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start'
+    },
+    imageStyle: {
+        width: 80, 
+        height: 80, 
+        resizeMode: Image.resizeMode.contain
     }
 });
 

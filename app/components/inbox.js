@@ -40,7 +40,7 @@ class Inbox extends Component {
     }
 
     renderItem = ({item, index}) => {
-        /* get author name for each message */
+        /* get author name and portrait for each message */
         let author = '';
         let portrait = '';
         for (card of this.props.cards) {

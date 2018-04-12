@@ -6,9 +6,9 @@ import { Router, Scene } from 'react-native-router-flux';
 import Home from './components/home/index';
 import Wallet from './components/wallet';
 import Share from './components/share';
-import MessageThread from './components/message_thread';
+import MessageThread from './components/message_thread/index';
 import Rolodex from './components/rolodex';
-import Inbox from './components/inbox/index.js';
+import Inbox from './components/inbox/index';
 import Scan from './components/Scan';
 import CardData from './cards.json';
 import ContactData from './contact.json';
@@ -59,7 +59,7 @@ class Main extends Component{
                     <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
                     <Scene key="wallet" component={Wallet} title="Wallet"/>
                     <Scene key="share" component={Share} title="Share"/>
-                    <Scene key="message_thread" component={MessageThread} title="MessageThread"/>
+                    <Scene key="message_thread" component={MessageThread} title="MessageThread" initial/>
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => alert('')} leftTitle='Home' onRight={() => alert('')} rightTitle='Message' />
                 </Scene>
             </Router>

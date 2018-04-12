@@ -37,7 +37,7 @@ class Home extends Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <TouchableHighlight onPress={() => {this.pressButton("Inbox")}}>
+                    <TouchableHighlight onPress={() => Actions.inbox()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Inbox

@@ -44,7 +44,7 @@ class Main extends Component{
             //if it doesn't exist, extract from json file
             //save the initial data in Async
             if (messagedata === null){
-                AsyncStorage.setItem('messagedata', JSON.stringify(MessageData.messages));
+                AsyncStorage.setItem('messagedata', JSON.stringify(MessageData.message));
                 _this.props.getMessages();
             }
         });

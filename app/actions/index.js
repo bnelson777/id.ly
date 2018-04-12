@@ -1,5 +1,6 @@
 export const CARDS_AVAILABLE = 'CARDS_AVAILABLE';
 export const MESSAGES_AVAILABLE = 'MESSAGES_AVAILABLE';
+export const CLEAR_ALL = 'CLEAR_ALL';
 
 import {AsyncStorage} from 'react-native';
 
@@ -22,3 +23,13 @@ export function getMessages(){
         });
     };
 }
+
+// Clear card/messages - CLEAR (D)
+export function clearAll(){
+    return (dispatch) => {
+                AsyncStorage.clear(() => {
+                    dispatch({type: CLEAR_ALL});
+                });
+            }
+}
+

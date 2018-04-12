@@ -25,7 +25,7 @@ class Main extends Component{
             //if it doesn't exist, extract from json file
             //save the initial data in Async
             if (carddata === null){
-                AsyncStorage.setItem('carddata', JSON.stringify(CardData.cards));
+                AsyncStorage.setItem('carddata', JSON.stringify(CardData.card));
                 _this.props.getCards();
             }
         });
@@ -35,7 +35,7 @@ class Main extends Component{
             //if it doesn't exist, extract from json file
             //save the initial data in Async
             if (messagedata === null){
-                AsyncStorage.setItem('messagedata', JSON.stringify(MessageData.messages));
+                AsyncStorage.setItem('messagedata', JSON.stringify(MessageData.message));
                 _this.props.getMessages();
             }
         });

@@ -37,9 +37,20 @@ class Share extends Component {
 
   packageCard() {
     var jsonCard = JSON.stringify(this.props.card);
-
-    console.log('object to display in QR',jsonCard)
-    var res = JSON.stringify(jsonCard);
+    var jsonCard2 = JSON.parse(jsonCard);
+    console.log(jsonCard2)
+    var jsonKey = jsonCard2.keys.n;
+    console.log(jsonKey)
+    jsonCard2.keys = {};
+    //TODO: base64 too big for QR when we implement sending cards over bluetooth
+    // get rid of this null
+    jsonCard2.image = null;
+    // omit private keys from share object
+    jsonCard2.keys = {"n": jsonKey};
+    // ensure card owner is set to false
+    jsonCard2.owner = false;
+    console.log('object to display in QR',jsonCard2)
+    var res = JSON.stringify(jsonCard2);
     return res;
   }
 

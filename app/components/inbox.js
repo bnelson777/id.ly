@@ -45,8 +45,8 @@ class Inbox extends Component {
         let portrait = '';
         for (card of this.props.cards) {
             if (card.id === item.id) {
-                author = card.first + ' ' + card.last;
-                portrait = card.portrait;
+                author = card.name;
+                portrait = card.image;
                 break;
             }
         };

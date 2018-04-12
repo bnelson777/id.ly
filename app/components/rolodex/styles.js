@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
+import { COLOR_PRIMARY, COLOR_SECONDARY, BACKGROUND_COLOR, FONT_SIZE } from './../styles/common';
 
 export default StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor: '#F5F5F5'
+        backgroundColor: BACKGROUND_COLOR
     },
 
     activityIndicatorContainer:{
-        backgroundColor: "#fff",
+        backgroundColor: BACKGROUND_COLOR,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
@@ -28,6 +28,6 @@ export default StyleSheet.create({
 
     info: {
         marginTop: 5,
-        fontSize: 14,
+        fontSize: FONT_SIZE,
     },
 });

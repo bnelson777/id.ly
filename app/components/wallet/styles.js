@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions} from 'react-native';
-import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
+import { COLOR_PRIMARY, COLOR_SECONDARY, BACKGROUND_COLOR, BORDER_RADIUS } from './../styles/common';
 
 const {width} = Dimensions.get('window');
 const screenWidth = width;
@@ -9,7 +9,7 @@ const buttonHeight = screenWidth * 0.10;
 export default StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor: '#F5F5F5'
+        backgroundColor: BACKGROUND_COLOR
     },
 
     buttonContainer: {
@@ -23,7 +23,7 @@ export default StyleSheet.create({
         height: buttonHeight,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 5,
+        borderRadius: BORDER_RADIUS,
         marginTop: 6,
     },
 

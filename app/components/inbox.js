@@ -45,8 +45,8 @@ class Inbox extends Component {
         let portrait = '';
         for (card of this.props.cards) {
             if (card.id === item.id) {
-                author = card.first + ' ' + card.last;
-                portrait = card.portrait;
+                author = card.name;
+                portrait = card.image;
                 break;
             }
         };
@@ -127,9 +127,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start'
     },
     imageStyle: {
-        width: 80, 
-        height: 80, 
+        width: 80,
+        height: 80,
         resizeMode: Image.resizeMode.contain
     }
 });
-

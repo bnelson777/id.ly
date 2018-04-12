@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './styles';
+
 import {
     FlatList,
     View,
@@ -7,6 +7,7 @@ import {
     Image,
     ActivityIndicator, TouchableHighlight, ActionSheetIOS
 } from 'react-native';
+import styles from './styles';
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';

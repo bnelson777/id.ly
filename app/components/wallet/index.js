@@ -10,11 +10,12 @@ import {
     Image,
     Dimensions
 } from 'react-native';
+import styles from './styles';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import * as ReduxActions from '../actions';
+import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux';
 
@@ -99,7 +100,7 @@ class Wallet extends Component {
                     <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
-                            source={require('../assets/person.png')}
+                            source={require('../../assets/person.png')}
                             resizeMode = 'contain'
                         />
                     </TouchableOpacity>
@@ -124,7 +125,7 @@ class Wallet extends Component {
                     <TouchableOpacity onPress={() => Actions.share({card: item})}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
-                            source={require('../assets/share.png')}
+                            source={require('../../assets/share.png')}
                             resizeMode = 'contain'
                         />
                     </TouchableOpacity>
@@ -145,29 +146,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
-
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor: '#F5F5F5'
-    },
-
-    buttonContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: screenWidth,
-    },
-
-    button: {
-        height: buttonHeight,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-        marginTop: 6,
-    },
-
-    topButtonText: {
-        color: '#6666EE'
-    }
-});

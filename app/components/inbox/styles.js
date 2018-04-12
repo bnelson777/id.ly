@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLOR_PRIMARY, BORDER_WIDTH, COLOR_SECONDARY } from './../styles/common';
+import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
 
 export default StyleSheet.create({
     inboxContainer: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import styles from './styles';
 import {
     Alert,
-    StyleSheet,
     FlatList,
     View,
     Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux'
+
 
 
 class Home extends Component {
@@ -98,34 +99,5 @@ class Home extends Component {
         }
     }
 }
-
-
-const styles = StyleSheet.create({
-
-    container:{
-        flex:1,
-        backgroundColor: '#F5F5F5'
-    },
-
-    activityIndicatorContainer:{
-        backgroundColor: "#fff",
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-
-    row:{
-        borderBottomWidth: 1,
-        borderColor: "#ccc",
-        padding: 10
-    },
-
-    title: {
-        fontSize: 14,
-        fontWeight: "600",
-        marginTop: 8 * 2
-    }
-});
-
 
 export default Home;

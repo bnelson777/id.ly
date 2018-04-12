@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import styles from './styles';
 import {
-    StyleSheet,
     FlatList,
     View,
     Text,
@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux'
-import styles from './styles';
 
 class Inbox extends Component {
     constructor(props) {

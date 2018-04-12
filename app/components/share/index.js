@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+
 import QRCode from 'react-native-qrcode';
 
+import styles from './styles';
 import {
   StyleSheet,
   FlatList,
@@ -11,10 +13,11 @@ import {
 } from 'react-native';
 
 
+
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
-import * as ReduxActions from '../actions'; //Import your actions
+import * as ReduxActions from '../../actions'; //Import your actions
 
 import {Actions} from 'react-native-router-flux'
 
@@ -59,24 +62,6 @@ class Share extends Component {
     );
   };
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        margin: 10,
-        borderRadius: 5,
-        padding: 5,
-    }
-});
 
 function mapStateToProps(state, props) {
     return {

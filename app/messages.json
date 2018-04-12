@@ -1,25 +1,28 @@
 {
-    "messages": [
-      {
-        "id":3,
-        "to":1,
-        "from":2,
-        "message": "Hello, how are you?",
-        "date": 1523345649331
-      },
-      {
-        "id":2,
-        "to":1,
-        "from":3,
-        "message": "What is your favorite kind of coffee?",
-        "date": 1523345649331
-      },
-      {
-        "id":1,
-        "to":1,
-        "from":2,
-        "message": "Will you be studying today?",
-        "date": 1523345649331
-      }
-    ]
-  }
+  "message": [
+    {
+      "id":3,
+      "to":"5c18585e73bf993099a060dc0c9d69c98f9d2e7817288e9b5d70987de37fb68f90918ecf4eda43460c83eb2426ea661cc5adb2b0b0e478f22a42bd7f5209344ac00c77fa891c9b6f8a1acd1435ce27112997af02dcd08cfe8f81e06012b1f0af76d5a47b747db0eedc4a26c177518e962ee5660edaf912cd47bf09452655b0e9",
+      "from":"acf5c12879f83dc60fb4bfb31fd11b398a96977289d8ef98c525121ee419d86b8858caa1544ade99a43a0ddc8742f630cb2a3ef669e0c46406df593207a6fd811185314c558dcfa85fdee6dfcf3c6ec5e06bfc8c3ba95d06bed62b62217812dabe467773297fb2e7498e78d22f2a7a3d6e216d52773f9885f01cddfa33c3d679",
+      "body": "What are you doing today?",
+      "time": 1522635043,
+      "read": true
+    },
+    {
+      "id":2,
+      "to":"acf5c12879f83dc60fb4bfb31fd11b398a96977289d8ef98c525121ee419d86b8858caa1544ade99a43a0ddc8742f630cb2a3ef669e0c46406df593207a6fd811185314c558dcfa85fdee6dfcf3c6ec5e06bfc8c3ba95d06bed62b62217812dabe467773297fb2e7498e78d22f2a7a3d6e216d52773f9885f01cddfa33c3d679",
+      "from":"5c18585e73bf993099a060dc0c9d69c98f9d2e7817288e9b5d70987de37fb68f90918ecf4eda43460c83eb2426ea661cc5adb2b0b0e478f22a42bd7f5209344ac00c77fa891c9b6f8a1acd1435ce27112997af02dcd08cfe8f81e06012b1f0af76d5a47b747db0eedc4a26c177518e962ee5660edaf912cd47bf09452655b0e9",
+      "body": "Hello to you too acf5c12879!",
+      "time": 1522634933,
+      "read": true
+    },
+    {
+      "id":1,
+      "to":"5c18585e73bf993099a060dc0c9d69c98f9d2e7817288e9b5d70987de37fb68f90918ecf4eda43460c83eb2426ea661cc5adb2b0b0e478f22a42bd7f5209344ac00c77fa891c9b6f8a1acd1435ce27112997af02dcd08cfe8f81e06012b1f0af76d5a47b747db0eedc4a26c177518e962ee5660edaf912cd47bf09452655b0e9",
+      "from":"acf5c12879f83dc60fb4bfb31fd11b398a96977289d8ef98c525121ee419d86b8858caa1544ade99a43a0ddc8742f630cb2a3ef669e0c46406df593207a6fd811185314c558dcfa85fdee6dfcf3c6ec5e06bfc8c3ba95d06bed62b62217812dabe467773297fb2e7498e78d22f2a7a3d6e216d52773f9885f01cddfa33c3d679",
+      "body": "Hi 5c185!",
+      "time": 1522634927,
+      "read": true
+    }
+  ]
+}

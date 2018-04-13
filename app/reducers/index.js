@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 
-import {CARDS_AVAILABLE, MESSAGES_AVAILABLE} from "../actions/"
+import {CARDS_AVAILABLE, MESSAGES_AVAILABLE, CLEAR_ALL} from "../actions/"
 
 
 let dataState = {cards: [], messages: []};

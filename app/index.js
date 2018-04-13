@@ -11,12 +11,10 @@ import Rolodex from './components/rolodex';
 import Inbox from './components/inbox';
 import Scan from './components/Scan';
 import CardData from './cards.json';
-import ContactData from './contact.json';
 import MessageData from './messages.json';
 
 import {connect} from 'react-redux';
 import {getCards} from './actions';
-import { getContact} from './actions'
 import {getMessages} from './actions';
 
 class Main extends Component{
@@ -31,14 +29,7 @@ class Main extends Component{
                 _this.props.getCards();
             }
         });
-        AsyncStorage.getItem('contactdata', (err, contactdata) => {
-            //if it doesn't exist, extract from json file
-            //save the initial data in Async
-            if (contactdata === null){
-                AsyncStorage.setItem('contactdata', JSON.stringify(ContactData.contact));
-                _this.props.getContact();
-            }
-        });
+
         // check if any message data exists
         AsyncStorage.getItem('messagedata', (err, messagedata) => {
             //if it doesn't exist, extract from json file
@@ -67,4 +58,4 @@ class Main extends Component{
     }
 };
 
-export default connect(null, {getCards, getContact, getMessages})(Main);
+export default connect(null, {getCards, getMessages})(Main);

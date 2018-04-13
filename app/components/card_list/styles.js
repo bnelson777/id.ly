@@ -6,7 +6,7 @@ const screenWidth = width;
 const buttonHeight = screenWidth * 0.10;
 
 // Set alternating colors for ID buttons
-export const COLORS = ['#FF0000', '#00FF00', '#0000FF'];
+export const COLORS = ['#FF0000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#FF00FF'];
 
 export default StyleSheet.create({
     container:{

@@ -24,7 +24,7 @@ const screenWidth = width;
 const buttonHeight = screenWidth * 0.10;
 
 // Set alternating colors for ID buttons
-const COLORS = ['#FF0000', '#00FF00', '#0000FF']
+const COLORS = ['#FF0000', '#00FF00', '#0000FF'];
 
 class CardList extends Component {
     constructor(props) {
@@ -50,7 +50,7 @@ class CardList extends Component {
             <View style={styles.container}>
                 <View style={[styles.buttonContainer, styles.headContainer]}>
                     <View style={[styles.button, styles.homeButton]}>
-                        <TouchableOpacity onPress={() => {this.pressButton("Return home")}}>
+                        <TouchableOpacity onPress={() => Actions.home()}>
                             <Text style={styles.topButtonText}>Home</Text>
                         </TouchableOpacity>
                     </View>
@@ -71,39 +71,85 @@ class CardList extends Component {
     }
 
     renderItem({item, index}) {
-        var icon = item.image === "" ? require('../assets/person.png') : {uri: item.image};
-        return (
-            // Display person icon, ID button, and arrow icon
-            // ID buttons are displayed in alternating color based on index
-            <View style={[styles.buttonContainer, styles.bodyContainer]}>
-                <View style={[styles.button, styles.imageButton]}>
-                    <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
-                        <Image
-                            style={{width: buttonHeight, height: buttonHeight}}
-                            source={icon}
-                            resizeMode = 'contain'
-                        />
-                    </TouchableOpacity>
-                </View>
-                <View
-                    style={[styles.button, styles.cardButton]}
-                    backgroundColor={COLORS[index % COLORS.length]}
-                >
-                    <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
-                        <Text>{item.label}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={[styles.button, styles.gotoButton]}>
-                    <TouchableOpacity onPress={() => Actions.share({card: item})}>
-                        <Image
-                            style={{width: buttonHeight, height: buttonHeight}}
-                            source={require('../assets/share.png')}
-                            resizeMode = 'contain'
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
+        if (this.props.isWallet === item.owner){
+            let icon = item.image === "" ? require('../assets/person.png') : {uri: item.image};
+            if (this.props.isWallet === true) {
+                return (
+                    // Display person icon, ID button, and arrow icon
+                    // ID buttons are displayed in alternating color based on index
+                    <View style={[styles.buttonContainer, styles.bodyContainer]}>
+                        <View style={[styles.button, styles.imageButtonWallet]}>
+                            <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
+                                <Image
+                                    style={{width: buttonHeight, height: buttonHeight}}
+                                    source={icon}
+                                    resizeMode = 'contain'
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View
+                            style={[styles.button, styles.cardButtonWallet]}
+                            backgroundColor={COLORS[index % COLORS.length]}
+                        >
+                            <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
+                                <Text>{item.label}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.button, styles.gotoButtonWallet]}>
+                            <TouchableOpacity onPress={() => Actions.share({card: item})}>
+                                <Image
+                                    style={{width: buttonHeight, height: buttonHeight}}
+                                    source={require('../assets/share.png')}
+                                    resizeMode = 'contain'
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                );
+            } else {
+                return (
+                    // Display person icon, ID button, and arrow icon
+                    // ID buttons are displayed in alternating color based on index
+                    <View style={[styles.buttonContainer, styles.bodyContainer]}>
+                        <View style={[styles.button, styles.imageButtonRolodex]}>
+                            <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
+                                <Image
+                                    style={{width: buttonHeight, height: buttonHeight}}
+                                    source={icon}
+                                    resizeMode = 'contain'
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View
+                            style={[styles.button, styles.cardButtonRolodex]}
+                            backgroundColor={COLORS[index % COLORS.length]}
+                        >
+                            <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
+                                <Text>{item.label}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.button, styles.gotoButtonRolodex]}>
+                            <TouchableOpacity onPress={() => Actions.message_thread({card: item})}>
+                                <Image
+                                    style={{width: buttonHeight, height: buttonHeight}}
+                                    source={require('../assets/mail.png')}
+                                    resizeMode = 'contain'
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.button, styles.gotoButtonRolodex]}>
+                            <TouchableOpacity onPress={() => Actions.share({card: item})}>
+                                <Image
+                                    style={{width: buttonHeight, height: buttonHeight}}
+                                    source={require('../assets/share.png')}
+                                    resizeMode = 'contain'
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                );
+            }
+        }
     }
 }
 
@@ -164,21 +210,40 @@ const styles = StyleSheet.create({
         marginRight: screenWidth * 0.05
     },
 
-    imageButton: {
+    imageButtonWallet: {
         width: buttonHeight,
         marginLeft: screenWidth * 0.05,
         backgroundColor: '#F5F5F5'
     },
 
-    gotoButton: {
+    imageButtonRolodex: {
+        width: buttonHeight,
+        marginLeft: screenWidth * 0.01,
+        backgroundColor: '#F5F5F5'
+    },
+
+    gotoButtonWallet: {
         width: buttonHeight,
         marginRight: screenWidth * 0.05,
         backgroundColor: '#F5F5F5'
     },
 
-    cardButton: {
+    gotoButtonRolodex: {
+        width: buttonHeight,
+        marginLeft: screenWidth * 0.01,
+        marginRight: screenWidth * 0.01,
+        backgroundColor: '#F5F5F5'
+    },
+
+    cardButtonWallet: {
         width: screenWidth * 0.6,
         marginLeft: screenWidth * 0.05,
         marginRight: screenWidth * 0.05
+    },
+
+    cardButtonRolodex: {
+        width: screenWidth * 0.6,
+        marginLeft: screenWidth * 0.03,
+        marginRight: screenWidth * 0.01
     }
 });

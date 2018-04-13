@@ -9,7 +9,7 @@ import Share from './components/share/index';
 import MessageThread from './components/message_thread/index';
 import Rolodex from './components/rolodex/index';
 import Inbox from './components/inbox/index';
-import Scan from './components/Scan/index';
+import Scan from './components/scan/index';
 import CardView from './components/card_view/index'
 import CardData from './cards.json';
 import MessageData from './messages.json';

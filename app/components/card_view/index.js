@@ -29,7 +29,7 @@ class CardView extends Component {
             cardFields.push (key + ": " + this.props.card.fields[key] + "\n");
         }
 
-        var icon = this.props.card.image === "" ? require('../assets/person.png') : {uri: this.props.card.image};
+        var icon = this.props.card.image === "" ? require('../../assets/person.png') : {uri: this.props.card.image};
 
         return (
             <View style={styles.itemContainer}>
@@ -39,13 +39,14 @@ class CardView extends Component {
                 }}>
                     <Image style={styles.imageStyle}
                         source = {icon}
+                        //resizeMode = 'contain'
                     />
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.name}>
                         {this.props.card.label}
                     </Text>
-                    <Text style={styles.name}>
+                    <Text sstyle={styles.name}>
                         {this.props.card.name}
                     </Text>
                     <Text style={styles.name}>
@@ -78,5 +79,3 @@ function mapStateToProps(state, props) {
 }
 
 export default connect(mapStateToProps)(CardView);
-
-

@@ -5,6 +5,7 @@
 
 //Import Libraries
 import React, {Component} from 'react';
+import styles from './styles';
 import { Permissions, BarCodeScanner} from 'expo';
 import { Text, View, StyleSheet, ActivityIndicator,
         Animated, Easing, LayoutAnimation, Image, Vibration
@@ -13,7 +14,7 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import * as ReduxActions from '../actions';
+import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux';
 
@@ -121,39 +122,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scan);
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row'
-    },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    rectangleContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'transparent'
-    },
-    rectangle: {
-        height: 200,
-        width: 200,
-        borderWidth: 1,
-        borderColor: '#C70038',
-        backgroundColor: 'transparent'
-    },
-    rectangleText: {
-        flex: 0,
-        color: '#fff',
-        marginTop: 10
-    },
-    border: {
-        flex: 0,
-        width: 200,
-        height: 2,
-        backgroundColor: '#C70038',
-    }
-});

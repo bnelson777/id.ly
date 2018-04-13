@@ -3,19 +3,24 @@ import { View, AsyncStorage } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 
-import Home from './components/home';
-import Wallet from './components/wallet';
-import Share from './components/share';
-import MessageThread from './components/message_thread';
-import Rolodex from './components/rolodex';
-import Inbox from './components/inbox';
-import Scan from './components/Scan';
+import Home from './components/home/index';
+import Wallet from './components/wallet/index';
+import Share from './components/share/index';
+import MessageThread from './components/message_thread/index';
+import Rolodex from './components/rolodex/index';
+import Inbox from './components/inbox/index';
+import Scan from './components/scan/index';
 import CardData from './cards.json';
 import MessageData from './messages.json';
 
 import {connect} from 'react-redux';
 import {getCards} from './actions';
 import {getMessages} from './actions';
+
+// needed for Actions.home() back button on inbox see line 59:121
+import * as ReduxActions from './actions'; //Import your actions
+import {Actions} from 'react-native-router-flux'
+
 
 class Main extends Component{
     componentDidMount() {
@@ -46,12 +51,12 @@ class Main extends Component{
             <Router>
                 <Scene key="root">
                     <Scene key="home" component={Home} title="Home"/>
-                    <Scene key="scan" component={Scan} title="Scan"/>
-                    <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
-                    <Scene key="wallet" component={Wallet} title="Wallet"/>
-                    <Scene key="share" component={Share} title="Share"/>
-                    <Scene key="message_thread" component={MessageThread} title="MessageThread"/>
-                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => alert('')} leftTitle='Home' onRight={() => alert('')} rightTitle='Message'/>
+                    <Scene key="scan" component={Scan} title="Scan" />
+                    <Scene key="rolodex" component={Rolodex} title="Rolodex" />
+                    <Scene key="wallet" component={Wallet} title="Wallet" />
+                    <Scene key="share" component={Share} title="Share" />
+                    <Scene key="message_thread" component={MessageThread} title="MessageThread" />
+                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />
                 </Scene>
             </Router>
         );

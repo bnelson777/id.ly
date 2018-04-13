@@ -15,7 +15,8 @@
       },
       "fields":
       {
-          "phone":"503-360-6633"
+          "phone":"503-360-6633",
+          "address":"1234 fake st. Hillsboro, Oregon"
       },
       "label":"Business",
       "name":"Jack",

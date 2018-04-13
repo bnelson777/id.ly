@@ -96,7 +96,7 @@ class Wallet extends Component {
                     marginLeft={screenWidth * 0.05}
                     backgroundColor={'#F5F5F5'}
                 >
-                    <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
+                    <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
                             source={require('../assets/person.png')}

@@ -10,6 +10,7 @@ import MessageThread from './components/message_thread';
 import Rolodex from './components/rolodex';
 import Inbox from './components/inbox';
 import Scan from './components/Scan';
+import CardView from './components/card_view'
 import CardData from './cards.json';
 import ContactData from './contact.json';
 import MessageData from './messages.json';
@@ -55,6 +56,7 @@ class Main extends Component{
             <Router>
                 <Scene key="root">
                     <Scene key="home" component={Home} title="Home"/>
+                    <Scene key="card_view" component={CardView} title="CardView"/>
                     <Scene key="scan" component={Scan} title="Scan"/>
                     <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
                     <Scene key="wallet" component={Wallet} title="Wallet"/>

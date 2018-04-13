@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
+
 import {
-    StyleSheet,
     FlatList,
     View,
     Text,
     Image,
     ActivityIndicator, TouchableHighlight, ActionSheetIOS
 } from 'react-native';
+import styles from './styles';
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
-import * as ReduxActions from '../actions';
+import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux'
 
@@ -92,43 +93,3 @@ function mapDispatchToProps(dispatch) {
 
 //Connect everything
 export default connect(mapStateToProps, mapDispatchToProps)(Inbox);
-
-const styles = StyleSheet.create({
-    inboxContainer: {
-        flex: 1,
-    },
-    itemContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        padding: 10
-    },
-    imageContainer: {
-        borderWidth: 1,
-        borderColor: 'grey'
-    },
-    textContainer: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-    },
-    messageContainer: {
-        flex: 1,
-        justifyContent: 'flex-start'
-    },
-    authorText: {
-        fontWeight: 'bold'
-    },
-    headerContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start'
-    },
-    imageStyle: {
-        width: 80,
-        height: 80,
-        resizeMode: Image.resizeMode.contain
-    }
-});

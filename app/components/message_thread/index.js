@@ -1,8 +1,9 @@
 'use strict';
 
 import React, { Component } from 'react';
+import styles from './styles';
 
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 
 export default class MessageThread extends Component {
     constructor(props) {
@@ -70,29 +71,3 @@ export default class MessageThread extends Component {
         }
     }
 };
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: 20,
-        alignItems: 'stretch'
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        paddingBottom: 50
-    },
-    messageThread: {
-        flexDirection: 'column',
-        paddingBottom: 100
-    },
-    message: {
-        flexDirection: 'row',
-    },
-    inputBox: {
-        height: 40,
-    },
-    identityText: {
-        fontSize: 30,
-        fontWeight: 'bold'
-    },
-});

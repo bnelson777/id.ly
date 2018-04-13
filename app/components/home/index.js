@@ -11,11 +11,9 @@ import {
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
-import * as ReduxActions from '../actions'; //Import your actions
+import * as ReduxActions from '../../actions'; //Import your actions
 
 import {Actions} from 'react-native-router-flux'
-
-
 
 class Home extends Component {
     constructor(props) {
@@ -132,4 +130,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ReduxActions, dispatch);
 }
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

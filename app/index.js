@@ -17,6 +17,11 @@ import {connect} from 'react-redux';
 import {getCards} from './actions';
 import {getMessages} from './actions';
 
+// needed for Actions.home() back button on inbox see line 59:121
+import * as ReduxActions from './actions'; //Import your actions
+import {Actions} from 'react-native-router-flux'
+
+
 class Main extends Component{
     componentDidMount() {
         var _this = this;
@@ -51,7 +56,7 @@ class Main extends Component{
                     <Scene key="wallet" component={Wallet} title="Wallet" />
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
-                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => alert('')} leftTitle='Home' onRight={() => alert('')} rightTitle='Message' />
+                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />
                 </Scene>
             </Router>
         );

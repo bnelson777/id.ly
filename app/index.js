@@ -4,10 +4,9 @@ import { View, AsyncStorage } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
 import Home from './components/home';
-import Wallet from './components/wallet';
+import CardList from './components/card_list';
 import Share from './components/share';
 import MessageThread from './components/message_thread';
-import Rolodex from './components/rolodex';
 import Inbox from './components/inbox';
 import Scan from './components/Scan';
 import CardData from './cards.json';
@@ -56,8 +55,8 @@ class Main extends Component{
                 <Scene key="root">
                     <Scene key="home" component={Home} title="Home"/>
                     <Scene key="scan" component={Scan} title="Scan"/>
-                    <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
-                    <Scene key="wallet" component={Wallet} title="Wallet"/>
+                    <Scene key="rolodex" component={CardList} title="Rolodex"/>
+                    <Scene key="wallet" component={CardList} title="Wallet"/>
                     <Scene key="share" component={Share} title="Share"/>
                     <Scene key="message_thread" component={MessageThread} title="MessageThread"/>
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => alert('')} leftTitle='Home' onRight={() => alert('')} rightTitle='Message'/>

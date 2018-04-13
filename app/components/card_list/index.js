@@ -68,7 +68,7 @@ class CardList extends Component {
             let icon = item.image === "" ? require('../../assets/person.png') : {uri: item.image};
             if (this.props.isWallet === true) {
                 return (
-                    // Display person icon, ID button, and arrow icon
+                    // Display image, ID button, and share icon
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonWallet]}>
@@ -99,7 +99,7 @@ class CardList extends Component {
                 );
             } else {
                 return (
-                    // Display person icon, ID button, and arrow icon
+                    // Display image, ID button, message icon, and share icon
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>

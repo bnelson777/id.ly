@@ -3,7 +3,6 @@ import { View, AsyncStorage } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 
-<<<<<<< HEAD
 import Home from './components/home';
 import Wallet from './components/wallet';
 import Share from './components/share';
@@ -12,15 +11,6 @@ import Rolodex from './components/rolodex';
 import Inbox from './components/inbox';
 import Scan from './components/Scan';
 import CardView from './components/card_view'
-=======
-import Home from './components/home/index';
-import Wallet from './components/wallet/index';
-import Share from './components/share/index';
-import MessageThread from './components/message_thread/index';
-import Rolodex from './components/rolodex/index';
-import Inbox from './components/inbox/index';
-import Scan from './components/scan/index';
->>>>>>> master
 import CardData from './cards.json';
 import MessageData from './messages.json';
 
@@ -62,22 +52,13 @@ class Main extends Component{
             <Router>
                 <Scene key="root">
                     <Scene key="home" component={Home} title="Home"/>
-<<<<<<< HEAD
-                    <Scene key="card_view" component={CardView} title="CardView"/>
                     <Scene key="scan" component={Scan} title="Scan"/>
                     <Scene key="rolodex" component={Rolodex} title="Rolodex"/>
                     <Scene key="wallet" component={Wallet} title="Wallet"/>
+                    <Scene key="card_view" component={CardView} title="CardView"/>
                     <Scene key="share" component={Share} title="Share"/>
                     <Scene key="message_thread" component={MessageThread} title="MessageThread"/>
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => alert('')} leftTitle='Home' onRight={() => alert('')} rightTitle='Message'/>
-=======
-                    <Scene key="scan" component={Scan} title="Scan" />
-                    <Scene key="rolodex" component={Rolodex} title="Rolodex" />
-                    <Scene key="wallet" component={Wallet} title="Wallet" />
-                    <Scene key="share" component={Share} title="Share" />
-                    <Scene key="message_thread" component={MessageThread} title="MessageThread" />
-                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />
->>>>>>> master
                 </Scene>
             </Router>
         );

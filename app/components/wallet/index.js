@@ -10,11 +10,12 @@ import {
     Image,
     Dimensions
 } from 'react-native';
+import styles from './styles';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import * as ReduxActions from '../actions';
+import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux';
 
@@ -48,26 +49,13 @@ class Wallet extends Component {
             // Display Home and Add buttons
             // Display ID buttons as a list
             <View style={styles.container}>
-                <View
-                    style={styles.buttonContainer}
-                    flex={0.1}
-                >
-                    <View
-                        style={styles.button}
-                        width={screenWidth * 0.3}
-                        marginLeft={screenWidth * 0.05}
-                        marginRight={screenWidth * 0.15}
-                    >
+                <View style={[styles.buttonContainer, styles.headContainer]}>
+                    <View style={[styles.button, styles.homeButton]}>
                         <TouchableOpacity onPress={() => {this.pressButton("Return home")}}>
                             <Text style={styles.topButtonText}>Home</Text>
                         </TouchableOpacity>
                     </View>
-                    <View
-                        style={styles.button}
-                        width={screenWidth * 0.3}
-                        marginLeft={screenWidth * 0.15}
-                        marginRight={screenWidth * 0.05}
-                    >
+                    <View style={[styles.button, styles.addButton]}>
                         <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
                             <Text style={styles.topButtonText}>Add</Text>
                         </TouchableOpacity>
@@ -84,47 +72,33 @@ class Wallet extends Component {
     }
 
     renderItem({item, index}) {
+        var icon = item.image === "" ? require('../../assets/person.png') : {uri: item.image};
         return (
             // Display person icon, ID button, and arrow icon
             // ID buttons are displayed in alternating color based on index
-            <View
-                style={styles.buttonContainer}
-                flex={0.9}>
-                <View
-                    style={styles.button}
-                    width={buttonHeight}
-                    marginLeft={screenWidth * 0.05}
-                    backgroundColor={'#F5F5F5'}
-                >
-                    <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
+            <View style={[styles.buttonContainer, styles.bodyContainer]}>
+                <View style={[styles.button, styles.imageButton]}>
+                    <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
-                            source={require('../assets/person.png')}
+                            source={icon}
                             resizeMode = 'contain'
                         />
                     </TouchableOpacity>
                 </View>
                 <View
-                    style={styles.button}
-                    width={screenWidth * 0.6}
-                    marginLeft={screenWidth * 0.05}
-                    marginRight={screenWidth * 0.05}
+                    style={[styles.button, styles.cardButton]}
                     backgroundColor={COLORS[index % COLORS.length]}
                 >
                     <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
                         <Text>{item.label}</Text>
                     </TouchableOpacity>
                 </View>
-                <View
-                    style={styles.button}
-                    width={buttonHeight}
-                    marginRight={screenWidth * 0.05}
-                    backgroundColor={'#F5F5F5'}
-                >
+                <View style={[styles.button, styles.gotoButton]}>
                     <TouchableOpacity onPress={() => Actions.share({card: item})}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
-                            source={require('../assets/share.png')}
+                            source={require('../../assets/share.png')}
                             resizeMode = 'contain'
                         />
                     </TouchableOpacity>
@@ -145,29 +119,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
-
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor: '#F5F5F5'
-    },
-
-    buttonContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: screenWidth,
-    },
-
-    button: {
-        height: buttonHeight,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-        marginTop: 6,
-    },
-
-    topButtonText: {
-        color: '#6666EE'
-    }
-});

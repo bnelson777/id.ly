@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './styles';
+
 import { StyleSheet, 
         View, 
         Text, 
@@ -7,6 +7,7 @@ import { StyleSheet,
         Image,
         TextInput, 
         Button } from 'react-native';
+import styles from './styles';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';

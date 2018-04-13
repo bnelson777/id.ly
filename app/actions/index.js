@@ -1,6 +1,6 @@
 export const CARDS_AVAILABLE = 'CARDS_AVAILABLE';
-export const CONTACT_AVAILABLE = 'CONTACT_AVAILABLE';
 export const MESSAGES_AVAILABLE = 'MESSAGES_AVAILABLE';
+export const CLEAR_ALL = 'CLEAR_ALL';
 
 import {AsyncStorage} from 'react-native';
 
@@ -9,16 +9,6 @@ export function getCards(){
         AsyncStorage.getItem('carddata', (err, cards) => {
             if (cards !== null){
                 dispatch({type: CARDS_AVAILABLE, cards:JSON.parse(cards)});
-            }
-        });
-    };
-}
-
-export function getContact(){
-    return (dispatch) => {
-        AsyncStorage.getItem('contactdata', (err, contact) => {
-            if (contact !== null){
-                dispatch({type: CONTACT_AVAILABLE, contact:JSON.parse(contact)});
             }
         });
     };
@@ -33,3 +23,13 @@ export function getMessages(){
         });
     };
 }
+
+// Clear card/messages - CLEAR (D)
+export function clearAll(){
+    return (dispatch) => {
+                AsyncStorage.clear(() => {
+                    dispatch({type: CLEAR_ALL});
+                });
+            }
+}
+

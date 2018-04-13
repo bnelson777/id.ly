@@ -46,8 +46,8 @@ class Inbox extends Component {
         let portrait = '';
         for (card of this.props.cards) {
             if (card.id === item.id) {
-                author = card.first + ' ' + card.last;
-                portrait = card.portrait;
+                author = card.name;
+                portrait = card.image;
                 break;
             }
         };
@@ -61,10 +61,10 @@ class Inbox extends Component {
                     <View style={styles.textContainer}>
                         <View style={styles.headerContainer}>
                             <Text style={styles.authorText}> {author} </Text>
-                            <Text> {new Date(item.date).toDateString()} </Text>
+                            <Text> {new Date(item.time).toDateString()} </Text>
                         </View>
                         <View style={styles.messageContainer}>
-                            <Text style={styles.messageText}> {item.message} </Text>
+                            <Text style={styles.messageText}> {item.body} </Text>
                         </View>
                     </View>
                 </View>

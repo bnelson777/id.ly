@@ -8,6 +8,11 @@ import {
     ActivityIndicator, TouchableHighlight, ActionSheetIOS
 } from 'react-native';
 
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+
+import * as ReduxActions from '../actions'; //Import your actions
+
 import {Actions} from 'react-native-router-flux'
 
 
@@ -38,7 +43,7 @@ class Home extends Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <TouchableHighlight onPress={() => {this.pressButton("Inbox")}}>
+                    <TouchableHighlight onPress={() => Actions.inbox()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Inbox
@@ -93,11 +98,38 @@ class Home extends Component {
                             </Text>
                         </View>
                     </TouchableHighlight>
+
+                    <TouchableHighlight onPress={() => {this.props.clearAll()}}>
+                      <View style={styles.row}>
+                          <Text style={styles.title}>
+                              [dev] Clear All Data
+                          </Text>
+                      </View>
+                  </TouchableHighlight>
                 </View>
 
             );
         }
     }
+
+};
+
+
+// The function takes data from the app current state,
+// and insert/links it into the props of our component.
+// This function makes Redux know that this component needs to be passed a piece of the state
+function mapStateToProps(state, props) {
+    return {
+        loading: state.dataReducer.loading,
+        cards: state.dataReducer.cards
+    }
+}
+
+// Doing this merges our actions into the component’s props,
+// while wrapping them in dispatch() so that they immediately dispatch an Action.
+// Just by doing this, we will have access to the actions defined in out actions file (action/home.js)
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ReduxActions, dispatch);
 }
 
 export default Home;

@@ -4,6 +4,7 @@ import { StyleSheet,
         View, 
         Text, 
         FlatList,
+        Image,
         TextInput, 
         Button } from 'react-native';
 
@@ -23,26 +24,37 @@ class CardView extends Component {
           
     render() {
         var cardFields = [];
-        var temp = [];
         for (var key in this.props.card.fields)
         {
-            temp.push (key + ": " + this.props.card.fields[key] + "\n");
-            cardFields.push(temp);
+            cardFields.push (key + ": " + this.props.card.fields[key] + "\n");
         }
+
+        var icon = this.props.card.image === "" ? require('../assets/person.png') : {uri: this.props.card.image};
+
         return (
-            <View style={styles.row}>
-                <Text style={styles.name}>
-                    {this.props.card.label}
-                </Text>
-                <Text style={styles.name}>
-                    {this.props.card.name}
-                </Text>
-                <Text style={styles.name}>
-                    {this.props.card.email}
-                </Text>
-                <Text style={styles.name}>
-                    {temp}
-                </Text>
+            <View style={styles.itemContainer}>
+                <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                }}>
+                    <Image style={styles.imageStyle}
+                        source = {icon}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.name}>
+                        {this.props.card.label}
+                    </Text>
+                    <Text style={styles.name}>
+                        {this.props.card.name}
+                    </Text>
+                    <Text style={styles.name}>
+                        {this.props.card.email}
+                    </Text>
+                    <Text style={styles.name}>
+                        {cardFields}
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -98,5 +110,10 @@ const styles = StyleSheet.create({
         marginTop: 5,
         fontSize: 14,
     },
+    imageStyle: {
+        width: 180,
+        height: 180,
+        resizeMode: Image.resizeMode.contain
+    }
 });
 

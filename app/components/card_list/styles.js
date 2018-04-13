@@ -29,6 +29,12 @@ export default StyleSheet.create({
         flex: 0.9
     },
 
+    imageContainer: {
+        width: buttonHeight,
+        height: buttonHeight,
+        resizeMode: 'contain'
+    },
+
     button: {
         height: buttonHeight,
         alignItems: 'center',
@@ -41,58 +47,58 @@ export default StyleSheet.create({
         color: '#6666EE'
     },
 
-    homeButton: {
+    topButton: {
         width: screenWidth * 0.3,
+    },
+
+    homeButton: {
         marginLeft: screenWidth * 0.05,
         marginRight: screenWidth * 0.15
     },
 
     addButton: {
-        width: screenWidth * 0.3,
         marginLeft: screenWidth * 0.15,
         marginRight: screenWidth * 0.05
     },
 
-    imageButtonWallet: {
+    imageButton: {
         width: buttonHeight,
-        marginLeft: screenWidth * 0.05,
         backgroundColor: BACKGROUND_COLOR
     },
 
+    imageButtonWallet: {
+        marginLeft: screenWidth * 0.05,
+    },
+
     imageButtonRolodex: {
-        width: buttonHeight,
         marginLeft: screenWidth * 0.01,
+    },
+
+    gotoButton: {
+        width: buttonHeight,
         backgroundColor: BACKGROUND_COLOR
     },
 
     gotoButtonWallet: {
-        width: buttonHeight,
         marginRight: screenWidth * 0.05,
-        backgroundColor: BACKGROUND_COLOR
     },
 
     gotoButtonRolodex: {
-        width: buttonHeight,
         marginLeft: screenWidth * 0.01,
         marginRight: screenWidth * 0.01,
-        backgroundColor: BACKGROUND_COLOR
+    },
+
+    cardButton: {
+        width: screenWidth * 0.6,
     },
 
     cardButtonWallet: {
-        width: screenWidth * 0.6,
         marginLeft: screenWidth * 0.05,
         marginRight: screenWidth * 0.05
     },
 
     cardButtonRolodex: {
-        width: screenWidth * 0.6,
         marginLeft: screenWidth * 0.03,
         marginRight: screenWidth * 0.01
-    },
-
-    imageContainer: {
-        width: buttonHeight,
-        height: buttonHeight,
-        resizeMode: 'contain'
     }
 });

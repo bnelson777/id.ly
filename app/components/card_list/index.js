@@ -42,12 +42,12 @@ class CardList extends Component {
             // Display ID buttons as a list
             <View style={styles.container}>
                 <View style={[styles.buttonContainer, styles.headContainer]}>
-                    <View style={[styles.button, styles.homeButton]}>
+                    <View style={[styles.button, styles.topButton, styles.homeButton]}>
                         <TouchableOpacity onPress={() => Actions.home()}>
                             <Text style={styles.topButtonText}>Home</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.button, styles.addButton]}>
+                    <View style={[styles.button, styles.topButton, styles.addButton]}>
                         <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
                             <Text style={styles.topButtonText}>Add</Text>
                         </TouchableOpacity>
@@ -71,7 +71,7 @@ class CardList extends Component {
                     // Display person icon, ID button, and arrow icon
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
-                        <View style={[styles.button, styles.imageButtonWallet]}>
+                        <View style={[styles.button, styles.imageButton, styles.imageButtonWallet]}>
                             <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
                                 <Image
                                     style={styles.imageContainer}
@@ -80,14 +80,14 @@ class CardList extends Component {
                             </TouchableOpacity>
                         </View>
                         <View
-                            style={[styles.button, styles.cardButtonWallet]}
+                            style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
                             <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={[styles.button, styles.gotoButtonWallet]}>
+                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonWallet]}>
                             <TouchableOpacity onPress={() => Actions.share({card: item})}>
                                 <Image
                                     style={styles.imageContainer}
@@ -102,7 +102,7 @@ class CardList extends Component {
                     // Display person icon, ID button, and arrow icon
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
-                        <View style={[styles.button, styles.imageButtonRolodex]}>
+                        <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>
                             <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
                                 <Image
                                     style={styles.imageContainer}
@@ -111,14 +111,14 @@ class CardList extends Component {
                             </TouchableOpacity>
                         </View>
                         <View
-                            style={[styles.button, styles.cardButtonRolodex]}
+                            style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
                             <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={[styles.button, styles.gotoButtonRolodex]}>
+                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
                             <TouchableOpacity onPress={() => Actions.message_thread({card: item})}>
                                 <Image
                                     style={styles.imageContainer}
@@ -126,7 +126,7 @@ class CardList extends Component {
                                 />
                             </TouchableOpacity>
                         </View>
-                        <View style={[styles.button, styles.gotoButtonRolodex]}>
+                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
                             <TouchableOpacity onPress={() => Actions.share({card: item})}>
                                 <Image
                                     style={styles.imageContainer}

@@ -48,26 +48,13 @@ class Wallet extends Component {
             // Display Home and Add buttons
             // Display ID buttons as a list
             <View style={styles.container}>
-                <View
-                    style={styles.buttonContainer}
-                    flex={0.1}
-                >
-                    <View
-                        style={styles.button}
-                        width={screenWidth * 0.3}
-                        marginLeft={screenWidth * 0.05}
-                        marginRight={screenWidth * 0.15}
-                    >
+                <View style={[styles.buttonContainer, styles.headContainer]}>
+                    <View style={[styles.button, styles.homeButton]}>
                         <TouchableOpacity onPress={() => {this.pressButton("Return home")}}>
                             <Text style={styles.topButtonText}>Home</Text>
                         </TouchableOpacity>
                     </View>
-                    <View
-                        style={styles.button}
-                        width={screenWidth * 0.3}
-                        marginLeft={screenWidth * 0.15}
-                        marginRight={screenWidth * 0.05}
-                    >
+                    <View style={[styles.button, styles.addButton]}>
                         <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
                             <Text style={styles.topButtonText}>Add</Text>
                         </TouchableOpacity>
@@ -84,43 +71,29 @@ class Wallet extends Component {
     }
 
     renderItem({item, index}) {
+        var icon = item.image === "" ? require('../assets/person.png') : {uri: item.image};
         return (
             // Display person icon, ID button, and arrow icon
             // ID buttons are displayed in alternating color based on index
-            <View
-                style={styles.buttonContainer}
-                flex={0.9}>
-                <View
-                    style={styles.button}
-                    width={buttonHeight}
-                    marginLeft={screenWidth * 0.05}
-                    backgroundColor={'#F5F5F5'}
-                >
+            <View style={[styles.buttonContainer, styles.bodyContainer]}>
+                <View style={[styles.button, styles.imageButton]}>
                     <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
-                            source={require('../assets/person.png')}
+                            source={icon}
                             resizeMode = 'contain'
                         />
                     </TouchableOpacity>
                 </View>
                 <View
-                    style={styles.button}
-                    width={screenWidth * 0.6}
-                    marginLeft={screenWidth * 0.05}
-                    marginRight={screenWidth * 0.05}
+                    style={[styles.button, styles.cardButton]}
                     backgroundColor={COLORS[index % COLORS.length]}
                 >
                     <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
                         <Text>{item.label}</Text>
                     </TouchableOpacity>
                 </View>
-                <View
-                    style={styles.button}
-                    width={buttonHeight}
-                    marginRight={screenWidth * 0.05}
-                    backgroundColor={'#F5F5F5'}
-                >
+                <View style={[styles.button, styles.gotoButton]}>
                     <TouchableOpacity onPress={() => Actions.share({card: item})}>
                         <Image
                             style={{width: buttonHeight, height: buttonHeight}}
@@ -159,6 +132,14 @@ const styles = StyleSheet.create({
         width: screenWidth,
     },
 
+    headContainer: {
+        flex: 0.1
+    },
+
+    bodyContainer: {
+        flex: 0.9
+    },
+
     button: {
         height: buttonHeight,
         alignItems: 'center',
@@ -169,5 +150,35 @@ const styles = StyleSheet.create({
 
     topButtonText: {
         color: '#6666EE'
+    },
+
+    homeButton: {
+        width: screenWidth * 0.3,
+        marginLeft: screenWidth * 0.05,
+        marginRight: screenWidth * 0.15
+    },
+
+    addButton: {
+        width: screenWidth * 0.3,
+        marginLeft: screenWidth * 0.15,
+        marginRight: screenWidth * 0.05
+    },
+
+    imageButton: {
+        width: buttonHeight,
+        marginLeft: screenWidth * 0.05,
+        backgroundColor: '#F5F5F5'
+    },
+
+    gotoButton: {
+        width: buttonHeight,
+        marginRight: screenWidth * 0.05,
+        backgroundColor: '#F5F5F5'
+    },
+
+    cardButton: {
+        width: screenWidth * 0.6,
+        marginLeft: screenWidth * 0.05,
+        marginRight: screenWidth * 0.05
     }
 });

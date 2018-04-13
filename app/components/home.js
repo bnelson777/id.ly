@@ -50,7 +50,7 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => Actions.card_list({title:"Wallet", isWallet: true})}>
+                    <TouchableHighlight onPress={() => Actions.wallet({title:"Wallet", isWallet: true})}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Wallet
@@ -58,7 +58,7 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => Actions.card_list({title:"Rolodex", isWallet: false})}>
+                    <TouchableHighlight onPress={() => Actions.rolodex({title:"Rolodex", isWallet: false})}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Rolodex

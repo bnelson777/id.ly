@@ -1,3 +1,4 @@
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, {Component} from 'react';
 import {
     Alert,
@@ -36,7 +37,7 @@ class CreateMessage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {message: "", recipient: ""};
+        this.state = {message: "", recipient: "", sender: ""};
     }
 
     componentDidMount(){
@@ -46,6 +47,11 @@ class CreateMessage extends Component {
     // Update recipient when selected from dropdown menu
     updateRecipient = (recipient) => {
         this.setState({recipient: recipient})
+    }
+
+    // Update recipient when selected from dropdown menu
+    updateSender = (sender) => {
+        this.setState({sender: sender})
     }
 
     // Dummy function for button presses
@@ -85,6 +91,17 @@ class CreateMessage extends Component {
                         })}
                     </Picker>
                 </View>
+                <View style={styles.midContainer}>
+                    <Text style={styles.fieldText}>From: </Text>
+                    <Picker selectedValue = {this.state.sender}
+                        onValueChange = {this.updateSender}
+                        style={styles.picker}
+                        mode='dropdown'>
+                        {this.props.cards.map((card, index) => {
+                            return <Picker.Item label={card.name + ": " + card.label} value={card.id} key={index}/>
+                        })}
+                    </Picker>
+                </View>
                 <View style={[styles.itemContainer, styles.bottomContainer]}>
                     <View style={styles.messageBox}>
                         <TextInput
@@ -104,6 +121,7 @@ class CreateMessage extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <KeyboardSpacer/>
             </View>
         );
     }

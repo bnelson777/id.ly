@@ -27,14 +27,14 @@ export default StyleSheet.create({
     },
 
     midContainer: {
-        flex: 0.5,
+        flex: 0.15,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start'
     },
 
     bottomContainer: {
-        flex: 0.4,
+        flex: 0.6,
         alignItems: 'center',
         justifyContent: 'flex-end'
     },
@@ -69,8 +69,8 @@ export default StyleSheet.create({
     messageBox: {
         width: boxWidth,
         maxHeight: boxHeight,
-        marginTop: screenHeight * 0.25,
-        marginBottom: screenHeight * 0.1,
+        marginTop: screenHeight * 0.3,
+        marginBottom: screenHeight * 0.15,
         marginRight: screenWidth * 0.05,
         marginLeft: screenWidth * 0.1,
         borderLeftWidth: boxBorderWidth,
@@ -93,7 +93,8 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR,
         marginLeft: screenWidth * 0.05,
         marginRight: screenWidth * 0.1,
-        marginTop: screenHeight * 0.15
+        marginTop: screenHeight * 0.2,
+        marginBottom: screenHeight * 0.05
     },
 
     imageContainer: {
@@ -106,13 +107,15 @@ export default StyleSheet.create({
         fontSize: 16,
         fontStyle: 'italic',
         marginLeft: screenWidth * 0.05,
-        marginBottom: screenHeight * 0.4
+        marginBottom: screenHeight * 0.05,
+        marginTop: screenHeight * 0.05
     },
 
     picker: {
         maxHeight: screenHeight * 0.1,
         width: screenWidth * 0.7,
         marginLeft: screenWidth * 0.05,
-        marginBottom: screenHeight * 0.4
+        marginBottom: screenHeight * 0.05,
+        marginTop: screenHeight * 0.05
     }
 });

@@ -52,14 +52,9 @@ class Main extends Component{
                 <Scene key="root">
                     <Scene key="home" component={Home} title="Home"/>
                     <Scene key="scan" component={Scan} title="Scan" />
-<<<<<<< HEAD
-                    <Scene key="rolodex" component={Rolodex} title="Rolodex" />
-                    <Scene key="wallet" component={Wallet} title="Wallet" />
-                    <Scene key="card_view" component={CardView} title="CardView" />
-=======
                     <Scene key="rolodex" component={CardList} title="Rolodex" />
                     <Scene key="wallet" component={CardList} title="Wallet" />
->>>>>>> master
+                    <Scene key="card_view" component={CardView} title="CardView" />
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />

@@ -103,7 +103,7 @@ class CardList extends Component {
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>
-                            <TouchableOpacity onPress={() => {this.pressButton("Go to card")}}>
+                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}> 
                                 <Image
                                     style={styles.imageContainer}
                                     source={icon}

@@ -39,18 +39,7 @@ class Lockbox extends Component {
         jsonM: ""
       };
     this.decryptMessage= this.decryptMessage.bind(this);
-    this.generateID = this.generateID.bind(this);
   }
-
-  generateID() {
-    let d = new Date().getTime();
-    let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        let r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
-    });
-    return id;
-}
 
     decryptMessage() {
       jsonStringP = JSON.parse(this.state.jsonString);
@@ -226,8 +215,6 @@ class Lockbox extends Component {
       }
       else if (this.props.mode === 'decrypt') {
                       console.log('In decrypt Mode')
-
-                      console.log(this.generateID())
 
                       return (
                           <View style={{flex: 1, backgroundColor: '#fff'}}>

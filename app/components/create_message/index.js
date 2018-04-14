@@ -20,6 +20,18 @@ import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux';
 
+// CREATEMESSAGE
+// FUNCTION(S): This component displays a dropdown menu to select a message
+// recipient and a textinput box to send a message to the selected recipient.
+//
+// FUTURE FUNCTION(S): A default card will be selected as the recipient if
+// it is passed in as a prop. The recipient dropdown menu will distinguish
+// between wallet cards and rolodex cards to display recipients correctly.
+//
+// EXPECTED PROP(S): this.props.recipient
+// This component will expect a recipient (a card object) to be used as the
+// default recipient selection. If an empty string is passed in instead, no
+// default recipient will be selected.
 class CreateMessage extends Component {
     constructor(props) {
         super(props);
@@ -31,6 +43,7 @@ class CreateMessage extends Component {
         this.props.getCards();
     }
 
+    // Update recipient when selected from dropdown menu
     updateRecipient = (recipient) => {
         this.setState({recipient: recipient})
     }
@@ -42,6 +55,11 @@ class CreateMessage extends Component {
     }
 
     render(){
+        // Displays Cancel and Inbox buttons at top
+        // Displays dropdown menu to select a recipient
+        // Displays text input box to type message at bottom and send button
+        // Message is stored in this.state.message
+        // Recipient is stored in this.state.recipient using the recipient card id field
         return (
             <View style={styles.container}>
                 <View style={[styles.itemContainer, styles.topContainer]}>
@@ -62,9 +80,9 @@ class CreateMessage extends Component {
                         onValueChange = {this.updateRecipient}
                         style={styles.picker}
                         mode='dropdown'>
-                            {this.props.cards.map((card, index) => {
-                                return <Picker.Item label={card.name + ": " + card.label} value={card.id} key={index}/>
-                            })}
+                        {this.props.cards.map((card, index) => {
+                            return <Picker.Item label={card.name + ": " + card.label} value={card.id} key={index}/>
+                        })}
                     </Picker>
                 </View>
                 <View style={[styles.itemContainer, styles.bottomContainer]}>
@@ -73,13 +91,12 @@ class CreateMessage extends Component {
                             ref={input => {this.messageInput = input}}
                             style={styles.inputStyle}
                             placeholder=" Enter Text..."
-                            returnKeyLabel={"Done"}
                             onChangeText={(text) => this.setState({message:text})}
                             underlineColorAndroid='transparent'
                         />
                     </View>
                     <View style={[styles.button, styles.imageButton]}>
-                        <TouchableOpacity onPress={() => this.pressButton(this.state.recipient.toString())}>
+                        <TouchableOpacity onPress={() => this.pressButton("Sending to card " + this.state.recipient.toString())}>
                             <Image
                                 style={styles.imageContainer}
                                 source={require('../../assets/send.png')}

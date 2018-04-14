@@ -60,10 +60,11 @@ class CreateMessage extends Component {
                     <Text style={styles.fieldText}>To: </Text>
                     <Picker selectedValue = {this.state.recipient}
                         onValueChange = {this.updateRecipient}
-                        style={styles.picker}>
-                        <Picker.Item label = "Steve" value = "steve" />
-                        <Picker.Item label = "Ellen" value = "ellen" />
-                        <Picker.Item label = "Maria" value = "maria" />
+                        style={styles.picker}
+                        mode='dropdown'>
+                            {this.props.cards.map((card, index) => {
+                                return <Picker.Item label={card.name + ": " + card.label} value={card.id} key={index}/>
+                            })}
                     </Picker>
                 </View>
                 <View style={[styles.itemContainer, styles.bottomContainer]}>
@@ -78,7 +79,7 @@ class CreateMessage extends Component {
                         />
                     </View>
                     <View style={[styles.button, styles.imageButton]}>
-                        <TouchableOpacity onPress={() => this.pressButton(this.state.message)}>
+                        <TouchableOpacity onPress={() => this.pressButton(this.state.recipient.toString())}>
                             <Image
                                 style={styles.imageContainer}
                                 source={require('../../assets/send.png')}

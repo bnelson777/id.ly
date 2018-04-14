@@ -56,7 +56,7 @@ class Wallet extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.button, styles.addButton]}>
-                        <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
+                        <TouchableOpacity onPress={() => {Actions.create_card()}}>
                             <Text style={styles.topButtonText}>Add</Text>
                         </TouchableOpacity>
                     </View>

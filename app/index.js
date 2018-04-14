@@ -10,6 +10,7 @@ import MessageThread from './components/message_thread/index';
 import Rolodex from './components/rolodex/index';
 import Inbox from './components/inbox/index';
 import Scan from './components/scan/index';
+import CreateCard from './components/create_card/index';
 import CardData from './cards.json';
 import MessageData from './messages.json';
 
@@ -57,6 +58,7 @@ class Main extends Component{
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />
+                    <Scene key="create_card" component={CreateCard} title="Add Information" initial/>
                 </Scene>
             </Router>
         );

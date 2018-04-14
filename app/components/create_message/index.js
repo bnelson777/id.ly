@@ -5,9 +5,11 @@ import {
     FlatList,
     View,
     Text,
+    TextInput,
     TouchableHighlight,
     TouchableOpacity,
-    Image
+    Image,
+    Picker
 } from 'react-native';
 import styles from './styles';
 
@@ -22,32 +24,65 @@ class CreateMessage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {message: "", recipient: ""};
     }
 
     componentDidMount(){
         this.props.getCards();
     }
 
+    updateRecipient = (recipient) => {
+        this.setState({recipient: recipient})
+    }
+
     // Dummy function for button presses
     pressButton(label){
         Alert.alert(label);
+        this.messageInput.clear();
     }
 
     render(){
         return (
-            // Display Home and Add buttons
-            // Display ID buttons as a list
             <View style={styles.container}>
-                <View style={[styles.buttonContainer, styles.headContainer]}>
-                    <View style={[styles.button, styles.topButton, styles.homeButton]}>
-                        <TouchableOpacity onPress={() => Actions.home()}>
+                <View style={[styles.itemContainer, styles.topContainer]}>
+                    <View style={[styles.button, styles.topButton, styles.cancelButton]}>
+                        <TouchableOpacity onPress={() => this.pressButton("Go back")}>
                             <Text style={styles.topButtonText}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.button, styles.topButton, styles.addButton]}>
-                        <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
+                    <View style={[styles.button, styles.topButton, styles.inboxButton]}>
+                        <TouchableOpacity onPress={() => {Actions.inbox()}}>
                             <Text style={styles.topButtonText}>Inbox</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.midContainer}>
+                    <Text style={styles.fieldText}>To: </Text>
+                    <Picker selectedValue = {this.state.recipient}
+                        onValueChange = {this.updateRecipient}
+                        style={styles.picker}>
+                        <Picker.Item label = "Steve" value = "steve" />
+                        <Picker.Item label = "Ellen" value = "ellen" />
+                        <Picker.Item label = "Maria" value = "maria" />
+                    </Picker>
+                </View>
+                <View style={[styles.itemContainer, styles.bottomContainer]}>
+                    <View style={styles.messageBox}>
+                        <TextInput
+                            ref={input => {this.messageInput = input}}
+                            style={styles.inputStyle}
+                            placeholder=" Enter Text..."
+                            returnKeyLabel={"Done"}
+                            onChangeText={(text) => this.setState({message:text})}
+                            underlineColorAndroid='transparent'
+                        />
+                    </View>
+                    <View style={[styles.button, styles.imageButton]}>
+                        <TouchableOpacity onPress={() => this.pressButton(this.state.message)}>
+                            <Image
+                                style={styles.imageContainer}
+                                source={require('../../assets/send.png')}
+                            />
                         </TouchableOpacity>
                     </View>
                 </View>

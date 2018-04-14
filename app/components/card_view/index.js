@@ -30,7 +30,7 @@ class CardView extends Component {
 
         var icon = this.props.card.image === "" ? require('../../assets/person.png') : {uri: this.props.card.image};
         return (
-            <View style={styles.itemContainer}>
+            <View style={styles.container}>
                 <Text style={styles.header}>
                     {this.props.card.label}
                 </Text>

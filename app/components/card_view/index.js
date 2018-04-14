@@ -3,10 +3,7 @@ import React, { Component } from 'react'
 import { StyleSheet, 
         View, 
         Text, 
-        FlatList,
-        Image,
-        TextInput, 
-        Button } from 'react-native';
+        Image } from 'react-native';
 import styles from './styles';
 
 import {bindActionCreators} from 'redux';
@@ -22,36 +19,35 @@ class CardView extends Component {
 
         this.state = {};
     }
-          
+    
+    //displays card type on top, followed by image and the rest of the card information
     render() {
         var cardFields = [];
         for (var key in this.props.card.fields)
         {
-            cardFields.push (key + ": " + this.props.card.fields[key] + "\n");
+            cardFields.push (key + ": " + this.props.card.fields[key] + "\n\n");
         }
 
         var icon = this.props.card.image === "" ? require('../../assets/person.png') : {uri: this.props.card.image};
-
         return (
             <View style={styles.itemContainer}>
+                <Text style={styles.header}>
+                    {this.props.card.label}
+                </Text>
                 <View style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 }}>
                     <Image style={styles.imageStyle}
                         source = {icon}
-                        //resizeMode = 'contain'
                     />
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.name}>
-                        {this.props.card.label}
-                    </Text>
-                    <Text sstyle={styles.name}>
-                        {this.props.card.name}
+                        Name: {this.props.card.name}
                     </Text>
                     <Text style={styles.name}>
-                        {this.props.card.email}
+                        Email: {this.props.card.email}
                     </Text>
                     <Text style={styles.name}>
                         {cardFields}
@@ -60,17 +56,6 @@ class CardView extends Component {
             </View>
         );
     }
-
-    //  //displays a list of the contacts with their information
-    //  renderItem({item, index}) {
-    //     return (
-    //         <View style={styles.row}>
-    //             <Text style={styles.name}>
-    //                 {this.props.card.name}
-    //             </Text>
-    //         </View>
-    //     )
-    // }
 };
 
 function mapStateToProps(state, props) {

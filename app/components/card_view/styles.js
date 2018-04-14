@@ -1,23 +1,22 @@
 import { StyleSheet, Image } from 'react-native';
-import { BACKGROUND_COLOR, BORDER_WIDTH, FONT_SIZE, FONT_WEIGHT } from '../styles/common';
+import { BORDER_WIDTH, FONT_SIZE, BACKGROUND_COLOR, FONT_WEIGHT } from '../styles/common';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
     container:{
         flex:1,
         backgroundColor: BACKGROUND_COLOR
     },
-
-    activityIndicatorContainer:{
-        backgroundColor: BACKGROUND_COLOR,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-
-    row:{
+    
+   row:{
         borderBottomWidth: BORDER_WIDTH,
         borderColor: "#ccc",
         padding: 10
+    },
+
+    header:{
+        backgroundColor: 'blue',
+        fontWeight: 'bold',
+        fontSize: FONT_SIZE,
     },
 
     name: {
@@ -26,10 +25,6 @@ const styles = StyleSheet.create({
         marginTop: 8 * 2
     },
 
-    info: {
-        marginTop: 5,
-        fontSize: FONT_SIZE,
-    },
     imageStyle: {
         width: 180,
         height: 180,

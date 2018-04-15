@@ -25,13 +25,12 @@ export default StyleSheet.create({
         flex: 3,
     },
     formItemContainer: {
-        margin: '1%'
+        margin: '1%',
     },
     formTitle: {
     },
     formInput: {
-        borderRadius: BORDER_RADIUS,
-        margin: '5%'
+        flex: 1,
     },
     addImageContainer: {
         flex: 2,
@@ -44,6 +43,11 @@ export default StyleSheet.create({
     addButtonImage: {
         height: 20,
         width: 20
+    },
+    addAttributeContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     buttonText: {
         padding: '5%',

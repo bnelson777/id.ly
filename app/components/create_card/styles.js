@@ -38,9 +38,12 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     addFieldButton: {
-        flex: 0.2,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    addButtonImage: {
+        height: 20,
+        width: 20
     },
     buttonText: {
         padding: '5%',

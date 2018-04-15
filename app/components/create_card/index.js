@@ -16,7 +16,7 @@ class CreateCard extends Component {
 
         // could be an issue if title is already defined
         // but that could be handled when you add a field to the form
-        this.state = {form: [{title:"Label"}, {title:"Name"}, {title:"Email"}]};
+        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}]};
     }
 
     render() {
@@ -27,7 +27,7 @@ class CreateCard extends Component {
                         <Text style={styles.buttonText}>Cancel</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {alert('')}}>
-                        <Text style={styles.buttonText}>Add</Text>
+                        <Text style={styles.buttonText}>Add Card</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.screenContainer}>
@@ -36,12 +36,8 @@ class CreateCard extends Component {
                         data={this.state.form}
                         keyExtractor={item => item.title}
                         renderItem={this.renderItem}
+                        ListFooterComponent={this.renderAddButton}
                         />
-                        <View style={styles.addFieldButton}>
-                            <TouchableOpacity onPress={() => {alert('adding field to list!')}}>
-                                <Text style={styles.buttonText}> Add field </Text>
-                            </TouchableOpacity>
-                        </View>
                     </View>
                     <View style={styles.addImageContainer}>
                         <TouchableOpacity onPress={() => {alert('')}}>
@@ -60,9 +56,29 @@ class CreateCard extends Component {
                     style={styles.formInput}
                     placeholder={"Enter " + item.title}
                     underlineColorAndroid="transparent"
+                    onChangeText={(text) => this.handleTextChange(index, text)}
                 />
             </View>
         );
+    }
+
+    renderAddButton = () => {
+        return(
+            <View style={styles.addFieldButton}>
+                <TouchableOpacity onPress={() => {alert('adding field to list!')}}>
+                    <Image source={require('../../assets/share.png')} resizeMode='center'/>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
+    handleTextChange = (index, text) => {
+        this.setState({
+            form: this.state.form.map((val, _index) => {
+              if (_index !== index) return val;
+              return { ...val, field: text };
+            }),
+        });
     }
 };
 

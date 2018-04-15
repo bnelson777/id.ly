@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import styles from './styles';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 
 export default class Login extends Component {
     constructor(props) {
@@ -11,6 +11,10 @@ export default class Login extends Component {
         this.state = {
         };
     };
+
+    checkPassword() {
+        alert("Wrong password!");
+    }
 
     render() {
         // If loading, display the loading animation.
@@ -27,9 +31,14 @@ export default class Login extends Component {
                 // Container
                 <View style={styles.container}>
                     <TextInput
-                        style={styles.inputBox}
-                        placeholder="Username"
-                        onChangeText= {(text) => this.setState({text})}
+                        placeholder="Enter Password"
+                        onChangeText= {(text) => {this.setState({text})}}
+                        secureTextEntry={true}
+                    />
+                    <Button
+                        onPress={this.checkPassword}
+                        title="Login"
+                        color="black"
                     />
                 </View>
             );

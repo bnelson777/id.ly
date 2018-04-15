@@ -15,6 +15,16 @@ import {Actions} from 'react-native-router-flux';
 import styles from './styles';
 
 class Splash extends Component {
+    static navigationOptions = {
+        header: null
+    }
+
+    componentWillMount() {
+        setInterval(() => {
+            this.props.navigation.navigate('home');
+        }, 4000)
+    }
+
     constructor(props) {
         super();
         this.fade_in = new Animated.Value(0);

@@ -34,7 +34,7 @@ export default StyleSheet.create({
     quote: {
         fontSize: 17,
         lineHeight: 38,
-        fontFamily: 'Helvetica',
+        fontFamily: 'sans-serif',
         color: "#333333",
         padding: 16,
         paddingLeft:0,
@@ -49,7 +49,7 @@ export default StyleSheet.create({
         fontWeight: "400",
         lineHeight: 22,
         fontSize: 16,
-        fontFamily: 'Helvetica',
+        fontFamily: 'sans-serif',
         height:25+32,
         padding: 16,
         paddingLeft:0
@@ -58,7 +58,7 @@ export default StyleSheet.create({
     quote: {
         fontSize: 12,
         lineHeight: 12,
-        fontFamily: 'Helvetica',
+        fontFamily: 'sans-serif',
         color: "#333333",
         padding: 16,
         paddingLeft:0,
@@ -73,7 +73,7 @@ export default StyleSheet.create({
         fontWeight: "400",
         lineHeight: 22,
         fontSize: 16,
-        fontFamily: 'Helvetica',
+        fontFamily: 'sans-serif',
         height:25+32,
         padding: 16,
         paddingLeft:0

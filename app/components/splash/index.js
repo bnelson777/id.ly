@@ -20,7 +20,7 @@ class Splash extends Component {
     }
 
     componentWillMount() {
-        setInterval(() => {
+        setTimeout(() => {
             this.props.navigation.navigate('home');
         }, 4000)
     }

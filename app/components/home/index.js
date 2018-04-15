@@ -92,7 +92,15 @@ class Home extends Component {
                     <TouchableHighlight onPress={() => Actions.message_thread()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
-                                Message Thread
+                                [dev] Message Thread
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight onPress={() => Actions.login()}>
+                        <View style={styles.row}>
+                            <Text style={styles.title}>
+                                [dev] Login
                             </Text>
                         </View>
                     </TouchableHighlight>
@@ -100,7 +108,7 @@ class Home extends Component {
                     <TouchableHighlight onPress={() => {this.props.clearAll()}}>
                       <View style={styles.row}>
                           <Text style={styles.title}>
-                              [dev] Clear All Data
+                                [dev] Clear All Data
                           </Text>
                       </View>
                   </TouchableHighlight>

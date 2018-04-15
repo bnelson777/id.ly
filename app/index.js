@@ -10,7 +10,11 @@ import MessageThread from './components/message_thread/index';
 import Inbox from './components/inbox/index';
 import Scan from './components/scan/index';
 import CardView from './components/card_view/index'
+<<<<<<< HEAD
 import Login from './components/login/index';
+=======
+import CreateMessage from './components/create_message/index'
+>>>>>>> a4374c3b9cffe9d636331c24939039dd213ad236
 import CardData from './cards.json';
 import MessageData from './messages.json';
 
@@ -58,6 +62,7 @@ class Main extends Component{
                     <Scene key="card_view" component={CardView} title="CardView" />
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
+                    <Scene key="create_message" component={CreateMessage} title="New Message" />
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />
                     <Scene key="login" component={Login} title="Login" />
                 </Scene>

@@ -109,7 +109,7 @@ class CardList extends Component {
                             style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
-                            <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
+                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>
@@ -140,7 +140,7 @@ class CardList extends Component {
                             style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
-                            <TouchableOpacity onPress={() => {this.pressButton(item.label)}}>
+                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>

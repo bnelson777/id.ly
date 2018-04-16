@@ -87,9 +87,17 @@ class CreateCard extends Component {
     }
 
     addAttributeToForm = () => {
-        //todo: check that attribute does not already exist
-        //todo: add check for empty attribute title
         const { addAttribute } = this.state;
+
+        if (addAttribute === "") return;
+        for (form of this.state.form) {
+            if (form.title === addAttribute) {
+                alert("Error: Attribute already in form.")
+                this.setState({ addAttribute: "" });
+                return;
+            }
+        }
+
         this.setState({
             form: this.state.form.concat([{ title: addAttribute , field: ""}]),
             addAttribute: ""

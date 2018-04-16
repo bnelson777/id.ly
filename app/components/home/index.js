@@ -89,14 +89,6 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => Actions.message_thread()}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                Message Thread
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
                     <TouchableHighlight onPress={() => Actions.create_message({recipient:""})}>
                         <View style={styles.row}>
                             <Text style={styles.title}>

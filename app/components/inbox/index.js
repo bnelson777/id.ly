@@ -53,7 +53,7 @@ class Inbox extends Component {
         };
 
         return (
-            <TouchableHighlight  onPress={() => alert()} >
+            <TouchableHighlight  onPress={() => Actions.message_thread()} >
                 <View style={styles.itemContainer}>
                     <View style={styles.imageContainer}>
                         <Image style={styles.imageStyle} source={{uri: portrait}} />

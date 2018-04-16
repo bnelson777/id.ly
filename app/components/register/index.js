@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { View, Text, TextInput, Button } from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class Register extends Component {
     constructor(props) {
@@ -47,9 +48,10 @@ export default class Register extends Component {
                     <Button
                         style={styles.button}
                         onPress={this._checkPassword}
-                        title="Login"
+                        title="Register"
                         color="black"
                     />
+                    <KeyboardSpacer />
                 </View>
             );
         }

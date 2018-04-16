@@ -11,6 +11,10 @@ export default StyleSheet.create({
     },
 
     inputBox: {
+        width: '75%',
+        borderRadius: 1,
+        borderWidth: 0.5,
+        borderColor: 'black',
         fontSize: FONT_SIZE,
         fontWeight: 'bold',
         marginBottom: 20,

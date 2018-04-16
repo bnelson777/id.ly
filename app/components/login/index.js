@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { View, Text, TextInput, Button } from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class Login extends Component {
     constructor(props) {
@@ -32,6 +33,7 @@ export default class Login extends Component {
                 // Container
                 <View style={styles.container}>
                     <TextInput
+                        style={styles.inputBox}
                         placeholder="Enter Password"
                         onChangeText= {(text) => {this.setState({input:text})}}
                         secureTextEntry={true}
@@ -42,6 +44,7 @@ export default class Login extends Component {
                         title="Login"
                         color="black"
                     />
+                    <KeyboardSpacer />
                 </View>
             );
         }

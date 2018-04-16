@@ -10,8 +10,11 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR
     },
 
-    title: {
-        flex: 3,
+    inputBox: {
+        width: '75%',
+        borderRadius: 0.5,
+        borderWidth: 0.5,
+        borderColor: 'black',      
         fontSize: FONT_SIZE,
         fontWeight: 'bold',
         marginTop: 8 * 2

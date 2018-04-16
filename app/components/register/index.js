@@ -47,6 +47,7 @@ export default class Register extends Component {
                     />
                     <Button
                         style={styles.button}
+                        disabled={(this.state.password != 0 && this.state.passwordVerify != 0) ? false : true}
                         onPress={this._checkPassword}
                         title="Register"
                         color="black"

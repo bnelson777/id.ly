@@ -9,6 +9,7 @@ export default class Login extends Component {
         super(props);
 
         this.state = {
+            input: ""
         };
     };
 
@@ -32,9 +33,10 @@ export default class Login extends Component {
                 <View style={styles.container}>
                     <TextInput
                         placeholder="Enter Password"
-                        onChangeText= {(text) => {this.setState({text})}}
+                        onChangeText= {(text) => {this.setState({input:text})}}
                         secureTextEntry={true}
                     />
+
                     <Button
                         onPress={this.checkPassword}
                         title="Login"

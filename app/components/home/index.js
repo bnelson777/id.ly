@@ -16,6 +16,10 @@ import * as ReduxActions from '../../actions'; //Import your actions
 import {Actions} from 'react-native-router-flux'
 
 class Home extends Component {
+    static navigationOptions = {
+      title: "Home",
+      headerLeft: null
+    }
     constructor(props) {
         super(props);
 
@@ -61,14 +65,6 @@ class Home extends Component {
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Rolodex
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => {this.pressButton("Share")}}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                Share
                             </Text>
                         </View>
                     </TouchableHighlight>

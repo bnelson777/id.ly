@@ -85,18 +85,26 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => Actions.register()}>
+                    <TouchableHighlight onPress={() => Actions.login()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
-                                [Dev] Register
+                                [dev] Login
                             </Text>
                         </View>
                     </TouchableHighlight>
 
+                    <TouchableHighlight onPress={() => Actions.register()}>
+                        <View style={styles.row}>
+                            <Text style={styles.title}>
+                                [Dev] Register
+                              </Text>
+                          </View>
+                      </TouchableHighlight>
+
                     <TouchableHighlight onPress={() => {this.props.clearAll()}}>
                       <View style={styles.row}>
                           <Text style={styles.title}>
-                              [dev] Clear All Data
+                                [dev] Clear All Data
                           </Text>
                       </View>
                   </TouchableHighlight>

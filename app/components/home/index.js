@@ -16,6 +16,10 @@ import * as ReduxActions from '../../actions'; //Import your actions
 import {Actions} from 'react-native-router-flux'
 
 class Home extends Component {
+    static navigationOptions = {
+      title: "Home",
+      headerLeft: null
+    }
     constructor(props) {
         super(props);
 
@@ -65,14 +69,6 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => {this.pressButton("Share")}}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                Share
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
                     <TouchableHighlight onPress={() => Actions.scan()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
@@ -89,26 +85,10 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => Actions.message_thread()}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                Message Thread
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
                     <TouchableHighlight onPress={() => Actions.register()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 [Dev] Register
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => Actions.create_message({recipient:""})}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                [dummy] Create Message
                             </Text>
                         </View>
                     </TouchableHighlight>

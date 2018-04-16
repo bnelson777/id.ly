@@ -5,17 +5,18 @@ import styles from './styles';
 import { View, Text, TextInput, Button } from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-export default class Login extends Component {
+export default class Register extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            input: ""
+            password: "",
+            passwordVerify: "",
         };
     };
 
-    checkPassword() {
-        alert("Wrong password!");
+    _checkPassword() {
+        alert("Currently in development!");
     }
 
     render() {
@@ -35,14 +36,20 @@ export default class Login extends Component {
                     <TextInput
                         style={styles.inputBox}
                         placeholder="Enter Password"
-                        onChangeText= {(text) => {this.setState({input:text})}}
+                        onChangeText= {(text) => {this.setState({password:text})}}
                         secureTextEntry={true}
                     />
-
+                    <TextInput
+                        style={styles.inputBox}
+                        placeholder="Verify Password"
+                        onChangeText= {(text) => {this.setState({passwordVerify:text})}}
+                        secureTextEntry={true}
+                    />
                     <Button
-                        onPress={this.checkPassword}
-                        disabled={(this.state.input != 0) ? false : true}
-                        title="Login"
+                        style={styles.button}
+                        disabled={(this.state.password != 0 && this.state.passwordVerify != 0) ? false : true}
+                        onPress={this._checkPassword}
+                        title="Register"
                         color="black"
                     />
                     <KeyboardSpacer />

@@ -9,6 +9,7 @@ import Share from './components/share/index';
 import MessageThread from './components/message_thread/index';
 import Inbox from './components/inbox/index';
 import Scan from './components/scan/index';
+import Lockbox from './components/lockbox/index';
 import CardView from './components/card_view/index'
 import CreateMessage from './components/create_message/index'
 import CardData from './cards.json';
@@ -53,6 +54,7 @@ class Main extends Component{
                 <Scene key="root">
                     <Scene key="home" component={Home} title="Home"/>
                     <Scene key="scan" component={Scan} title="Scan" />
+                    <Scene key="lockbox" component={Lockbox} title="Lockbox" />
                     <Scene key="rolodex" component={CardList} title="Rolodex" />
                     <Scene key="wallet" component={CardList} title="Wallet" />
                     <Scene key="card_view" component={CardView} title="CardView" />

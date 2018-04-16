@@ -27,6 +27,7 @@
     "react-native-keyboard-spacer": "^0.4.1",
     "react-native-qrcode": "^0.2.6",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-rsa": "0.0.3",
     "react-native-simple-toast": "0.0.8",
     "react-redux": "^5.0.7",
     "redux-thunk": "^2.2.0"

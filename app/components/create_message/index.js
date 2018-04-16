@@ -68,18 +68,6 @@ class CreateMessage extends Component {
         // Recipient is stored in this.state.recipient using the recipient card id field
         return (
             <View style={styles.container}>
-                <View style={[styles.itemContainer, styles.topContainer]}>
-                    <View style={[styles.button, styles.topButton, styles.cancelButton]}>
-                        <TouchableOpacity onPress={() => this.pressButton("Go back")}>
-                            <Text style={styles.topButtonText}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[styles.button, styles.topButton, styles.inboxButton]}>
-                        <TouchableOpacity onPress={() => {Actions.inbox()}}>
-                            <Text style={styles.topButtonText}>Inbox</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 <View style={styles.midContainer}>
                     <Text style={styles.fieldText}>To: </Text>
                     <Picker selectedValue = {this.state.recipient}

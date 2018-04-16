@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import styles from './styles';
 
 import { View, Text, TextInput, Button } from 'react-native';
+import {Actions} from 'react-native-router-flux'
 
 export default class MessageThread extends Component {
     constructor(props) {
@@ -12,10 +13,6 @@ export default class MessageThread extends Component {
         this.state = {
             userIdentity: "Lil Wayne"
         };
-    };
-
-    returnToInbox() {
-        alert('Oops, something broke! Better luck next time.');
     };
 
     sendMessage() {
@@ -39,10 +36,7 @@ export default class MessageThread extends Component {
                         <View style={{paddingRight: 100}}>
                             <Button
                                 title="Inbox"
-                                color="blue"
-                                accessibilityLabel="Return to the inbox"
-                                onPress={this.returnToInbox}
-                            />
+                                onPress= {() => Actions.inbox()}/>
                         </View>
                         <Text style={styles.identityText}>
                             {this.state.userIdentity}

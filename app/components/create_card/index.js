@@ -59,6 +59,7 @@ class CreateCard extends Component {
             </View>
         );
     }
+
     renderItem = ({item, index}) => {
         return (
             <View style={styles.formItemContainer}>

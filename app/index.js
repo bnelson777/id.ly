@@ -3,14 +3,24 @@ import { View, AsyncStorage } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 
+// component imports
+import Splash from './components/splash/index';
 import Home from './components/home/index';
-import Wallet from './components/wallet/index';
+import Scan from './components/scan/index';
+import Lockbox from './components/lockbox/index';
+import CardList from './components/card_list/index';
+import CardView from './components/card_view/index';
 import Share from './components/share/index';
 import MessageThread from './components/message_thread/index';
-import Rolodex from './components/rolodex/index';
+import CreateMessage from './components/create_message/index'
 import Inbox from './components/inbox/index';
+<<<<<<< HEAD
 import Scan from './components/scan/index';
 import CreateCard from './components/create_card/index';
+=======
+
+// dumby data for initial app load
+>>>>>>> eb9272bcfcea410296bc03849bae8f04547877af
 import CardData from './cards.json';
 import MessageData from './messages.json';
 
@@ -20,7 +30,7 @@ import {getMessages} from './actions';
 
 // needed for Actions.home() back button on inbox see line 59:121
 import * as ReduxActions from './actions'; //Import your actions
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
 
 
 class Main extends Component{
@@ -51,12 +61,16 @@ class Main extends Component{
         return (
             <Router>
                 <Scene key="root">
+                    <Scene key="splash" component={Splash}/>
                     <Scene key="home" component={Home} title="Home"/>
                     <Scene key="scan" component={Scan} title="Scan" />
-                    <Scene key="rolodex" component={Rolodex} title="Rolodex" />
-                    <Scene key="wallet" component={Wallet} title="Wallet" />
+                    <Scene key="lockbox" component={Lockbox} title="Lockbox" />
+                    <Scene key="rolodex" component={CardList} title="Rolodex" />
+                    <Scene key="wallet" component={CardList} title="Wallet" />
+                    <Scene key="card_view" component={CardView} title="CardView" />
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
+                    <Scene key="create_message" component={CreateMessage} title="New Message" />
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />
                     <Scene key="create_card" component={CreateCard} title="Add Information" />
                 </Scene>

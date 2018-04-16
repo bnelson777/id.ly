@@ -49,7 +49,7 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => Actions.wallet()}>
+                    <TouchableHighlight onPress={() => Actions.wallet({title:"Wallet", isWallet: true})}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Wallet
@@ -57,7 +57,7 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => Actions.rolodex()}>
+                    <TouchableHighlight onPress={() => Actions.rolodex({title:"Rolodex", isWallet: false})}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 Rolodex
@@ -105,10 +105,26 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
+                    <TouchableHighlight onPress={() => Actions.create_message({recipient:""})}>
+                        <View style={styles.row}>
+                            <Text style={styles.title}>
+                                [dummy] Create Message
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
+
                     <TouchableHighlight onPress={() => {this.props.clearAll()}}>
                       <View style={styles.row}>
                           <Text style={styles.title}>
                               [dev] Clear All Data
+                          </Text>
+                      </View>
+                  </TouchableHighlight>
+
+                  <TouchableHighlight onPress={() => Actions.lockbox({title:"Decrypt Message", mode: "decrypt"})} underlayColor='rgba(0,0,0,.2)'>
+                      <View style={styles.row}>
+                          <Text style={styles.title}>
+                            [dev] Decrypt Message
                           </Text>
                       </View>
                   </TouchableHighlight>

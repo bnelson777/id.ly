@@ -3,15 +3,19 @@ import { View, AsyncStorage } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 
+// component imports
+import Splash from './components/splash/index';
 import Home from './components/home/index';
-import CardList from './components/card_list/index';
-import Share from './components/share/index';
-import MessageThread from './components/message_thread/index';
-import Inbox from './components/inbox/index';
 import Scan from './components/scan/index';
 import Lockbox from './components/lockbox/index';
-import CardView from './components/card_view/index'
+import CardList from './components/card_list/index';
+import CardView from './components/card_view/index';
+import Share from './components/share/index';
+import MessageThread from './components/message_thread/index';
 import CreateMessage from './components/create_message/index'
+import Inbox from './components/inbox/index';
+
+// dumby data for initial app load
 import CardData from './cards.json';
 import MessageData from './messages.json';
 
@@ -21,7 +25,7 @@ import {getMessages} from './actions';
 
 // needed for Actions.home() back button on inbox see line 59:121
 import * as ReduxActions from './actions'; //Import your actions
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
 
 
 class Main extends Component{
@@ -52,6 +56,7 @@ class Main extends Component{
         return (
             <Router>
                 <Scene key="root">
+                    <Scene key="splash" component={Splash}/>
                     <Scene key="home" component={Home} title="Home"/>
                     <Scene key="scan" component={Scan} title="Scan" />
                     <Scene key="lockbox" component={Lockbox} title="Lockbox" />

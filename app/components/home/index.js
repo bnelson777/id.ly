@@ -96,6 +96,14 @@ class Home extends Component {
                             </Text>
                         </View>
                     </TouchableHighlight>
+                    
+                    <TouchableHighlight onPress={() => Actions.create_card({recipient:""})}>
+                        <View style={styles.row}>
+                            <Text style={styles.title}>
+                                [dummy] Create Card
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
 
                     <TouchableHighlight onPress={() => {this.props.clearAll()}}>
                       <View style={styles.row}>

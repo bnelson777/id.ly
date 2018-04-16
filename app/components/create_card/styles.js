@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, FONT_SIZE, FONT_WEIGHT, FONT_COLOR, FONT_NORMAL, BACKGROUND_COLOR, BORDER_RADIUS, BORDER_WIDTH } from './../styles/common';
-        
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default StyleSheet.create({
@@ -48,10 +48,10 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        left: 5
     },
     buttonText: {
         padding: '5%',
-        fontSize: 20,
         color: 'blue'
     },
 });

@@ -9,6 +9,7 @@ import {
     TextInput
 } from 'react-native';
 import styles from './styles';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 class CreateCard extends Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class CreateCard extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.addAttributeContainer}> 
+                <View style={styles.addAttributeContainer}>
                     <TextInput
                     style={styles.formInput}
                     placeholder="Attribute"
@@ -51,11 +52,15 @@ class CreateCard extends Component {
                     onChangeText={(text) => this.handleAttributeTextChange(text)}
                     />
                     <View style={styles.addFieldButton}>
-                        <TouchableOpacity onPress={() => this.addAttributeToForm()}>
-                            <Text style={styles.buttonText}> Add Attribute </Text>
+                        <TouchableOpacity onPress={() => this.addAttributeToForm()} disabled={(this.state.addAttribute != 0) ? false : true}>
+                            <Text style={[styles.buttonText,
+                          {
+                              color: (this.state.addAttribute != 0) ? "blue" : "#CCC"
+                          }]}> Add Attribute </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
+                <KeyboardSpacer />
             </View>
         );
     }
@@ -82,7 +87,7 @@ class CreateCard extends Component {
             }),
         });
     }
-    
+
     handleAttributeTextChange = (text) => {
         this.setState({addAttribute: text});
     }

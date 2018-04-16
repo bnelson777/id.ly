@@ -97,6 +97,14 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
+                    <TouchableHighlight onPress={() => Actions.register()}>
+                        <View style={styles.row}>
+                            <Text style={styles.title}>
+                                [Dev] Register
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
+
                     <TouchableHighlight onPress={() => Actions.create_message({recipient:""})}>
                         <View style={styles.row}>
                             <Text style={styles.title}>

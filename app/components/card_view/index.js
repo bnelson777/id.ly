@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 import { StyleSheet, 
         View, 
@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 
 import * as ReduxActions from '../../actions';
 
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
 
 class CardView extends Component {
     constructor(props) {

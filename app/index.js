@@ -14,6 +14,9 @@ import Share from './components/share/index';
 import MessageThread from './components/message_thread/index';
 import CreateMessage from './components/create_message/index'
 import Inbox from './components/inbox/index';
+import Login from './components/login/index';
+
+// dumby data for initial app load
 import CreateCard from './components/create_card/index';
 import CardData from './cards.json';
 import MessageData from './messages.json';
@@ -67,6 +70,7 @@ class Main extends Component{
                     <Scene key="create_message" component={CreateMessage} title="New Message" />
                     <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onRight={() => Actions.create_message()} rightTitle='Message' />
                     <Scene key="create_card" component={CreateCard} title="Add Information" />
+                    <Scene key="login" component={Login} title="Login" />
                 </Scene>
             </Router>
         );

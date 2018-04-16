@@ -14,13 +14,7 @@ import Share from './components/share/index';
 import MessageThread from './components/message_thread/index';
 import CreateMessage from './components/create_message/index'
 import Inbox from './components/inbox/index';
-<<<<<<< HEAD
-import Scan from './components/scan/index';
 import CreateCard from './components/create_card/index';
-=======
-
-// dumby data for initial app load
->>>>>>> eb9272bcfcea410296bc03849bae8f04547877af
 import CardData from './cards.json';
 import MessageData from './messages.json';
 

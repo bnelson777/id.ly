@@ -41,6 +41,7 @@ export default class Login extends Component {
 
                     <Button
                         onPress={this.checkPassword}
+                        disabled={(this.state.input != 0) ? false : true}
                         title="Login"
                         color="black"
                     />

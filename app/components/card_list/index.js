@@ -38,30 +38,31 @@ class CardList extends Component {
 
     render(){
         if (this.props.isWallet == true){
-        return (
-            // Display Home and Add buttons
-            // Display ID buttons as a list
-            <View style={styles.container}>
-                <View style={[styles.buttonContainer, styles.headContainer]}>
-                    <View style={[styles.button, styles.topButton, styles.homeButton]}>
-                        <TouchableOpacity onPress={() => Actions.home()}>
-                            <Text style={styles.topButtonText}>Home</Text>
-                        </TouchableOpacity>
+            return (
+                // Display Home and Add buttons
+                // Display ID buttons as a list
+                <View style={styles.container}>
+                    <View style={[styles.buttonContainer, styles.headContainer]}>
+                        <View style={[styles.button, styles.topButton, styles.homeButton]}>
+                            <TouchableOpacity onPress={() => Actions.home()}>
+                                <Text style={styles.topButtonText}>Home</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.button, styles.topButton, styles.addButton]}>
+                            <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
+                                <Text style={styles.topButtonText}>Add</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={[styles.button, styles.topButton, styles.addButton]}>
-                        <TouchableOpacity onPress={() => {this.pressButton("Add card")}}>
-                            <Text style={styles.topButtonText}>Add</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <FlatList
+                        ref='listRef'
+                        data={this.props.cards}
+                        renderItem={this.renderItem}
+                        keyExtractor={(item, index) => index}
+                    />
                 </View>
-                <FlatList
-                    ref='listRef'
-                    data={this.props.cards}
-                    renderItem={this.renderItem}
-                    keyExtractor={(item, index) => index}
-                />
-            </View>
-        );} else {
+            );
+        } else {
             return (
                 // Display Home and Add buttons
                 // Display ID buttons as a list

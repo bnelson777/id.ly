@@ -77,7 +77,7 @@ class Home extends Component {
                         </View>
                     </TouchableHighlight>
 
-                    <TouchableHighlight onPress={() => {this.pressButton("About")}}>
+                    <TouchableHighlight onPress={() => Actions.about()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
                                 About

@@ -17,6 +17,7 @@ import Inbox from './components/inbox/index';
 import Login from './components/login/index';
 import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
+import About from './components/about/index';
 
 // dumby data for initial app load
 import CardData from './cards.json';
@@ -73,7 +74,8 @@ class Main extends Component{
                     <Scene key="create_card" component={CreateCard} title="Add Information" />
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />
-                </Scene>
+                    <Scene key="about" component={About} title="About"/>
+                  </Scene>
             </Router>
         );
     }

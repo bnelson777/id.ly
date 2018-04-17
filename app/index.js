@@ -14,6 +14,9 @@ import Share from './components/share/index';
 import MessageThread from './components/message_thread/index';
 import CreateMessage from './components/create_message/index'
 import Inbox from './components/inbox/index';
+import Login from './components/login/index';
+import CreateCard from './components/create_card/index';
+import Register from './components/register/index'
 import About from './components/about/index';
 
 // dumby data for initial app load
@@ -67,9 +70,12 @@ class Main extends Component{
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
                     <Scene key="create_message" component={CreateMessage} title="New Message" />
-                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onLeft={() => Actions.home()} leftTitle='< Home' onRight={() => alert('')} rightTitle='Message' />
+                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onRight={() => Actions.create_message()} rightTitle='Message' />
+                    <Scene key="create_card" component={CreateCard} title="Add Information" />
+                    <Scene key="login" component={Login} title="Login" />
+                    <Scene key="register" component={Register} title="Register" />
                     <Scene key="about" component={About} title="About"/>
-                </Scene>
+                  </Scene>
             </Router>
         );
     }

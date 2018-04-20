@@ -52,6 +52,8 @@ class Inbox extends Component {
             }
         };
 
+        var millisecondTime = item.time*1000;
+
         return (
             <TouchableHighlight  onPress={() => Actions.message_thread()} >
                 <View style={styles.itemContainer}>
@@ -61,7 +63,7 @@ class Inbox extends Component {
                     <View style={styles.textContainer}>
                         <View style={styles.headerContainer}>
                             <Text style={styles.authorText}> {author} </Text>
-                            <Text> {new Date(item.time).toDateString()} </Text>
+                            <Text> {new Date(millisecondTime).toDateString()} </Text>
                         </View>
                         <View style={styles.messageContainer}>
                             <Text style={styles.messageText}> {item.body} </Text>

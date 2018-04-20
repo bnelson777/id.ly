@@ -5,7 +5,7 @@ import {
     View,
     Text,
     Image,
-    ActivityIndicator, TouchableHighlight, ActionSheetIOS
+    TouchableHighlight
 } from 'react-native';
 import styles from './styles';
 
@@ -45,7 +45,7 @@ class Inbox extends Component {
         let author = '';
         let portrait = '';
         for (card of this.props.cards) {
-            if (card.id === item.id) {
+            if (card.keys.n === item.from) {
                 author = card.name;
                 portrait = card.image;
                 break;

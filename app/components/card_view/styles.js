@@ -6,25 +6,25 @@ export default StyleSheet.create({
         flex:1,
         backgroundColor: BACKGROUND_COLOR
     },
-    
    row:{
         borderBottomWidth: BORDER_WIDTH,
         borderColor: "#ccc",
         padding: 10
     },
-
     header:{
         backgroundColor: 'blue',
         fontWeight: 'bold',
         fontSize: FONT_SIZE,
     },
-
     name: {
         fontSize: FONT_SIZE,
         fontWeight: FONT_WEIGHT,
         marginTop: 8 * 2
     },
-
+    cardPosition: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     imageStyle: {
         width: 180,
         height: 180,

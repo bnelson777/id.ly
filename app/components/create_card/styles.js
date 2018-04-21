@@ -34,7 +34,9 @@ export default StyleSheet.create({
     },
     addImageContainer: {
         flex: 2,
-        alignItems: 'center'
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch'
     },
     addFieldButton: {
         alignItems: 'center',
@@ -55,11 +57,10 @@ export default StyleSheet.create({
         color: 'blue'
     },
     imageDropdown: { 
-        height: 50, 
-        width: 100 
     },
     imageStyle: {
-        width: 100,
-        height: 100 
+        width: 140,
+        height: 140,
+        alignSelf: 'center'
     }
 });

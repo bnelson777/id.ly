@@ -41,9 +41,7 @@ class CreateCard extends Component {
                         />
                     </View>
                     <View style={styles.addImageContainer}>
-                        <TouchableOpacity onPress={() => {alert('')}}>
-                            <Image style={styles.imageStyle} source={{ uri: this.state.image}} />
-                        </TouchableOpacity>
+                        <Image style={styles.imageStyle} source={{uri: this.state.image}} />
                         <Picker
                         style={styles.imageDropdown}
                         mode={"dropdown"}
@@ -51,7 +49,7 @@ class CreateCard extends Component {
                             if (itemValue === "take_picture") this.takePicture();
                             else if (itemValue === "select_picture") this.pickImage();
                         }}>
-                        <Picker.Item label="Choose image" value="default" />
+                        <Picker.Item label="Add image" value="default" />
                         <Picker.Item label="Take a photo from camera" value="take_picture" />
                         <Picker.Item label="Select a photo from camera roll" value="select_picture" />
                         </Picker>
@@ -85,7 +83,7 @@ class CreateCard extends Component {
                 <Text style={styles.formTitle}> {item.title} </Text>
                 <TextInput
                     style={styles.formInput}
-                    placeholder={"Enter " + item.title}
+                    placeholder={" Enter " + item.title}
                     underlineColorAndroid="transparent"
                     onChangeText={(text) => this.handleFormTextChange(index, text)}
                 />

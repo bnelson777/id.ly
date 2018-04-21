@@ -27,7 +27,7 @@ class CreateCard extends Component {
                     <TouchableOpacity onPress={() => {alert('')}}>
                         <Text style={styles.buttonText}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {alert('')}}>
+                    <TouchableOpacity onPress={() => {alert(JSON.stringify(this.state))}}>
                         <Text style={styles.buttonText}>Add Card</Text>
                     </TouchableOpacity>
                 </View>

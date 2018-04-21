@@ -41,7 +41,7 @@ class CreateCard extends Component {
                     </View>
                     <View style={styles.addImageContainer}>
                         <TouchableOpacity onPress={() => {alert('')}}>
-                            <Image source={require('../../assets/person.png')} />
+                            <Image style={styles.imageStyle} source={{ uri: this.state.image}} />
                         </TouchableOpacity>
                         <Picker
                         style={styles.imageDropdown}
@@ -128,13 +128,15 @@ class CreateCard extends Component {
             mediaTypes: "Images",
             allowsEditing: true,
             aspect: [1, 1],
-            quality: 1.0,
+            quality: 0.2,
             base64: true,
             exif: false
         });
-    
+
         if (!result.cancelled) {
-          this.setState({ image: result.base64 });
+            const b64image = "data:image/jpeg;base64," + result.base64;
+            console.log(b64image);
+            this.setState({ image: b64image });
         }
       };
 
@@ -142,13 +144,15 @@ class CreateCard extends Component {
         let result = await ImagePicker.launchCameraAsync({
           allowsEditing: true,
           aspect: [1, 1],
-          quality: 1.0,
+          quality: 0.2,
           base64: true,
           exif: false
         });
     
         if (!result.cancelled) {
-          this.setState({ image: result.base64 });
+            const b64image = "data:image/jpeg;base64," + result.base64;
+            console.log(b64image);
+            this.setState({ image: b64image });
         }
       };
 };

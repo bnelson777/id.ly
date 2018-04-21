@@ -6,10 +6,12 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    TextInput
+    TextInput,
+    Picker
 } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import {ImagePicker } from 'expo'
 
 class CreateCard extends Component {
     constructor(props) {
@@ -41,6 +43,14 @@ class CreateCard extends Component {
                         <TouchableOpacity onPress={() => {alert('')}}>
                             <Image source={require('../../assets/person.png')} />
                         </TouchableOpacity>
+                        <Picker
+                        selectedValue={"select_picture"}
+                        style={{ height: 50, width: 100 }}
+                        mode={"dropdown"}
+                        onValueChange={(itemValue, itemIndex) => (itemValue)}>
+                        <Picker.Item label="Take a photo from camera" value="take_picture" />
+                        <Picker.Item label="Select a photo from camera roll" value="select_picture" />
+                        </Picker>
                     </View>
                 </View>
                 <View style={styles.addAttributeContainer}>

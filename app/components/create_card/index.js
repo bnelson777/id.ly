@@ -80,7 +80,7 @@ class CreateCard extends Component {
                     />
                     <View style={styles.addFieldButton}>
                         <TouchableOpacity onPress={() => this.removeAttributeFromForm(item)}>
-                            <Text style={styles.buttonText}>Remove Attribute</Text>
+                            <Text style={styles.buttonText}>Remove</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

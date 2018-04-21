@@ -7,11 +7,12 @@ import {
     Image,
     FlatList,
     TextInput,
-    Picker
+    Picker,
+    Platform
 } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import {ImagePicker } from 'expo'
+import {ImagePicker, Permissions} from 'expo'
 
 class CreateCard extends Component {
     constructor(props) {
@@ -47,8 +48,8 @@ class CreateCard extends Component {
                         style={styles.imageDropdown}
                         mode={"dropdown"}
                         onValueChange={(itemValue) => {
-                            if (itemValue === "take_picture") this._takePicture();
-                            else if (itemValue === "select_picture") this._pickImage();
+                            if (itemValue === "take_picture") this.takePicture();
+                            else if (itemValue === "select_picture") this.pickImage();
                         }}>
                         <Picker.Item label="Choose image" value="default" />
                         <Picker.Item label="Take a photo from camera" value="take_picture" />
@@ -123,7 +124,22 @@ class CreateCard extends Component {
           });
     }
 
-    _pickImage = async () => {
+    obtainPermissionIOS = async (permission) => {
+        if (Platform.OS !== 'ios') {
+            return;
+        }
+
+        const { checkStatus } = await Permissions.getAsync(permission);
+        if (checkStatus !== 'granted') {
+            const { askStatus } = await Permissions.askAsync(permission);
+            if (askStatus !== 'granted') {
+                console.log("error: Camera or camera roll permissions not granted.")
+            }
+        }
+    }
+
+    pickImage = async () => {
+        this.obtainPermissionIOS(Permissions.CAMERA_ROLL);
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: "Images",
             allowsEditing: true,
@@ -135,12 +151,13 @@ class CreateCard extends Component {
 
         if (!result.cancelled) {
             const b64image = "data:image/jpeg;base64," + result.base64;
-            console.log(b64image);
             this.setState({ image: b64image });
         }
       };
 
-      _takePicture = async () => {
+      takePicture = async () => {
+        this.obtainPermissionIOS(Permissions.CAMERA);
+        this.obtainPermissionIOS(Permissions.CAMERA_ROLL);
         let result = await ImagePicker.launchCameraAsync({
           allowsEditing: true,
           aspect: [1, 1],
@@ -148,10 +165,9 @@ class CreateCard extends Component {
           base64: true,
           exif: false
         });
-    
+
         if (!result.cancelled) {
             const b64image = "data:image/jpeg;base64," + result.base64;
-            console.log(b64image);
             this.setState({ image: b64image });
         }
       };

@@ -92,23 +92,19 @@ class CreateMessage extends Component {
         // Message is stored in this.state.message
         // Recipient is stored in this.state.recipient using the recipient card id field
 
-        sender = this.props.cards.map(function(card, index) {
-          if(card.owner === true){
-              return <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} key={index}/>
-          }
-          else {
-            // nothing to show
-          }
-        }.bind(this));
+        const from = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => {
+          return (
+            <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} />
+          )
+        })
+        from.unshift(<Picker.Item value={0} label="Sender" />)
 
-        reciever = this.props.cards.map(function(card, index) {
-          if(card.owner === false){
-              return <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} key={index}/>
-          }
-          else {
-            // nothing to show
-          }
-        }.bind(this));
+        const to = this.props.cards.filter(function(obj) {return obj.owner == false}).map(card => {
+          return (
+            <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} />
+          )
+        })
+        to.unshift(<Picker.Item value={0} label="Receiver" />)
 
 
         return (
@@ -119,7 +115,7 @@ class CreateMessage extends Component {
                       onValueChange = {this.updateSender}
                       style={styles.picker}
                       mode='dropdown'>
-                      {sender}
+                      {from}
                   </Picker>
               </View>
                 <View style={styles.midContainer}>
@@ -128,7 +124,7 @@ class CreateMessage extends Component {
                         onValueChange = {this.updateRecipient}
                         style={styles.picker}
                         mode='dropdown'>
-                        {reciever}
+                        {to}
                     </Picker>
                 </View>
                 <View style={[styles.itemContainer, styles.bottomContainer]}>

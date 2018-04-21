@@ -17,7 +17,7 @@ class CreateCard extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: "", image: ""};
     }
 
     render() {
@@ -44,10 +44,13 @@ class CreateCard extends Component {
                             <Image source={require('../../assets/person.png')} />
                         </TouchableOpacity>
                         <Picker
-                        selectedValue={"select_picture"}
-                        style={{ height: 50, width: 100 }}
+                        style={styles.imageDropdown}
                         mode={"dropdown"}
-                        onValueChange={(itemValue, itemIndex) => (itemValue)}>
+                        onValueChange={(itemValue) => {
+                            if (itemValue === "take_picture") this._takePicture();
+                            else if (itemValue === "select_picture") this._pickImage();
+                        }}>
+                        <Picker.Item label="Choose image" value="default" />
                         <Picker.Item label="Take a photo from camera" value="take_picture" />
                         <Picker.Item label="Select a photo from camera roll" value="select_picture" />
                         </Picker>
@@ -119,6 +122,35 @@ class CreateCard extends Component {
             addAttribute: ""
           });
     }
+
+    _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: "Images",
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1.0,
+            base64: true,
+            exif: false
+        });
+    
+        if (!result.cancelled) {
+          this.setState({ image: result.base64 });
+        }
+      };
+
+      _takePicture = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1.0,
+          base64: true,
+          exif: false
+        });
+    
+        if (!result.cancelled) {
+          this.setState({ image: result.base64 });
+        }
+      };
 };
 
 export default CreateCard;

@@ -54,4 +54,8 @@ export default StyleSheet.create({
         padding: '5%',
         color: 'blue'
     },
+    imageDropdown: { 
+        height: 50, 
+        width: 100 
+    }
 });

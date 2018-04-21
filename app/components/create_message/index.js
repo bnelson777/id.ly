@@ -24,9 +24,10 @@ import {Actions} from 'react-native-router-flux';
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a dropdown menu to select a message
 // recipient and a textinput box to send a message to the selected recipient.
+// If a recipient is passed in as an argument, it will be the default value in
+// the picker. Otherwise, the first card in the picker will be the default.
 //
-// FUTURE FUNCTION(S): A default card will be selected as the recipient if
-// it is passed in as a prop. The recipient dropdown menu will distinguish
+// FUTURE FUNCTION(S): The recipient dropdown menu will distinguish
 // between wallet cards and rolodex cards to display recipients correctly.
 //
 // EXPECTED PROP(S): this.props.recipient
@@ -37,7 +38,7 @@ class CreateMessage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {message: "", recipient: "", sender: ""};
+        this.state = {message: "", recipient: this.props.recipient === "" ? this.props.cards[0].id : this.props.recipient, sender: ""};
     }
 
     componentDidMount(){

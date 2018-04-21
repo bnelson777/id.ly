@@ -16,6 +16,7 @@ class CreateCard extends Component {
         super(props);
 
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.removeAttributeFromForm.bind(this);
     }
 
     render() {
@@ -67,6 +68,24 @@ class CreateCard extends Component {
 
     renderItem = ({item, index}) => {
         return (
+            index > 2 ?
+            <View style={styles.formItemContainer}>
+                <Text style={styles.formTitle}> {item.title} </Text>
+                <View style={styles.addAttributeContainer}>
+                    <TextInput
+                        style={styles.formInput}
+                        placeholder={"Enter " + item.title}
+                        underlineColorAndroid="transparent"
+                        onChangeText={(text) => this.handleFormTextChange(index, text)}
+                    />
+                    <View style={styles.addFieldButton}>
+                        <TouchableOpacity onPress={() => this.removeAttributeFromForm(item)}>
+                            <Text style={styles.buttonText}>Remove Attribute</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+            :
             <View style={styles.formItemContainer}>
                 <Text style={styles.formTitle}> {item.title} </Text>
                 <TextInput
@@ -108,6 +127,15 @@ class CreateCard extends Component {
             form: this.state.form.concat([{ title: addAttribute , field: ""}]),
             addAttribute: ""
           });
+    }
+
+    removeAttributeFromForm(item){
+        let temp = this.state.form;
+        let index = temp.indexOf(item);
+        if (index > -1) {
+            temp.splice(index, 1);
+        }
+        this.setState({form: temp});
     }
 };
 

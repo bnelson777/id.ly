@@ -61,7 +61,7 @@ class Inbox extends Component {
                     <View style={styles.textContainer}>
                         <View style={styles.headerContainer}>
                             <Text style={styles.authorText}> {author} </Text>
-                            <Text> {new Date(item.time).toDateString()} </Text>
+                            <Text> {new Date(item.time*1000).toDateString()} </Text>
                         </View>
                         <View style={styles.messageContainer}>
                             <Text style={styles.messageText}> {item.body} </Text>

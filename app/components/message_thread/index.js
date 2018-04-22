@@ -20,11 +20,6 @@ class MessageThread extends Component {
         };
     };
 
-    componentDidMount() {
-        this.props.getMessages();
-        this.props.getCards();
-    }
-
     sendMessage() {
         alert('Message sent!');
     };

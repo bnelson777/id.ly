@@ -25,10 +25,6 @@ class Home extends Component {
 
         this.state = {};
     }
-    
-    componentDidMount(){
-        this.props.getCards();
-    }
 
     // Dummy function for button presses
     pressButton(label){

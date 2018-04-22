@@ -59,6 +59,7 @@ class Inbox extends Component {
                 <ListItem
                     roundAvatar
                     title = {author}
+                    rightTitle = {new Date(item.time*1000).toDateString()}
                     subtitle = {item.body}
                     avatar = {{uri: portrait}}
                     containerStyle = {{borderBottomWidth: 0}}

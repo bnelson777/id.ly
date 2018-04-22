@@ -66,7 +66,7 @@ class Lockbox extends Component {
         console.log('the cyper says:',decrypted)
 
         //replace json encrypted text with decrypted text
-        jsonStringP.message = decrypted
+        jsonStringP.body = decrypted
 
         console.log('message object:', jsonStringP)
 

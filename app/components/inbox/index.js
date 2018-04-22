@@ -47,10 +47,7 @@ class Inbox extends Component {
         for (card of this.props.cards) {
             if (card.keys.n === item.from) {
                 author = card.name;
-                if(card.image === ''){
-                    portrait = 'https://www.mautic.org/media/images/default_avatar.png';
-                }
-                else{
+                if(card.image !== ""){
                     portrait = card.image; 
                 }
                 break;

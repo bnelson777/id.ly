@@ -8,7 +8,8 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Image,
-    Dimensions
+    Dimensions,
+    ActionSheetIOS
 } from 'react-native';
 import styles, { COLORS } from './styles';
 
@@ -19,17 +20,39 @@ import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux';
 
+//Buttons for Action Sheet
+const BUTTONS = [
+    "Delete",
+    "Clear All",
+    'Cancel',
+];
+
+const CANCEL_INDEX = 2;
+
 class CardList extends Component {
     constructor(props) {
         super(props);
 
         this.state = {};
         this.renderItem = this.renderItem.bind(this);
+        this.showOptions = this.showOptions.bind(this);
     }
 
     componentDidMount(){
         this.props.getCards();
     }
+
+    showOptions(card) {
+    ActionSheetIOS.showActionSheetWithOptions({
+            options: BUTTONS,
+            cancelButtonIndex: CANCEL_INDEX,
+            destructiveButtonIndex: 2,
+        },
+        (buttonIndex) => {
+            if (buttonIndex === 0) this.props.deleteCard(card.id)
+            else if (buttonIndex === 1) this.props.clearAll()
+        });
+      }
 
     // Dummy function for button presses
     pressButton(label){
@@ -109,12 +132,12 @@ class CardList extends Component {
                             style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
+                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={[styles.button, styles.gotoButton, styles.gotoButtonWallet]}>
-                            <TouchableOpacity onPress={() => Actions.share({card: item})}>
+                            <TouchableOpacity onPress={() => Actions.share({card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Image
                                     style={styles.imageContainer}
                                     source={require('../../assets/share.png')}
@@ -129,7 +152,7 @@ class CardList extends Component {
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
+                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Image
                                     style={styles.imageContainer}
                                     source={icon}
@@ -140,7 +163,7 @@ class CardList extends Component {
                             style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
+                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>

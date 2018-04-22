@@ -14,6 +14,11 @@ import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import {ImagePicker, Permissions} from 'expo'
 
+// CreateCard
+// FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
+// Attributes can be added/removed from the form. An image for the card may be specified.
+// FUTURE FUNCTION(S): Send its state to have its card created and stored in the application.
+// EXPECTED PROP(S): N/A
 class CreateCard extends Component {
     constructor(props) {
         super(props);

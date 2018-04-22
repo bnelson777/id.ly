@@ -6,7 +6,12 @@ import styles from './styles';
 import { View, Text, TextInput, Button } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 
-export default class MessageThread extends Component {
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+
+import * as ReduxActions from '../../actions';
+
+class MessageThread extends Component {
     constructor(props) {
         super(props);
 
@@ -65,3 +70,20 @@ export default class MessageThread extends Component {
         }
     }
 };
+
+function mapStateToProps(state, props) {
+    return {
+        messages: state.dataReducer.messages,
+        cards: state.dataReducer.cards
+    }
+}
+
+// Doing this merges our actions into the component’s props,
+// while wrapping them in dispatch() so that they immediately dispatch an Action.
+// Just by doing this, we will have access to the actions defined in out actions file (action/home.js)
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ReduxActions, dispatch);
+}
+
+//Connect everything
+export default connect(mapStateToProps, mapDispatchToProps)(MessageThread);

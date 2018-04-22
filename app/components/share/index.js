@@ -12,8 +12,6 @@ import {
   ActivityIndicator, TouchableHighlight, ActionSheetIOS
 } from 'react-native';
 
-
-
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
@@ -36,6 +34,10 @@ class Share extends Component {
       super(props);
     this.state = {};
     this.packageCard = this.packageCard.bind(this);
+  }
+
+  componentDidMount(){
+    this.props.getCards();
   }
 
   packageCard() {

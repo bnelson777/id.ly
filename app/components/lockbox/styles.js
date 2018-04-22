@@ -6,8 +6,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: BACKGROUND_COLOR,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
 
     input: {
@@ -17,6 +15,12 @@ export default StyleSheet.create({
         margin: 10,
         borderRadius: BORDER_RADIUS,
         padding: 5,
+    },
+
+    row: {
+        flex:1, 
+        paddingLeft:10, 
+        paddingRight:10
     },
 
     saveBtn:{

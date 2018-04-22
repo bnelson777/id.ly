@@ -70,7 +70,7 @@ class Main extends Component{
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
                     <Scene key="create_message" component={CreateMessage} title="New Message" />
-                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onRight={() => Actions.create_message()} rightTitle='Message' />
+                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onRight={() => Actions.create_message({recipient: ""})} rightTitle='Message' />
                     <Scene key="create_card" component={CreateCard} title="Add Information" />
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />

@@ -169,8 +169,8 @@ class Lockbox extends Component {
               var url = this.encryptMessage();
         return (
 
-            <View style={{flex: 1, backgroundColor: '#fff'}}>
-                <View style={{flex:1, paddingLeft:10, paddingRight:10}}>
+            <View style={styles.container}>
+                <View style={styles.row}>
                   <TextInput
                       multiline={true}
                       onChangeText={(text) => this.setState({email: text})}
@@ -217,8 +217,8 @@ class Lockbox extends Component {
                       console.log('In decrypt Mode')
 
                       return (
-                          <View style={{flex: 1, backgroundColor: '#fff'}}>
-                              <View style={{flex:1, paddingLeft:10, paddingRight:10}}>
+                          <View style={styles.container}>
+                              <View style={styles.row}>
                                   <TextInput
                                       multiline={true}
                                       onChangeText={(text) => this.setState({jsonString: text})}
@@ -246,7 +246,7 @@ class Lockbox extends Component {
       else {
         console.log('In no mode.. strange')
                 return (
-<View style={{flex: 1, backgroundColor: '#fff'}}>
+<View style={styles.container}>
 <Text>Weird...</Text>
 </View>
                 );

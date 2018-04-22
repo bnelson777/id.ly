@@ -5,7 +5,7 @@ import {
     View,
     Text,
     Image,
-    ActivityIndicator, TouchableHighlight, ActionSheetIOS
+    TouchableHighlight
 } from 'react-native';
 import styles from './styles';
 
@@ -49,7 +49,7 @@ class Inbox extends Component {
         let author = '';
         let portrait = '';
         for (card of this.props.cards) {
-            if (card.id === item.id) {
+            if (card.keys.n === item.from) {
                 author = card.name;
                 portrait = card.image;
                 break;
@@ -65,7 +65,7 @@ class Inbox extends Component {
                     <View style={styles.textContainer}>
                         <View style={styles.headerContainer}>
                             <Text style={styles.authorText}> {author} </Text>
-                            <Text> {new Date(item.time).toDateString()} </Text>
+                            <Text> {new Date(item.time*1000).toDateString()} </Text>
                         </View>
                         <View style={styles.messageContainer}>
                             <Text style={styles.messageText}> {item.body} </Text>

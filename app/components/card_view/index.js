@@ -34,10 +34,7 @@ class CardView extends Component {
                 <Text style={styles.header}>
                     {this.props.card.label}
                 </Text>
-                <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                }}>
+                <View style={styles.cardPosition}>
                     <Image style={styles.imageStyle}
                         source = {icon}
                     />

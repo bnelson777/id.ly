@@ -33,7 +33,7 @@ export default class MessageThread extends Component {
             return (
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <View style={{paddingRight: 100}}>
+                        <View style={styles.inboxButton}>
                             <Button
                                 title="Inbox"
                                 onPress= {() => Actions.inbox()}/>

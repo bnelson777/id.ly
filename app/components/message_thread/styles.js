@@ -25,4 +25,7 @@ export default StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold'
     },
+    inboxButton: {
+        paddingRight: 100
+    }
 });

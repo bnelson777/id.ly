@@ -42,6 +42,7 @@ class CreateMessage extends Component {
 
     componentDidMount(){
         this.props.getCards();
+        this.props.getMessages();
     }
 
     // Update recipient when selected from dropdown menu

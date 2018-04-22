@@ -11,11 +11,21 @@ import {
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import * as ReduxActions from '../../actions';
+
+import {Actions} from 'react-native-router-flux';
+
 class CreateCard extends Component {
     constructor(props) {
         super(props);
 
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+    }
+    componentDidMount(){
+        this.props.getCards();
     }
 
     render() {
@@ -111,4 +121,14 @@ class CreateCard extends Component {
     }
 };
 
-export default CreateCard;
+function mapStateToProps(state, props) {
+    return {
+        cards: state.dataReducer.cards
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ReduxActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateCard);

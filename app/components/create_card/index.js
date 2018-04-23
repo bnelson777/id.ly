@@ -6,18 +6,51 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    TextInput
+    TextInput,
+    Picker,
+    Platform
 } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import {RSAKeychain, RSA} from 'react-native-rsa-native';
+import {ImagePicker, Permissions} from 'expo'
 
+
+// CreateCard
+// FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
+// Attributes can be added/removed from the form. An image for the card may be specified.
+// FUTURE FUNCTION(S): Send its state to have its card created and stored in the application.
+// EXPECTED PROP(S): N/A
 class CreateCard extends Component {
     constructor(props) {
         super(props);
 
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.generateKeys = this.generateKeys.bind(this);
         this.removeAttributeFromForm.bind(this);
     }
+
+    generateKeys() {
+        console.log('RSA public private keys!')
+        var RSAKey = require('react-native-rsa');
+        const bits = 1024;
+        const exponent = '10001'; // must be a string. This is hex string. decimal = 65537
+        var rsa = new RSAKey();
+        rsa.generate(bits, exponent);
+        var publicKey = rsa.getPublicString(); // return json encoded string
+        var privateKey = rsa.getPrivateString(); // return json encoded string
+        console.log(publicKey)
+        console.log(privateKey)
+
+        rsa.setPublicString(publicKey);
+        var originText = 'sample String Value';
+        console.log(originText)
+        var encrypted = rsa.encrypt(originText);
+        console.log(encrypted)
+        var decrypted = rsa.decrypt(encrypted); // decrypted == originText
+        console.log(decrypted)
+        return privateKey;
+      }
 
     render() {
         return (
@@ -26,7 +59,7 @@ class CreateCard extends Component {
                     <TouchableOpacity onPress={() => {alert('')}}>
                         <Text style={styles.buttonText}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {alert('')}}>
+                    <TouchableOpacity onPress={() => {alert(JSON.stringify(this.state))}}>
                         <Text style={styles.buttonText}>Add Card</Text>
                     </TouchableOpacity>
                 </View>
@@ -39,9 +72,18 @@ class CreateCard extends Component {
                         />
                     </View>
                     <View style={styles.addImageContainer}>
-                        <TouchableOpacity onPress={() => {alert('')}}>
-                            <Image source={require('../../assets/person.png')} />
-                        </TouchableOpacity>
+                        <Image style={styles.imageStyle} source={{uri: this.state.image}} />
+                        <Picker
+                        style={styles.imageDropdown}
+                        mode={"dropdown"}
+                        onValueChange={(itemValue) => {
+                            if (itemValue === "take_picture") this.takePicture();
+                            else if (itemValue === "select_picture") this.pickImage();
+                        }}>
+                        <Picker.Item label="Add image" value="default" />
+                        <Picker.Item label="Take a photo from camera" value="take_picture" />
+                        <Picker.Item label="Select a photo from camera roll" value="select_picture" />
+                        </Picker>
                     </View>
                 </View>
                 <View style={styles.addAttributeContainer}>
@@ -90,7 +132,7 @@ class CreateCard extends Component {
                 <Text style={styles.formTitle}> {item.title} </Text>
                 <TextInput
                     style={styles.formInput}
-                    placeholder={"Enter " + item.title}
+                    placeholder={" Enter " + item.title}
                     underlineColorAndroid="transparent"
                     onChangeText={(text) => this.handleFormTextChange(index, text)}
                 />
@@ -129,6 +171,53 @@ class CreateCard extends Component {
           });
     }
 
+    obtainPermissionIOS = async (permission) => {
+        if (Platform.OS !== 'ios') {
+            return;
+        }
+
+        const { checkStatus } = await Permissions.getAsync(permission);
+        if (checkStatus !== 'granted') {
+            const { askStatus } = await Permissions.askAsync(permission);
+            if (askStatus !== 'granted') {
+                console.log("error: Camera or camera roll permissions not granted.")
+            }
+        }
+    }
+
+    pickImage = async () => {
+        this.obtainPermissionIOS(Permissions.CAMERA_ROLL);
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: "Images",
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.2,
+            base64: true,
+            exif: false
+        });
+
+        if (!result.cancelled) {
+            const b64image = "data:image/jpeg;base64," + result.base64;
+            this.setState({ image: b64image });
+        }
+      };
+
+      takePicture = async () => {
+        this.obtainPermissionIOS(Permissions.CAMERA);
+        this.obtainPermissionIOS(Permissions.CAMERA_ROLL);
+        let result = await ImagePicker.launchCameraAsync({
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 0.2,
+          base64: true,
+          exif: false
+        });
+
+        if (!result.cancelled) {
+            const b64image = "data:image/jpeg;base64," + result.base64;
+            this.setState({ image: b64image });
+        }
+      };
     removeAttributeFromForm(item){
         let temp = this.state.form;
         let index = temp.indexOf(item);

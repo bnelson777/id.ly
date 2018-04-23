@@ -8,6 +8,10 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { List, ListItem } from 'react-native-elements';
 
+// Inbox
+// FUNCTION(S): This component serves to display author picture, date, and body
+// of messages which were imported then stored in the application.
+// EXPECTED PROP(S):
 class Inbox extends Component {
     constructor(props) {
         super(props);
@@ -75,7 +79,8 @@ class Inbox extends Component {
         let author = item.from; //display public key if card not found
         let sender = null;
         let reciever = null;
-        let portrait = 'https://www.mautic.org/media/images/default_avatar.png';
+        let portrait = require('../../assets/default_avatar.png');
+        let uriflag = false;
         for (card of this.props.cards) {
             // to find display name of reciever of message (owner == false)
             if (card.keys.n === item.to && card.owner === false) {
@@ -98,6 +103,7 @@ class Inbox extends Component {
 
                 if(card.image !== ""){
                     portrait = card.image;
+                    uriflag = true;
                 }
                 break;
             }
@@ -115,7 +121,7 @@ class Inbox extends Component {
                     title = {author}
                     rightTitle = {new Date(item.time*1000).toDateString()}
                     subtitle = {item.body}
-                    avatar = {{uri: portrait}}
+                    avatar = {uriflag === true ? {uri: portrait} : portrait}
                     containerStyle = {{borderBottomWidth: 0}}
                 />
             </TouchableOpacity>

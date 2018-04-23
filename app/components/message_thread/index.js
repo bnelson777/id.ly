@@ -63,6 +63,9 @@ class MessageThread extends Component {
                     </View>
 
                     <FlatList
+                        itemSeparatorComponent={()=>(
+                            <View style={styles.separator}/>
+                        )}
                         data={this.props.messages}
                         keyExtractor={item => item.id}
                         renderItem={this.renderItem}
@@ -92,13 +95,22 @@ class MessageThread extends Component {
 
         // TODO:
         // Update to use the props instead when routes from the inbox pass props
-        if((item.to === this.state.sender && item.from === this.state.receiver) ||
-           (item.from === this.state.sender && item.to === this.state.receiver)) {
-               return (
-                   <Text>
-                       {item.body}
-                   </Text>
-               )
+        if(item.to === this.state.receiver && item.from === this.state.sender) {
+            return (
+                <View style={styles.receivedMessage}>
+                    <Text style={styles.receiverText}>
+                        {item.body}
+                    </Text>
+                </View>
+            )
+        } else if (item.from === this.state.receiver && item.to === this.state.sender) {
+            return (
+                <View style={styles.sentMessage}>
+                    <Text style={styles.senderText}>
+                        {item.body}
+                    </Text>
+                </View>
+            )
         }
     };
 };

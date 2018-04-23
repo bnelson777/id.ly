@@ -15,8 +15,21 @@ export default StyleSheet.create({
         flexDirection: 'column',
         paddingBottom: 100
     },
-    message: {
-        flexDirection: 'row',
+    receiverText: {
+        color: 'black',
+        textAlign: 'right',
+        fontSize: 30
+    },
+    senderText: {
+        color: 'white',
+        textAlign: 'left',
+        fontSize: 30
+    },
+    sentMessage: {
+        backgroundColor: 'skyblue'
+    },
+    receivedMessage: {
+        backgroundColor: 'lightgrey'
     },
     inputBox: {
         height: 40,

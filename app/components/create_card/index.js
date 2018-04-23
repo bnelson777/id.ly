@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import {RSAKeychain, RSA} from 'react-native-rsa-native';
 import {ImagePicker, Permissions} from 'expo'
 
 import {bindActionCreators} from 'redux';
@@ -31,12 +32,34 @@ class CreateCard extends Component {
         super(props);
 
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.generateKeys = this.generateKeys.bind(this);
         this.removeAttributeFromForm.bind(this);
     }
 
     componentDidMount(){
         this.props.getCards();
     }
+    generateKeys() {
+        console.log('RSA public private keys!')
+        var RSAKey = require('react-native-rsa');
+        const bits = 1024;
+        const exponent = '10001'; // must be a string. This is hex string. decimal = 65537
+        var rsa = new RSAKey();
+        rsa.generate(bits, exponent);
+        var publicKey = rsa.getPublicString(); // return json encoded string
+        var privateKey = rsa.getPrivateString(); // return json encoded string
+        console.log(publicKey)
+        console.log(privateKey)
+
+        rsa.setPublicString(publicKey);
+        var originText = 'sample String Value';
+        console.log(originText)
+        var encrypted = rsa.encrypt(originText);
+        console.log(encrypted)
+        var decrypted = rsa.decrypt(encrypted); // decrypted == originText
+        console.log(decrypted)
+        return privateKey;
+      }
 
     render() {
         return (

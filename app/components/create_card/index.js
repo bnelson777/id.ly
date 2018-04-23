@@ -11,6 +11,13 @@ import {
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import * as ReduxActions from '../../actions';
+
+import {Actions} from 'react-native-router-flux';
+
 class CreateCard extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +25,7 @@ class CreateCard extends Component {
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
         this.removeAttributeFromForm.bind(this);
     }
-    
+
     componentDidMount(){
         this.props.getCards();
     }

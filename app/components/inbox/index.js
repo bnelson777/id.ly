@@ -43,12 +43,14 @@ class Inbox extends Component {
     renderItem = ({item, index}) => {
         /* get author name and portrait for each message */
         let author = null;
-        let portrait = 'https://raw.githubusercontent.com/bnelson777/id.ly/IL-39/app/assets/default_avatar.png';
+        let portrait = require('../../assets/default_avatar.png');
+        let uriflag = false;
         for (card of this.props.cards) {
             if (card.keys.n === item.from) {
                 author = card.name;
                 if(card.image !== ""){
-                    portrait = card.image; 
+                    portrait = card.image;
+                    uriflag = true; 
                 }
                 break;
             }
@@ -61,7 +63,7 @@ class Inbox extends Component {
                     title = {author}
                     rightTitle = {new Date(item.time*1000).toDateString()}
                     subtitle = {item.body}
-                    avatar = {{uri: portrait}}
+                    avatar = {uriflag === true ? {uri: portrait} : portrait}
                     containerStyle = {{borderBottomWidth: 0}}
                 />
             </TouchableOpacity>

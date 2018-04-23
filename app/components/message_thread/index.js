@@ -23,6 +23,7 @@ class MessageThread extends Component {
 
         this.renderItem = this.renderItem.bind(this);
         this.retrieveMessages = this.retrieveMessages.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
 
         this.state = {
             messages: [],
@@ -34,14 +35,34 @@ class MessageThread extends Component {
     componentDidMount() {
         this.props.getMessages();
         this.props.getCards();
+        this.retrieveMessages();
     }
 
+    // Retrieve the relevant messages based on sender/receiver key pairing.
     retrieveMessages() {
-        let messages = this.props.messages;
+        let sender = this.props.pair.sender;
+        let receiver = this.props.pair.receiver;
+        let messageList = [];
+
+        // If the sender/receiver pairing matches the to/from section of a message, add to our list.
+        this.props.messages.forEach((item, index, array) => {
+            if((item.from === receiver && item.to === sender) ||
+            (item.to === receiver && item.from === sender)) {
+                messageList.push(item);
+            }
+        });
+
+        // Sort the list by timestamp
+        messageList.sort((a, b) => {
+            return a.time - b.time;
+        });
+
+        // Update the message list
+        this.setState({messages : messageList});
     };
 
     sendMessage() {
-        alert('Message sent!');
+        alert(this.state.messages[0].body);
     };
 
     render() {
@@ -56,21 +77,10 @@ class MessageThread extends Component {
         // Otherwise, render the view.
         else {
           // props passed from inbox
-          console.log('sender:', this.props.pair.sender)
-          console.log('receiver', this.props.pair.receiver)
+          // console.log('sender:', this.props.pair.sender)
+          // console.log('receiver', this.props.pair.receiver)
             return (
                 <View style={styles.container}>
-                    <View style={styles.header}>
-                        <View style={styles.inboxButton}>
-                            <Button
-                                title="Inbox"
-                                onPress= {() => Actions.inbox()}/>
-                        </View>
-                        <Text style={styles.identityText}>
-                            {this.state.userIdentity}
-                        </Text>
-                    </View>
-
                     {/* The container for our messages. The separator currently does not work.
 
                         TODO: Create a 'working' separator between each messsage.
@@ -79,7 +89,7 @@ class MessageThread extends Component {
                         itemSeparatorComponent={()=>(
                             <View style={styles.separator}/>
                         )}
-                        data={this.props.messages}
+                        data={this.state.messages}
                         keyExtractor={item => item.id}
                         renderItem={this.renderItem}
                     />
@@ -95,7 +105,7 @@ class MessageThread extends Component {
                             title="Send"
                             color="blue"
                             accessibilityLabel="Send the message to recipient"
-                            onPress={this.retrieveMessages}
+                            onPress={this.sendMessage}
                         />
                     </View>
                 </View>
@@ -106,7 +116,6 @@ class MessageThread extends Component {
     // renderItem uses iteration of data object indices to retrieve messages.
     // Current data used is the message prop from our state
     renderItem = ({item, index}) => {
-        console.log(item.body);
         if(item.to === this.props.pair.receiver && item.from === this.props.pair.sender) {
             return (
                 <View style={styles.receivedMessage}>

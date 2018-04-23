@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import {RSAKeychain, RSA} from 'react-native-rsa-native';
+import {RSAKeychain, RSA} from 'react-native-rsa';
 import {ImagePicker, Permissions} from 'expo'
 
 import {bindActionCreators} from 'redux';

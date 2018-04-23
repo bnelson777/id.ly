@@ -35,6 +35,9 @@ class MessageThread extends Component {
         }
         // Otherwise, render the view.
         else {
+          // props passed from inbox
+          console.log('sender:', this.props.pair.sender)
+          console.log('reciever', this.props.pair.reciever)
             return (
                 <View style={styles.container}>
                     <View style={styles.header}>

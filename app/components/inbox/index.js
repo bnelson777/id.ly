@@ -9,9 +9,9 @@ import { Actions } from 'react-native-router-flux';
 import { List, ListItem } from 'react-native-elements';
 
 // Inbox
-// FUNCTION(S): This component serves to display author picture, date, and body 
+// FUNCTION(S): This component serves to display author picture, date, and body
 // of messages which were imported then stored in the application.
-// EXPECTED PROP(S): 
+// EXPECTED PROP(S):
 class Inbox extends Component {
     constructor(props) {
         super(props);
@@ -28,16 +28,46 @@ class Inbox extends Component {
           <View style = {styles.sepLine}/>
         );
     };
-    
+
     render() {
+
+      // array to be filled with valid pairs of sender and recievers
+      var arr = [];
+
+      // loop through all messages
+      for (var i = 0, len = this.props.messages.length; i < len; i++) {
+
+        // check array for to and from pair
+        var present = false;
+
+        // check existing pairs we've collected for duplicates
+        for (var j = 0, len2 = arr.length; j < len2; j++ ) {
+
+          // if to / from match an existing entry, set present to true
+          if (arr[j].to === this.props.messages[i].to && arr[j].from === this.props.messages[i].from) {
+            present = true;
+          }
+          if (arr[j].to === this.props.messages[i].from && arr[j].from === this.props.messages[i].to) {
+            present = true;
+          }
+        }
+        // now add message to array if combination not present
+        if (present == false) {
+          arr.push(this.props.messages[i])
+        }
+        else {
+          // don't do anything because pair was already in array
+        }
+      }
+
         return (
             <View style = {styles.container}>
                 <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
                     <FlatList
-                        data={this.props.messages}
+                        data={arr}
                         keyExtractor={item => item.id}
                         renderItem={this.renderItem}
-                        ItemSeparatorComponent={this.SeparatedLine}             
+                        ItemSeparatorComponent={this.SeparatedLine}
                     />
                 </List>
             </View>
@@ -46,22 +76,46 @@ class Inbox extends Component {
 
     renderItem = ({item, index}) => {
         /* get author name and portrait for each message */
-        let author = null;
+        let author = item.from; //display public key if card not found
+        let sender = null;
+        let reciever = null;
         let portrait = require('../../assets/default_avatar.png');
         let uriflag = false;
         for (card of this.props.cards) {
-            if (card.keys.n === item.from) {
+            // to find display name of reciever of message (owner == false)
+            if (card.keys.n === item.to && card.owner === false) {
                 author = card.name;
+                // set for inbox to know who is who
+                reciever = item.to;
+                sender = item.from;
+
                 if(card.image !== ""){
                     portrait = card.image;
-                    uriflag = true; 
+                }
+                break;
+            }
+            // to find display the contact of message (owner == false)
+            if (card.keys.n === item.from && card.owner === false) {
+                author = card.name;
+                // set for inbox to know who is who
+                reciever = item.from;
+                sender = item.to;
+
+                if(card.image !== ""){
+                    portrait = card.image;
+                    uriflag = true;
                 }
                 break;
             }
         };
+        // object prop that is passed to message_thread
+        let pair = {
+          sender: sender,
+          reciever: reciever
+        }
 
         return (
-            <TouchableOpacity  onPress={() => Actions.message_thread()} >
+            <TouchableOpacity  onPress={() => Actions.message_thread({pair: pair})} >
                 <ListItem
                     roundAvatar
                     title = {author}

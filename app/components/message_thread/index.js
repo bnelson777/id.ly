@@ -21,12 +21,15 @@ class MessageThread extends Component {
     constructor(props) {
         super(props);
 
+        this.renderItem = this.renderItem.bind(this);
+        this.retrieveMessages = this.retrieveMessages.bind(this);
+
         this.state = {
             userIdentity: "",
             sender: "5c18585e73bf993099a060dc0c9d69c98f9d2e7817288e9b5d70987de37fb68f90918ecf4eda43460c83eb2426ea661cc5adb2b0b0e478f22a42bd7f5209344ac00c77fa891c9b6f8a1acd1435ce27112997af02dcd08cfe8f81e06012b1f0af76d5a47b747db0eedc4a26c177518e962ee5660edaf912cd47bf09452655b0e9",
             receiver: "acf5c12879f83dc60fb4bfb31fd11b398a96977289d8ef98c525121ee419d86b8858caa1544ade99a43a0ddc8742f630cb2a3ef669e0c46406df593207a6fd811185314c558dcfa85fdee6dfcf3c6ec5e06bfc8c3ba95d06bed62b62217812dabe467773297fb2e7498e78d22f2a7a3d6e216d52773f9885f01cddfa33c3d679",
+            messages: [],
         };
-
     };
 
     // When component mounts, retrieve the messages and cards
@@ -35,6 +38,11 @@ class MessageThread extends Component {
         this.props.getMessages();
         this.props.getCards();
     }
+
+    retrieveMessages() {
+        const messages = this.props.messages;
+        console.log(messages);
+    };
 
     sendMessage() {
         alert('Message sent!');
@@ -88,7 +96,7 @@ class MessageThread extends Component {
                             title="Send"
                             color="blue"
                             accessibilityLabel="Send the message to recipient"
-                            onPress={this.sendMessage}
+                            onPress={this.retrieveMessages}
                         />
                     </View>
                 </View>

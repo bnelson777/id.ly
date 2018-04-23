@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import * as ReduxActions from '../../actions';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
+const DEBUG = true;
 
 class Splash extends Component {
     static navigationOptions = {
@@ -22,7 +23,7 @@ class Splash extends Component {
     componentWillMount() {
         setTimeout(() => {
             this.props.navigation.navigate('home');
-        }, 4000)
+        }, (DEBUG ? 0 : 4000));
     }
 
     constructor(props) {

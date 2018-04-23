@@ -25,9 +25,6 @@ class MessageThread extends Component {
         this.retrieveMessages = this.retrieveMessages.bind(this);
 
         this.state = {
-            userIdentity: "",
-            sender: "5c18585e73bf993099a060dc0c9d69c98f9d2e7817288e9b5d70987de37fb68f90918ecf4eda43460c83eb2426ea661cc5adb2b0b0e478f22a42bd7f5209344ac00c77fa891c9b6f8a1acd1435ce27112997af02dcd08cfe8f81e06012b1f0af76d5a47b747db0eedc4a26c177518e962ee5660edaf912cd47bf09452655b0e9",
-            receiver: "acf5c12879f83dc60fb4bfb31fd11b398a96977289d8ef98c525121ee419d86b8858caa1544ade99a43a0ddc8742f630cb2a3ef669e0c46406df593207a6fd811185314c558dcfa85fdee6dfcf3c6ec5e06bfc8c3ba95d06bed62b62217812dabe467773297fb2e7498e78d22f2a7a3d6e216d52773f9885f01cddfa33c3d679",
             messages: [],
         };
     };
@@ -40,8 +37,7 @@ class MessageThread extends Component {
     }
 
     retrieveMessages() {
-        const messages = this.props.messages;
-        console.log(messages);
+        let messages = this.props.messages;
     };
 
     sendMessage() {
@@ -61,7 +57,7 @@ class MessageThread extends Component {
         else {
           // props passed from inbox
           console.log('sender:', this.props.pair.sender)
-          console.log('reciever', this.props.pair.reciever)
+          console.log('receiver', this.props.pair.receiver)
             return (
                 <View style={styles.container}>
                     <View style={styles.header}>
@@ -110,12 +106,8 @@ class MessageThread extends Component {
     // renderItem uses iteration of data object indices to retrieve messages.
     // Current data used is the message prop from our state
     renderItem = ({item, index}) => {
-        // NOTE:
-        // Currently retrieves from the state.
-
-        // TODO:
-        // Update to use the props instead when routes from the inbox pass props
-        if(item.to === this.state.receiver && item.from === this.state.sender) {
+        console.log(item.body);
+        if(item.to === this.props.pair.receiver && item.from === this.props.pair.sender) {
             return (
                 <View style={styles.receivedMessage}>
                     <Text style={styles.receiverText}>
@@ -123,7 +115,7 @@ class MessageThread extends Component {
                     </Text>
                 </View>
             )
-        } else if (item.from === this.state.receiver && item.to === this.state.sender) {
+        } else if (item.from === this.props.pair.receiver && item.to === this.props.pair.sender) {
             return (
                 <View style={styles.sentMessage}>
                     <Text style={styles.senderText}>

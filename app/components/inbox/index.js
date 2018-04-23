@@ -77,8 +77,8 @@ class Inbox extends Component {
     renderItem = ({item, index}) => {
         /* get author name and portrait for each message */
         let author = item.from; //display public key if card not found
-        let sender = null;
-        let receiver = null;
+        let sender = item.from; // default if card not in rolodex
+        let receiver = item.to; // default if card not in rolodex
         let portrait = require('../../assets/default_avatar.png');
         let uriflag = false;
         for (card of this.props.cards) {
@@ -107,19 +107,6 @@ class Inbox extends Component {
                 }
                 break;
             }
-            // handles case if user doesn't have users card in their rolodex
-            if (sender === null && receiver === null) {
-              if (card.keys.n === item.to && card.owner === true) {
-                  receiver = item.to;
-                  sender = item.from;
-                  break;
-              }
-              if (card.keys.n === item.from && card.owner === true) {
-                  receiver = item.from;
-                  sender = item.to;
-                  break;
-              }
-            }
         };
         // object prop that is passed to message_thread
         let pair = {
@@ -128,7 +115,7 @@ class Inbox extends Component {
         }
 
         return (
-            <TouchableOpacity  onPress={() => Actions.message_thread({pair: pair})} >
+            <TouchableOpacity  onPress={() => Actions.message_thread({title: author, pair: pair})} >
                 <ListItem
                     roundAvatar
                     title = {author}

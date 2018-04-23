@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import {RSAKeychain, RSA} from 'react-native-rsa-native';
+import {RSAKeychain, RSA} from 'react-native-rsa';
 
 class CreateCard extends Component {
     constructor(props) {

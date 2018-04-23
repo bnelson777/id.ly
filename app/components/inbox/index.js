@@ -16,6 +16,10 @@ import * as ReduxActions from '../../actions';
 
 import {Actions} from 'react-native-router-flux'
 
+// Inbox
+// FUNCTION(S): This component serves to display author picture, date, and body 
+// of messages which were imported then stored in the application.
+// EXPECTED PROP(S): 
 class Inbox extends Component {
     constructor(props) {
         super(props);

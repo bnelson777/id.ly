@@ -18,6 +18,10 @@ class CreateCard extends Component {
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
         this.removeAttributeFromForm.bind(this);
     }
+    
+    componentDidMount(){
+        this.props.getCards();
+    }
 
     render() {
         return (
@@ -139,4 +143,14 @@ class CreateCard extends Component {
     }
 };
 
-export default CreateCard;
+function mapStateToProps(state, props) {
+    return {
+        cards: state.dataReducer.cards
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ReduxActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateCard);

@@ -29,6 +29,8 @@ class MessageThread extends Component {
 
     };
 
+    // When component mounts, retrieve the messages and cards
+    // TODO: remove cards if required as it is currently unused.
     componentDidMount() {
         this.props.getMessages();
         this.props.getCards();
@@ -62,6 +64,10 @@ class MessageThread extends Component {
                         </Text>
                     </View>
 
+                    {/* The container for our messages. The separator currently does not work.
+
+                        TODO: Create a 'working' separator between each messsage.
+                    */}
                     <FlatList
                         itemSeparatorComponent={()=>(
                             <View style={styles.separator}/>
@@ -71,6 +77,7 @@ class MessageThread extends Component {
                         renderItem={this.renderItem}
                     />
 
+                    {/* Input box that currently has no logic */}
                     <View style={styles.messageInput}>
                         <TextInput
                             style={styles.inputBox}
@@ -89,6 +96,8 @@ class MessageThread extends Component {
         }
     }
 
+    // renderItem uses iteration of data object indices to retrieve messages.
+    // Current data used is the message prop from our state
     renderItem = ({item, index}) => {
         // NOTE:
         // Currently retrieves from the state.

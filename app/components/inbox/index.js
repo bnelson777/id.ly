@@ -107,6 +107,19 @@ class Inbox extends Component {
                 }
                 break;
             }
+            // handles case if user doesn't have users card in their rolodex
+            if (sender === null && receiver === null) {
+              if (card.keys.n === item.to && card.owner === true) {
+                  receiver = item.to;
+                  sender = item.from;
+                  break;
+              }
+              if (card.keys.n === item.from && card.owner === true) {
+                  receiver = item.from;
+                  sender = item.to;
+                  break;
+              }
+            }
         };
         // object prop that is passed to message_thread
         let pair = {

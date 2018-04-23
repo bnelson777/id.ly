@@ -61,6 +61,8 @@ class MessageThread extends Component {
         this.setState({messages : messageList});
     };
 
+    // Event handler for button.
+    // TODO: Add logic
     sendMessage() {
         alert(this.state.messages[0].body);
     };

@@ -47,7 +47,6 @@ class Inbox extends Component {
         for (card of this.props.cards) {
             if (card.keys.n === item.from) {
                 author = card.name;
-                card.image = "";
                 if(card.image !== ""){
                     portrait = card.image; 
                 }

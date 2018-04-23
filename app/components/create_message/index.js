@@ -38,7 +38,10 @@ class CreateMessage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {message: "", recipient: this.props.recipient === "" ? this.props.cards[0].id : this.props.recipient, sender: ""};
+        this.state = {
+          message: "",
+          recipient: "",
+          sender: ""};
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
     }

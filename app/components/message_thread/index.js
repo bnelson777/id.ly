@@ -16,7 +16,6 @@ import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-
 class MessageThread extends Component {
     constructor(props) {
         super(props);

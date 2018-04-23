@@ -15,6 +15,12 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import {RSAKeychain, RSA} from 'react-native-rsa';
 import {ImagePicker, Permissions} from 'expo'
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import * as ReduxActions from '../../actions';
+
+import {Actions} from 'react-native-router-flux';
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -30,6 +36,9 @@ class CreateCard extends Component {
         this.removeAttributeFromForm.bind(this);
     }
 
+    componentDidMount(){
+        this.props.getCards();
+    }
     generateKeys() {
         console.log('RSA public private keys!')
         var RSAKey = require('react-native-rsa');
@@ -228,4 +237,14 @@ class CreateCard extends Component {
     }
 };
 
-export default CreateCard;
+function mapStateToProps(state, props) {
+    return {
+        cards: state.dataReducer.cards
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ReduxActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateCard);

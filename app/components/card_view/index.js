@@ -19,6 +19,10 @@ class CardView extends Component {
 
         this.state = {};
     }
+
+    componentDidMount(){
+        this.props.getCards();
+    }
     
     //displays card type on top, followed by image and the rest of the card information
     render() {
@@ -61,4 +65,8 @@ function mapStateToProps(state, props) {
     }
 }
 
-export default connect(mapStateToProps)(CardView);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ReduxActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardView);

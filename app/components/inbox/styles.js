@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
 
 export default StyleSheet.create({
+    container: {
+        backgroundColor: '#FFFFFF'
+    },
     inboxContainer: {
         flex: 1,
     },
@@ -37,5 +40,11 @@ export default StyleSheet.create({
     imageStyle: {
         width: 80, 
         height: 80
+    },
+    sepLine: {
+        height: 1,
+        width: "86%",
+        backgroundColor: "#CED0CE",
+        marginLeft: "14%"
     }
 });

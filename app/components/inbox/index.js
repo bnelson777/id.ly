@@ -43,10 +43,11 @@ class Inbox extends Component {
     renderItem = ({item, index}) => {
         /* get author name and portrait for each message */
         let author = null;
-        let portrait = 'https://www.mautic.org/media/images/default_avatar.png';
+        let portrait = 'https://raw.githubusercontent.com/bnelson777/id.ly/IL-39/app/assets/default_avatar.png';
         for (card of this.props.cards) {
             if (card.keys.n === item.from) {
                 author = card.name;
+                card.image = "";
                 if(card.image !== ""){
                     portrait = card.image; 
                 }

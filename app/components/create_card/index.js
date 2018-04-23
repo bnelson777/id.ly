@@ -32,7 +32,7 @@ class CreateCard extends Component {
         var privateKey = rsa.getPrivateString(); // return json encoded string
         console.log(publicKey)
         console.log(privateKey)
-  
+
         rsa.setPublicString(publicKey);
         var originText = 'sample String Value';
         console.log(originText)

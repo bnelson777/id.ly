@@ -6,14 +6,6 @@ The majority of user data today is stored on massive, server-centric systems tha
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Please note that this app is currently in development, so not all features have been fully implemented.
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
 ### Installing
 
 Clone a copy of the repository into your local machine.
@@ -50,7 +42,7 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 
 ## Contributing
 
-This app is a senior captone project for a group of computer science students at Portland State University. As such it is not surrently available for outside contribution. However, please feel free to use the code for your own development as per the terms of the license.
+This app is a senior captone project for a group of computer science students at Portland State University. As such it is not currently available for outside contribution. However, please feel free to use the code for your own development as per the terms of the license.
 
 ## Acknowledgements
 

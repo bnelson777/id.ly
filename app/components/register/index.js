@@ -1,14 +1,19 @@
+/**
+ * Create Register Page
+ * by id.ly Team
+ */
 'use strict';
 
+//Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput,
+        Button } from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class Register extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             password: "",
             passwordVerify: "",

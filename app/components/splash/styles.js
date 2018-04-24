@@ -8,6 +8,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'white'
     },
+    
     image: {
         width: 150,
         height: 150,

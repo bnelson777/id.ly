@@ -6,17 +6,20 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row'
     },
+
     preview: {
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center'
     },
+
     rectangleContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'transparent'
     },
+
     rectangle: {
         height: 200,
         width: 200,
@@ -24,11 +27,13 @@ export default StyleSheet.create({
         borderColor: '#C70038',
         backgroundColor: 'transparent'
     },
+
     rectangleText: {
         flex: 0,
         color: '#fff',
         marginTop: 10
     },
+    
     border: {
         flex: 0,
         width: 200,

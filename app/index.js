@@ -1,9 +1,15 @@
-import React, {Component} from 'react';
+/**
+ * Create Main Page
+ * by id.ly Team
+ */
+
+//Import Libraries
+import React, { Component } from 'react';
 import { View, AsyncStorage } from 'react-native';
-
 import { Router, Scene } from 'react-native-router-flux';
-
-// component imports
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+//Component Imports
 import Splash from './components/splash/index';
 import Home from './components/home/index';
 import Scan from './components/scan/index';
@@ -12,27 +18,21 @@ import CardList from './components/card_list/index';
 import CardView from './components/card_view/index';
 import Share from './components/share/index';
 import MessageThread from './components/message_thread/index';
-import CreateMessage from './components/create_message/index'
+import CreateMessage from './components/create_message/index';
 import Inbox from './components/inbox/index';
 import Login from './components/login/index';
 import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
-
-// dumby data for initial app load
+//Dumby Data for Initial App Load
 import CardData from './cards.json';
 import MessageData from './messages.json';
-
-import {connect} from 'react-redux';
-import {getCards} from './actions';
-import {getMessages} from './actions';
-
-// needed for Actions.home() back button on inbox see line 59:121
+import { getCards } from './actions';
+import { getMessages } from './actions';
+//Needed for Actions.home() back button on inbox see line 59:121
 import * as ReduxActions from './actions'; //Import your actions
-import {Actions} from 'react-native-router-flux';
 
-
-class Main extends Component{
+class Main extends Component {
     componentDidMount() {
         var _this = this;
         //Check if any card data exists

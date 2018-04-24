@@ -1,26 +1,25 @@
+/**
+ * Create Card View Page
+ * by id.ly Team
+ */
+
+//Import Libraries
 import React, { Component } from 'react';
-
-import { StyleSheet, 
-        View, 
-        Text, 
-        Image } from 'react-native';
+import { StyleSheet, View, 
+        Text, Image } from 'react-native';
 import styles from './styles';
-
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
-
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 class CardView extends Component {
     constructor(props) {
         super(props);
-
         this.state = {};
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getCards();
     }
     

@@ -1,16 +1,16 @@
 /**
  * Create About Page
- * by id.ly Team on 4/14/2018
+ * by id.ly Team
  */
 
 //Import Libraries
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Text, View, Button, TouchableHighlight,
         StyleSheet, Image, Linking } from 'react-native';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
 class About extends Component {

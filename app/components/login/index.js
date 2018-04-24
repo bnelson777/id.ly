@@ -1,14 +1,19 @@
+/**
+ * Create Login Page
+ * by id.ly Team
+ */
 'use strict';
 
+//Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, 
+        Button } from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             input: ""
         };
@@ -38,7 +43,6 @@ export default class Login extends Component {
                         onChangeText= {(text) => {this.setState({input:text})}}
                         secureTextEntry={true}
                     />
-
                     <Button
                         onPress={this.checkPassword}
                         disabled={(this.state.input != 0) ? false : true}

@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions} from 'react-native';
-import { COLOR_PRIMARY, COLOR_SECONDARY, BACKGROUND_COLOR, BORDER_RADIUS } from './../styles/common';
+import { COLOR_PRIMARY, COLOR_SECONDARY, 
+        BACKGROUND_COLOR, BORDER_RADIUS } from './../styles/common';
 
 const {height, width} = Dimensions.get('window');
 const screenWidth = width;

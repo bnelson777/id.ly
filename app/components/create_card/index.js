@@ -1,26 +1,21 @@
-import React, { Component } from 'react';
+/**
+ * Create Create Card Page
+ * by id.ly Team
+ */
 
-import {
-    Text,
-    View,
-    TouchableOpacity,
-    Image,
-    FlatList,
-    TextInput,
-    Picker,
-    Platform
-} from 'react-native';
+//Import Libraries
+import React, { Component } from 'react';
+import { Text, View, TouchableOpacity,
+        Image, FlatList, TextInput,
+        Picker, Platform } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import {RSAKeychain, RSA} from 'react-native-rsa';
-import {ImagePicker, Permissions} from 'expo'
-
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-
+import { RSAKeychain, RSA } from 'react-native-rsa';
+import { ImagePicker, Permissions } from 'expo';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
-
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -30,7 +25,6 @@ import {Actions} from 'react-native-router-flux';
 class CreateCard extends Component {
     constructor(props) {
         super(props);
-
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
         this.generateKeys = this.generateKeys.bind(this);
         this.removeAttributeFromForm.bind(this);
@@ -75,19 +69,19 @@ class CreateCard extends Component {
                 <View style={styles.screenContainer}>
                     <View style={styles.formContainer}>
                         <FlatList
-                        data={this.state.form}
-                        keyExtractor={item => item.title}
-                        renderItem={this.renderItem}
+                            data={this.state.form}
+                            keyExtractor={item => item.title}
+                            renderItem={this.renderItem}
                         />
                     </View>
                     <View style={styles.addImageContainer}>
                         <Image style={styles.imageStyle} source={{uri: this.state.image}} />
                         <Picker
-                        style={styles.imageDropdown}
-                        mode={"dropdown"}
-                        onValueChange={(itemValue) => {
-                            if (itemValue === "take_picture") this.takePicture();
-                            else if (itemValue === "select_picture") this.pickImage();
+                            style={styles.imageDropdown}
+                            mode={"dropdown"}
+                            onValueChange={(itemValue) => {
+                                if (itemValue === "take_picture") this.takePicture();
+                                else if (itemValue === "select_picture") this.pickImage();
                         }}>
                         <Picker.Item label="Add image" value="default" />
                         <Picker.Item label="Take a photo from camera" value="take_picture" />
@@ -97,18 +91,19 @@ class CreateCard extends Component {
                 </View>
                 <View style={styles.addAttributeContainer}>
                     <TextInput
-                    style={styles.formInput}
-                    placeholder="Attribute"
-                    underlineColorAndroid="transparent"
-                    value={this.state.addAttribute}
-                    onChangeText={(text) => this.handleAttributeTextChange(text)}
+                        style={styles.formInput}
+                        placeholder="Attribute"
+                        underlineColorAndroid="transparent"
+                        value={this.state.addAttribute}
+                        onChangeText={(text) => this.handleAttributeTextChange(text)}
                     />
                     <View style={styles.addFieldButton}>
                         <TouchableOpacity onPress={() => this.addAttributeToForm()} disabled={(this.state.addAttribute != 0) ? false : true}>
                             <Text style={[styles.buttonText,
-                          {
-                              color: (this.state.addAttribute != 0) ? "blue" : "#CCC"
-                          }]}> Add Attribute </Text>
+                                {color: (this.state.addAttribute != 0) ? "blue" : "#CCC"
+                            }]}> 
+                                Add Attribute 
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -209,9 +204,9 @@ class CreateCard extends Component {
             const b64image = "data:image/jpeg;base64," + result.base64;
             this.setState({ image: b64image });
         }
-      };
+    };
 
-      takePicture = async () => {
+    takePicture = async () => {
         this.obtainPermissionIOS(Permissions.CAMERA);
         this.obtainPermissionIOS(Permissions.CAMERA_ROLL);
         let result = await ImagePicker.launchCameraAsync({
@@ -226,7 +221,8 @@ class CreateCard extends Component {
             const b64image = "data:image/jpeg;base64," + result.base64;
             this.setState({ image: b64image });
         }
-      };
+    };
+    
     removeAttributeFromForm(item){
         let temp = this.state.form;
         let index = temp.indexOf(item);

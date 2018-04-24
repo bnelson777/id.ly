@@ -6,24 +6,24 @@ export default StyleSheet.create({
         paddingTop: 20,
         alignItems: 'stretch'
     },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        paddingBottom: 50
+    receiverText: {
+        color: 'black',
+        textAlign: 'left',
+        fontSize: 30
     },
-    messageThread: {
-        flexDirection: 'column',
-        paddingBottom: 100
+    senderText: {
+        color: 'white',
+        textAlign: 'right',
+        fontSize: 30
     },
-    message: {
-        flexDirection: 'row',
+    sentMessage: {
+        backgroundColor: 'skyblue'
+    },
+    receivedMessage: {
+        backgroundColor: 'lightgrey'
     },
     inputBox: {
         height: 40,
-    },
-    identityText: {
-        fontSize: 30,
-        fontWeight: 'bold'
     },
     inboxButton: {
         paddingRight: 100

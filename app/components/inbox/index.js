@@ -31,7 +31,7 @@ class Inbox extends Component {
 
     render() {
 
-      // array to be filled with valid pairs of sender and recievers
+      // array to be filled with valid pairs of sender and receivers
       var arr = [];
 
       // loop through all messages
@@ -77,16 +77,16 @@ class Inbox extends Component {
     renderItem = ({item, index}) => {
         /* get author name and portrait for each message */
         let author = item.from; //display public key if card not found
-        let sender = null;
-        let reciever = null;
+        let sender = item.from; // default if card not in rolodex
+        let receiver = item.to; // default if card not in rolodex
         let portrait = require('../../assets/default_avatar.png');
         let uriflag = false;
         for (card of this.props.cards) {
-            // to find display name of reciever of message (owner == false)
+            // to find display name of receiver of message (owner == false)
             if (card.keys.n === item.to && card.owner === false) {
                 author = card.name;
                 // set for inbox to know who is who
-                reciever = item.to;
+                receiver = item.to;
                 sender = item.from;
 
                 if(card.image !== ""){
@@ -98,7 +98,7 @@ class Inbox extends Component {
             if (card.keys.n === item.from && card.owner === false) {
                 author = card.name;
                 // set for inbox to know who is who
-                reciever = item.from;
+                receiver = item.from;
                 sender = item.to;
 
                 if(card.image !== ""){
@@ -111,11 +111,11 @@ class Inbox extends Component {
         // object prop that is passed to message_thread
         let pair = {
           sender: sender,
-          reciever: reciever
+          receiver: receiver
         }
 
         return (
-            <TouchableOpacity  onPress={() => Actions.message_thread({pair: pair})} >
+            <TouchableOpacity  onPress={() => Actions.message_thread({title: author, pair: pair})} >
                 <ListItem
                     roundAvatar
                     title = {author}

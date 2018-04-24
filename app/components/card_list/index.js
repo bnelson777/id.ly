@@ -1,24 +1,19 @@
-import React, {Component} from 'react';
-import {
-    Alert,
-    StyleSheet,
-    FlatList,
-    View,
-    Text,
-    TouchableHighlight,
-    TouchableOpacity,
-    Image,
-    Dimensions,
-    ActionSheetIOS
-} from 'react-native';
+/**
+ * Create Card List Page
+ * by id.ly Team
+ */
+
+//Import Libraries
+import React, { Component } from 'react';
+import { Alert, StyleSheet, FlatList,
+        View, Text, TouchableHighlight,
+        TouchableOpacity, Image, Dimensions,
+        ActionSheetIOS } from 'react-native';
 import styles, { COLORS } from './styles';
-
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
-
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 //Buttons for Action Sheet
 const BUTTONS = [
@@ -32,35 +27,33 @@ const CANCEL_INDEX = 2;
 class CardList extends Component {
     constructor(props) {
         super(props);
-
         this.state = {};
         this.renderItem = this.renderItem.bind(this);
         this.showOptions = this.showOptions.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getCards();
     }
 
     showOptions(card) {
-    ActionSheetIOS.showActionSheetWithOptions({
+        ActionSheetIOS.showActionSheetWithOptions({
             options: BUTTONS,
             cancelButtonIndex: CANCEL_INDEX,
             destructiveButtonIndex: 2,
-        },
-        (buttonIndex) => {
+        },(buttonIndex) => {
             if (buttonIndex === 0) this.props.deleteCard(card.id)
             else if (buttonIndex === 1) this.props.clearAll()
         });
-      }
+    }
 
     // Dummy function for button presses
-    pressButton(label){
+    pressButton(label) {
         Alert.alert(label);
     }
 
-    render(){
-        if (this.props.isWallet == true){
+    render() {
+        if (this.props.isWallet == true) {
             return (
                 // Display Home and Add buttons
                 // Display ID buttons as a list
@@ -81,7 +74,7 @@ class CardList extends Component {
                         ref='listRef'
                         data={this.props.cards}
                         renderItem={this.renderItem}
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
             );
@@ -106,14 +99,14 @@ class CardList extends Component {
                         ref='listRef'
                         data={this.props.cards}
                         renderItem={this.renderItem}
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
             );}
     }
 
     renderItem({item, index}) {
-        if (this.props.isWallet === item.owner){
+        if (this.props.isWallet === item.owner) {
             let icon = item.image === "" ? require('../../assets/person.png') : {uri: item.image};
             if (this.props.isWallet === true) {
                 return (

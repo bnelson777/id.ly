@@ -1,16 +1,15 @@
+/**
+ * Create Message Thread Page
+ * by id.ly Team
+ */
 'use strict';
 
+//Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-
-import { 
-    View,
-    Text,
-    TextInput,
-    Button,
-    FlatList 
-} from 'react-native';
-
+import { View, Text, TextInput,
+        Button,
+        FlatList } from 'react-native';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
@@ -19,11 +18,9 @@ import { connect } from 'react-redux';
 class MessageThread extends Component {
     constructor(props) {
         super(props);
-
         this.renderItem = this.renderItem.bind(this);
         this.retrieveMessages = this.retrieveMessages.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
-
         this.state = {
             messages: [],
         };

@@ -1,48 +1,47 @@
+/**
+ * Create Home Page
+ * by id.ly Team
+ */
+
+//Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import {
-    Alert,
-    FlatList,
-    View,
-    Text,
-    ActivityIndicator, TouchableHighlight, ActionSheetIOS
-} from 'react-native';
-
+import { Alert, FlatList, View,
+        Text, ActivityIndicator, 
+        TouchableHighlight, 
+        ActionSheetIOS } from 'react-native';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-
 import * as ReduxActions from '../../actions'; //Import your actions
-
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
 
 class Home extends Component {
     static navigationOptions = {
       title: "Home",
       headerLeft: null
     }
+
     constructor(props) {
         super(props);
-
         this.state = {};
     }
 
     // Dummy function for button presses
-    pressButton(label){
+    pressButton(label) {
         Alert.alert(label);
     }
 
     // Displays animation if loading, otherwise displays a popup indicating the
     // TouchableHighlight pressed
-
     render() {
-
         if (this.props.loading) {
             return (
                 <View style={styles.activityIndicatorContainer}>
                     <ActivityIndicator animating={true}/>
                 </View>
             );
-        } else {
+        } 
+        else {
             return (
                 <View style={styles.container}>
                     <TouchableHighlight onPress={() => Actions.inbox()}>
@@ -52,7 +51,7 @@ class Home extends Component {
                             </Text>
                         </View>
                     </TouchableHighlight>
-
+                    
                     <TouchableHighlight onPress={() => Actions.wallet({title:"Wallet", isWallet: true})}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
@@ -88,7 +87,7 @@ class Home extends Component {
                     <TouchableHighlight onPress={() => Actions.login()}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
-                                [dev] Login
+                                [Dev] Login
                             </Text>
                         </View>
                     </TouchableHighlight>
@@ -104,7 +103,7 @@ class Home extends Component {
                     <TouchableHighlight onPress={() => {this.props.clearAll()}}>
                       <View style={styles.row}>
                           <Text style={styles.title}>
-                                [dev] Clear All Data
+                                [Dev] Clear All Data
                           </Text>
                       </View>
                   </TouchableHighlight>
@@ -112,18 +111,15 @@ class Home extends Component {
                   <TouchableHighlight onPress={() => Actions.lockbox({title:"Decrypt Message", mode: "decrypt"})} underlayColor='rgba(0,0,0,.2)'>
                       <View style={styles.row}>
                           <Text style={styles.title}>
-                            [dev] Decrypt Message
+                            [Dev] Decrypt Message
                           </Text>
                       </View>
                   </TouchableHighlight>
                 </View>
-
             );
         }
     }
-
 };
-
 
 // The function takes data from the app current state,
 // and insert/links it into the props of our component.

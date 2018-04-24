@@ -1,3 +1,9 @@
+/**
+ * Create Inbox Page
+ * by id.ly Team
+ */
+
+//Import Libraries
 import React, { Component } from 'react';
 import { FlatList, View, Image,
         TouchableOpacity } from 'react-native';
@@ -30,35 +36,31 @@ class Inbox extends Component {
     };
 
     render() {
+        // array to be filled with valid pairs of sender and receivers
+        var arr = [];
 
-      // array to be filled with valid pairs of sender and receivers
-      var arr = [];
-
-      // loop through all messages
-      for (var i = 0, len = this.props.messages.length; i < len; i++) {
-
-        // check array for to and from pair
-        var present = false;
-
-        // check existing pairs we've collected for duplicates
-        for (var j = 0, len2 = arr.length; j < len2; j++ ) {
-
-          // if to / from match an existing entry, set present to true
-          if (arr[j].to === this.props.messages[i].to && arr[j].from === this.props.messages[i].from) {
-            present = true;
-          }
-          if (arr[j].to === this.props.messages[i].from && arr[j].from === this.props.messages[i].to) {
-            present = true;
-          }
+        // loop through all messages
+        for (var i = 0, len = this.props.messages.length; i < len; i++) {
+            // check array for to and from pair
+            var present = false;
+            // check existing pairs we've collected for duplicates
+            for (var j = 0, len2 = arr.length; j < len2; j++ ) {
+                // if to / from match an existing entry, set present to true
+                if (arr[j].to === this.props.messages[i].to && arr[j].from === this.props.messages[i].from) {
+                    present = true;
+                }
+                if (arr[j].to === this.props.messages[i].from && arr[j].from === this.props.messages[i].to) {
+                    present = true;
+                }
+            }
+            // now add message to array if combination not present
+            if (present == false) {
+                arr.push(this.props.messages[i])
+            }
+            else {
+                // don't do anything because pair was already in array
+            }
         }
-        // now add message to array if combination not present
-        if (present == false) {
-          arr.push(this.props.messages[i])
-        }
-        else {
-          // don't do anything because pair was already in array
-        }
-      }
 
         return (
             <View style = {styles.container}>

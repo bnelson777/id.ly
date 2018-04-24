@@ -1,25 +1,20 @@
+/**
+ * Create Create Message Page
+ * by id.ly Team
+ */
+
+//Import Libraries
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import React, {Component} from 'react';
-import {
-    Alert,
-    StyleSheet,
-    FlatList,
-    View,
-    Text,
-    TextInput,
-    TouchableHighlight,
-    TouchableOpacity,
-    Image,
-    Picker
-} from 'react-native';
+import React, { Component } from 'react';
+import { Alert, StyleSheet, FlatList,
+        View, Text, TextInput, 
+        TouchableHighlight, TouchableOpacity,
+        Image, Picker } from 'react-native';
 import styles from './styles';
-
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
-
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a dropdown menu to select a message
@@ -37,32 +32,32 @@ import {Actions} from 'react-native-router-flux';
 class CreateMessage extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
           message: "",
           recipient: "",
-          sender: ""};
+          sender: ""
+        };
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
     }
 
     generateID() {
-    let d = new Date().getTime();
-    let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        let r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
-    });
-    return id;
-  }
+        let d = new Date().getTime();
+        let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
+        });
+        return id;
+    }
 
-  generateTimestamp() {
-    var time = new Date().getTime()/1000
-    var time_round = parseInt(time)
-    return time_round
-  }
+    generateTimestamp() {
+        var time = new Date().getTime()/1000
+        var time_round = parseInt(time)
+        return time_round
+    }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getCards();
     }
 
@@ -77,7 +72,7 @@ class CreateMessage extends Component {
     }
 
     // Dummy function for button presses
-    pressButton(){
+    pressButton() {
         //Alert.alert(label);
         //this.messageInput.clear();
         let id = this.generateID();
@@ -88,7 +83,7 @@ class CreateMessage extends Component {
 
     }
 
-    render(){
+    render() {
         // Displays Cancel and Inbox buttons at top
         // Displays dropdown menu to select a recipient
         // Displays text input box to type message at bottom and send button
@@ -96,31 +91,30 @@ class CreateMessage extends Component {
         // Recipient is stored in this.state.recipient using the recipient card id field
 
         const from = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => {
-          return (
-            <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} />
-          )
+            return (
+                <Picker.Item key= {card.id} label={card.name + ": " + card.label} value={card.keys.n} />
+            )
         })
-        from.unshift(<Picker.Item value={0} label="Sender" />)
+        from.unshift(<Picker.Item key = "default" value={0} label="Sender" />)
 
         const to = this.props.cards.filter(function(obj) {return obj.owner == false}).map(card => {
-          return (
-            <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} />
-          )
+            return (
+                <Picker.Item key= {card.id} label={card.name + ": " + card.label} value={card.keys.n} />
+            )
         })
-        to.unshift(<Picker.Item value={0} label="Receiver" />)
-
+        to.unshift(<Picker.Item key = "default" value={0} label="Receiver" />)
 
         return (
             <View style={styles.container}>
-              <View style={styles.midContainer}>
-                  <Text style={styles.fieldText}>From: </Text>
-                  <Picker selectedValue = {this.state.sender}
-                      onValueChange = {this.updateSender}
-                      style={styles.picker}
-                      mode='dropdown'>
-                      {from}
-                  </Picker>
-              </View>
+                <View style={styles.midContainer}>
+                    <Text style={styles.fieldText}>From: </Text>
+                    <Picker selectedValue = {this.state.sender}
+                        onValueChange = {this.updateSender}
+                        style={styles.picker}
+                        mode='dropdown'>
+                        {from}
+                    </Picker>
+                </View>
                 <View style={styles.midContainer}>
                     <Text style={styles.fieldText}>To: </Text>
                     <Picker selectedValue = {this.state.recipient}

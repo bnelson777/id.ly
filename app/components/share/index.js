@@ -1,23 +1,20 @@
-import React, { Component } from 'react'
+/**
+ * Create Share Function
+ * by id.ly Team
+ */
 
+//Import Libraries
+import React, { Component } from 'react';
 import QRCode from 'react-native-qrcode';
-
 import styles from './styles';
-import {
-  StyleSheet,
-  FlatList,
-  TextInput,
-  View,
-  Text,
-  ActivityIndicator, TouchableHighlight, ActionSheetIOS
-} from 'react-native';
-
-import {bindActionCreators} from 'redux';
+import { StyleSheet, FlatList, TextInput,
+        View, Text, ActivityIndicator, 
+        TouchableHighlight, 
+        ActionSheetIOS} from 'react-native';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import * as ReduxActions from '../../actions'; //Import your actions
-
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
 
 // SHARE
 // FUNCTION(S): This componenet at the moment will display a JSON card object in QR
@@ -30,50 +27,51 @@ import {Actions} from 'react-native-router-flux'
 // This component will expect a card object to be passed to it when viewed so
 // it knows what to card/key to display in QR/or send over bluetooth.
 class Share extends Component {
-  constructor(props) {
-      super(props);
-    this.state = {};
-    this.packageCard = this.packageCard.bind(this);
-  }
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.packageCard = this.packageCard.bind(this);
+    }
 
-  componentDidMount(){
-    this.props.getCards();
-  }
+    componentDidMount() {
+        this.props.getCards();
+    }
 
-  packageCard() {
-    var jsonCard = JSON.stringify(this.props.card);
-    var jsonCard2 = JSON.parse(jsonCard);
-    console.log(jsonCard2)
-    var jsonKey = jsonCard2.keys.n;
-    console.log(jsonKey)
-    jsonCard2.keys = {};
-    //TODO: base64 too big for QR when we implement sending cards over bluetooth
-    // get rid of this null
-    jsonCard2.image = null;
-    // omit private keys from share object
-    jsonCard2.keys = {"n": jsonKey};
-    // ensure card owner is set to false
-    jsonCard2.owner = false;
-    console.log('object to display in QR',jsonCard2)
-    var res = JSON.stringify(jsonCard2);
-    return res;
-  }
+    packageCard() {
+        var jsonCard = JSON.stringify(this.props.card);
+        var jsonCard2 = JSON.parse(jsonCard);
+        console.log(jsonCard2)
+        var jsonKey = jsonCard2.keys.n;
+        console.log(jsonKey)
+        jsonCard2.keys = {};
+        //TODO: base64 too big for QR when we implement sending cards over bluetooth
+        // get rid of this null
+        jsonCard2.image = null;
+        // omit private keys from share object
+        jsonCard2.keys = {"n": jsonKey};
+        // ensure card owner is set to false
+        jsonCard2.owner = false;
+        console.log('object to display in QR',jsonCard2)
+        var res = JSON.stringify(jsonCard2);
+        return res;
+    }
 
-  render() {
-    // call packageCard() function to get card object ready for QR display
-    var packageCard = this.packageCard();
-    console.log(packageCard)
-    return (
-      // This is where the actual QR is displayed
-      <View style={styles.container}>
-        <QRCode
-          value={packageCard}
-          size={350}
-          bgColor='black'
-          fgColor='white'/>
-      </View>
-    );
-  };
+    render() {
+        // call packageCard() function to get card object ready for QR display
+        var packageCard = this.packageCard();
+        console.log(packageCard)
+        return (
+            // This is where the actual QR is displayed
+            <View style={styles.container}>
+                <QRCode
+                    value={packageCard}
+                    size={350}
+                    bgColor='black'
+                    fgColor='white'
+                />
+            </View>
+        );
+    };
 }
 
 function mapStateToProps(state, props) {

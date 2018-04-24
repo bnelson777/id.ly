@@ -1,3 +1,8 @@
+/**
+ * Create Default Style 
+ * by id.ly Team
+ */
+
 export const COLOR_PRIMARY = 'white';
 export const COLOR_SECONDARY = 'black';
 export const BACKGROUND_COLOR = COLOR_PRIMARY;

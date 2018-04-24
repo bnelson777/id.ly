@@ -92,17 +92,17 @@ class CreateMessage extends Component {
 
         const from = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => {
             return (
-                <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} />
+                <Picker.Item key= {card.id} label={card.name + ": " + card.label} value={card.keys.n} />
             )
         })
-        from.unshift(<Picker.Item value={0} label="Sender" />)
+        from.unshift(<Picker.Item key = "default" value={0} label="Sender" />)
 
         const to = this.props.cards.filter(function(obj) {return obj.owner == false}).map(card => {
             return (
-                <Picker.Item label={card.name + ": " + card.label} value={card.keys.n} />
+                <Picker.Item key= {card.id} label={card.name + ": " + card.label} value={card.keys.n} />
             )
         })
-        to.unshift(<Picker.Item value={0} label="Receiver" />)
+        to.unshift(<Picker.Item key = "default" value={0} label="Receiver" />)
 
         return (
             <View style={styles.container}>

@@ -1,25 +1,24 @@
 /**
  * Create QR Code Scanning Function
- * by id.ly Team on 4/5/2018
+ * by id.ly Team
  */
 
 //Import Libraries
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styles from './styles';
 import { Permissions, BarCodeScanner} from 'expo';
-import { Text, View, StyleSheet, ActivityIndicator,
-        Animated, Easing, LayoutAnimation, Image, Vibration
-    } from 'react-native';
+import { Text, View, StyleSheet, 
+        ActivityIndicator, Animated, Easing, 
+        LayoutAnimation, Image, 
+        Vibration } from 'react-native';
 import PropTypes from 'prop-types';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
-
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 class Scan extends Component {
-    async componentWillMount() {
+    async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
     }
@@ -73,40 +72,42 @@ class Scan extends Component {
         }
     }
 
-      static propTypes = {
+    static propTypes = {
         ScanResult: PropTypes.func.isRequired,
         reactivate: PropTypes.bool,
         reactivateTimeout: PropTypes.number,       
-      };
+    };
 
-      static defaultProps = {
+    static defaultProps = {
         ScanResult: () => (console.log('QR code scanned!')),
         reactivate: false,
         reactivateTimeout: 0,
-      };
+    };
 
     render() {
         const { hasCameraPermission } = this.state;
         if (hasCameraPermission === null) {
-          return <View />;
-        } else if (hasCameraPermission === false) {
-          return <Text>No access to camera</Text>;
-        } else {
-          return (
-            <View style={styles.container}>
-                <BarCodeScanner
-                    style={styles.preview}
-                    onBarCodeRead={this._handleBarCodeRead.bind(this)}>
-                    <View style={styles.rectangleContainer}>
-                        <View style={styles.rectangle}/>
-                        <Animated.View style={[
-                            styles.border,
-                            {transform: [{translateY: this.state.moveAnim}]}]}/>
-                        <Text style={styles.rectangleText}>Scan the QRCode</Text>
-                    </View>
-                </BarCodeScanner>
-            </View>
-          );
+            return <View />;
+        } 
+        else if (hasCameraPermission === false) {
+            return <Text>No access to camera</Text>;
+        } 
+        else {
+            return (
+                <View style={styles.container}>
+                    <BarCodeScanner
+                        style={styles.preview}
+                        onBarCodeRead={this._handleBarCodeRead.bind(this)}>
+                        <View style={styles.rectangleContainer}>
+                            <View style={styles.rectangle}/>
+                            <Animated.View style={[
+                                styles.border,
+                                {transform: [{translateY: this.state.moveAnim}]}]}/>
+                            <Text style={styles.rectangleText}>Scan the QRCode</Text>
+                        </View>
+                    </BarCodeScanner>
+                </View>
+            );
         }
     }
 }

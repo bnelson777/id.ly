@@ -57,8 +57,6 @@ class MessageThread extends Component {
                     createdAt: new Date((item.time * 1000)).toDateString(),
                     user: {
                         _id: 0,
-                        name: 'Lil Wayne',
-                        avatar: portrait,
                     },
                 };
                 // User _id: 1 for application user, 2 for other party
@@ -74,15 +72,22 @@ class MessageThread extends Component {
         this.setState({messages: messageList});
     };
 
+    /*  GiftedChat component current options:
+        user: integer to choose the current application user
+        onSend: callback for the send message button
+        renderAvatar: callback for rendering the avatar. {null} for no avatar.
+        isAnimated: boolean to enable sliding animation when input box is tapped.
+    */
     render() {
         return(
             <GiftedChat
                 messages={this.state.messages}
                 onSend={messages => this.onSend(messages)}
                 user= {{
-                    // User ID is 1
                     _id: 1,
                 }}
+                renderAvatar={null}
+                isAnimated={true}
             />
         )
     };

@@ -20,14 +20,13 @@ class MessageThread extends Component {
     constructor(props) {
         super(props);
         this.retrieveMessages = this.retrieveMessages.bind(this);
-        this.sendMessage = this.sendMessage.bind(this);
+        this.onSend = this.onSend.bind(this);
         this.state = {
             messages: [],
         };
     };
 
     // When component mounts, retrieve the messages and cards
-    // TODO: remove cards if required as it is currently unused.
     componentDidMount() {
         this.props.getMessages();
         this.props.getCards();
@@ -59,7 +58,6 @@ class MessageThread extends Component {
                     user: {
                         _id: 0,
                         name: 'Lil Wayne',
-                        avatar: portrait,
                     },
                 };
                 // User _id: 1 for application user, 2 for other party

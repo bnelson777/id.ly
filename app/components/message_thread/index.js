@@ -14,6 +14,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 class MessageThread extends Component {
     constructor(props) {
@@ -34,23 +35,44 @@ class MessageThread extends Component {
         this.retrieveMessages();
     }
 
+    onSend(messages = []) {
+        this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, messages),
+        }));
+    }
+
     // Retrieve the relevant messages based on sender/receiver key pairing.
     retrieveMessages() {
         let sender = this.props.pair.sender;
         let receiver = this.props.pair.receiver;
         let messageList = [];
+        let portrait = require('../../assets/default_avatar.png');
 
         // If the sender/receiver pairing matches the to/from section of a message, add to our list.
         this.props.messages.forEach((item, index, array) => {
             if((item.from === receiver && item.to === sender) ||
             (item.to === receiver && item.from === sender)) {
-                messageList.push(item);
+                let message = {
+                    _id: item.id,
+                    text: item.body,
+                    createdAt: item.time,
+                    user: {
+                        _id: 0,
+                        name: 'Lil Wayne',
+                        avatar: portrait,
+                    },
+                };
+                if(item.from === receiver)
+                    message.user._id = 1;
+                else
+                    message.user._id = 2;
             }
+            messageList.push(message);
         });
 
         // Sort the list by timestamp
         messageList.sort((a, b) => {
-            return a.time - b.time;
+            return a.createdAt - b.createdAt;
         });
 
         // Update the message list
@@ -64,73 +86,15 @@ class MessageThread extends Component {
     };
 
     render() {
-        // If loading, display the loading animation.
-        if(this.props.loading) {
-            return (
-                <View style={styles.activityIndicatorContainer}>
-                    <ActivityIndicator animating={true}/>
-                </View>
-            );
-        }
-        // Otherwise, render the view.
-        else {
-          // props passed from inbox
-          // console.log('sender:', this.props.pair.sender)
-          // console.log('receiver', this.props.pair.receiver)
-            return (
-                <View style={styles.container}>
-                    {/* The container for our messages. The separator currently does not work.
-
-                        TODO: Create a 'working' separator between each messsage.
-                    */}
-                    <FlatList
-                        itemSeparatorComponent={()=>(
-                            <View style={styles.separator}/>
-                        )}
-                        data={this.state.messages}
-                        keyExtractor={item => item.id}
-                        renderItem={this.renderItem}
-                    />
-
-                    {/* Input box that currently has no logic */}
-                    <View style={styles.messageInput}>
-                        <TextInput
-                            style={styles.inputBox}
-                            placeholder="Type Message"
-                            onChangeText= {(text) => this.setState({text})}
-                        />
-                        <Button
-                            title="Send"
-                            color="blue"
-                            accessibilityLabel="Send the message to recipient"
-                            onPress={this.sendMessage}
-                        />
-                    </View>
-                </View>
-            );
-        }
-    }
-
-    // renderItem uses iteration of data object indices to retrieve messages.
-    // Current data used is the message prop from our state
-    renderItem = ({item, index}) => {
-        if(item.to === this.props.pair.receiver && item.from === this.props.pair.sender) {
-            return (
-                <View style={styles.receivedMessage}>
-                    <Text style={styles.receiverText}>
-                        {item.body}
-                    </Text>
-                </View>
-            )
-        } else if (item.from === this.props.pair.receiver && item.to === this.props.pair.sender) {
-            return (
-                <View style={styles.sentMessage}>
-                    <Text style={styles.senderText}>
-                        {item.body}
-                    </Text>
-                </View>
-            )
-        }
+        return(
+            <GiftedChat
+                messages={this.state.messages}
+                onSend={messages => this.onSend(messages)}
+                user= {{
+                    _id: 1,
+                }}
+            />
+        )
     };
 };
 

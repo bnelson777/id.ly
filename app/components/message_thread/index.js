@@ -58,6 +58,7 @@ class MessageThread extends Component {
                     user: {
                         _id: 0,
                         name: 'Lil Wayne',
+                        avatar: portrait,
                     },
                 };
                 // User _id: 1 for application user, 2 for other party
@@ -69,12 +70,6 @@ class MessageThread extends Component {
             }
         });
 
-        /*
-        // Sort the list by timestamp
-        messageList.sort((a, b) => {
-            return a.createdAt - b.createdAt;
-        });
-        */
         // Update the message list
         this.setState({messages: messageList});
     };

@@ -54,7 +54,8 @@ class MessageThread extends Component {
                 let message = {
                     _id: item.id,
                     text: item.body,
-                    createdAt: new Date((item.time * 1000)).toDateString(),
+                    //createdAt: new Date((item.time * 1000)).toDateString(),
+                    createdAt: new Date(item.time * 1000),
                     user: {
                         _id: 0,
                     },

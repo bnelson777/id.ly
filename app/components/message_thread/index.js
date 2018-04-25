@@ -54,7 +54,7 @@ class MessageThread extends Component {
                 let message = {
                     _id: item.id,
                     text: item.body,
-                    createdAt: item.time,
+                    createdAt: new Date((item.time * 1000)).toDateString(),
                     user: {
                         _id: 0,
                         name: 'Lil Wayne',
@@ -70,13 +70,14 @@ class MessageThread extends Component {
             }
         });
 
+        /*
         // Sort the list by timestamp
         messageList.sort((a, b) => {
             return a.createdAt - b.createdAt;
         });
-
+        */
         // Update the message list
-        this.setState({messages : messageList});
+        this.setState({messages: messageList});
     };
 
     // Event handler for button.

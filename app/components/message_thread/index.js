@@ -34,6 +34,7 @@ class MessageThread extends Component {
         this.retrieveMessages();
     }
 
+    // TODO: Add logic for sending a message
     onSend(messages = []) {
         this.setState(previousState => ({
             messages: GiftedChat.append(previousState.messages, messages),
@@ -80,18 +81,13 @@ class MessageThread extends Component {
         this.setState({messages: messageList});
     };
 
-    // Event handler for button.
-    // TODO: Add logic
-    sendMessage() {
-        alert(this.state.messages[0].body);
-    };
-
     render() {
         return(
             <GiftedChat
                 messages={this.state.messages}
                 onSend={messages => this.onSend(messages)}
                 user= {{
+                    // User ID is 1
                     _id: 1,
                 }}
             />

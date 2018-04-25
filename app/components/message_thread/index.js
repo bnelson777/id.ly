@@ -19,7 +19,6 @@ import { GiftedChat } from 'react-native-gifted-chat';
 class MessageThread extends Component {
     constructor(props) {
         super(props);
-        this.renderItem = this.renderItem.bind(this);
         this.retrieveMessages = this.retrieveMessages.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.state = {
@@ -62,12 +61,13 @@ class MessageThread extends Component {
                         avatar: portrait,
                     },
                 };
+                // User _id: 1 for application user, 2 for other party
                 if(item.from === receiver)
                     message.user._id = 1;
                 else
                     message.user._id = 2;
+                messageList.push(message);
             }
-            messageList.push(message);
         });
 
         // Sort the list by timestamp

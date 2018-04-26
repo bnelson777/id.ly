@@ -64,7 +64,7 @@ class Inbox extends Component {
 
         return (
             <View style = {styles.container}>
-                <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+                <List containerStyle={styles.listContainer}>
                     <FlatList
                         data={arr}
                         keyExtractor={item => item.id}
@@ -124,7 +124,7 @@ class Inbox extends Component {
                     rightTitle = {new Date(item.time*1000).toDateString()}
                     subtitle = {item.body}
                     avatar = {uriflag === true ? {uri: portrait} : portrait}
-                    containerStyle = {{borderBottomWidth: 0}}
+                    containerStyle = {styles.noBotBorder}
                 />
             </TouchableOpacity>
         );

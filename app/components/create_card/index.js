@@ -26,8 +26,11 @@ class CreateCard extends Component {
     constructor(props) {
         super(props);
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.state.image = "";
         this.generateKeys = this.generateKeys.bind(this);
+        this.generateID = this.generateID.bind(this);
         this.removeAttributeFromForm.bind(this);
+        this.generateTimestamp = this.generateTimestamp.bind(this);
     }
 
     componentDidMount(){
@@ -55,6 +58,57 @@ class CreateCard extends Component {
         return privateKey;
       }
 
+      generateID() {
+          let d = new Date().getTime();
+          let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+              let r = (d + Math.random() * 16) % 16 | 0;
+              d = Math.floor(d / 16);
+              return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
+          });
+          return id;
+      }
+
+      generateTimestamp() {
+          var time = new Date().getTime()/1000
+          var time_round = parseInt(time)
+          return time_round
+      }
+
+      addCard() {
+        let id = this.generateID();
+        let keys = this.generateKeys();
+        let keys_json = JSON.parse(keys);
+        let time = this.generateTimestamp();
+        let user_attributes = []
+
+        // create json of user attributes (if any)
+        // check if user added any unique attributes in the first place
+        if (this.state.form.length > 3) {
+          var i, c;
+          // iterate through user defined attributes and add them
+          for (i = 3, c = 0; i < this.state.form.length; i++, c++) {
+              console.log(this.state.form[i]['field'])
+              user_attributes[c] = {[this.state.form[i]['title']] : this.state.form[i]['field']}
+          }
+        }
+
+        //convert to proper syntax
+        var result = {};
+        console.log('conversion size',user_attributes[0].length);
+        for (var i=0; i<user_attributes.length; i++) {
+          console.log('conversioniteration',Object.values(user_attributes[i])[0]);
+          result[Object.keys(user_attributes[i])] = Object.values(user_attributes[i])[0];
+        }
+
+        // card object to pass into actions redux props.addCard()
+        let card = {"id": id, "keys": keys_json, "fields": result, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
+        console.log(card)
+        this.props.addCard(card);
+
+        //return us to previus component (wallet)
+        Actions.pop();
+      }
+
     render() {
         return (
             <View style={styles.bodyContainer}>
@@ -62,7 +116,7 @@ class CreateCard extends Component {
                     <TouchableOpacity onPress={() => {alert('')}}>
                         <Text style={styles.buttonText}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {alert(JSON.stringify(this.state))}}>
+                    <TouchableOpacity onPress={() => this.addCard()}>
                         <Text style={styles.buttonText}>Add Card</Text>
                     </TouchableOpacity>
                 </View>
@@ -101,8 +155,8 @@ class CreateCard extends Component {
                         <TouchableOpacity onPress={() => this.addAttributeToForm()} disabled={(this.state.addAttribute != 0) ? false : true}>
                             <Text style={[styles.buttonText,
                                 {color: (this.state.addAttribute != 0) ? "blue" : "#CCC"
-                            }]}> 
-                                Add Attribute 
+                            }]}>
+                                Add Attribute
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -222,7 +276,7 @@ class CreateCard extends Component {
             this.setState({ image: b64image });
         }
     };
-    
+
     removeAttributeFromForm(item){
         let temp = this.state.form;
         let index = temp.indexOf(item);

@@ -44,13 +44,6 @@ export default StyleSheet.create({
         marginTop: 6,
     },
 
-    innerButton: {
-        height: buttonHeight,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: BORDER_RADIUS
-    },
-
     topButtonText: {
         color: '#6666EE'
     },

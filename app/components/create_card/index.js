@@ -87,22 +87,19 @@ class CreateCard extends Component {
           var i, c;
           // iterate through user defined attributes and add them
           for (i = 3, c = 0; i < this.state.form.length; i++, c++) {
-              console.log(this.state.form[i]['field'])
               user_attributes[c] = {[this.state.form[i]['title']] : this.state.form[i]['field']}
           }
         }
 
         //convert to proper syntax
-        var result = {};
-        console.log('conversion size',user_attributes[0].length);
+        var attributes = {};
         for (var i=0; i<user_attributes.length; i++) {
-          console.log('conversioniteration',Object.values(user_attributes[i])[0]);
-          result[Object.keys(user_attributes[i])] = Object.values(user_attributes[i])[0];
+          attributes[Object.keys(user_attributes[i])] = Object.values(user_attributes[i])[0];
         }
 
         // card object to pass into actions redux props.addCard()
-        let card = {"id": id, "keys": keys_json, "fields": result, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
-        console.log(card)
+        let card = {"id": id, "keys": keys_json, "fields": attributes, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
+
         this.props.addCard(card);
 
         //return us to previus component (wallet)

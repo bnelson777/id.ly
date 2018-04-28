@@ -116,12 +116,36 @@ class Inbox extends Component {
           receiver: receiver
         }
 
+        //converts the seconds time in messages.json to milliseconds. 
+        //if message was received on current date the time will be displayed. 
+        //if the message was received before the current date, the date will be displayed. 
+        var millisecondTime = item.time*1000;
+        var messageDate = new Date(millisecondTime).toDateString();
+        var today = new Date().toDateString();
+        var timeStamp;
+
+        if (messageDate === today){
+            var period = "AM";
+            var date = new Date(millisecondTime);
+            var hours = date.getHours();
+            if (hours > 12){
+                hours = hours-12;
+                period = "PM";
+            }
+            var minutes = "0" + date.getMinutes();
+            timeStamp = hours + ":" + minutes.substr(-2) + " " + period;
+        }
+        else{
+            timeStamp = messageDate;
+        }
+
+
         return (
             <TouchableOpacity  onPress={() => Actions.message_thread({title: author, pair: pair})} >
                 <ListItem
                     roundAvatar
                     title = {author}
-                    rightTitle = {new Date(item.time*1000).toDateString()}
+                    rightTitle = {timeStamp}
                     subtitle = {item.body}
                     avatar = {uriflag === true ? {uri: portrait} : portrait}
                     containerStyle = {{borderBottomWidth: 0}}

@@ -7,7 +7,7 @@
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList,
-        View, Text, TextInput, 
+        View, Text, TextInput,
         TouchableHighlight, TouchableOpacity,
         Image, Picker } from 'react-native';
 import styles from './styles';
@@ -89,6 +89,16 @@ class CreateMessage extends Component {
         // Displays text input box to type message at bottom and send button
         // Message is stored in this.state.message
         // Recipient is stored in this.state.recipient using the recipient card id field
+
+        if(this.props.thread === true) {
+          console.log('we made it fam')
+          console.log(this.props.thread)
+          this.state.recipient = this.props.receiver;
+          this.state.sender = this.props.sender;
+          this.state.message = this.props.body;
+          this.pressButton();
+
+        }
 
         const from = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => {
             return (

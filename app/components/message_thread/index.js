@@ -60,7 +60,7 @@ class MessageThread extends Component {
     // Event handler for button.
     // TODO: Add logic
     sendMessage() {
-        alert(this.state.messages[0].body);
+        Actions.create_message({thread: true, body: this.state.text, sender: this.props.pair.sender, receiver: this.props.pair.receiver})
     };
 
     render() {

@@ -36,6 +36,10 @@ export default StyleSheet.create({
         resizeMode: 'contain'
     },
 
+    portrait: {
+        borderRadius: 100
+    },
+
     button: {
         height: buttonHeight,
         alignItems: 'center',

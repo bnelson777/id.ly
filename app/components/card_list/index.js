@@ -113,14 +113,15 @@ class CardList extends Component {
                     // Display image, ID button, and share icon
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
-                        <View style={[styles.button, styles.imageButton, styles.imageButtonWallet]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={icon}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            onPress={() => Actions.card_view({card: item})}
+                            style={[styles.button, styles.imageButton, styles.imageButtonWallet]}
+                        >
+                            <Image
+                                style={[styles.imageContainer, styles.portrait]}
+                                source={icon}
+                            />
+                        </TouchableOpacity>
                         <View
                             style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
                             backgroundColor={COLORS[index % COLORS.length]}
@@ -144,14 +145,16 @@ class CardList extends Component {
                     // Display image, ID button, message icon, and share icon
                     // ID buttons are displayed in alternating color based on index
                     <View style={[styles.buttonContainer, styles.bodyContainer]}>
-                        <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={icon}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            onPress={() => Actions.card_view({card: item})}
+                            onLongPress={() => this.showOptions(item)}
+                            style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}
+                        >
+                            <Image
+                                style={[styles.imageContainer, styles.portrait]}
+                                source={icon}
+                            />
+                        </TouchableOpacity>
                         <View
                             style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                             backgroundColor={COLORS[index % COLORS.length]}

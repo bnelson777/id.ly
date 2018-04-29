@@ -88,7 +88,7 @@ class CreateCard extends Component {
                         />
                     </View>
                     <TouchableOpacity onPress={this.showActionSheet} style={styles.imageStyle}>
-                            <Image source={photo}/>
+                            <Image style={styles.imageStyle} source={photo}/>
                     </TouchableOpacity>
                         <ActionSheet
                             ref={o => {this.ActionSheet = o}}

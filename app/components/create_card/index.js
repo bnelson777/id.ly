@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity,
         Image, FlatList, TextInput,
-        Picker, Platform } from 'react-native';
+        Picker, Platform, Button, Icon } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { RSAKeychain, RSA } from 'react-native-rsa';
@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import { StackNavigator } from 'react-navigation';
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -33,9 +34,30 @@ class CreateCard extends Component {
         this.generateTimestamp = this.generateTimestamp.bind(this);
     }
 
+    // static navigationOptions = ({ navigation }) => {
+    //     const { params = {} } = navigation.state;
+    //     return {
+    //         title: '[ Admin ]',
+    //         headerTitleStyle :{color:'#fff'},
+    //         headerStyle: {backgroundColor:'#3c3c3c'},
+    //         headerRight: <Icon style={{ marginLeft:15,color:'#fff' }} name={'Add Card'} size={25} onPress={() => params.handleAddCard()} />
+    //     };
+    // };
+
+    static navigationOptions = ({ navigation }) => {
+        const params = navigation.state.params || {};
+        return {
+          headerRight: (
+            <Button onPress={params.handleAddCard} title="Add Card" color="#000" />
+          ),
+        };
+      };
+
     componentDidMount(){
         this.props.getCards();
+        this.props.navigation.setParams({handleAddCard : this.addCard});
     }
+
     generateKeys() {
         console.log('RSA public private keys!')
         var RSAKey = require('react-native-rsa');
@@ -74,7 +96,7 @@ class CreateCard extends Component {
           return time_round
       }
 
-      addCard() {
+      addCard=()=> {
         let id = this.generateID();
         let keys = this.generateKeys();
         let keys_json = JSON.parse(keys);
@@ -109,14 +131,6 @@ class CreateCard extends Component {
     render() {
         return (
             <View style={styles.bodyContainer}>
-                <View style={styles.topButtonContainer}>
-                    <TouchableOpacity onPress={() => {alert('')}}>
-                        <Text style={styles.buttonText}>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.addCard()}>
-                        <Text style={styles.buttonText}>Add Card</Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.screenContainer}>
                     <View style={styles.formContainer}>
                         <FlatList

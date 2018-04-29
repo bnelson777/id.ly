@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import ActionSheet from 'react-native-actionsheet';
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -28,6 +29,7 @@ class CreateCard extends Component {
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
         this.generateKeys = this.generateKeys.bind(this);
         this.removeAttributeFromForm.bind(this);
+        this.choosePhotoAction = this.choosePhotoAction.bind(this);
     }
 
     componentDidMount(){
@@ -55,7 +57,19 @@ class CreateCard extends Component {
         return privateKey;
       }
 
+    choosePhotoAction(num){
+        if (num === 1)
+            this.takePicture();
+        else if (num === 2)
+            this.pickImage();
+    }
+
+    showActionSheet = () => {
+        this.ActionSheet.show();
+    }
+
     render() {
+        let photo = this.state.image === "" ? require('../../assets/add_image.png') : {uri: this.state.image};
         return (
             <View style={styles.bodyContainer}>
                 <View style={styles.topButtonContainer}>
@@ -74,20 +88,19 @@ class CreateCard extends Component {
                             renderItem={this.renderItem}
                         />
                     </View>
-                    <View style={styles.addImageContainer}>
-                        <Image style={styles.imageStyle} source={{uri: this.state.image}} />
-                        <Picker
-                            style={styles.imageDropdown}
-                            mode={"dropdown"}
-                            onValueChange={(itemValue) => {
-                                if (itemValue === "take_picture") this.takePicture();
-                                else if (itemValue === "select_picture") this.pickImage();
-                        }}>
-                        <Picker.Item label="Add image" value="default" />
-                        <Picker.Item label="Take a photo from camera" value="take_picture" />
-                        <Picker.Item label="Select a photo from camera roll" value="select_picture" />
-                        </Picker>
-                    </View>
+                    <TouchableOpacity onPress={this.showActionSheet} style={[styles.addImageContainer, styles.imageStyle]}>
+                            <Image
+                                style={styles.imageStyle}
+                                source={photo}
+                            />
+                    </TouchableOpacity>
+                        <ActionSheet
+                            ref={o => {this.ActionSheet = o}}
+                            title={'Add photo from where?'}
+                            options={["Cancel", "Take a photo from camera", "Select a photo from camera roll"]}
+                            cancelButtonIndex={0}
+                            onPress={(index) => this.choosePhotoAction(index)}
+                        />
                 </View>
                 <View style={styles.addAttributeContainer}>
                     <TextInput

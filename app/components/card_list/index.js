@@ -75,7 +75,7 @@ class CardList extends Component {
                     // ID buttons are displayed in alternating color based on index
                     <View style={styles.buttonContainer}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonWallet]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
                                 <Image
                                     style={styles.imageContainer}
                                     source={icon}
@@ -86,7 +86,7 @@ class CardList extends Component {
                             style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
+                            <TouchableOpacity onPress={() => Actions.card_view({title:item.name, card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>
@@ -106,7 +106,7 @@ class CardList extends Component {
                     // ID buttons are displayed in alternating color based on index
                     <View style={styles.buttonContainer}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Image
                                     style={styles.imageContainer}
                                     source={icon}
@@ -117,7 +117,7 @@ class CardList extends Component {
                             style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                             backgroundColor={COLORS[index % COLORS.length]}
                         >
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Text>{item.label}</Text>
                             </TouchableOpacity>
                         </View>

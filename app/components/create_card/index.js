@@ -6,8 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity,
-        Image, FlatList, TextInput,
-        Picker, Platform } from 'react-native';
+        Image, FlatList, TextInput, Platform } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { RSAKeychain, RSA } from 'react-native-rsa';
@@ -26,7 +25,7 @@ import ActionSheet from 'react-native-actionsheet';
 class CreateCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: "", image: ""};
         this.generateKeys = this.generateKeys.bind(this);
         this.removeAttributeFromForm.bind(this);
         this.choosePhotoAction = this.choosePhotoAction.bind(this);
@@ -88,11 +87,8 @@ class CreateCard extends Component {
                             renderItem={this.renderItem}
                         />
                     </View>
-                    <TouchableOpacity onPress={this.showActionSheet} style={[styles.addImageContainer, styles.imageStyle]}>
-                            <Image
-                                style={styles.imageStyle}
-                                source={photo}
-                            />
+                    <TouchableOpacity onPress={this.showActionSheet} style={styles.imageStyle}>
+                            <Image source={photo}/>
                     </TouchableOpacity>
                         <ActionSheet
                             ref={o => {this.ActionSheet = o}}

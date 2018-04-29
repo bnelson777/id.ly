@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity,
         Image, FlatList, TextInput,
-        Picker, Platform, Button, Icon } from 'react-native';
+        Picker, Platform, Button } from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { RSAKeychain, RSA } from 'react-native-rsa';
@@ -33,16 +33,6 @@ class CreateCard extends Component {
         this.removeAttributeFromForm.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
     }
-
-    // static navigationOptions = ({ navigation }) => {
-    //     const { params = {} } = navigation.state;
-    //     return {
-    //         title: '[ Admin ]',
-    //         headerTitleStyle :{color:'#fff'},
-    //         headerStyle: {backgroundColor:'#3c3c3c'},
-    //         headerRight: <Icon style={{ marginLeft:15,color:'#fff' }} name={'Add Card'} size={25} onPress={() => params.handleAddCard()} />
-    //     };
-    // };
 
     static navigationOptions = ({ navigation }) => {
         const params = navigation.state.params || {};

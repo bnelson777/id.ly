@@ -20,7 +20,7 @@ export default StyleSheet.create({
     title: {
         fontSize: FONT_SIZE,
         fontWeight: "600",
-        marginTop: 8 * 2
+        marginTop: 8 * 2,
+        marginBottom: 50
     }
 });
-

@@ -63,6 +63,9 @@ class Share extends Component {
         return (
             // This is where the actual QR is displayed
             <View style={styles.container}>
+                <Text style={styles.title}>
+                    Have the other user scan with QR Scanner
+                </Text>
                 <QRCode
                     value={packageCard}
                     size={350}

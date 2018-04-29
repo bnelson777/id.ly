@@ -94,14 +94,16 @@ class CardList extends Component {
                                 <Text>{item.label}</Text>
                             </View>
                         </TouchableOpacity>
-                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonWallet]}>
-                            <TouchableOpacity onPress={() => Actions.share({card: item})} onLongPress={() => this.showOptions(item)}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={require('../../assets/share.png')}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            onPress={() => Actions.share({card: item})}
+                            onLongPress={() => this.showOptions(item)}
+                            style={[styles.button, styles.gotoButton, styles.gotoButtonWallet]}
+                        >
+                            <Image
+                                style={styles.imageContainer}
+                                source={require('../../assets/share.png')}
+                            />
+                        </TouchableOpacity>
                     </View>
                 );
             } else {
@@ -130,22 +132,24 @@ class CardList extends Component {
                                 <Text>{item.label}</Text>
                             </View>
                         </TouchableOpacity>
-                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.message_thread({card: item})}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={require('../../assets/mail.png')}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.share({card: item})}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={require('../../assets/share.png')}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            onPress={() => Actions.message_thread({card: item})}
+                            style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}
+                        >
+                            <Image
+                                style={styles.imageContainer}
+                                source={require('../../assets/mail.png')}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => Actions.share({card: item})}
+                            style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}
+                        >
+                            <Image
+                                style={styles.imageContainer}
+                                source={require('../../assets/share.png')}
+                            />
+                        </TouchableOpacity>
                     </View>
                 );
             }

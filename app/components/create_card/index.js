@@ -117,8 +117,12 @@ class CreateCard extends Component {
       }
 
     render() {
+        
+        var icon = this.state.image === "" ? require('../../assets/person.png') : {uri: this.state.image};
         return (
             <View style={styles.bodyContainer}>
+                <View style={styles.addImageContainer} />
+                    <Image style ={styles.imageStyle} source = {icon} />
                 <View style={styles.screenContainer}>
                     <View style={styles.formContainer}>
                         <Form type={User} />
@@ -126,20 +130,6 @@ class CreateCard extends Component {
                             title="Add Card"
                             onPress={() => this.addCard()}
                             /> 
-                    </View>
-                    <View style={styles.addImageContainer}>
-                        <Image style={styles.imageStyle} source={{uri: this.state.image}} />
-                        <Picker
-                            style={styles.imageDropdown}
-                            mode={"dropdown"}
-                            onValueChange={(itemValue) => {
-                                if (itemValue === "take_picture") this.takePicture();
-                                else if (itemValue === "select_picture") this.pickImage();
-                        }}>
-                        <Picker.Item label="Add image" value="default" />
-                        <Picker.Item label="Take a photo from camera" value="take_picture" />
-                        <Picker.Item label="Select a photo from camera roll" value="select_picture" />
-                        </Picker>
                     </View>
                 </View>
                 <View style={styles.addAttributeContainer}>

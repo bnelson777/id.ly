@@ -13,9 +13,6 @@ export default StyleSheet.create({
     },
 
     ButtonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
     },
 

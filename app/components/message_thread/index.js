@@ -51,10 +51,10 @@ class MessageThread extends Component {
         this.props.messages.forEach((item, index, array) => {
             if((item.from === receiver && item.to === sender) ||
             (item.to === receiver && item.from === sender)) {
+                console.log(item.time);
                 let message = {
                     _id: item.id,
                     text: item.body,
-                    //createdAt: new Date((item.time * 1000)).toDateString(),
                     createdAt: new Date(item.time * 1000),
                     user: {
                         _id: 0,
@@ -67,6 +67,11 @@ class MessageThread extends Component {
                     message.user._id = 2;
                 messageList.push(message);
             }
+        });
+
+        // Sort the messages by time
+        messageList.sort((a, b) => {
+            return a.createdAt.getTime() < b.createdAt.getTime();
         });
 
         // Update the message list

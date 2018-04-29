@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity,
         Image, FlatList, TextInput,
-        Picker, Platform } from 'react-native';
+        Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { RSAKeychain, RSA } from 'react-native-rsa';
@@ -122,7 +122,10 @@ class CreateCard extends Component {
         return (
             <View style={styles.bodyContainer}>
                 <View style={styles.addImageContainer} />
-                    <Image style ={styles.imageStyle} source = {icon} />
+                    <TouchableOpacity activeOpacity = { .5 } onPress={ () => this.chooseImage() }>
+                        <Image style ={styles.imageStyle} 
+                            source = {icon} />
+                    </TouchableOpacity>
                 <View style={styles.screenContainer}>
                     <View style={styles.formContainer}>
                         <Form type={User} />
@@ -231,6 +234,19 @@ class CreateCard extends Component {
             }
         }
     }
+
+    chooseImage = () => {
+        
+        Alert.alert(
+        'Add Image',
+        'Choose a method to upload an image',
+        [
+          {text: 'Cancel', onPress: () => {} },
+          {text: 'Camera', onPress: () => this.takePicture()},
+          {text: 'Device', onPress: () => this.pickImage()},
+        ],
+        { cancelable: false }
+      )}
 
     pickImage = async () => {
         this.obtainPermissionIOS(Permissions.CAMERA_ROLL);

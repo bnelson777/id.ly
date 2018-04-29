@@ -118,7 +118,15 @@ class CreateMessage extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.midContainer}>
-                    <Text style={styles.fieldText} onPress={this.showFromSheet}>{"From: " + this.state.senderLabel}</Text>
+                    <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
+                    <TouchableOpacity onPress={this.showFromSheet}>
+                        <View style={[styles.button, styles.listButton]}>
+                            <Image
+                                style={styles.imageContainer}
+                                source={require('../../assets/list.png')}
+                            />
+                        </View>
+                    </TouchableOpacity>
                     <ActionSheet
                         ref={o => {this.fromSheet = o}}
                         title={'Send from which card?'}
@@ -128,7 +136,15 @@ class CreateMessage extends Component {
                     />
                 </View>
                 <View style={styles.midContainer}>
-                    <Text style={styles.fieldText} onPress={this.showToSheet}>{"To: " + this.state.recipientLabel}</Text>
+                    <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
+                    <TouchableOpacity onPress={this.showToSheet}>
+                        <View style={[styles.button, styles.listButton]}>
+                            <Image
+                                style={styles.imageContainer}
+                                source={require('../../assets/list.png')}
+                            />
+                        </View>
+                    </TouchableOpacity>
                     <ActionSheet
                         ref={o => {this.toSheet = o}}
                         title={'Send to which card?'}

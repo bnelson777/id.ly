@@ -23,12 +23,9 @@ export default StyleSheet.create({
         width: screenWidth,
     },
 
-    topContainer: {
-        flex: 0.1
-    },
-
     midContainer: {
         flex: 0.2,
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -44,26 +41,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: BORDER_RADIUS
-    },
-
-    topButtonText: {
-        color: '#6666EE'
-    },
-
-    topButton: {
-        width: screenWidth * 0.3,
-    },
-
-    cancelButton: {
-        marginLeft: screenWidth * 0.05,
-        marginRight: screenWidth * 0.15,
-        marginTop: 6
-    },
-
-    inboxButton: {
-        marginLeft: screenWidth * 0.15,
-        marginRight: screenWidth * 0.05,
-        marginTop: 6
     },
 
     messageBox: {
@@ -104,10 +81,14 @@ export default StyleSheet.create({
     },
 
     fieldText: {
+        flex: 1,
         fontSize: 16,
-        fontStyle: 'italic',
-        marginLeft: screenWidth * 0.05,
-        marginBottom: screenHeight * 0.05,
-        marginTop: screenHeight * 0.05
+        marginLeft: screenWidth * 0.02
+    },
+
+    listButton: {
+        width: buttonHeight,
+        flex: 1,
+        marginRight: screenWidth * 0.02
     }
 });

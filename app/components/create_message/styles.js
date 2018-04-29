@@ -104,6 +104,10 @@ export default StyleSheet.create({
         resizeMode: 'contain'
     },
 
+    imageDisabled: {
+        tintColor: 'lightgrey'
+    },
+
     fieldText: {
         fontSize: 16,
         fontStyle: 'italic',

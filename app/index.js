@@ -31,6 +31,8 @@ import { getCards } from './actions';
 import { getMessages } from './actions';
 //Needed for Actions.home() back button on inbox see line 59:121
 import * as ReduxActions from './actions'; //Import your actions
+//Style Import
+import styles from './styles';
 
 class Main extends Component {
     componentDidMount() {
@@ -64,13 +66,21 @@ class Main extends Component {
                     <Scene key="home" component={Home} title="Home"/>
                     <Scene key="scan" component={Scan} title="Scan" />
                     <Scene key="lockbox" component={Lockbox} title="Lockbox" />
-                    <Scene key="rolodex" component={CardList} title="Rolodex" />
-                    <Scene key="wallet" component={CardList} title="Wallet" />
+                    <Scene key="rolodex" component={CardList}title="Rolodex"
+                        titleStyle={styles.title} onRight={() => Actions.scan()}
+                        rightButtonImage={require('./assets/add.png')}
+                        rightButtonStyle={styles.rightButton} rightButtonIconStyle={styles.rightButtonIcon} />
+                    <Scene key="wallet" component={CardList} title="Wallet"
+                        titleStyle={styles.title} onRight={() => Actions.create_card()}
+                        rightButtonImage={require('./assets/add.png')}
+                        rightButtonStyle={styles.rightButton} rightButtonIconStyle={styles.rightButtonIcon} />
                     <Scene key="card_view" component={CardView} title="CardView" />
                     <Scene key="share" component={Share} title="Share" />
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
                     <Scene key="create_message" component={CreateMessage} title="New Message" />
-                    <Scene key="inbox" component={Inbox} title="Inbox" titleStyle={{alignSelf: 'center'}} onRight={() => Actions.create_message({recipient: ""})} rightTitle='Message' />
+                    <Scene key="inbox" component={Inbox} title="Inbox"
+                        titleStyle={styles.title} onRight={() => Actions.create_message({recipient: ""})}
+                        rightTitle='Message' />
                     <Scene key="create_card" component={CreateCard} title="Add Information" />
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />

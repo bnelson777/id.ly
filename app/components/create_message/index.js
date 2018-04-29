@@ -71,16 +71,12 @@ class CreateMessage extends Component {
         this.setState({sender: sender})
     }
 
-    // Dummy function for button presses
     pressButton() {
-        //Alert.alert(label);
-        //this.messageInput.clear();
         let id = this.generateID();
         let unix = this.generateTimestamp();
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         this.props.addMessage(message);
-        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message});
-
+        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
     }
 
     render() {
@@ -89,16 +85,6 @@ class CreateMessage extends Component {
         // Displays text input box to type message at bottom and send button
         // Message is stored in this.state.message
         // Recipient is stored in this.state.recipient using the recipient card id field
-
-        if(this.props.thread === true) {
-          console.log('we made it fam')
-          console.log(this.props.thread)
-          this.state.recipient = this.props.receiver;
-          this.state.sender = this.props.sender;
-          this.state.message = this.props.body;
-          this.pressButton();
-
-        }
 
         const from = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => {
             return (

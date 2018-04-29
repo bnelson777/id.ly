@@ -18,13 +18,29 @@ import { connect } from 'react-redux';
 class MessageThread extends Component {
     constructor(props) {
         super(props);
+        this.state = {};
         this.renderItem = this.renderItem.bind(this);
         this.retrieveMessages = this.retrieveMessages.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
-        this.state = {
-            messages: [],
-        };
+        this.generateID = this.generateID.bind(this);
+        this.generateTimestamp = this.generateTimestamp.bind(this);
     };
+
+    generateID() {
+        let d = new Date().getTime();
+        let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
+        });
+        return id;
+    }
+
+    generateTimestamp() {
+        var time = new Date().getTime()/1000
+        var time_round = parseInt(time)
+        return time_round
+    }
 
     // When component mounts, retrieve the messages and cards
     // TODO: remove cards if required as it is currently unused.
@@ -58,9 +74,14 @@ class MessageThread extends Component {
     };
 
     // Event handler for button.
-    // TODO: Add logic
     sendMessage() {
-        Actions.create_message({thread: true, body: this.state.text, sender: this.props.pair.sender, receiver: this.props.pair.receiver})
+      let id = this.generateID();
+      let unix = this.generateTimestamp();
+      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.text, "time": unix, "read": false};
+      // add to redux persistant storage
+      this.props.addMessage(message);
+      // bring up screen to send out to reciever
+      Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
     };
 
     render() {

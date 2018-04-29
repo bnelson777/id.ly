@@ -38,6 +38,9 @@ class Inbox extends Component {
     render() {
         // array to be filled with valid pairs of sender and receivers
         var arr = [];
+        
+        // sort array of messages by time
+        this.props.messages.sort(function (a,b) { return b.time - a.time; });
 
         // loop through all messages
         for (var i = 0, len = this.props.messages.length; i < len; i++) {

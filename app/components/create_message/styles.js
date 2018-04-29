@@ -28,14 +28,13 @@ export default StyleSheet.create({
     },
 
     midContainer: {
-        flex: 0.15,
-        flexDirection: 'row',
+        flex: 0.2,
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'center'
     },
 
     bottomContainer: {
-        flex: 0.6,
+        flex: 0.5,
         alignItems: 'center',
         justifyContent: 'flex-end'
     },
@@ -107,14 +106,6 @@ export default StyleSheet.create({
     fieldText: {
         fontSize: 16,
         fontStyle: 'italic',
-        marginLeft: screenWidth * 0.05,
-        marginBottom: screenHeight * 0.05,
-        marginTop: screenHeight * 0.05
-    },
-
-    picker: {
-        maxHeight: screenHeight * 0.1,
-        width: screenWidth * 0.7,
         marginLeft: screenWidth * 0.05,
         marginBottom: screenHeight * 0.05,
         marginTop: screenHeight * 0.05

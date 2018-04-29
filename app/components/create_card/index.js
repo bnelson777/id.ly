@@ -110,9 +110,6 @@ class CreateCard extends Component {
         return (
             <View style={styles.bodyContainer}>
                 <View style={styles.topButtonContainer}>
-                    <TouchableOpacity onPress={() => {alert('')}}>
-                        <Text style={styles.buttonText}>Cancel</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.addCard()}>
                         <Text style={styles.buttonText}>Add Card</Text>
                     </TouchableOpacity>

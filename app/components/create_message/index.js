@@ -34,7 +34,7 @@ class CreateMessage extends Component {
         super(props);
         this.state = {
           message: "",
-          recipient: "",
+          recipient: this.props.recipient,
           sender: ""
         };
         this.generateID = this.generateID.bind(this);
@@ -104,6 +104,9 @@ class CreateMessage extends Component {
         })
         to.unshift(<Picker.Item key = "default" value={0} label="Receiver" />)
 
+        let buttonStyle = (this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ?
+            styles.imageContainer : [styles.imageContainer, styles.imageDisabled];
+
         return (
             <View style={styles.container}>
                 <View style={styles.midContainer}>
@@ -137,7 +140,7 @@ class CreateMessage extends Component {
                     <View style={[styles.button, styles.imageButton]}>
                         <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
                             <Image
-                                style={styles.imageContainer}
+                                style={buttonStyle}
                                 source={require('../../assets/send.png')}
                             />
                         </TouchableOpacity>

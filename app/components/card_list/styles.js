@@ -22,14 +22,6 @@ export default StyleSheet.create({
         width: screenWidth,
     },
 
-    headContainer: {
-        flex: 0.1
-    },
-
-    bodyContainer: {
-        flex: 0.9
-    },
-
     imageContainer: {
         width: buttonHeight,
         height: buttonHeight,
@@ -46,24 +38,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         borderRadius: BORDER_RADIUS,
         marginTop: 6,
-    },
-
-    topButtonText: {
-        color: '#6666EE'
-    },
-
-    topButton: {
-        width: screenWidth * 0.3,
-    },
-
-    homeButton: {
-        marginLeft: screenWidth * 0.05,
-        marginRight: screenWidth * 0.15
-    },
-
-    addButton: {
-        marginLeft: screenWidth * 0.15,
-        marginRight: screenWidth * 0.05
     },
 
     imageButton: {

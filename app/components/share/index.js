@@ -8,8 +8,8 @@ import React, { Component } from 'react';
 import QRCode from 'react-native-qrcode';
 import styles from './styles';
 import { StyleSheet, FlatList, TextInput,
-        View, Text, ActivityIndicator, 
-        TouchableHighlight, 
+        View, Text, ActivityIndicator,
+        TouchableHighlight,
         ActionSheetIOS} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -46,7 +46,7 @@ class Share extends Component {
         jsonCard2.keys = {};
         //TODO: base64 too big for QR when we implement sending cards over bluetooth
         // get rid of this null
-        jsonCard2.image = null;
+        jsonCard2.image = "";
         // omit private keys from share object
         jsonCard2.keys = {"n": jsonKey};
         // ensure card owner is set to false

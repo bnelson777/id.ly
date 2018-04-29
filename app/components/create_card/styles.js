@@ -12,7 +12,7 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR
     },
 
-    topButtonContainer: {
+    ButtonContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -29,7 +29,7 @@ export default StyleSheet.create({
     },
 
     formContainer: {
-        flex: 3,
+        flex: 3
     },
 
     formItemContainer: {

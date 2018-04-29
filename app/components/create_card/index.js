@@ -16,6 +16,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import t from 'tcomb-form-native';
+import { Button } from 'react-native-elements';
+
+const Form=  t.form.Form;
+
+const User = t.struct({
+    label: t.String,
+    name: t.String,
+    email: t.String
+});
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -109,18 +119,13 @@ class CreateCard extends Component {
     render() {
         return (
             <View style={styles.bodyContainer}>
-                <View style={styles.topButtonContainer}>
-                    <TouchableOpacity onPress={() => this.addCard()}>
-                        <Text style={styles.buttonText}>Add Card</Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.screenContainer}>
                     <View style={styles.formContainer}>
-                        <FlatList
-                            data={this.state.form}
-                            keyExtractor={item => item.title}
-                            renderItem={this.renderItem}
-                        />
+                        <Form type={User} />
+                        <Button style={styles.ButtonContainer}
+                            title="Add Card"
+                            onPress={() => this.addCard()}
+                            /> 
                     </View>
                     <View style={styles.addImageContainer}>
                         <Image style={styles.imageStyle} source={{uri: this.state.image}} />

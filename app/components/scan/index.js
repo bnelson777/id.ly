@@ -7,9 +7,9 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { Permissions, BarCodeScanner} from 'expo';
-import { Text, View, StyleSheet, 
-        ActivityIndicator, Animated, Easing, 
-        LayoutAnimation, Image, 
+import { Text, View, StyleSheet,
+        ActivityIndicator, Animated, Easing,
+        LayoutAnimation, Image,
         Vibration } from 'react-native';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -58,14 +58,17 @@ class Scan extends Component {
     reactivate() {
         this._setScanning(false);
     }
- 
+
     // Try to read the QRCode
     _handleBarCodeRead(e) {
         if(!this.state.scanning) {
             Vibration.vibrate();
             this._setScanning(true);
             this.props.ScanResult(e);
-            console.log(e);
+            var card = JSON.parse(e['data']);
+            this.props.addCard(card);
+            console.log(card)
+            Actions.pop();
             if(this.props.reactivate) {
                 setTimeout(() => (this._setScanning(false)), this.props)
             }
@@ -75,7 +78,7 @@ class Scan extends Component {
     static propTypes = {
         ScanResult: PropTypes.func.isRequired,
         reactivate: PropTypes.bool,
-        reactivateTimeout: PropTypes.number,       
+        reactivateTimeout: PropTypes.number,
     };
 
     static defaultProps = {
@@ -88,10 +91,10 @@ class Scan extends Component {
         const { hasCameraPermission } = this.state;
         if (hasCameraPermission === null) {
             return <View />;
-        } 
+        }
         else if (hasCameraPermission === false) {
             return <Text>No access to camera</Text>;
-        } 
+        }
         else {
             return (
                 <View style={styles.container}>

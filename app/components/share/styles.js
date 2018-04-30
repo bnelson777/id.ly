@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { BACKGROUND_COLOR, BORDER_COLOR, BORDER_RADIUS, BORDER_WIDTH } from './../styles/common';
+import { BACKGROUND_COLOR, BORDER_COLOR, BORDER_RADIUS, BORDER_WIDTH, FONT_SIZE } from './../styles/common';
 
 export default StyleSheet.create({
     container: {
@@ -16,5 +16,11 @@ export default StyleSheet.create({
         margin: 10,
         borderRadius: BORDER_RADIUS,
         padding: 5,
+    },
+    title: {
+        fontSize: FONT_SIZE,
+        fontWeight: "600",
+        marginTop: 8 * 2,
+        marginBottom: 50
     }
 });

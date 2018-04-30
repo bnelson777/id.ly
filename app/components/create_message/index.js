@@ -7,7 +7,7 @@
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList,
-        View, Text, TextInput, 
+        View, Text, TextInput,
         TouchableHighlight, TouchableOpacity,
         Image, Picker } from 'react-native';
 import styles from './styles';
@@ -34,7 +34,7 @@ class CreateMessage extends Component {
         super(props);
         this.state = {
           message: "",
-          recipient: "",
+          recipient: this.props.recipient,
           sender: ""
         };
         this.generateID = this.generateID.bind(this);
@@ -71,16 +71,12 @@ class CreateMessage extends Component {
         this.setState({sender: sender})
     }
 
-    // Dummy function for button presses
     pressButton() {
-        //Alert.alert(label);
-        //this.messageInput.clear();
         let id = this.generateID();
         let unix = this.generateTimestamp();
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         this.props.addMessage(message);
-        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message});
-
+        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
     }
 
     render() {
@@ -103,6 +99,9 @@ class CreateMessage extends Component {
             )
         })
         to.unshift(<Picker.Item key = "default" value={0} label="Receiver" />)
+
+        let buttonStyle = (this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ?
+            styles.imageContainer : [styles.imageContainer, styles.imageDisabled];
 
         return (
             <View style={styles.container}>
@@ -137,7 +136,7 @@ class CreateMessage extends Component {
                     <View style={[styles.button, styles.imageButton]}>
                         <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
                             <Image
-                                style={styles.imageContainer}
+                                style={buttonStyle}
                                 source={require('../../assets/send.png')}
                             />
                         </TouchableOpacity>

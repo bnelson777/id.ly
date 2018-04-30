@@ -25,7 +25,11 @@ export default StyleSheet.create({
     imageContainer: {
         width: buttonHeight,
         height: buttonHeight,
-        resizeMode: 'contain'
+        resizeMode: 'cover'
+    },
+
+    portrait: {
+        borderRadius: 100
     },
 
     button: {

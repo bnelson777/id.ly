@@ -14,6 +14,7 @@ export default StyleSheet.create({
 
     ButtonContainer: {
         alignItems: 'center',
+        margin: '10%'
     },
 
     screenContainer: {

@@ -19,12 +19,28 @@ import { GiftedChat } from 'react-native-gifted-chat';
 class MessageThread extends Component {
     constructor(props) {
         super(props);
+        this.state = {};
         this.retrieveMessages = this.retrieveMessages.bind(this);
-        this.onSend = this.onSend.bind(this);
-        this.state = {
-            messages: [],
-        };
+        this.sendMessage = this.sendMessage.bind(this);
+        this.generateID = this.generateID.bind(this);
+        this.generateTimestamp = this.generateTimestamp.bind(this);
     };
+
+    generateID() {
+        let d = new Date().getTime();
+        let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
+        });
+        return id;
+    }
+
+    generateTimestamp() {
+        var time = new Date().getTime()/1000
+        var time_round = parseInt(time)
+        return time_round
+    }
 
     // When component mounts, retrieve the messages and cards
     componentDidMount() {
@@ -62,9 +78,9 @@ class MessageThread extends Component {
                 };
                 // User _id: 1 for application user, 2 for other party
                 if(item.from === receiver)
-                    message.user._id = 1;
-                else
                     message.user._id = 2;
+                else
+                    message.user._id = 1;
                 messageList.push(message);
             }
         });
@@ -75,7 +91,18 @@ class MessageThread extends Component {
         });
 
         // Update the message list
-        this.setState({messages: messageList});
+        this.setState({messages : messageList});
+    };
+
+    // Event handler for button.
+    sendMessage() {
+      let id = this.generateID();
+      let unix = this.generateTimestamp();
+      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.text, "time": unix, "read": false};
+      // add to redux persistant storage
+      this.props.addMessage(message);
+      // bring up screen to send out to reciever
+      Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
     };
 
     /*  GiftedChat component current options:

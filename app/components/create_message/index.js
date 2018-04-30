@@ -7,7 +7,7 @@
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList,
-        View, Text, TextInput, 
+        View, Text, TextInput,
         TouchableHighlight, TouchableOpacity,
         Image, Picker } from 'react-native';
 import styles from './styles';
@@ -71,16 +71,12 @@ class CreateMessage extends Component {
         this.setState({sender: sender})
     }
 
-    // Dummy function for button presses
     pressButton() {
-        //Alert.alert(label);
-        //this.messageInput.clear();
         let id = this.generateID();
         let unix = this.generateTimestamp();
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         this.props.addMessage(message);
-        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message});
-
+        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
     }
 
     render() {

@@ -37,9 +37,11 @@ class Lockbox extends Component {
         super(props);
         this.state = {
             jsonString: "",
-            jsonM: ""
+            jsonM: "",
+            returnTo: ""
         };
         this.decryptMessage= this.decryptMessage.bind(this);
+        this.encryptMessageDone= this.encryptMessageDone.bind(this);
     }
 
     decryptMessage() {
@@ -83,9 +85,25 @@ class Lockbox extends Component {
 
     encryptMessageDone() {
         // exit lockbox after user hits done button
-        // double pop gets us back home
-        Actions.pop();
-        setTimeout(() => {Actions.pop()}, 100)
+        // depends where we came from
+
+        if (this.state.returnTo === 'thread') {
+          // back to thread
+          Actions.pop();
+          setTimeout(() => {
+          Actions.refresh({name:'zzzzar'});
+          console.log("zzzz");
+          }, 10);
+        }
+        else if (this.state.returnTo === 'inbox') {
+          // back to inbox view
+          Actions.pop();
+          Actions.pop();
+        }
+        else {
+          // all else fails just go home
+          Actions.home();
+        }
     }
 
     encryptMessage() {
@@ -148,9 +166,15 @@ class Lockbox extends Component {
     };
 
     render() {
+
         if (this.props.mode === 'encrypt') {
             console.log('In encrypt Mode')
+            console.log(this.props.returnTo)
+            console.log(this.props.mode)
             console.log(this.props.message)
+            // update state variable so we know where to return
+            this.state.returnTo = this.props.returnTo;
+
             var url = this.encryptMessage();
             return (
                 <View style={styles.container}>
@@ -194,7 +218,7 @@ class Lockbox extends Component {
             );
         }
         else if (this.props.mode === 'decrypt') {
-            console.log('In decrypt Mode')       
+            console.log('In decrypt Mode')
             return (
                 <View style={styles.container}>
                     <View style={styles.row}>

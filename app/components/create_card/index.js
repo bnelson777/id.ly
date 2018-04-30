@@ -87,7 +87,7 @@ class CreateCard extends Component {
           var i, c;
           // iterate through user defined attributes and add them
           for (i = 3, c = 0; i < this.state.form.length; i++, c++) {
-              user_attributes[c] = {[this.state.form[i]['title']] : this.state.form[i]['field']}
+              user_attributes[c] = {[capitalizeFirstLetter(this.state.form[i]['title'])] : this.state.form[i]['field']}
           }
         }
 
@@ -283,6 +283,10 @@ class CreateCard extends Component {
         this.setState({form: temp});
     }
 };
+
+function capitalizeFirstLetter(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
 function mapStateToProps(state, props) {
     return {

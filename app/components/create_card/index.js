@@ -9,7 +9,6 @@ import { Text, View, TouchableOpacity,
         Image, FlatList, TextInput,
         Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { RSAKeychain, RSA } from 'react-native-rsa';
 import { ImagePicker, Permissions } from 'expo';
 import { bindActionCreators } from 'redux';
@@ -123,20 +122,14 @@ class CreateCard extends Component {
                         data={this.state.form}
                         keyExtractor={item => item.title} 
                         renderItem={this.renderItem}/>
-                        <Button style={styles.ButtonContainer}
-                            title="Add Card"
-                            onPress={() => this.addCard()}
-                            /> 
-                    </View>
-                </View>
-                <View style={styles.addAttributeContainer}>
-                    <TextInput
-                        style={styles.formInput}
-                        placeholder="Attribute"
-                        underlineColorAndroid="transparent"
-                        value={this.state.addAttribute}
-                        onChangeText={(text) => this.handleAttributeTextChange(text)}
-                    />
+                    <View style={styles.addAttributeContainer}>
+                        <TextInput
+                            style={styles.formInput}
+                            placeholder="Attribute"
+                            underlineColorAndroid="transparent"
+                            value={this.state.addAttribute}
+                            onChangeText={(text) => this.handleAttributeTextChange(text)}
+                        />
                     <View style={styles.addFieldButton}>
                         <TouchableOpacity onPress={() => this.addAttributeToForm()} disabled={(this.state.addAttribute != 0) ? false : true}>
                             <Text style={[styles.buttonText,
@@ -147,7 +140,12 @@ class CreateCard extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <KeyboardSpacer />
+                        <Button style={styles.ButtonContainer}
+                            title="Add Card"
+                            onPress={() => this.addCard()}
+                            /> 
+                    </View>
+                </View>
             </View>
         );
     }

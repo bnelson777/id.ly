@@ -51,9 +51,12 @@ class MessageThread extends Component {
 
     // TODO: Add logic for sending a message
     onSend(messages = []) {
-        this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, messages),
-        }));
+        this.setState(previousState => (
+            {
+                messages: GiftedChat.append(previousState.messages, messages),
+            }
+        ),
+        this.sendMessage)
     }
 
     // Retrieve the relevant messages based on sender/receiver key pairing.
@@ -98,7 +101,7 @@ class MessageThread extends Component {
     sendMessage() {
       let id = this.generateID();
       let unix = this.generateTimestamp();
-      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.text, "time": unix, "read": false};
+      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
       // add to redux persistant storage
       this.props.addMessage(message);
       // bring up screen to send out to reciever

@@ -35,9 +35,9 @@ export default StyleSheet.create({
     },
 
     bottomContainer: {
-        flex: 0.6,
-        alignItems: 'center',
-        justifyContent: 'flex-end'
+        flex: 0.2,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
     },
 
     button: {
@@ -82,11 +82,14 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
 
+    messageContainer: {
+        flex: 1,
+    },
+
     inputStyle: {
-        width: boxWidth,
-        height: boxHeight,
-        fontSize: 18,
-        fontStyle: 'italic'
+        flex: 1,
+        textAlignVertical: 'top',
+        margin: '1%'
     },
 
     imageButton: {
@@ -122,5 +125,5 @@ export default StyleSheet.create({
         marginLeft: screenWidth * 0.05,
         marginBottom: screenHeight * 0.05,
         marginTop: screenHeight * 0.05
-    }
+    },
 });

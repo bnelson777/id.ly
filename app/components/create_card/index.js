@@ -233,9 +233,9 @@ class CreateCard extends Component {
         'Add Image',
         'Choose a method to upload an image',
         [
-          {text: 'Cancel', onPress: () => {} },
           {text: 'Camera', onPress: () => this.takePicture()},
           {text: 'Device', onPress: () => this.pickImage()},
+          {text: 'Cancel', onPress: () => {} },
         ],
         { cancelable: false }
       )}

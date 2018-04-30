@@ -7,15 +7,15 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity,
         Image, FlatList, TextInput,
-        Picker, Platform } from 'react-native';
+        Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { RSAKeychain, RSA } from 'react-native-rsa';
 import { ImagePicker, Permissions } from 'expo';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import { Button } from 'react-native-elements';
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -107,47 +107,29 @@ class CreateCard extends Component {
       }
 
     render() {
+        
+        var icon = this.state.image === "" ? require('../../assets/person.png') : {uri: this.state.image};
         return (
             <View style={styles.bodyContainer}>
-                <View style={styles.topButtonContainer}>
-                    <TouchableOpacity onPress={() => {alert('')}}>
-                        <Text style={styles.buttonText}>Cancel</Text>
+                <View style={styles.addImageContainer} />
+                    <TouchableOpacity activeOpacity = { .5 } onPress={ () => this.chooseImage() }>
+                        <Image style ={styles.imageStyle} 
+                            source = {icon} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.addCard()}>
-                        <Text style={styles.buttonText}>Add Card</Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.screenContainer}>
                     <View style={styles.formContainer}>
                         <FlatList
-                            data={this.state.form}
-                            keyExtractor={item => item.title}
-                            renderItem={this.renderItem}
+                        data={this.state.form}
+                        keyExtractor={item => item.title} 
+                        renderItem={this.renderItem}/>
+                    <View style={styles.addAttributeContainer}>
+                        <TextInput
+                            style={styles.formInput}
+                            placeholder="Attribute"
+                            underlineColorAndroid="transparent"
+                            value={this.state.addAttribute}
+                            onChangeText={(text) => this.handleAttributeTextChange(text)}
                         />
-                    </View>
-                    <View style={styles.addImageContainer}>
-                        <Image style={styles.imageStyle} source={{uri: this.state.image}} />
-                        <Picker
-                            style={styles.imageDropdown}
-                            mode={"dropdown"}
-                            onValueChange={(itemValue) => {
-                                if (itemValue === "take_picture") this.takePicture();
-                                else if (itemValue === "select_picture") this.pickImage();
-                        }}>
-                        <Picker.Item label="Add image" value="default" />
-                        <Picker.Item label="Take a photo from camera" value="take_picture" />
-                        <Picker.Item label="Select a photo from camera roll" value="select_picture" />
-                        </Picker>
-                    </View>
-                </View>
-                <View style={styles.addAttributeContainer}>
-                    <TextInput
-                        style={styles.formInput}
-                        placeholder="Attribute"
-                        underlineColorAndroid="transparent"
-                        value={this.state.addAttribute}
-                        onChangeText={(text) => this.handleAttributeTextChange(text)}
-                    />
                     <View style={styles.addFieldButton}>
                         <TouchableOpacity onPress={() => this.addAttributeToForm()} disabled={(this.state.addAttribute != 0) ? false : true}>
                             <Text style={[styles.buttonText,
@@ -158,7 +140,12 @@ class CreateCard extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <KeyboardSpacer />
+                        <Button style={styles.ButtonContainer}
+                            title="Add Card"
+                            onPress={() => this.addCard()}
+                            /> 
+                    </View>
+                </View>
             </View>
         );
     }
@@ -239,6 +226,19 @@ class CreateCard extends Component {
             }
         }
     }
+
+    chooseImage = () => {
+        
+        Alert.alert(
+        'Add Image',
+        'Choose a method to upload an image',
+        [
+          {text: 'Camera', onPress: () => this.takePicture()},
+          {text: 'Device', onPress: () => this.pickImage()},
+          {text: 'Cancel', onPress: () => {} },
+        ],
+        { cancelable: false }
+      )}
 
     pickImage = async () => {
         this.obtainPermissionIOS(Permissions.CAMERA_ROLL);

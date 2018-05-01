@@ -127,17 +127,17 @@ class CreateMessage extends Component {
                         {to}
                     </Picker>
                 </View>
-                <View style={styles.messageContainer}>
-                    <TextInput
-                        ref={input => {this.messageInput = input}}
-                        style={styles.inputStyle}
-                        placeholder=" Enter Text..."
-                        onChangeText={(text) => this.setState({message:text})}
-                        underlineColorAndroid='transparent'
-                        multiline={true}
-                    />
-                </View>
-                    <View style={styles.bottomContainer}>
+                <View style={[styles.itemContainer, styles.bottomContainer]}>
+                    <View style={styles.messageBox}>
+                        <TextInput
+                            ref={input => {this.messageInput = input}}
+                            style={styles.inputStyle}
+                            placeholder=" Enter Text..."
+                            onChangeText={(text) => this.setState({message:text})}
+                            underlineColorAndroid='transparent'
+                        />
+                    </View>
+                    <View style={[styles.button, styles.imageButton]}>
                         <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
                             <Image
                                 style={buttonStyle}
@@ -145,6 +145,7 @@ class CreateMessage extends Component {
                             />
                         </TouchableOpacity>
                     </View>
+                </View>
                 <KeyboardSpacer/>
             </View>
         );

@@ -121,10 +121,7 @@ class CreateMessage extends Component {
                     <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
                     <TouchableOpacity onPress={this.showFromSheet}>
                         <View style={[styles.button, styles.listButton]}>
-                            <Image
-                                style={styles.imageContainer}
-                                source={require('../../assets/list.png')}
-                            />
+                            <Text style={styles.selectButton}>+</Text>
                         </View>
                     </TouchableOpacity>
                     <ActionSheet
@@ -139,10 +136,7 @@ class CreateMessage extends Component {
                     <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
                     <TouchableOpacity onPress={this.showToSheet}>
                         <View style={[styles.button, styles.listButton]}>
-                            <Image
-                                style={styles.imageContainer}
-                                source={require('../../assets/list.png')}
-                            />
+                            <Text style={styles.selectButton}>+</Text>
                         </View>
                     </TouchableOpacity>
                     <ActionSheet

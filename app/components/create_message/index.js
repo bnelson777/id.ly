@@ -9,12 +9,13 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList,
         View, Text, TextInput,
         TouchableHighlight, TouchableOpacity,
-        Image, Picker } from 'react-native';
+        Image} from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import ActionSheet from 'react-native-actionsheet';
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a dropdown menu to select a message
@@ -35,10 +36,14 @@ class CreateMessage extends Component {
         this.state = {
           message: "",
           recipient: this.props.recipient,
-          sender: ""
+          sender: "",
+          senderLabel: "",
+          recipientLabel: ""
         };
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
+        this.updateRecipient = this.updateRecipient.bind(this);
+        this.updateSender = this.updateSender.bind(this);
     }
 
     generateID() {
@@ -62,13 +67,15 @@ class CreateMessage extends Component {
     }
 
     // Update recipient when selected from dropdown menu
-    updateRecipient = (recipient) => {
-        this.setState({recipient: recipient})
+    updateRecipient(index, id, label) {
+        if (index !== 0)
+            this.setState({recipient: id, recipientLabel: label})
     }
 
     // Update recipient when selected from dropdown menu
-    updateSender = (sender) => {
-        this.setState({sender: sender})
+    updateSender(index, id, label) {
+        if (index !== 0)
+            this.setState({sender: id, senderLabel: label})
     }
 
     pressButton() {
@@ -79,6 +86,14 @@ class CreateMessage extends Component {
         Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
     }
 
+    showFromSheet = () => {
+        this.fromSheet.show();
+    }
+
+    showToSheet = () => {
+        this.toSheet.show();
+    }
+
     render() {
         // Displays Cancel and Inbox buttons at top
         // Displays dropdown menu to select a recipient
@@ -86,19 +101,15 @@ class CreateMessage extends Component {
         // Message is stored in this.state.message
         // Recipient is stored in this.state.recipient using the recipient card id field
 
-        const from = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => {
-            return (
-                <Picker.Item key= {card.id} label={card.name + ": " + card.label} value={card.keys.n} />
-            )
-        })
-        from.unshift(<Picker.Item key = "default" value={0} label="Sender" />)
+        const labelsFrom = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card.name + " (" + card.label + ")");
+        labelsFrom.unshift('Cancel');
+        const idFrom = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card.keys.n);
+        idFrom.unshift('');
 
-        const to = this.props.cards.filter(function(obj) {return obj.owner == false}).map(card => {
-            return (
-                <Picker.Item key= {card.id} label={card.name + ": " + card.label} value={card.keys.n} />
-            )
-        })
-        to.unshift(<Picker.Item key = "default" value={0} label="Receiver" />)
+        const labelsTo = this.props.cards.filter(function(obj) {return obj.owner == false}).map(card => card.name + " (" + card.label + ")");
+        labelsTo.unshift('Cancel');
+        const idTo = this.props.cards.filter(function(obj) {return obj.owner == false}).map(card => card.keys.n);
+        idTo.unshift('');
 
         let buttonStyle = (this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ?
             styles.imageContainer : [styles.imageContainer, styles.imageDisabled];
@@ -106,22 +117,34 @@ class CreateMessage extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.midContainer}>
-                    <Text style={styles.fieldText}>From: </Text>
-                    <Picker selectedValue = {this.state.sender}
-                        onValueChange = {this.updateSender}
-                        style={styles.picker}
-                        mode='dropdown'>
-                        {from}
-                    </Picker>
+                    <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
+                    <TouchableOpacity onPress={this.showFromSheet}>
+                        <View style={[styles.button, styles.listButton]}>
+                            <Text style={styles.selectButton}>+</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <ActionSheet
+                        ref={o => {this.fromSheet = o}}
+                        title={'Send from which card?'}
+                        options={labelsFrom}
+                        cancelButtonIndex={0}
+                        onPress={(index) => this.updateSender(index, idFrom[index], labelsFrom[index])}
+                    />
                 </View>
                 <View style={styles.midContainer}>
-                    <Text style={styles.fieldText}>To: </Text>
-                    <Picker selectedValue = {this.state.recipient}
-                        onValueChange = {this.updateRecipient}
-                        style={styles.picker}
-                        mode='dropdown'>
-                        {to}
-                    </Picker>
+                    <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
+                    <TouchableOpacity onPress={this.showToSheet}>
+                        <View style={[styles.button, styles.listButton]}>
+                            <Text style={styles.selectButton}>+</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <ActionSheet
+                        ref={o => {this.toSheet = o}}
+                        title={'Send to which card?'}
+                        options={labelsTo}
+                        cancelButtonIndex={0}
+                        onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
+                    />
                 </View>
                 <View style={[styles.itemContainer, styles.bottomContainer]}>
                     <View style={styles.messageBox}>

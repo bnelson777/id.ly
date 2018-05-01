@@ -154,6 +154,7 @@ class CreateMessage extends Component {
                             placeholder=" Enter Text..."
                             onChangeText={(text) => this.setState({message:text})}
                             underlineColorAndroid='transparent'
+                            multiline={true}
                         />
                     </View>
                     <View style={[styles.button, styles.imageButton]}>

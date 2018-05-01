@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Button } from 'react-native-elements';
+import { Avatar } from 'react-native-elements'; 
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -108,13 +109,18 @@ class CreateCard extends Component {
 
     render() {
         
-        var icon = this.state.image === "" ? require('../../assets/person.png') : {uri: this.state.image};
+        var icon = this.state.image === "" ? require('../../assets/default_avatar.png') : {uri: this.state.image};
         return (
             <View style={styles.bodyContainer}>
-                <View style={styles.addImageContainer} />
+                <View style={styles.addImageContainer}/> 
                     <TouchableOpacity activeOpacity = { .5 } onPress={ () => this.chooseImage() }>
-                        <Image style ={styles.imageStyle} 
-                            source = {icon} />
+                        <View style={styles.cardPosition}>
+                        <Avatar
+                            xlarge
+                            rounded
+                            source = {icon} 
+                        />
+                        </View>
                     </TouchableOpacity>
                 <View style={styles.screenContainer}>
                     <View style={styles.formContainer}>

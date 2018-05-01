@@ -24,7 +24,7 @@ export default StyleSheet.create({
         height: 200,
         width: 200,
         borderWidth: 1,
-        borderColor: '#C70038',
+        borderColor: '#128DC9',
         backgroundColor: 'transparent'
     },
 
@@ -38,6 +38,6 @@ export default StyleSheet.create({
         flex: 0,
         width: 200,
         height: 2,
-        backgroundColor: '#C70038',
+        backgroundColor: '#128DC9',
     }
 });

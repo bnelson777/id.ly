@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import { Avatar } from 'react-native-elements';
 
 class CardView extends Component {
     constructor(props) {
@@ -31,14 +32,16 @@ class CardView extends Component {
             cardFields.push (key + ": " + this.props.card.fields[key] + "\n\n");
         }
 
-        var icon = this.props.card.image === "" ? require('../../assets/person.png') : {uri: this.props.card.image};
+        var icon = this.props.card.image === "" ? require('../../assets/default_avatar.png') : {uri: this.props.card.image};
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>
                     {this.props.card.label}
                 </Text>
                 <View style={styles.cardPosition}>
-                    <Image style={styles.imageStyle}
+                    <Avatar
+                        xlarge
+                        rounded
                         source = {icon}
                     />
                 </View>

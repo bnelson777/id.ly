@@ -1,18 +1,20 @@
-import { StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, 
         BACKGROUND_COLOR, BORDER_RADIUS } from './../styles/common';
 
 const {width} = Dimensions.get('window');
 const screenWidth = width;
-const buttonHeight = screenWidth * 0.10;
+const buttonHeight = screenWidth * 0.1;
+const iconHeight = screenWidth * 0.05;
+const listHeight = screenWidth * 0.13;
 
 // Set alternating colors for ID buttons
-export const COLORS = ['#FF0000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#FF00FF'];
+export const COLORS = ['#FFEF00', '#FF9A00', '#FF4444', '#682CBF', '#128DC9', '#87C735'];
 
 export default StyleSheet.create({
     container:{
-        flex:1,
-        backgroundColor: BACKGROUND_COLOR
+        flex: 1,
+        backgroundColor: '#FFFFFF'
     },
 
     buttonContainer: {
@@ -20,11 +22,13 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: screenWidth,
+        height: listHeight,
+        marginTop: 10
     },
 
     imageContainer: {
-        width: buttonHeight,
-        height: buttonHeight,
+        width: iconHeight,
+        height: iconHeight,
         resizeMode: 'contain'
     },
 
@@ -75,5 +79,28 @@ export default StyleSheet.create({
     cardButtonRolodex: {
         marginLeft: screenWidth * 0.03,
         marginRight: screenWidth * 0.01
+    },
+
+    noBotBorder: {
+        flexDirection: 'row',
+    },
+
+    listContainer: {
+        backgroundColor: '#FFFFFF',
+        borderTopWidth: 0, 
+        borderBottomWidth: 0,
+        marginTop: 0
+    },
+
+    sepLine: {
+        height: 1,
+        width: "86%",
+        backgroundColor: "#CED0CE",
+        marginLeft: "14%",
+    },
+
+    toleft: {
+        paddingLeft: 2,
+        justifyContent: 'flex-start'
     }
 });

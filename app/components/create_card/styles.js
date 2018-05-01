@@ -76,6 +76,11 @@ export default StyleSheet.create({
     imageStyle: {
         width: 140,
         height: 140,
-        alignSelf: 'flex-start'
+        alignSelf: 'center'
+    },
+
+    cardPosition: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

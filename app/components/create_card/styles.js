@@ -45,7 +45,7 @@ export default StyleSheet.create({
         flex: 2,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
     },
 
     addFieldButton: {
@@ -77,5 +77,10 @@ export default StyleSheet.create({
         width: 140,
         height: 140,
         alignSelf: 'center'
+    },
+
+    cardPosition: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

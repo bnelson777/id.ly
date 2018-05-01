@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import { Avatar } from 'react-native-elements';
 
 //Buttons for Action Sheet
 const BUTTONS = [
@@ -68,81 +69,92 @@ class CardList extends Component {
 
     renderItem({item, index}) {
         if (this.props.isWallet === item.owner) {
-            let icon = item.image === "" ? require('../../assets/person.png') : {uri: item.image};
+            let icon = item.image === "" ? require('../../assets/default_avatar.png') : {uri: item.image};
             if (this.props.isWallet === true) {
                 return (
                     // Display image, ID button, and share icon
                     // ID buttons are displayed in alternating color based on index
-                    <View style={styles.buttonContainer}>
-                        <View style={[styles.button, styles.imageButton, styles.imageButtonWallet]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={icon}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        <TouchableOpacity
-                            onPress={() => Actions.card_view({title: item.name, card: item})}
-                            onLongPress={() => this.showOptions(item)}
-                        >
-                            <View
-                                style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
-                                backgroundColor={COLORS[index % COLORS.length]}
-                            >
-                                <Text>{item.label}</Text>
+                    <View>
+                        <View style={styles.buttonContainer}>
+                            <View>
+                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
+                                    <Avatar
+                                        small
+                                        rounded
+                                        source={icon}
+                                        containerStyle = {styles.toLeft}
+                                    />
+                                </TouchableOpacity>
                             </View>
-                        </TouchableOpacity>
-                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonWallet]}>
-                            <TouchableOpacity onPress={() => Actions.share({card: item})} onLongPress={() => this.showOptions(item)}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={require('../../assets/share.png')}
-                                />
+                            <TouchableOpacity
+                                onPress={() => Actions.card_view({title: item.name, card: item})}
+                                onLongPress={() => this.showOptions(item)}
+                            >
+                                <View
+                                    style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
+                                    backgroundColor={COLORS[index % COLORS.length]}
+                                >
+                                    <Text>{item.label}</Text>
+                                </View>
                             </TouchableOpacity>
+                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}/>
+                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
+                                <TouchableOpacity onPress={() => Actions.share({card: item})} onLongPress={() => this.showOptions(item)}>
+                                    <Image
+                                        style={styles.imageContainer}
+                                        source={require('../../assets/share.png')}
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         </View>
+                        <View style={styles.sepLine}/>
                     </View>
                 );
             } else {
                 return (
                     // Display image, ID button, message icon, and share icon
                     // ID buttons are displayed in alternating color based on index
-                    <View style={styles.buttonContainer}>
-                        <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})} onLongPress={() => this.showOptions(item)}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={icon}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        <TouchableOpacity
-                            onPress={() => Actions.card_view({title: item.name, card: item})}
-                            onLongPress={() => this.showOptions(item)}
-                        >
-                            <View
-                                style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
-                                backgroundColor={COLORS[index % COLORS.length]}
-                            >
-                                <Text>{item.label}</Text>
+                    <View>
+                        <View style={styles.buttonContainer}>
+                            <View>
+                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})} onLongPress={() => this.showOptions(item)}>
+                                    <Avatar
+                                        small
+                                        rounded
+                                        source={icon}
+                                        containerStyle = {styles.toLeft}
+                                    />
+                                </TouchableOpacity>
                             </View>
-                        </TouchableOpacity>
-                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.message_thread({card: item})}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={require('../../assets/mail.png')}
-                                />
+                            <TouchableOpacity
+                                onPress={() => Actions.card_view({title: item.name, card: item})}
+                                onLongPress={() => this.showOptions(item)}
+                            >
+                                <View
+                                    style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
+                                    backgroundColor={COLORS[index % COLORS.length]}
+                                >
+                                    <Text>{item.label}</Text>
+                                </View>
                             </TouchableOpacity>
+                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
+                                <TouchableOpacity onPress={() => Actions.message_thread({card: item})}>
+                                    <Image
+                                        style={styles.imageContainer}
+                                        source={require('../../assets/mail.png')}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
+                                <TouchableOpacity onPress={() => Actions.share({card: item})}>
+                                    <Image
+                                        style={styles.imageContainer}
+                                        source={require('../../assets/share.png')}
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.share({card: item})}>
-                                <Image
-                                    style={styles.imageContainer}
-                                    source={require('../../assets/share.png')}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        <View style={styles.sepLine}/>
                     </View>
                 );
             }

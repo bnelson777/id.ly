@@ -15,9 +15,11 @@ export default StyleSheet.create({
     },
 
     header:{
-        backgroundColor: 'blue',
+        backgroundColor: '#128DC9',
         fontWeight: 'bold',
         fontSize: FONT_SIZE,
+        color: '#FFFFFF',
+        paddingLeft: 10
     },
 
     name: {
@@ -27,6 +29,7 @@ export default StyleSheet.create({
     },
 
     cardPosition: {
+        paddingTop: 10,
         justifyContent: 'center',
         alignItems: 'center'
     },

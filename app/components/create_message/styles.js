@@ -82,7 +82,7 @@ export default StyleSheet.create({
 
     fieldText: {
         flex: 1,
-        fontSize: 16,
+        fontSize: 20,
         marginLeft: screenWidth * 0.02
     },
 
@@ -90,5 +90,10 @@ export default StyleSheet.create({
         width: buttonHeight,
         flex: 1,
         marginRight: screenWidth * 0.02
+    },
+
+    selectButton: {
+        fontSize: 32,
+        marginBottom: screenHeight * 0.005
     }
 });

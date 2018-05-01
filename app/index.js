@@ -81,7 +81,8 @@ class Main extends Component {
                     <Scene key="inbox" component={Inbox} title="Inbox"
                         titleStyle={styles.title} onRight={() => Actions.create_message({recipient: ""})}
                         rightTitle='Message' />
-                    <Scene key="create_card" component={CreateCard} title="Add Information" />
+                    <Scene key="create_card" component={CreateCard} title="Add Information" 
+                        />
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />
                     <Scene key="about" component={About} title="About"/>

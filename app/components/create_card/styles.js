@@ -45,7 +45,7 @@ export default StyleSheet.create({
         flex: 2,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignItems: 'stretch',
+        alignItems: 'center'
     },
 
     addFieldButton: {

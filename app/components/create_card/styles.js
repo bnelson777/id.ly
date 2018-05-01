@@ -12,11 +12,9 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR
     },
 
-    topButtonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+    ButtonContainer: {
         alignItems: 'center',
+        margin: '10%'
     },
 
     screenContainer: {
@@ -29,7 +27,7 @@ export default StyleSheet.create({
     },
 
     formContainer: {
-        flex: 3,
+        flex: 3
     },
 
     formItemContainer: {

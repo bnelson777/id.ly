@@ -53,56 +53,17 @@ class CardList extends Component {
     }
 
     render() {
-        if (this.props.isWallet == true) {
-            return (
-                // Display Home and Add buttons
-                // Display ID buttons as a list
-                <View style={styles.container}>
-                    <View style={[styles.buttonContainer, styles.headContainer]}>
-                        <View style={[styles.button, styles.topButton, styles.homeButton]}>
-                            <TouchableOpacity onPress={() => Actions.home()}>
-                                <Text style={styles.topButtonText}>Home</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[styles.button, styles.topButton, styles.addButton]}>
-                            <TouchableOpacity onPress={() => Actions.create_card()}>
-                                <Text style={styles.topButtonText}>Add</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <FlatList
-                        ref='listRef'
-                        data={this.props.cards}
-                        renderItem={this.renderItem}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View>
-            );
-        } else {
-            return (
-                // Display Home and Add buttons
-                // Display ID buttons as a list
-                <View style={styles.container}>
-                    <View style={[styles.buttonContainer, styles.headContainer]}>
-                        <View style={[styles.button, styles.topButton, styles.homeButton]}>
-                            <TouchableOpacity onPress={() => Actions.home()}>
-                                <Text style={styles.topButtonText}>Home</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[styles.button, styles.topButton, styles.addButton]}>
-                            <TouchableOpacity onPress={() => Actions.scan()}>
-                                <Text style={styles.topButtonText}>Add</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <FlatList
-                        ref='listRef'
-                        data={this.props.cards}
-                        renderItem={this.renderItem}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View>
-            );}
+        return (
+            // Display ID buttons as a list
+            <View style={styles.container}>
+                <FlatList
+                    ref='listRef'
+                    data={this.props.cards}
+                    renderItem={this.renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
+        );
     }
 
     renderItem({item, index}) {
@@ -112,23 +73,26 @@ class CardList extends Component {
                 return (
                     // Display image, ID button, and share icon
                     // ID buttons are displayed in alternating color based on index
-                    <View style={[styles.buttonContainer, styles.bodyContainer]}>
+                    <View style={styles.buttonContainer}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonWallet]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})}>
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
                                 <Image
                                     style={styles.imageContainer}
                                     source={icon}
                                 />
                             </TouchableOpacity>
                         </View>
-                        <View
-                            style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
-                            backgroundColor={COLORS[index % COLORS.length]}
+                        <TouchableOpacity
+                            onPress={() => Actions.card_view({title: item.name, card: item})}
+                            onLongPress={() => this.showOptions(item)}
                         >
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
+                            <View
+                                style={[styles.button, styles.cardButton, styles.cardButtonWallet]}
+                                backgroundColor={COLORS[index % COLORS.length]}
+                            >
                                 <Text>{item.label}</Text>
-                            </TouchableOpacity>
-                        </View>
+                            </View>
+                        </TouchableOpacity>
                         <View style={[styles.button, styles.gotoButton, styles.gotoButtonWallet]}>
                             <TouchableOpacity onPress={() => Actions.share({card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Image
@@ -143,23 +107,26 @@ class CardList extends Component {
                 return (
                     // Display image, ID button, message icon, and share icon
                     // ID buttons are displayed in alternating color based on index
-                    <View style={[styles.buttonContainer, styles.bodyContainer]}>
+                    <View style={styles.buttonContainer}>
                         <View style={[styles.button, styles.imageButton, styles.imageButtonRolodex]}>
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})} onLongPress={() => this.showOptions(item)}>
                                 <Image
                                     style={styles.imageContainer}
                                     source={icon}
                                 />
                             </TouchableOpacity>
                         </View>
-                        <View
-                            style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
-                            backgroundColor={COLORS[index % COLORS.length]}
+                        <TouchableOpacity
+                            onPress={() => Actions.card_view({title: item.name, card: item})}
+                            onLongPress={() => this.showOptions(item)}
                         >
-                            <TouchableOpacity onPress={() => Actions.card_view({card: item})} onLongPress={() => this.showOptions(item)}>
+                            <View
+                                style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
+                                backgroundColor={COLORS[index % COLORS.length]}
+                            >
                                 <Text>{item.label}</Text>
-                            </TouchableOpacity>
-                        </View>
+                            </View>
+                        </TouchableOpacity>
                         <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
                             <TouchableOpacity onPress={() => Actions.message_thread({card: item})}>
                                 <Image

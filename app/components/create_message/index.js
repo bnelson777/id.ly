@@ -7,7 +7,7 @@
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList,
-        View, Text, TextInput, 
+        View, Text, TextInput,
         TouchableHighlight, TouchableOpacity,
         Image} from 'react-native';
 import styles from './styles';
@@ -35,7 +35,7 @@ class CreateMessage extends Component {
         super(props);
         this.state = {
           message: "",
-          recipient: "",
+          recipient: this.props.recipient,
           sender: "",
           senderLabel: "",
           recipientLabel: ""
@@ -78,16 +78,12 @@ class CreateMessage extends Component {
             this.setState({sender: id, senderLabel: label})
     }
 
-    // Dummy function for button presses
     pressButton() {
-        //Alert.alert(label);
-        //this.messageInput.clear();
         let id = this.generateID();
         let unix = this.generateTimestamp();
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         this.props.addMessage(message);
-        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message});
-
+        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
     }
 
     showFromSheet = () => {
@@ -114,6 +110,9 @@ class CreateMessage extends Component {
         labelsTo.unshift('Cancel');
         const idTo = this.props.cards.filter(function(obj) {return obj.owner == false}).map(card => card.keys.n);
         idTo.unshift('');
+
+        let buttonStyle = (this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ?
+            styles.imageContainer : [styles.imageContainer, styles.imageDisabled];
 
         return (
             <View style={styles.container}>
@@ -160,7 +159,7 @@ class CreateMessage extends Component {
                     <View style={[styles.button, styles.imageButton]}>
                         <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
                             <Image
-                                style={styles.imageContainer}
+                                style={buttonStyle}
                                 source={require('../../assets/send.png')}
                             />
                         </TouchableOpacity>

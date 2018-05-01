@@ -80,6 +80,10 @@ export default StyleSheet.create({
         resizeMode: 'contain'
     },
 
+    imageDisabled: {
+        tintColor: 'lightgrey'
+    },
+
     fieldText: {
         flex: 1,
         fontSize: 20,

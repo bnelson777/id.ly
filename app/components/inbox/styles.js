@@ -3,11 +3,15 @@ import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
 
 export default StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: '#FFFFFF'
     },
 
-    inboxContainer: {
-        flex: 1,
+    listContainer: {
+        backgroundColor: '#FFFFFF',
+        borderTopWidth: 0, 
+        borderBottomWidth: 0,
+        marginTop: 0
     },
 
     itemContainer: {
@@ -55,5 +59,9 @@ export default StyleSheet.create({
         width: "86%",
         backgroundColor: "#CED0CE",
         marginLeft: "14%"
+    },
+
+    noBotBorder: {
+        borderBottomWidth: 0
     }
 });

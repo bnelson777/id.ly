@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import { Permissions, BarCodeScanner} from 'expo';
+//import { Permissions, BarCodeScanner} from 'expo';
 import { Text, View, StyleSheet,
         ActivityIndicator, Animated, Easing,
         LayoutAnimation, Image,

@@ -10,7 +10,7 @@ import { Text, View, TouchableOpacity,
         Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
 import { RSAKeychain, RSA } from 'react-native-rsa';
-import { ImagePicker, Permissions } from 'expo';
+//import { ImagePicker, Permissions } from 'expo';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';

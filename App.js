@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { Platform, YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
-import { Font } from 'expo';
+//import { Font } from 'expo';
 import store from './app/store';
 import Main from './app/index';
 

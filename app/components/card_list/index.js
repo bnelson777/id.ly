@@ -134,7 +134,7 @@ class CardList extends Component {
                                     style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                                     backgroundColor={COLORS[index % COLORS.length]}
                                 >
-                                    <Text>{item.label}</Text>
+                                    <Text>{item.name}</Text>
                                 </View>
                             </TouchableOpacity>
                             <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>

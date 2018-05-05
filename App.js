@@ -5,9 +5,9 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { Platform, YellowBox } from 'react-native';
+import { Platform, AppRegistry, YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
-import { Font } from 'expo';
+//import { Font } from 'expo';
 import store from './app/store';
 import Main from './app/index';
 
@@ -38,3 +38,5 @@ export default class App extends Component {
         );
     }
 };
+
+AppRegistry.registerComponent("id.ly", () => App);

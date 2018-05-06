@@ -5,7 +5,7 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity,
+import { Text, View, TouchableOpacity,
         Image, FlatList, TextInput,
         Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
@@ -16,8 +16,7 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Button } from 'react-native-elements';
-import { Avatar } from 'react-native-elements'; 
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { Avatar } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // CreateCard

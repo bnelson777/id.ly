@@ -26,7 +26,7 @@ import { Avatar } from 'react-native-elements';
 class CreateCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: "", buttonPressed: false};
         this.state.image = "";
         this.generateKeys = this.generateKeys.bind(this);
         this.generateID = this.generateID.bind(this);
@@ -148,7 +148,7 @@ class CreateCard extends Component {
                 </View>
                         <Button style={styles.ButtonContainer}
                             title="Add Card"
-                            onPress={() => this.addCard()}
+                            onPress={() => this.handleAddCard()}
                             /> 
                     </View>
                 </View>
@@ -199,6 +199,13 @@ class CreateCard extends Component {
 
     handleAttributeTextChange = (text) => {
         this.setState({addAttribute: text});
+    }
+
+    handleAddCard = () => {
+        if (!this.state.buttonPressed){
+            this.setState({buttonPressed: true});
+            this.addCard();
+        }
     }
 
     addAttributeToForm = () => {

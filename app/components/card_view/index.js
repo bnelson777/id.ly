@@ -63,7 +63,7 @@ class CardView extends Component {
                     />
                     <Button style={styles.button}
                         title="Message"
-                        onPress={() => Actions.create_message({recipient: this.props.card})}
+                        onPress={() => Actions.create_message()}
                     />
                 </View>
             </View>

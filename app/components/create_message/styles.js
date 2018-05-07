@@ -104,7 +104,9 @@ export default StyleSheet.create({
     textInputContainer: {
         flexDirection: 'row',
         paddingLeft: 8,
-        paddingRight: 8
+        paddingRight: 8,
+        borderLeftWidth: 4,
+        borderRightWidth: 4,
     },
 
     textInput: {

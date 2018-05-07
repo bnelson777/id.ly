@@ -147,8 +147,8 @@ class CreateMessage extends Component {
                         onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
                     />
                 </View>
-                <View style={[styles.itemContainer, styles.bottomContainer]}>
-                    <View style={styles.messageBox}>
+                <View style={styles.textInputContainer}>
+                    <View style={styles.textInput}>
                         <AutoGrowingTextInput
                             value={this.state.message}
                             ref={input => {this.messageInput = input}}

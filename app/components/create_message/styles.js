@@ -99,5 +99,20 @@ export default StyleSheet.create({
     selectButton: {
         fontSize: 32,
         marginBottom: screenHeight * 0.005
+    },
+
+    textInputContainer: {
+        flexDirection: 'row',
+        paddingLeft: 8,
+        paddingRight: 8
+    },
+
+    textInput: {
+        paddingLeft: 10,
+        fontSize: 17,
+        flex: 1,
+        backgroundColor: 'white',
+        borderWidth: 0,
+        borderRadius: IsIOS ? 4 : 0,
     }
 });

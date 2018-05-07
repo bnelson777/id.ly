@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
-import { Avatar } from 'react-native-elements';
+import { Avatar, Button } from 'react-native-elements';
 
 class CardView extends Component {
     constructor(props) {
@@ -56,7 +56,18 @@ class CardView extends Component {
                         {cardFields}
                     </Text>
                 </View>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Test"
+                        onPress={() => this.addCard()}
+                    />
+                    <Button
+                        title="Add Card"
+                        onPress={() => this.addCard()}
+                    />
+                </View>
             </View>
+            
         );
     }
 };

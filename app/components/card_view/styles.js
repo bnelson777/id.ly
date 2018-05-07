@@ -8,6 +8,12 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR
     },
 
+    buttonContainer:{
+        flex:1,
+        marginTop: 10,
+        backgroundColor: BACKGROUND_COLOR
+    },
+
     row:{
         borderBottomWidth: BORDER_WIDTH,
         borderColor: "#ccc",

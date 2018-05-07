@@ -160,7 +160,8 @@ class CreateMessage extends Component {
                             onChangeText={(text) => this.setState({message:text})}
                         />
                     </View>
-                    <View style={[styles.button, styles.imageButton]}>
+                </View>
+                <View style={[styles.button, styles.imageButton]}>
                         <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
                             <Image
                                 style={buttonStyle}
@@ -168,7 +169,6 @@ class CreateMessage extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                </View>
                 <KeyboardSpacer/>
             </View>
         );

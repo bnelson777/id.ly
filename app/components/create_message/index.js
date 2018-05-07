@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
+import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a dropdown menu to select a message
@@ -148,13 +149,15 @@ class CreateMessage extends Component {
                 </View>
                 <View style={[styles.itemContainer, styles.bottomContainer]}>
                     <View style={styles.messageBox}>
-                        <TextInput
+                        <AutoGrowingTextInput
+                            value={this.state.message}
                             ref={input => {this.messageInput = input}}
                             style={styles.inputStyle}
                             placeholder=" Enter Text..."
+                            maxHeight={200}
+                            minHeight={45}
+                            enableScrollToCaret
                             onChangeText={(text) => this.setState({message:text})}
-                            underlineColorAndroid='transparent'
-                            multiline={true}
                         />
                     </View>
                     <View style={[styles.button, styles.imageButton]}>

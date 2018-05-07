@@ -57,12 +57,12 @@ class CardView extends Component {
                     </Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button
-                        title="Test"
+                    <Button style={styles.button}
+                        title="Share"
                         onPress={() => this.addCard()}
                     />
-                    <Button
-                        title="Add Card"
+                    <Button style={styles.button}
+                        title="Message"
                         onPress={() => this.addCard()}
                     />
                 </View>

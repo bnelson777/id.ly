@@ -10,6 +10,8 @@ export default StyleSheet.create({
 
     buttonContainer:{
         flex:1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         marginTop: 10,
         backgroundColor: BACKGROUND_COLOR
     },
@@ -26,6 +28,11 @@ export default StyleSheet.create({
         fontSize: FONT_SIZE,
         color: '#FFFFFF',
         paddingLeft: 10
+    },
+
+    button:{
+        paddingTop: 10,
+        width: 150,
     },
 
     name: {

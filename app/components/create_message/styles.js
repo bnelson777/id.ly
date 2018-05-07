@@ -9,7 +9,7 @@ const buttonHeight = screenWidth * 0.10;
 const boxBorderWidth = 1;
 const boxWidth = screenWidth * 0.6;
 const boxHeight = screenHeight * 0.075;
-const isIOS = Platform.OS == 'ios';
+const IsIOS = Platform.OS == 'ios';
 export default StyleSheet.create({
     container:{
         flex:1,

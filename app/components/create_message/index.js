@@ -146,18 +146,16 @@ class CreateMessage extends Component {
                         />
                     </View>
                     <View style={styles.textInputContainer}>
-                        <View style={styles.textInput}>
-                            <AutoGrowingTextInput
-                                value={this.state.message}
-                                ref={input => {this.messageInput = input}}
-                                style={styles.inputStyle}
-                                placeholder=" Enter Text..."
-                                maxHeight={200}
-                                minHeight={45}
-                                enableScrollToCaret
-                                onChangeText={(text) => this.setState({message:text})}
-                            />
-                        </View>
+                        <AutoGrowingTextInput
+                            value={this.state.message}
+                            ref={input => {this.messageInput = input}}
+                            style={styles.textInput}
+                            placeholder=" Enter Text..."
+                            maxHeight={200}
+                            minHeight={45}
+                            enableScrollToCaret
+                            onChangeText={(text) => this.setState({message:text})}
+                        />
                     </View>
                     <View style={[styles.button, styles.imageButton]}>
                             <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>

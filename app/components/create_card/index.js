@@ -146,7 +146,7 @@ class CreateCard extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                        <Button style={styles.ButtonContainer}
+                        <Button style ={styles.ButtonContainer}
                             title="Add Card"
                             onPress={() => this.handleAddCard()}
                             /> 
@@ -202,7 +202,16 @@ class CreateCard extends Component {
     }
 
     handleAddCard = () => {
-        if (!this.state.buttonPressed){
+        var emptyFields = 0;
+        var i = 0;
+        while (this.state.form.length > i) {
+            // iterate through each field to verify if any are empty
+            if (this.state.form[i]['field'] == '' )
+                emptyFields++;
+            i++;
+        }
+
+        if (!this.state.buttonPressed && emptyFields == 0 ){
             this.setState({buttonPressed: true});
             this.addCard();
         }

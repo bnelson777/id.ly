@@ -211,6 +211,11 @@ class CreateCard extends Component {
             i++;
         }
 
+        //Pops up alert if there are any empty fields
+        if (emptyFields > 0 )
+            Alert.alert('Alert', 'Please fill in all fields.', [{text: 'OK'},])
+
+        //Adds card if button has not been pressed and there are no empty fields
         if (!this.state.buttonPressed && emptyFields == 0 ){
             this.setState({buttonPressed: true});
             this.addCard();

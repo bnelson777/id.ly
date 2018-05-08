@@ -1,3 +1,4 @@
 rootProject.name = 'id.ly'
-
+include ':react-native-ble-plx'
+project(':react-native-ble-plx').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-ble-plx/android')
 include ':app'

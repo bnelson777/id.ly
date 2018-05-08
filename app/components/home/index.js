@@ -100,6 +100,14 @@ class Home extends Component {
                           </View>
                       </TouchableHighlight>
 
+                    <TouchableHighlight onPress={() => Actions.bluetooth()}>
+                        <View style={styles.row}>
+                            <Text style={styles.title}>
+                                [Dev] Bluetooth
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
+
                     <TouchableHighlight onPress={() => {this.props.clearAll()}}>
                       <View style={styles.row}>
                           <Text style={styles.title}>

@@ -23,7 +23,8 @@ export default StyleSheet.create({
     },
 
     inputContainer: {
-        flex: 1
+        flex: 1,
+        alignSelf: 'center'
     },
 
     formContainer: {

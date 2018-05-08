@@ -5,7 +5,7 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity,
+import { Text, View, ScrollView, TouchableOpacity,
         Image, FlatList, TextInput,
         Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
@@ -17,6 +17,8 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Button } from 'react-native-elements';
 import { Avatar } from 'react-native-elements'; 
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -26,7 +28,7 @@ import { Avatar } from 'react-native-elements';
 class CreateCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: ""};
+        this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: "", buttonPressed: false};
         this.state.image = "";
         this.generateKeys = this.generateKeys.bind(this);
         this.generateID = this.generateID.bind(this);
@@ -111,6 +113,7 @@ class CreateCard extends Component {
         
         var icon = this.state.image === "" ? require('../../assets/default_avatar.png') : {uri: this.state.image};
         return (
+            <KeyboardAwareScrollView innerRef={ref => {this.scroll = ref}}>
             <View style={styles.bodyContainer}>
                 <View style={styles.addImageContainer}/> 
                     <TouchableOpacity activeOpacity = { .5 } onPress={ () => this.chooseImage() }>
@@ -146,13 +149,14 @@ class CreateCard extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                        <Button style={styles.ButtonContainer}
+                        <Button style ={styles.ButtonContainer}
                             title="Add Card"
-                            onPress={() => this.addCard()}
+                            onPress={() => this.handleAddCard()}
                             /> 
                     </View>
                 </View>
             </View>
+            </KeyboardAwareScrollView>
         );
     }
 
@@ -199,6 +203,27 @@ class CreateCard extends Component {
 
     handleAttributeTextChange = (text) => {
         this.setState({addAttribute: text});
+    }
+
+    handleAddCard = () => {
+        var emptyFields = 0;
+        var i = 0;
+        while (this.state.form.length > i) {
+            // iterate through each field to verify if any are empty
+            if (this.state.form[i]['field'] == '' )
+                emptyFields++;
+            i++;
+        }
+
+        //Pops up alert if there are any empty fields
+        if (emptyFields > 0 )
+            Alert.alert('Alert', 'Please fill in all fields.', [{text: 'OK'},])
+
+        //Adds card if button has not been pressed and there are no empty fields
+        if (!this.state.buttonPressed && emptyFields == 0 ){
+            this.setState({buttonPressed: true});
+            this.addCard();
+        }
     }
 
     addAttributeToForm = () => {

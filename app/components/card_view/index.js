@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
-import { Avatar } from 'react-native-elements';
+import { Avatar, Button } from 'react-native-elements';
 
 class CardView extends Component {
     constructor(props) {
@@ -33,6 +33,9 @@ class CardView extends Component {
         }
 
         var icon = this.props.card.image === "" ? require('../../assets/default_avatar.png') : {uri: this.props.card.image};
+        var args = this.props.card.owner === true ?
+            {sender: this.props.card, recipient: null} :
+            {sender: null, recipient: this.props.card};
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>
@@ -56,7 +59,18 @@ class CardView extends Component {
                         {cardFields}
                     </Text>
                 </View>
+                <View style={styles.buttonContainer}>
+                    <Button style={styles.button}
+                        title="Share"
+                        onPress={() => Actions.share({card: this.props.card})}
+                    />
+                    <Button style={styles.button}
+                        title="Message"
+                        onPress={() => Actions.create_message(args)}
+                    />
+                </View>
             </View>
+            
         );
     }
 };

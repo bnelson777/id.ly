@@ -79,7 +79,7 @@ class Main extends Component {
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
                     <Scene key="create_message" component={CreateMessage} title="New Message" />
                     <Scene key="inbox" component={Inbox} title="Inbox"
-                        titleStyle={styles.title} onRight={() => Actions.create_message({recipient: null})}
+                        titleStyle={styles.title} onRight={() => Actions.create_message({sender: null, recipient: null})}
                         rightTitle='Message' />
                     <Scene key="create_card" component={CreateCard} title="Add Information" 
                         />

@@ -20,21 +20,19 @@ import ActionSheet from 'react-native-actionsheet';
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and
 // recipient and a textinput box to send a message to the selected recipient.
-// If a recipient is passed in as an argument, it will be the default value in
-// the picker. Otherwise, no default will be set.
 //
-// EXPECTED PROP(S): this.props.recipient
-// This component will expect a recipient (a card object) to be used as the
-// default recipient selection. If null is passed in instead, no
-// default recipient will be selected.
+// EXPECTED PROP(S): this.props.sender, this.props.recipient
+// This component will expect a sender or recipient (a card object) to be used as the
+// default selection. If null is passed in instead, no default will be selected.
 class CreateMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
           message: "",
+          sender: this.props.sender === null ? "" : this.props.sender.keys.n,
           recipient: this.props.recipient === null ? "" : this.props.recipient.keys.n,
-          sender: "",
-          senderLabel: "",
+          senderLabel: this.props.sender === null ?
+            "" : this.props.sender.name + " (" + this.props.sender.label + ")",
           recipientLabel: this.props.recipient === null ?
             "" : this.props.recipient.name + " (" + this.props.recipient.label + ")"
         };

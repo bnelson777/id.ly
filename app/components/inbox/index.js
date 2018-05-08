@@ -85,6 +85,7 @@ class Inbox extends Component {
         let sender = item.from; // default if card not in rolodex
         let receiver = item.to; // default if card not in rolodex
         let portrait = require('../../assets/default_avatar.png');
+        let readflag = item.read;
         let uriflag = false;
         for (card of this.props.cards) {
             // to find display name of receiver of message (owner == false)
@@ -151,7 +152,7 @@ class Inbox extends Component {
                     rightTitle = {timeStamp}
                     subtitle = {item.body}
                     avatar = {uriflag === true ? {uri: portrait} : portrait}
-                    containerStyle = {styles.noBotBorder}
+                    containerStyle = {readflag == true ? [styles.noBotBorder, styles.greyedMessage] : styles.noBotBorder}
                 />
             </TouchableOpacity>
         );

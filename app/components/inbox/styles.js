@@ -63,5 +63,9 @@ export default StyleSheet.create({
 
     noBotBorder: {
         borderBottomWidth: 0
+    },
+
+    greyedMessage: {
+        backgroundColor: '#f2f2f2',
     }
 });

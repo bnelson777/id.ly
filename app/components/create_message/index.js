@@ -17,6 +17,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and
@@ -112,61 +113,62 @@ class CreateMessage extends Component {
             styles.imageContainer : [styles.imageContainer, styles.imageDisabled];
 
         return (
-            <View style={styles.container}>
-                <View style={styles.midContainer}>
-                    <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
-                    <TouchableOpacity onPress={this.showFromSheet}>
-                        <View style={[styles.button, styles.listButton]}>
-                            <Text style={styles.selectButton}>+</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <ActionSheet
-                        ref={o => {this.fromSheet = o}}
-                        title={'Send from which card?'}
-                        options={labelsFrom}
-                        cancelButtonIndex={0}
-                        onPress={(index) => this.updateSender(index, idFrom[index], labelsFrom[index])}
-                    />
-                </View>
-                <View style={styles.midContainer}>
-                    <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
-                    <TouchableOpacity onPress={this.showToSheet}>
-                        <View style={[styles.button, styles.listButton]}>
-                            <Text style={styles.selectButton}>+</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <ActionSheet
-                        ref={o => {this.toSheet = o}}
-                        title={'Send to which card?'}
-                        options={labelsTo}
-                        cancelButtonIndex={0}
-                        onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
-                    />
-                </View>
-                <View style={styles.textInputContainer}>
-                    <View style={styles.textInput}>
-                        <AutoGrowingTextInput
-                            value={this.state.message}
-                            ref={input => {this.messageInput = input}}
-                            style={styles.inputStyle}
-                            placeholder=" Enter Text..."
-                            maxHeight={200}
-                            minHeight={45}
-                            enableScrollToCaret
-                            onChangeText={(text) => this.setState({message:text})}
+            <KeyboardAwareScrollView innerRef={ref => {this.scroll = ref}}>
+                <View style={styles.container}>
+                    <View style={styles.midContainer}>
+                        <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
+                        <TouchableOpacity onPress={this.showFromSheet}>
+                            <View style={[styles.button, styles.listButton]}>
+                                <Text style={styles.selectButton}>+</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <ActionSheet
+                            ref={o => {this.fromSheet = o}}
+                            title={'Send from which card?'}
+                            options={labelsFrom}
+                            cancelButtonIndex={0}
+                            onPress={(index) => this.updateSender(index, idFrom[index], labelsFrom[index])}
                         />
                     </View>
-                </View>
-                <View style={[styles.button, styles.imageButton]}>
-                        <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
-                            <Image
-                                style={buttonStyle}
-                                source={require('../../assets/send.png')}
-                            />
+                    <View style={styles.midContainer}>
+                        <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
+                        <TouchableOpacity onPress={this.showToSheet}>
+                            <View style={[styles.button, styles.listButton]}>
+                                <Text style={styles.selectButton}>+</Text>
+                            </View>
                         </TouchableOpacity>
+                        <ActionSheet
+                            ref={o => {this.toSheet = o}}
+                            title={'Send to which card?'}
+                            options={labelsTo}
+                            cancelButtonIndex={0}
+                            onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
+                        />
                     </View>
-                <KeyboardSpacer/>
-            </View>
+                    <View style={styles.textInputContainer}>
+                        <View style={styles.textInput}>
+                            <AutoGrowingTextInput
+                                value={this.state.message}
+                                ref={input => {this.messageInput = input}}
+                                style={styles.inputStyle}
+                                placeholder=" Enter Text..."
+                                maxHeight={200}
+                                minHeight={45}
+                                enableScrollToCaret
+                                onChangeText={(text) => this.setState({message:text})}
+                            />
+                        </View>
+                    </View>
+                    <View style={[styles.button, styles.imageButton]}>
+                            <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
+                                <Image
+                                    style={buttonStyle}
+                                    source={require('../../assets/send.png')}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                </View>
+            </KeyboardAwareScrollView>
         );
     }
 }

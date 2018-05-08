@@ -33,6 +33,9 @@ class CardView extends Component {
         }
 
         var icon = this.props.card.image === "" ? require('../../assets/default_avatar.png') : {uri: this.props.card.image};
+        var args = this.props.card.owner === true ?
+            {sender: this.props.card, recipient: null} :
+            {sender: null, recipient: this.props.card};
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>
@@ -63,7 +66,7 @@ class CardView extends Component {
                     />
                     <Button style={styles.button}
                         title="Message"
-                        onPress={() => Actions.create_message({recipient: this.props.card})}
+                        onPress={() => Actions.create_message(args)}
                     />
                 </View>
             </View>

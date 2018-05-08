@@ -138,7 +138,7 @@ class CardList extends Component {
                                 </View>
                             </TouchableOpacity>
                             <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                                <TouchableOpacity onPress={() => Actions.create_message()}>
+                                <TouchableOpacity onPress={() => Actions.create_message({sender: null, recipient: item})}>
                                     <Image
                                         style={styles.imageContainer}
                                         source={require('../../assets/mail.png')}

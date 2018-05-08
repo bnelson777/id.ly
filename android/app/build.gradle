@@ -99,7 +99,7 @@ android {
 
     defaultConfig {
         applicationId "com.id.ly"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-ble-plx')
     compile project(':react-native-vector-icons')
     compile project(':react-native-camera')
     compile project(':react-native-vector-icons')

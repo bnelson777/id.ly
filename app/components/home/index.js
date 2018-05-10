@@ -13,12 +13,17 @@ import { Alert, FlatList, View,
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
+import { Avatar } from 'react-native-elements';
 
 class Home extends Component {
     static navigationOptions = {
       title: "Home",
-      headerLeft: null
+      headerLeft: null,
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#128DC9'
+      }
     }
 
     constructor(props) {
@@ -44,77 +49,75 @@ class Home extends Component {
         else {
             return (
                 <View style={styles.container}>
-                    <TouchableHighlight onPress={() => Actions.inbox()}>
+                    <View style = {styles.firstRow}>
+                        <Avatar 
+                            large
+                            source = {require('../../assets/wallet.png')}
+                            onPress={() => Actions.wallet({title:"Wallet", isWallet: true})}
+                            overlayContainerStyle={{backgroundColor: '#FFFFFF'}}
+                            activeOpacity={0.5}
+                        />
+                        <Avatar 
+                            large
+                            source = {require('../../assets/inbox.png')}
+                            onPress={() => Actions.inbox()}
+                            overlayContainerStyle={{backgroundColor: '#FFFFFF'}}
+                            activeOpacity={0.5}
+                        />
+                        <Avatar
+                            large
+                            source = {require('../../assets/rolodex.png')}
+                            onPress={() => Actions.rolodex({title:"Rolodex", isWallet: false})}
+                            overlayContainerStyle={{backgroundColor: '#FFFFFF'}}
+                            activeOpacity={0.5}
+                        />
+                        <Avatar
+                            large
+                            source = {require('../../assets/scan.png')}
+                            onPress={() => Actions.scan()}
+                            overlayContainerStyle={{backgroundColor: '#FFFFFF'}}
+                            activeOpacity={0.5}
+                        />                
+                    </View>
+                    <View style={styles.secondRow}>
+                        <TouchableHighlight onPress={() => Actions.login()}>
+                            <View style={styles.row}>
+                                <Text style={styles.title}>
+                                    [Dev] Login
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => Actions.register()}>
+                            <View style={styles.row}>
+                                <Text style={styles.title}>
+                                    [Dev] Register
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => {this.props.clearAll()}}>
                         <View style={styles.row}>
                             <Text style={styles.title}>
-                                Inbox
+                                    [Dev] Clear All Data
                             </Text>
                         </View>
-                    </TouchableHighlight>
-                    
-                    <TouchableHighlight onPress={() => Actions.wallet({title:"Wallet", isWallet: true})}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                Wallet
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => Actions.rolodex({title:"Rolodex", isWallet: false})}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                Rolodex
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => Actions.scan()}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                Scan
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => Actions.about()}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                About
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => Actions.login()}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                [Dev] Login
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => Actions.register()}>
-                        <View style={styles.row}>
-                            <Text style={styles.title}>
-                                [Dev] Register
-                              </Text>
-                          </View>
-                      </TouchableHighlight>
-
-                    <TouchableHighlight onPress={() => {this.props.clearAll()}}>
-                      <View style={styles.row}>
-                          <Text style={styles.title}>
-                                [Dev] Clear All Data
-                          </Text>
-                      </View>
-                  </TouchableHighlight>
-
-                  <TouchableHighlight onPress={() => Actions.lockbox({title:"Decrypt Message", mode: "decrypt"})} underlayColor='rgba(0,0,0,.2)'>
-                      <View style={styles.row}>
-                          <Text style={styles.title}>
-                            [Dev] Decrypt Message
-                          </Text>
-                      </View>
-                  </TouchableHighlight>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => Actions.lockbox({title:"Decrypt Message", mode: "decrypt"})} underlayColor='rgba(0,0,0,.2)'>
+                            <View style={styles.row}>
+                                <Text style={styles.title}>
+                                    [Dev] Decrypt Message
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.thirdRow}>
+                        <Avatar 
+                            small
+                            onPress={() => Actions.about()}
+                            source = {require('../../assets/info.png')}
+                            overlayContainerStyle={{backgroundColor: '#FFFFFF'}}
+                            activeOpacity={0.5}                       
+                        />
+                    </View>
                 </View>
             );
         }

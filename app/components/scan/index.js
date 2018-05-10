@@ -16,12 +16,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
+import Camera from 'react-native-camera';
 
 class Scan extends Component {
+    /* expo permission
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
     }
+    */
 
     constructor(props) {
         super(props);
@@ -88,6 +91,7 @@ class Scan extends Component {
     };
 
     render() {
+        /*expo scan
         const { hasCameraPermission } = this.state;
         if (hasCameraPermission === null) {
             return <View />;
@@ -112,6 +116,24 @@ class Scan extends Component {
                 </View>
             );
         }
+        */
+
+        return (
+            <View style={styles.container}>
+                <Camera
+                    style={styles.preview}
+                    onBarCodeRead={this._handleBarCodeRead.bind(this)}>
+                    <View style={styles.rectangleContainer}>
+                    <View style={styles.rectangle}/>
+                    <Animated.View style={[
+                        styles.border,
+                        {transform: [{translateY: this.state.moveAnim}]}]}/>
+                        <Text style={styles.rectangleText}>Scan the QRCode</Text>
+                    </View>
+                </Camera>
+            </View>
+        );
+        
     }
 }
 

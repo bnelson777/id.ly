@@ -98,7 +98,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.id.ly"
+        applicationId "com.idly"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -137,8 +137,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-camera')
     compile project(':react-native-vector-icons')
     compile project(':react-native-camera')
     compile fileTree(dir: "libs", include: ["*.jar"])

@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
-import Camera from 'react-native-camera';
+//import Camera from 'react-native-camera';
 
 class Scan extends Component {
     /* expo permission

@@ -5,7 +5,7 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage, Platform, Linking } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -56,7 +56,36 @@ class Main extends Component {
                 _this.props.getMessages();
             }
         });
+
+        if (Platform.OS === 'android') {
+          Linking.getInitialURL().then(url => {
+            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+          });
+        } else {
+          Linking.addEventListener('url', this.handleOpenURL);
+        }
+
     }
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this.handleOpenURL);
+    }
+
+    handleOpenURL = (event) => {
+        this.navigate(event.url);
+    }
+
+    navigate = (url) => {
+        //const { navigate } = this.props.navigation;
+
+        const route = url.replace(/.*?:\/\//g, '');
+        let id = 'empty';
+        id = route.match(/\/([^\/]+)\/?$/)[1];
+        const routeName = route.split('/')[0];
+        if (routeName === 'lockbox') {
+          Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+        };
+    }
+
 
     render() {
         return (
@@ -81,7 +110,7 @@ class Main extends Component {
                     <Scene key="inbox" component={Inbox} title="Inbox"
                         titleStyle={styles.title} onRight={() => Actions.create_message({sender: null, recipient: null})}
                         rightTitle='Message' />
-                    <Scene key="create_card" component={CreateCard} title="Add Information" 
+                    <Scene key="create_card" component={CreateCard} title="Add Information"
                         />
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />

@@ -8,6 +8,9 @@ export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 import {AsyncStorage} from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob';
+
+const fileDir = RNFetchBlob.fs.dirs.DocumentDir + '/idly/';
 
 // Add Card - CREATE (C)
 export function addCard(card){
@@ -43,21 +46,25 @@ export function addMessage(message){
 
 export function getCards(){
     return (dispatch) => {
-        AsyncStorage.getItem('carddata', (err, cards) => {
-            if (cards !== null){
-                dispatch({type: CARDS_AVAILABLE, cards:JSON.parse(cards)});
-            }
-        });
+        RNFetchBlob.fs.readFile(fileDir + 'cards.dat', 'utf8')
+            .then((cards) => {
+                if (cards !== ''){
+                    dispatch({type: CARDS_AVAILABLE, cards:JSON.parse(cards)});
+                }
+            })
+            .catch((err) => {});
     };
 }
 
 export function getMessages(){
     return (dispatch) => {
-        AsyncStorage.getItem('messagedata', (err, messages) => {
-            if (messages !== null){
-                dispatch({type: MESSAGES_AVAILABLE, messages:JSON.parse(messages)});
-            }
-        });
+        RNFetchBlob.fs.readFile(fileDir + 'messages.dat', 'utf8')
+            .then((messages) => {
+                if (messages !== ''){
+                    dispatch({type: MESSAGES_AVAILABLE, messages:JSON.parse(messages)});
+                }
+            })
+            .catch((err) => {});
     };
 }
 
@@ -119,10 +126,17 @@ export function deleteMessage(id){
 // Clear card/messages - CLEAR (D)
 export function clearAll(){
     return (dispatch) => {
-                AsyncStorage.clear(() => {
+                removeFiles(() => {
                     dispatch({type: CLEAR_ALL});
                 });
             }
+}
+
+function removeFiles(){
+    RNFetchBlob.fs.unlink(fileDir + 'cards.dat')
+        .catch((err) => {});
+    RNFetchBlob.fs.unlink(fileDir + 'messages.dat')
+        .catch((err) => {});
 }
 
 function getIndex(card, id){

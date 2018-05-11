@@ -9,6 +9,7 @@ import { View, AsyncStorage } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import RNFetchBlob from 'react-native-fetch-blob';
 //Component Imports
 import Splash from './components/splash/index';
 import Home from './components/home/index';
@@ -34,28 +35,50 @@ import * as ReduxActions from './actions'; //Import your actions
 //Style Import
 import styles from './styles';
 
+const fileDir = RNFetchBlob.fs.dirs.DocumentDir + '/idly/';
+
 class Main extends Component {
+    constructor() {
+        super();
+        this.initFiles();
+    }
+
+    initFiles(){
+        RNFetchBlob.fs.mkdir(fileDir)
+            .catch((err) => {});
+        RNFetchBlob.fs.createFile(
+            fileDir + 'cards.dat',
+            '',
+            'utf8'
+        )
+            .catch((err) => {});
+        RNFetchBlob.fs.createFile(
+            fileDir + 'messages.dat',
+            '',
+            'utf8'
+        )
+            .catch((err) => {});
+    }
+
     componentDidMount() {
         var _this = this;
         //Check if any card data exists
-        AsyncStorage.getItem('carddata', (err, carddata) => {
-            //if it doesn't exist, extract from json file
-            //save the initial data in Async
-            if (carddata === null){
-                AsyncStorage.setItem('carddata', JSON.stringify(CardData.card));
-                _this.props.getCards();
-            }
-        });
+        RNFetchBlob.fs.readFile(fileDir + 'cards.dat', 'utf8')
+            .then((carddata) => {
+                if (carddata === ''){
+                    RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', JSON.stringify(CardData.card),'utf8');
+                    _this.props.getCards();
+                }
+            });
 
         // check if any message data exists
-        AsyncStorage.getItem('messagedata', (err, messagedata) => {
-            //if it doesn't exist, extract from json file
-            //save the initial data in Async
-            if (messagedata === null){
-                AsyncStorage.setItem('messagedata', JSON.stringify(MessageData.message));
-                _this.props.getMessages();
-            }
-        });
+        RNFetchBlob.fs.readFile(fileDir + 'messages.dat', 'utf8')
+            .then((data) => {
+                if (data === ''){
+                    RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', JSON.stringify(MessageData.message),'utf8');
+                    _this.props.getMessages();
+                }
+            });
     }
 
     render() {

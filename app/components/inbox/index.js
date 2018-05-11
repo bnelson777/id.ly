@@ -38,7 +38,7 @@ class Inbox extends Component {
     render() {
         // array to be filled with valid pairs of sender and receivers
         var arr = [];
-        
+
         // sort array of messages by time
         this.props.messages.sort(function (a,b) { return b.time - a.time; });
 
@@ -84,6 +84,9 @@ class Inbox extends Component {
         let author = item.from; //display public key if card not found
         let sender = item.from; // default if card not in rolodex
         let receiver = item.to; // default if card not in rolodex
+        let senderCard = null; // passed into message thread for card data
+        let receiverCard = null; //passed into message thread for card data
+        let label = "";
         let portrait = require('../../assets/default_avatar.png');
         let readflag = item.read;
         let uriflag = false;
@@ -93,7 +96,9 @@ class Inbox extends Component {
                 author = card.name;
                 // set for inbox to know who is who
                 receiver = item.to;
+                receiverCard = card;
                 sender = item.from;
+                label = card.label;
 
                 if(card.image !== ""){
                     portrait = card.image;
@@ -106,6 +111,8 @@ class Inbox extends Component {
                 // set for inbox to know who is who
                 receiver = item.from;
                 sender = item.to;
+                receiverCard = card;
+                label = card.label;
 
                 if(card.image !== ""){
                     portrait = card.image;
@@ -114,15 +121,30 @@ class Inbox extends Component {
                 break;
             }
         };
+
+
+        for (card of this.props.cards) {
+          //look up the senders card info to pass to message_thread
+          // (card.owner=== True)
+          if (card.keys.n === sender && card.owner === true) {
+              senderCard = card;
+              break;
+          }
+        };
         // object prop that is passed to message_thread
         let pair = {
           sender: sender,
-          receiver: receiver
+          receiver: receiver,
+          senderCard: senderCard,
+          receiverCard: receiverCard
         }
 
-        //converts the seconds time in messages.json to milliseconds. 
-        //if message was received on current date the time will be displayed. 
-        //if the message was received before the current date, the date will be displayed. 
+        //label included as part of authorText
+        var titleLabel = author + " (" + label + ")";
+
+        //converts the seconds time in messages.json to milliseconds.
+        //if message was received on current date the time will be displayed.
+        //if the message was received before the current date, the date will be displayed.
         var millisecondTime = item.time*1000;
         var messageDate = new Date(millisecondTime).toDateString();
         var today = new Date().toDateString();
@@ -145,10 +167,10 @@ class Inbox extends Component {
 
 
         return (
-            <TouchableOpacity  onPress={() => Actions.message_thread({title: author, pair: pair})} >
+            <TouchableOpacity  onPress={() => Actions.message_thread({title: titleLabel, pair: pair})} >
                 <ListItem
                     roundAvatar
-                    title = {author}
+                    title = {titleLabel}
                     rightTitle = {timeStamp}
                     subtitle = {item.body}
                     avatar = {uriflag === true ? {uri: portrait} : portrait}

@@ -143,12 +143,12 @@ class Lockbox extends Component {
             // replace copy's body with encrypted message from above
             jsonP.body = encrypted;
             // get it ready for sending
-            var jsonM = JSON.stringify(jsonP);
+            var jsonM = "idly://lockbox/" + JSON.stringify(jsonP);
             // set state variable for use in render (copy to clipboard)
             this.state.jsonM = jsonM;
             console.log('messageobjJsond:', jsonM)
             //uri: mailto:mailto@deniseleeyohn.com?subject=abcdefg&body=body'
-            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + jsonM
+            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + encodeURI(jsonM)
             //encode for email linking
             var res = encodeURI(uri);
             //return it
@@ -219,22 +219,22 @@ class Lockbox extends Component {
         }
         else if (this.props.mode === 'decrypt') {
             console.log('In decrypt Mode')
+            this.state.jsonString = decodeURI(this.props.message)
             return (
                 <View style={styles.container}>
                     <View style={styles.row}>
                         <TextInput
                             multiline={true}
                             onChangeText={(text) => this.setState({jsonString: text})}
-                            placeholder={"Enter the Json from email"}
+                            placeholder={decodeURI(this.props.message)}
                             style={[styles.quote]}
-                            value={this.state.jsonString}
                         />
                     </View>
                     <TouchableOpacity style={[styles.saveBtn]}
                         disabled={(this.state.jsonString.length > 0) ? false : true}
                         onPress={this.decryptMessage}>
                         <Text style={[styles.buttonText,
-                            {color: (this.state.jsonString.length > 0) ? "#FFF" : "rgba(255,255,255,.5)"
+                            {color: (this.state.jsonString.length > 0) ? "#FFF" : "#FFF"
                         }]}>
                             Decrypt
                         </Text>

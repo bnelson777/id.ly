@@ -5,10 +5,11 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { View, AsyncStorage } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
+import { View, AsyncStorage, BackHandler } from 'react-native';
+import { Router, Scene,
+        ActionConst, Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
+import { Icon } from 'react-native-elements';
 //Component Imports
 import Splash from './components/splash/index';
 import Home from './components/home/index';
@@ -57,21 +58,38 @@ class Main extends Component {
             }
         });
     }
+    
+    _backAndroidHandler = () => {
+        const scene = Actions.currentScene;
+        // alert(scene)
+        if (scene === 'index' || scene === 'home' || scene === 'main') {
+            BackHandler.exitApp();
+            return true;
+        }
+        Actions.pop();
+        return true;
+    };
 
     render() {
         return (
-            <Router>
+            <Router backAndroidHandler={this._backAndroidHandler} 
+                navigationBarStyle={styles.idlyColor}
+                tintColor='white' titleStyle={styles.textColor}
+                leftButtonTextStyle={styles.subtitle}
+                rightButtonTextStyle={styles.subtitle}>
                 <Scene key="root">
-                    <Scene key="splash" component={Splash}/>
-                    <Scene key="home" component={Home} title="Home"/>
+                    <Scene key="splash" component={Splash} initial={true}/>
+                    <Scene key="home" component={Home} title="Home"
+                        panHandlers={null} hideNavBar type={ActionConst.RESET}
+                    />
                     <Scene key="scan" component={Scan} title="Scan" />
                     <Scene key="lockbox" component={Lockbox} title="Lockbox" />
                     <Scene key="rolodex" component={CardList}title="Rolodex"
-                        titleStyle={styles.title} onRight={() => Actions.scan()}
-                        rightButtonImage={require('./assets/add.png')}
+                        onRight={() => Actions.scan()}
+                        rightButtonImage={require('./assets/add_person.png')}
                         rightButtonStyle={styles.rightButton} rightButtonIconStyle={styles.rightButtonIcon} />
                     <Scene key="wallet" component={CardList} title="Wallet"
-                        titleStyle={styles.title} onRight={() => Actions.create_card()}
+                        onRight={() => Actions.create_card()}
                         rightButtonImage={require('./assets/add.png')}
                         rightButtonStyle={styles.rightButton} rightButtonIconStyle={styles.rightButtonIcon} />
                     <Scene key="card_view" component={CardView} title="CardView" />
@@ -79,13 +97,13 @@ class Main extends Component {
                     <Scene key="message_thread" component={MessageThread} title="MessageThread" />
                     <Scene key="create_message" component={CreateMessage} title="New Message" />
                     <Scene key="inbox" component={Inbox} title="Inbox"
-                        titleStyle={styles.title} onRight={() => Actions.create_message({sender: null, recipient: null})}
-                        rightTitle='Message' />
-                    <Scene key="create_card" component={CreateCard} title="Add Information" 
-                        />
+                        onRight={() => Actions.create_message({sender: null, recipient: null})}
+                        rightButtonImage={require('./assets/msg.png')}
+                        rightButtonStyle={styles.rightButton} rightButtonIconStyle={styles.rightButtonIcon} />
+                    <Scene key="create_card" component={CreateCard} title="Add Information" />
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />
-                    <Scene key="about" component={About} title="About"/>
+                    <Scene key="about" component={About} title="About" />
                   </Scene>
             </Router>
         );

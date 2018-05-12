@@ -5,7 +5,7 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { View, Alert } from 'react-native';
+import { View, Platform } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -37,29 +37,31 @@ import * as ReduxActions from './actions'; //Import your actions
 //Style Import
 import styles from './styles';
 
-const fileDir = RNFetchBlob.fs.dirs.DocumentDir + '/idly/';
-
 class Main extends Component {
     constructor() {
         super();
         this.state = {key: '', iv: ''};
         this.init();
+        this.getPaths = this.getPaths.bind(this);
     }
 
     //Create directory, files, and AES values
     init(){
-        RNFetchBlob.fs.mkdir(fileDir)
+        const dirs = RNFetchBlob.fs.dirs;
+        paths = this.getPaths();
+
+        RNFetchBlob.fs.mkdir(dirs.DocumentDir + '/idly/')
         .catch((err) => {});
 
         RNFetchBlob.fs.createFile(
-            fileDir + 'cards.dat',
+            paths.cardsPath,
             '',
             'utf8'
         )
         .catch((err) => {});
 
         RNFetchBlob.fs.createFile(
-            fileDir + 'messages.dat',
+            paths.messagesPath,
             '',
             'utf8'
         )
@@ -90,15 +92,30 @@ class Main extends Component {
         });
     }
 
+    getPaths(){
+        const dirs = RNFetchBlob.fs.dirs;
+        var cardsPath = '/idly/cards.dat';
+        var messagesPath = '/idly/messages.dat';
+        if (Platform.OS === 'ios') {
+            cardsPath = `${dirs.DocumentDir}${cardsPath}`;
+            messagesPath = `${dirs.DocumentDir}${messagesPath}`;
+        } else {
+            cardsPath = dirs.DocumentDir + cardsPath;
+            messagesPath = dirs.DocumentDir + messagesPath;
+        }
+        return {cardsPath: cardsPath, messagesPath: messagesPath};
+    }
+
     componentDidMount() {
+        var paths = this.getPaths();
         var _this = this;
         //Check if any card data exists
-        RNFetchBlob.fs.readFile(fileDir + 'cards.dat', 'utf8')
+        RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
         .then((carddata) => {
             if (carddata === ''){
                 AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
                 .then(cipher => {
-                    RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', cipher,'utf8');
+                    RNFetchBlob.fs.writeFile(paths.cardsPath, cipher,'utf8');
                     console.log('Encrypted cards: ' + cipher)
                 });
                 _this.props.getCards();
@@ -106,12 +123,12 @@ class Main extends Component {
         });
 
         // check if any message data exists
-        RNFetchBlob.fs.readFile(fileDir + 'messages.dat', 'utf8')
+        RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
         .then((messagedata) => {
             if (messagedata === ''){
                 AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
                 .then(cipher => {
-                    RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', cipher,'utf8');
+                    RNFetchBlob.fs.writeFile(paths.messagesPath, cipher,'utf8');
                     console.log('Encrypted messages: ' + cipher)
                 });
                 _this.props.getMessages();

@@ -4,11 +4,10 @@ export const CLEAR_ALL = 'CLEAR_ALL';
 export const MESSAGES_AVAILABLE = 'MESSAGES_AVAILABLE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 
+import Platform from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import SInfo from 'react-native-sensitive-info';
 import AesCrypto from 'react-native-aes-kit';
-
-const fileDir = RNFetchBlob.fs.dirs.DocumentDir + '/idly/';
 
 // Add Card - CREATE (C)
 export function addCard(card){
@@ -22,8 +21,9 @@ export function addCard(card){
     .then((value) => {
         iv = value;
     });
+    var paths = getPaths();
     return (dispatch) => {
-        RNFetchBlob.fs.readFile(fileDir + 'cards.dat', 'utf8')
+        RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
         .then((cards) => {
             if (cards !== ''){
                 AesCrypto.decrypt(cards, key, iv)
@@ -34,7 +34,7 @@ export function addCard(card){
                     AesCrypto.encrypt(decCards, key, iv)
                     .then(encCards => {
                         console.log('Encrypted cards: ' + encCards)
-                        RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', encCards,'utf8', () => {
+                        RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8', () => {
                             dispatch({type: ADD_CARD, card:card});
                     })
                         .catch((err) => {});
@@ -57,8 +57,9 @@ export function addMessage(message){
     .then((value) => {
         iv = value;
     });
+    var paths = getPaths();
     return (dispatch) => {
-        RNFetchBlob.fs.readFile(fileDir + 'messages.dat', 'utf8')
+        RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
         .then((messages) => {
             if (messages !== ''){
                 AesCrypto.decrypt(messages, key, iv)
@@ -69,7 +70,7 @@ export function addMessage(message){
                     AesCrypto.encrypt(decMessages, key, iv)
                     .then(encMessages => {
                         console.log('Encrypted messages: ' + encMessages)
-                        RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', encMessages,'utf8', () => {
+                        RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages,'utf8', () => {
                             dispatch({type: ADD_MESSAGE, message:message});
                     })
                         .catch((err) => {});
@@ -91,8 +92,9 @@ export function getCards(){
     .then((value) => {
         iv = value;
     });
+    var paths = getPaths();
     return (dispatch) => {
-        RNFetchBlob.fs.readFile(fileDir + 'cards.dat', 'utf8')
+        RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
         .then((cards) => {
             if (cards !== ''){
                 AesCrypto.decrypt(cards, key, iv)
@@ -116,8 +118,9 @@ export function getMessages(){
     .then((value) => {
         iv = value;
     });
+    var paths = getPaths();
     return (dispatch) => {
-        RNFetchBlob.fs.readFile(fileDir + 'messages.dat', 'utf8')
+        RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
         .then((messages) => {
             if (messages !== ''){
                 AesCrypto.decrypt(messages, key, iv)
@@ -140,14 +143,32 @@ export function clearAll(){
 }
 
 function removeFiles(){
-    RNFetchBlob.fs.unlink(fileDir + 'cards.dat')
+    var paths = getPaths();
+    RNFetchBlob.fs.unlink(paths.cardsPath)
     .catch((err) => {});
 
-    RNFetchBlob.fs.unlink(fileDir + 'messages.dat')
+    RNFetchBlob.fs.unlink(paths.messagesPath)
     .catch((err) => {});
+
+    SInfo.setItem('key', null, {});
+    SInfo.setItem('iv', null, {});
 }
 
 function getIndex(card, id){
     let clone = JSON.parse(JSON.stringify(card));
     return clone.findIndex((obj) => parseInt(obj.id) === parseInt(id));
+}
+
+function getPaths(){
+    const dirs = RNFetchBlob.fs.dirs;
+    var cardsPath = '/idly/cards.dat';
+    var messagesPath = '/idly/messages.dat';
+    if (Platform.OS === 'ios') {
+        cardsPath = `${dirs.DocumentDir}${cardsPath}`;
+        messagesPath = `${dirs.DocumentDir}${messagesPath}`;
+    } else {
+        cardsPath = dirs.DocumentDir + cardsPath;
+        messagesPath = dirs.DocumentDir + messagesPath;
+    }
+    return {cardsPath: cardsPath, messagesPath: messagesPath};
 }

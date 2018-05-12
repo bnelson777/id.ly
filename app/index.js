@@ -99,6 +99,7 @@ class Main extends Component {
                 AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
                 .then(cipher => {
                     RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', cipher,'utf8');
+                    console.log('Encrypted cards: ' + cipher)
                 });
                 _this.props.getCards();
             }
@@ -111,6 +112,7 @@ class Main extends Component {
                 AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
                 .then(cipher => {
                     RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', cipher,'utf8');
+                    console.log('Encrypted messages: ' + cipher)
                 });
                 _this.props.getMessages();
             }

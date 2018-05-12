@@ -33,6 +33,7 @@ export function addCard(card){
                     decCards = JSON.stringify(decCards);
                     AesCrypto.encrypt(decCards, key, iv)
                     .then(encCards => {
+                        console.log('Encrypted cards: ' + encCards)
                         RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', encCards,'utf8', () => {
                             dispatch({type: ADD_CARD, card:card});
                     })
@@ -67,6 +68,7 @@ export function addMessage(message){
                     decMessages = JSON.stringify(decMessages);
                     AesCrypto.encrypt(decMessages, key, iv)
                     .then(encMessages => {
+                        console.log('Encrypted messages: ' + encMessages)
                         RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', encMessages,'utf8', () => {
                             dispatch({type: ADD_MESSAGE, message:message});
                     })

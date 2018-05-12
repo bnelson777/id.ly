@@ -7,15 +7,17 @@
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList,
-        View, Text, TextInput,
+        View, Text, TextInput, Platform,
         TouchableHighlight, TouchableOpacity,
-        Image} from 'react-native';
+        Image, KeyboardAvoidingView } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
+
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 110 : 70;
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and
@@ -111,7 +113,7 @@ class CreateMessage extends Component {
             styles.imageContainer : [styles.imageContainer, styles.imageDisabled];
 
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
                 <View style={styles.midContainer}>
                     <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
                     <TouchableOpacity onPress={this.showFromSheet}>
@@ -119,17 +121,18 @@ class CreateMessage extends Component {
                             <Text style={styles.selectButton}>+</Text>
                         </View>
                     </TouchableOpacity>
-                    <ActionSheet
-                        ref={o => {this.fromSheet = o}}
-                        title={'Send from which card?'}
-                        options={labelsFrom}
-                        cancelButtonIndex={0}
-                        onPress={(index) => this.updateSender(index, idFrom[index], labelsFrom[index])}
-                    />
+                <ActionSheet
+                    ref={o => {this.fromSheet = o}}
+                    title={'Send from which card?'}
+                    options={labelsFrom}
+                    cancelButtonIndex={0}
+                    onPress={(index) => this.updateSender(index, idFrom[index], labelsFrom[index])}
+                />
                 </View>
+                <View style={styles.sepLine}/>
                 <View style={styles.midContainer}>
                     <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
-                    <TouchableOpacity onPress={this.showToSheet}>
+                        <TouchableOpacity onPress={this.showToSheet}>
                         <View style={[styles.button, styles.listButton]}>
                             <Text style={styles.selectButton}>+</Text>
                         </View>
@@ -162,8 +165,7 @@ class CreateMessage extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <KeyboardSpacer/>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

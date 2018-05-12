@@ -7,6 +7,7 @@ import cc.rocwang.aescrypto.AesCryptoPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.facebook.react.ReactNativeHost;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
             new AesCryptoPackage(),
             new RNSensitiveInfoPackage(),
             new RNFetchBlobPackage(),
+            new ImagePickerPackage(),
             new VectorIconsPackage(),
             new RCTCameraPackage()
       );

@@ -66,7 +66,7 @@ class CardList extends Component {
                                     />
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}>
                                 <View
                                     style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                                     backgroundColor={COLORS[index % COLORS.length]}
@@ -94,7 +94,7 @@ class CardList extends Component {
                     <View>
                         <View style={styles.buttonContainer}>
                             <View>
-                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
+                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: false})}>
                                     <Avatar
                                         small
                                         rounded

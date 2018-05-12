@@ -103,7 +103,7 @@ class CreateCard extends Component {
         // card object to pass into actions redux props.addCard()
         let card = {"id": id, "keys": keys_json, "fields": attributes, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
 
-        this.props.addCard(card);
+        this.props.addCardToEnd(card);
 
         //return us to previus component (wallet)
         Actions.pop();
@@ -244,66 +244,37 @@ class CreateCard extends Component {
           });
     }
 
-    obtainPermissionIOS = async (permission) => {
-        if (Platform.OS !== 'ios') {
-            return;
-        }
-
-        const { checkStatus } = await Permissions.getAsync(permission);
-        if (checkStatus !== 'granted') {
-            const { askStatus } = await Permissions.askAsync(permission);
-            if (askStatus !== 'granted') {
-                console.log("error: Camera or camera roll permissions not granted.")
-            }
-        }
-    }
-
     chooseImage = () => {
-        
-        Alert.alert(
-        'Add Image',
-        'Choose a method to upload an image',
-        [
-          {text: 'Camera', onPress: () => this.takePicture()},
-          {text: 'Device', onPress: () => this.pickImage()},
-          {text: 'Cancel', onPress: () => {} },
-        ],
-        { cancelable: false }
-      )}
+        var ImagePicker = require('react-native-image-picker');
 
-    pickImage = async () => {
-        this.obtainPermissionIOS(Permissions.CAMERA_ROLL);
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: "Images",
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 0.2,
-            base64: true,
-            exif: false
-        });
+        var options = {
+        title: 'Add Image',
+        mediaType: 'photo',
+        quality: 1.0,
+        };
 
-        if (!result.cancelled) {
-            const b64image = "data:image/jpeg;base64," + result.base64;
-            this.setState({ image: b64image });
+        /**
+         * The first arg is the options object for customization (it can also be null or omitted for default options),
+         * The second arg is the callback which sends object: response (more info below in README)
+         */
+        ImagePicker.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
         }
-    };
-
-    takePicture = async () => {
-        this.obtainPermissionIOS(Permissions.CAMERA);
-        this.obtainPermissionIOS(Permissions.CAMERA_ROLL);
-        let result = await ImagePicker.launchCameraAsync({
-          allowsEditing: true,
-          aspect: [1, 1],
-          quality: 0.2,
-          base64: true,
-          exif: false
-        });
-
-        if (!result.cancelled) {
-            const b64image = "data:image/jpeg;base64," + result.base64;
-            this.setState({ image: b64image });
+        else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
         }
-    };
+        else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+        }
+        else {
+            let source = 'data:image/jpeg;base64,' + response.data;
+            this.setState({ image: source });
+        }
+        });
+    }
 
     removeAttributeFromForm(item){
         let temp = this.state.form;

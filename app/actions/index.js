@@ -1,5 +1,7 @@
 export const CARDS_AVAILABLE = 'CARDS_AVAILABLE';
 export const ADD_CARD = 'ADD_CARD';
+export const ADD_CARD_TO_END = 'ADD_CARD_TO_END';
+export const SET_DEFAULT = 'SET_DEFAULT';
 export const CLEAR_ALL = 'CLEAR_ALL';
 export const MESSAGES_AVAILABLE = 'MESSAGES_AVAILABLE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
@@ -42,6 +44,21 @@ export function addCard(card){
                 });
             }
         })
+    };
+}
+
+// Add Card To End - CREATE (C)
+export function addCardToEnd(card){
+    return (dispatch) => {
+        AsyncStorage.getItem('carddata', (err, cards) => {
+            if (cards !== null){
+                cards = JSON.parse(cards);
+                cards.push(card); //add the new card to the end
+                AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
+                    dispatch({type: ADD_CARD_TO_END, card:card});
+                });
+            }
+        });
     };
 }
 
@@ -130,6 +147,25 @@ export function getMessages(){
             }
         })
         .catch((err) => {});
+    };
+}
+
+// Set Default Card - SET DEFAULT (D)
+export function setDefault(card){
+    return (dispatch) => {
+        AsyncStorage.getItem('carddata', (err, cards) => {
+            if (cards !== null){
+                cards = JSON.parse(cards);
+                var index = getIndex(cards, card.id); //find the index of the card with the id passed
+                if(index !== -1) {
+                    cards.splice(index, 1);//if yes, undo, remove the card
+                    cards.splice(0,0, card);
+                }
+                AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
+                    dispatch({type: SET_DEFAULT, card:card});
+                });
+            }
+        });
     };
 }
 

@@ -69,7 +69,7 @@ class Main extends Component {
 
         SInfo.getItem('key', {})
         .then((value) => {
-            if (value === null){
+            if (value == null){
                 for(var key = ''; key.length < 16;)
                     key += Math.random().toString(36).substr(2, 1)
                 SInfo.setItem('key', key, {});
@@ -81,7 +81,7 @@ class Main extends Component {
 
         SInfo.getItem('iv', {})
         .then((value) => {
-            if (value === null){
+            if (value == null){
                 for(var iv = ''; iv.length < 16;)
                     iv += Math.random().toString(36).substr(2, 1)
                 SInfo.setItem('iv', iv, {});

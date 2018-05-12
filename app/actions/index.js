@@ -228,8 +228,8 @@ function removeFiles(){
     RNFetchBlob.fs.unlink(paths.messagesPath)
     .catch((err) => {});
 
-    SInfo.setItem('key', null, {});
-    SInfo.setItem('iv', null, {});
+    SInfo.deleteItem('key', {});
+    SInfo.deleteItem('iv', {});
 }
 
 function getIndex(card, id){

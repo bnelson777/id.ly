@@ -46,70 +46,75 @@ class Main extends Component {
         this.init();
     }
 
+    //Create directory, files, and AES values
     init(){
         RNFetchBlob.fs.mkdir(fileDir)
-            .catch((err) => {});
+        .catch((err) => {});
+
         RNFetchBlob.fs.createFile(
             fileDir + 'cards.dat',
             '',
             'utf8'
         )
-            .catch((err) => {});
+        .catch((err) => {});
+
         RNFetchBlob.fs.createFile(
             fileDir + 'messages.dat',
             '',
             'utf8'
         )
-            .catch((err) => {});
+        .catch((err) => {});
+
         SInfo.getItem('key', {})
-            .then((value) => {
-                if (value === null){
-                    for(var key = ''; key.length < 16;)
-                        key += Math.random().toString(36).substr(2, 1)
-                    SInfo.setItem('key', key, {});
-                    this.setState({key: key});
-                }
-                else
-                    this.setState({key: value});
-            });
+        .then((value) => {
+            if (value === null){
+                for(var key = ''; key.length < 16;)
+                    key += Math.random().toString(36).substr(2, 1)
+                SInfo.setItem('key', key, {});
+                this.setState({key: key});
+            }
+            else
+                this.setState({key: value});
+        });
+
         SInfo.getItem('iv', {})
-            .then((value) => {
-                if (value === null){
-                    for(var iv = ''; iv.length < 16;)
-                        iv += Math.random().toString(36).substr(2, 1)
-                    SInfo.setItem('iv', iv, {});
-                    this.setState({iv: iv});
-                }
-                else
-                    this.setState({iv: value});
-            });
+        .then((value) => {
+            if (value === null){
+                for(var iv = ''; iv.length < 16;)
+                    iv += Math.random().toString(36).substr(2, 1)
+                SInfo.setItem('iv', iv, {});
+                this.setState({iv: iv});
+            }
+            else
+                this.setState({iv: value});
+        });
     }
 
     componentDidMount() {
         var _this = this;
         //Check if any card data exists
         RNFetchBlob.fs.readFile(fileDir + 'cards.dat', 'utf8')
-            .then((carddata) => {
-                if (carddata === ''){
-                    AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
-                        .then(cipher => {
-                            RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', cipher,'utf8');
-                        });
-                    _this.props.getCards();
-                }
-            });
+        .then((carddata) => {
+            if (carddata === ''){
+                AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
+                .then(cipher => {
+                    RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', cipher,'utf8');
+                });
+                _this.props.getCards();
+            }
+        });
 
         // check if any message data exists
         RNFetchBlob.fs.readFile(fileDir + 'messages.dat', 'utf8')
-            .then((messagedata) => {
-                if (messagedata === ''){
-                    AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
-                        .then(cipher => {
-                            RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', cipher,'utf8');
-                        });
-                    _this.props.getMessages();
-                }
-            });
+        .then((messagedata) => {
+            if (messagedata === ''){
+                AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
+                .then(cipher => {
+                    RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', cipher,'utf8');
+                });
+                _this.props.getMessages();
+            }
+        });
     }
 
     render() {

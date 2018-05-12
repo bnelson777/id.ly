@@ -5,7 +5,7 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, 
+import { StyleSheet, View,
         Text, Image } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
@@ -60,13 +60,15 @@ class CardView extends Component {
                     </Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button style={styles.button}
+                    <Button 
                         title="Share"
                         onPress={() => Actions.share({card: this.props.card})}
+                        buttonStyle={styles.button}
                     />
-                    <Button style={styles.button}
+                    <Button 
                         title="Message"
                         onPress={() => Actions.create_message(args)}
+                        buttonStyle={styles.button}
                     />
                 </View>
             </View>

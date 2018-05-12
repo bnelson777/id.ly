@@ -1,5 +1,5 @@
 import { StyleSheet, Image } from 'react-native';
-import { BORDER_WIDTH, FONT_SIZE, 
+import { BORDER_WIDTH, FONT_SIZE, IDLY_BLUE,
     BACKGROUND_COLOR, FONT_WEIGHT } from '../styles/common';
     
 export default StyleSheet.create({
@@ -31,8 +31,12 @@ export default StyleSheet.create({
     },
 
     button:{
-        paddingTop: 10,
+        backgroundColor: IDLY_BLUE,
         width: 150,
+        height: 45,
+        borderColor: "transparent",
+        borderWidth: 0,
+        borderRadius: 5
     },
 
     name: {

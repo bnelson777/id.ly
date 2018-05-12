@@ -1,5 +1,5 @@
 import { StyleSheet} from 'react-native';
-import { COLOR_PRIMARY, COLOR_SECONDARY,
+import { COLOR_PRIMARY, COLOR_SECONDARY, IDLY_BLUE,
         BACKGROUND_COLOR, BORDER_RADIUS } from './components/styles/common';
 
 export default StyleSheet.create({
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
 
     idlyColor: {
-        backgroundColor: '#128DC9'
+        backgroundColor: IDLY_BLUE
     },
 
     textColor: {

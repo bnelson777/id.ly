@@ -59,7 +59,7 @@ class Main extends Component {
 
         if (Platform.OS === 'android') {
           Linking.getInitialURL().then(url => {
-            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+            this.navigate(url);
           });
         } else {
           Linking.addEventListener('url', this.handleOpenURL);

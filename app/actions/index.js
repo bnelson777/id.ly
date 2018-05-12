@@ -7,7 +7,7 @@ export const MESSAGES_AVAILABLE = 'MESSAGES_AVAILABLE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Alert} from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 
 const fileDir = RNFetchBlob.fs.dirs.DocumentDir + '/idly/';
@@ -15,30 +15,34 @@ const fileDir = RNFetchBlob.fs.dirs.DocumentDir + '/idly/';
 // Add Card - CREATE (C)
 export function addCard(card){
     return (dispatch) => {
-        AsyncStorage.getItem('carddata', (err, cards) => {
-            if (cards !== null){
-                cards = JSON.parse(cards);
-                cards.unshift(card); //add the new card to the top
-                AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
-                    dispatch({type: ADD_CARD, card:card});
-                });
-            }
-        });
+        RNFetchBlob.fs.readFile(fileDir + 'cards.dat', 'utf8')
+            .then((cards) => {
+                if (cards !== ''){
+                    cards = JSON.parse(cards);
+                    cards.unshift(card); //add the new card to the top
+                    RNFetchBlob.fs.writeFile(fileDir + 'cards.dat', JSON.stringify(cards),'utf8', () => {
+                        dispatch({type: ADD_CARD, card:card});
+                    });
+                }
+            })
+            .catch((err) => {});
     };
 }
 
 // Add Message- CREATE (C)
 export function addMessage(message){
     return (dispatch) => {
-        AsyncStorage.getItem('messagedata', (err, messages) => {
-            if (messages !== null){
-                messages = JSON.parse(messages);
-                messages.unshift(message); //add the new card to the top
-                AsyncStorage.setItem('messagedata', JSON.stringify(messages), () => {
-                    dispatch({type: ADD_MESSAGE, message:message});
-                });
-            }
-        });
+        RNFetchBlob.fs.readFile(fileDir + 'messages.dat', 'utf8')
+            .then((messages) => {
+                if (messages !== ''){
+                    messages = JSON.parse(messages);
+                    messages.unshift(message); //add the new message to the top
+                    RNFetchBlob.fs.writeFile(fileDir + 'messages.dat', JSON.stringify(messages),'utf8', () => {
+                        dispatch({type: ADD_MESSAGE, message:message});
+                    });
+                }
+            })
+            .catch((err) => {});
     };
 }
 

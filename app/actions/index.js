@@ -49,16 +49,37 @@ export function addCard(card){
 
 // Add Card To End - CREATE (C)
 export function addCardToEnd(card){
+    var key = '';
+    var iv = '';
+    SInfo.getItem('key', {})
+    .then((value) => {
+        key = value;
+    });
+    SInfo.getItem('iv', {})
+    .then((value) => {
+        iv = value;
+    });
+    var paths = getPaths();
     return (dispatch) => {
-        AsyncStorage.getItem('carddata', (err, cards) => {
-            if (cards !== null){
-                cards = JSON.parse(cards);
-                cards.push(card); //add the new card to the end
-                AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
-                    dispatch({type: ADD_CARD_TO_END, card:card});
+        RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
+        .then((cards) => {
+            if (cards !== ''){
+                AesCrypto.decrypt(cards, key, iv)
+                .then(decCards => {
+                    decCards = JSON.parse(decCards);
+                    decCards.push(card); //add the new card to the top
+                    decCards = JSON.stringify(decCards);
+                    AesCrypto.encrypt(decCards, key, iv)
+                    .then(encCards => {
+                        console.log('Encrypted cards: ' + encCards)
+                        RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8', () => {
+                            dispatch({type: ADD_CARD_TO_END, card:card});
+                    })
+                        .catch((err) => {});
+                    });
                 });
             }
-        });
+        })
     };
 }
 
@@ -152,20 +173,41 @@ export function getMessages(){
 
 // Set Default Card - SET DEFAULT (D)
 export function setDefault(card){
+    var key = '';
+    var iv = '';
+    SInfo.getItem('key', {})
+    .then((value) => {
+        key = value;
+    });
+    SInfo.getItem('iv', {})
+    .then((value) => {
+        iv = value;
+    });
+    var paths = getPaths();
     return (dispatch) => {
-        AsyncStorage.getItem('carddata', (err, cards) => {
-            if (cards !== null){
-                cards = JSON.parse(cards);
-                var index = getIndex(cards, card.id); //find the index of the card with the id passed
-                if(index !== -1) {
-                    cards.splice(index, 1);//if yes, undo, remove the card
-                    cards.splice(0,0, card);
-                }
-                AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
-                    dispatch({type: SET_DEFAULT, card:card});
+        RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
+        .then((cards) => {
+            if (cards !== ''){
+                AesCrypto.decrypt(cards, key, iv)
+                .then(decCards => {
+                    decCards = JSON.parse(decCards);
+                    var index = getIndex(decCards, card.id); //find the index of the card with the id passed
+                    if(index !== -1) {
+                        decCards.splice(index, 1);//if yes, undo, remove the card
+                        decCards.splice(0,0, card);
+                    }
+                    decCards = JSON.stringify(decCards);
+                    AesCrypto.encrypt(decCards, key, iv)
+                    .then(encCards => {
+                        console.log('Encrypted cards: ' + encCards)
+                        RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8', () => {
+                            dispatch({type: SET_DEFAULT, card:card});
+                    })
+                        .catch((err) => {});
+                    });
                 });
             }
-        });
+        })
     };
 }
 

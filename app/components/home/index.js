@@ -18,12 +18,13 @@ import { Avatar } from 'react-native-elements';
 
 class Home extends Component {
     static navigationOptions = {
-      title: "Home",
-      headerLeft: null,
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: '#128DC9'
-      }
+        title: "Home",
+        headerLeft: (<View/>),
+        hearerRight: (<View/>),
+        headerTintColor: 'white',
+        headerStyle: {
+            backgroundColor: '#128DC9',
+        }
     }
 
     constructor(props) {

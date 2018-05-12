@@ -51,6 +51,8 @@
 		7E5DEAB02683489FB6BA1BDB /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C861510741A4D7081B039EB /* SimpleLineIcons.ttf */; };
 		E447F6FD600044279FA0B4B4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D74B99D7FB346AEADF84561 /* Zocial.ttf */; };
 		66683A92431D442A863D10DF /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C31AA7CF2190488395112B45 /* libRNFetchBlob.a */; };
+		2BAB9A457B274C1383782576 /* libRNSensitiveInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DE09DFB3A240A8BF9E0209 /* libRNSensitiveInfo.a */; };
+		AE77BEFB467744CBB9412B31 /* libRCTAesCrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5B5A8767B64E849B2BAA7B /* libRCTAesCrypto.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -319,6 +321,10 @@
 		0D74B99D7FB346AEADF84561 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7646E7D2DE3245D69686E3B0 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		C31AA7CF2190488395112B45 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		2C9E9BFCD3A540FC9D805553 /* RNSensitiveInfo.xcodeproj */ = {isa = PBXFileReference; name = "RNSensitiveInfo.xcodeproj"; path = "../node_modules/react-native-sensitive-info/ios/RNSensitiveInfo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		C5DE09DFB3A240A8BF9E0209 /* libRNSensitiveInfo.a */ = {isa = PBXFileReference; name = "libRNSensitiveInfo.a"; path = "libRNSensitiveInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		04793E81A7744093AE4C6916 /* RCTAesCrypto.xcodeproj */ = {isa = PBXFileReference; name = "RCTAesCrypto.xcodeproj"; path = "../node_modules/react-native-aes-kit/ios/RCTAesCrypto.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		1E5B5A8767B64E849B2BAA7B /* libRCTAesCrypto.a */ = {isa = PBXFileReference; name = "libRCTAesCrypto.a"; path = "libRCTAesCrypto.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +357,8 @@
 				B16FB471A61E47D08C788B3A /* libLRDRCTSimpleToast.a in Frameworks */,
 				6C086AC2D8C24166A8C50957 /* libRNVectorIcons.a in Frameworks */,
 				66683A92431D442A863D10DF /* libRNFetchBlob.a in Frameworks */,
+				2BAB9A457B274C1383782576 /* libRNSensitiveInfo.a in Frameworks */,
+				AE77BEFB467744CBB9412B31 /* libRCTAesCrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +540,8 @@
 				D21AA41488DC40A38AAFACBB /* LRDRCTSimpleToast.xcodeproj */,
 				6BF78E5329664F48B601881B /* RNVectorIcons.xcodeproj */,
 				7646E7D2DE3245D69686E3B0 /* RNFetchBlob.xcodeproj */,
+				2C9E9BFCD3A540FC9D805553 /* RNSensitiveInfo.xcodeproj */,
+				04793E81A7744093AE4C6916 /* RCTAesCrypto.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1137,6 +1147,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1144,6 +1156,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-simple-toast\ios\LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-sensitive-info\ios\RNSensitiveInfo/**",
+					"$(SRCROOT)\..\node_modules\react-native-aes-kit\ios\RCTAesCrypto/**",
 				);
 			};
 			name = Debug;
@@ -1168,6 +1182,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1175,6 +1191,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-simple-toast\ios\LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-sensitive-info\ios\RNSensitiveInfo/**",
+					"$(SRCROOT)\..\node_modules\react-native-aes-kit\ios\RCTAesCrypto/**",
 				);
 			};
 			name = Release;
@@ -1200,6 +1218,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-simple-toast\ios\LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-sensitive-info\ios\RNSensitiveInfo/**",
+					"$(SRCROOT)\..\node_modules\react-native-aes-kit\ios\RCTAesCrypto/**",
 				);
 			};
 			name = Debug;
@@ -1224,6 +1244,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-simple-toast\ios\LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-sensitive-info\ios\RNSensitiveInfo/**",
+					"$(SRCROOT)\..\node_modules\react-native-aes-kit\ios\RCTAesCrypto/**",
 				);
 			};
 			name = Release;
@@ -1257,6 +1279,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1264,6 +1288,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-simple-toast\ios\LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-sensitive-info\ios\RNSensitiveInfo/**",
+					"$(SRCROOT)\..\node_modules\react-native-aes-kit\ios\RCTAesCrypto/**",
 				);
 			};
 			name = Debug;
@@ -1297,6 +1323,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1304,6 +1332,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-simple-toast\ios\LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-sensitive-info\ios\RNSensitiveInfo/**",
+					"$(SRCROOT)\..\node_modules\react-native-aes-kit\ios\RCTAesCrypto/**",
 				);
 			};
 			name = Release;
@@ -1332,6 +1362,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1356,6 +1388,8 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

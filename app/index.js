@@ -40,10 +40,10 @@ const fileDir = RNFetchBlob.fs.dirs.DocumentDir + '/idly/';
 class Main extends Component {
     constructor() {
         super();
-        this.initFiles();
+        this.init();
     }
 
-    initFiles(){
+    init(){
         RNFetchBlob.fs.mkdir(fileDir)
             .catch((err) => {});
         RNFetchBlob.fs.createFile(

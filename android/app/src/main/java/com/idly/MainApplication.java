@@ -3,6 +3,8 @@ package com.idly;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cc.rocwang.aescrypto.AesCryptoPackage;
+import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AesCryptoPackage(),
+            new RNSensitiveInfoPackage(),
             new RNFetchBlobPackage(),
             new VectorIconsPackage(),
             new RCTCameraPackage()

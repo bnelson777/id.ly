@@ -5,8 +5,13 @@
 
 //Import Libraries
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { StyleSheet, View,
         Text, Image } from 'react-native';
+=======
+import { StyleSheet, View, 
+        Text, Image, Alert } from 'react-native';
+>>>>>>> master
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,13 +22,32 @@ import { Avatar, Button } from 'react-native-elements';
 class CardView extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            buttonPressed: false
+        };
     }
 
     componentDidMount() {
         this.props.getCards();
     }
     
+    handleSetDefault(){
+        if (!this.state.buttonPressed){
+            this.setState({buttonPressed: true});
+            this.setDefault();
+        }
+    }
+
+    setDefault(){
+        if(this.props.card.id === this.props.cards[0].id)
+        {
+            Alert.alert("This card is already the default!");
+            return;
+        }
+        this.props.setDefault(this.props.card);
+        Actions.pop();
+    }
+
     //displays card type on top, followed by image and the rest of the card information
     render() {
         var cardFields = [];
@@ -36,29 +60,43 @@ class CardView extends Component {
         var args = this.props.card.owner === true ?
             {sender: this.props.card, recipient: null} :
             {sender: null, recipient: this.props.card};
-        return (
-            <View style={styles.container}>
-                <Text style={styles.header}>
-                    {this.props.card.label}
-                </Text>
-                <View style={styles.cardPosition}>
-                    <Avatar
-                        xlarge
-                        rounded
-                        source = {icon}
-                    />
+        if(!this.props.isWallet){        
+            //displays card with no option to set default card
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.header}>
+                        {this.props.card.label}
+                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Avatar
+                            xlarge
+                            rounded
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
+                        </Text>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
+                        </Text>
+                        <Text style={styles.name}>
+                            {cardFields}
+                        </Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button}
+                            title="Share"
+                            onPress={() => Actions.share({card: this.props.card})}
+                        />
+                        <Button style={styles.button}
+                            title="Message"
+                            onPress={() => Actions.create_message(args)}
+                        />
+                    </View>
                 </View>
-                <View style={styles.row}>
-                    <Text style={styles.name}>
-                        Name: {this.props.card.name}
-                    </Text>
-                    <Text style={styles.name}>
-                        Email: {this.props.card.email}
-                    </Text>
-                    <Text style={styles.name}>
-                        {cardFields}
-                    </Text>
-                </View>
+<<<<<<< HEAD
                 <View style={styles.buttonContainer}>
                     <Button 
                         title="Share"
@@ -70,10 +108,52 @@ class CardView extends Component {
                         onPress={() => Actions.create_message(args)}
                         buttonStyle={styles.button}
                     />
+=======
+            );
+        }
+        else{
+            //displays card with option to set the default card
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.header}>
+                        {this.props.card.label}
+                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Avatar
+                            xlarge
+                            rounded
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
+                        </Text>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
+                        </Text>
+                        <Text style={styles.name}>
+                            {cardFields}
+                        </Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button}
+                            title="Share"
+                            onPress={() => Actions.share({card: this.props.card})}
+                        />
+                        <Button style={styles.button}
+                            title="Message"
+                            onPress={() => Actions.create_message(args)}
+                        />
+                        <Button style={styles.button}
+                            title="Set Default"
+                            onPress={() => this.handleSetDefault()}
+                        />
+                    </View>
+>>>>>>> master
                 </View>
-            </View>
-            
-        );
+            );
+        }
     }
 };
 

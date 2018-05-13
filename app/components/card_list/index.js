@@ -92,7 +92,7 @@ class CardList extends Component {
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity
-                                onPress={() => Actions.card_view({title: item.name, card: item})}
+                                onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}
                                 onLongPress={() => this.showOptions(item)}
                             >
                                 <View
@@ -123,7 +123,9 @@ class CardList extends Component {
                         {this.state.initRolodex > 0 ? <View style={styles.sepLine}/>:<View/>}
                         <View style={styles.buttonContainer}>
                             <View>
-                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})} onLongPress={() => this.showOptions(item)}>
+                                <TouchableOpacity 
+                                    onPress={() => Actions.card_view({title: item.name, card: item, isWallet: false})} 
+                                    onLongPress={() => this.showOptions(item)}>
                                     <Avatar
                                         small
                                         rounded

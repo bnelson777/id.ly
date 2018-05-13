@@ -1,5 +1,7 @@
 export const CARDS_AVAILABLE = 'CARDS_AVAILABLE';
 export const ADD_CARD = 'ADD_CARD';
+export const ADD_CARD_TO_END = 'ADD_CARD_TO_END';
+export const SET_DEFAULT = 'SET_DEFAULT';
 export const UPDATE_CARD = 'UPDATE_CARD';
 export const DELETE_CARD = 'DELETE_CARD';
 export const CLEAR_ALL = 'CLEAR_ALL';
@@ -18,6 +20,21 @@ export function addCard(card){
                 cards.unshift(card); //add the new card to the top
                 AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
                     dispatch({type: ADD_CARD, card:card});
+                });
+            }
+        });
+    };
+}
+
+// Add Card To End - CREATE (C)
+export function addCardToEnd(card){
+    return (dispatch) => {
+        AsyncStorage.getItem('carddata', (err, cards) => {
+            if (cards !== null){
+                cards = JSON.parse(cards);
+                cards.push(card); //add the new card to the end
+                AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
+                    dispatch({type: ADD_CARD_TO_END, card:card});
                 });
             }
         });
@@ -87,11 +104,29 @@ export function deleteCard(id){
         AsyncStorage.getItem('carddata', (err, cards) => {
             if (cards !== null){
                 cards = JSON.parse(cards);
-
                 var index = getIndex(cards, id); //find the index of the card with the id passed
                 if(index !== -1) cards.splice(index, 1);//if yes, undo, remove the card
                 AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
                     dispatch({type: DELETE_CARD, id:id});
+                });
+            }
+        });
+    };
+}
+
+// Set Default Card - SET DEFAULT (D)
+export function setDefault(card){
+    return (dispatch) => {
+        AsyncStorage.getItem('carddata', (err, cards) => {
+            if (cards !== null){
+                cards = JSON.parse(cards);
+                var index = getIndex(cards, card.id); //find the index of the card with the id passed
+                if(index !== -1) {
+                    cards.splice(index, 1);//if yes, undo, remove the card
+                    cards.splice(0,0, card);
+                }
+                AsyncStorage.setItem('carddata', JSON.stringify(cards), () => {
+                    dispatch({type: SET_DEFAULT, card:card});
                 });
             }
         });

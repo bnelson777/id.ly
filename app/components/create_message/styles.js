@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, 
         BACKGROUND_COLOR, BORDER_RADIUS } from './../styles/common';
 
@@ -8,7 +8,7 @@ const buttonHeight = screenWidth * 0.10;
 const boxBorderWidth = 1;
 const boxWidth = screenWidth * 0.8;
 const boxHeight = screenHeight * 0.075;
-
+const IsIOS = Platform.OS == 'ios';
 export default StyleSheet.create({
     container:{
         flex:1,
@@ -107,4 +107,20 @@ export default StyleSheet.create({
         backgroundColor: "#CED0CE",
         marginLeft: "2%",
     },
+    
+    textInputContainer: {
+        flexDirection: 'row',
+        paddingLeft: 8,
+        paddingRight: 8,
+        borderWidth: 3
+    },
+
+    textInput: {
+        paddingLeft: 10,
+        fontSize: 17,
+        flex: 1,
+        backgroundColor: 'white',
+        borderWidth: 0,
+        borderRadius: IsIOS ? 4 : 0,
+    }
 });

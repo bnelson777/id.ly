@@ -5,7 +5,8 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { View, AsyncStorage, BackHandler } from 'react-native';
+import { View, AsyncStorage, BackHandler,
+        Platform, Linking } from 'react-native';
 import { Router, Scene,
         ActionConst, Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -57,6 +58,22 @@ class Main extends Component {
                 _this.props.getMessages();
             }
         });
+
+        if (Platform.OS === 'android') {
+          Linking.getInitialURL().then(url => {
+            this.navigate(url);
+          });
+        } else {
+          Linking.addEventListener('url', this.handleOpenURL);
+        }
+
+    }
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this.handleOpenURL);
+    }
+
+    handleOpenURL = (event) => {
+        this.navigate(event.url);
     }
     
     _backAndroidHandler = () => {
@@ -69,6 +86,19 @@ class Main extends Component {
         Actions.pop();
         return true;
     };
+
+    navigate = (url) => {
+        //const { navigate } = this.props.navigation;
+
+        const route = url.replace(/.*?:\/\//g, '');
+        let id = 'empty';
+        id = route.match(/\/([^\/]+)\/?$/)[1];
+        const routeName = route.split('/')[0];
+        if (routeName === 'lockbox') {
+          Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+        };
+    }
+
 
     render() {
         return (

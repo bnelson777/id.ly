@@ -24,7 +24,24 @@ class MessageThread extends Component {
         this.sendMessage = this.sendMessage.bind(this);
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
+        this.state.name = "test";
     };
+
+    //static navigationOptions = {
+    //  title: this.state.senderCard,
+    //  headerRight: <Button title="TEST" />
+    //}
+    static navigationOptions = ({ navigation  }) => {
+
+            const {state} = navigation;
+
+            if(state.params != undefined){
+                return {
+                    headerRight: <Button title="You" onPress={() => Actions.card_view({title: state.params.senderCard.name, card: state.params.senderCard})} />
+                }
+            }
+
+        };
 
     generateID() {
         let d = new Date().getTime();
@@ -44,6 +61,10 @@ class MessageThread extends Component {
 
     // When component mounts, retrieve the messages and cards
     componentDidMount() {
+        // set label of sender button top right
+        const {setParams} = this.props.navigation;
+        setParams({senderCard: this.props.pair.senderCard});
+
         this.props.getMessages();
         this.props.getCards();
         this.retrieveMessages();

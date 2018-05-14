@@ -9,15 +9,18 @@ import styles from './styles';
 //import { Permissions, BarCodeScanner} from 'expo';
 import { Text, View, StyleSheet,
         ActivityIndicator, Animated, Easing,
-        LayoutAnimation, Image,
-        Vibration } from 'react-native';
+        LayoutAnimation, Image, Platform,
+        Vibration, PermissionsAndroid } from 'react-native';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
-import Camera from 'react-native-camera';
+import {RNCamera as Camera} from 'react-native-camera';
+import Permissions from 'react-native-permissions';
 
+const PERMISSION_AUTHORIZED = 'authorized';
+const CAMERA_PERMISSION = 'camera';
 
 class Scan extends Component {
     /* expo permission
@@ -26,18 +29,88 @@ class Scan extends Component {
         this.setState({ hasCameraPermission: status === 'granted' });
     }
     */
+    static propTypes = {
+        ScanResult: PropTypes.func.isRequired,
+        reactivate: PropTypes.bool,
+        reactivateTimeout: PropTypes.number,
+        notAuthorizedView: PropTypes.element,
+        permissionDialogTitle: PropTypes.string,
+        permissionDialogMessage: PropTypes.string,
+        checkAndroid6Permissions: PropTypes.bool,
+    }
+
+    static defaultProps = {
+        notAuthorizedView: (
+          <View style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Text style={{
+              textAlign: 'center',
+              fontSize: 16,
+            }}>
+              Camera Unauthorized!
+            </Text>
+          </View>
+        ),
+        pendingAuthorizationView: (
+          <View style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Text style={{
+              textAlign: 'center',
+              fontSize: 16,
+            }}>
+              ...
+            </Text>
+          </View>
+        ),
+        permissionDialogTitle: "Request",
+        permissionDialogMessage: "Camera Permission",
+        checkAndroid6Permissions: false,
+        ScanResult: () => (console.log('QR code scanned!')),
+        reactivate: false,
+        reactivateTimeout: 0,
+    }
 
     constructor(props) {
         super(props);
         this.state = {
             scanning: false,
-            moveAnim: new Animated.Value(0)
+            moveAnim: new Animated.Value(0),
+            isAuthorized: false,
+            isAuthorizationChecked: false
         };
         this.title = 'QRScan';
     }
 
     componentDidMount() {
         this.startAnimation();
+        if (Platform.OS === 'ios') {
+            Permissions.request(CAMERA_PERMISSION).then(response => {
+                this.setState({
+                    isAuthorized: response === PERMISSION_AUTHORIZED,
+                    isAuthorizationChecked: true
+                });
+            });
+        }
+        else if (Platform.OS === 'android' && this.props.checkAndroid6Permissions) {
+            PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
+                'title': this.props.permissionDialogTitle,
+                'message':  this.props.permissionDialogMessage,
+            }).then((granted) => {
+                const isAuthorized = Platform.Version >= 23 ?
+                granted === PermissionsAndroid.RESULTS.GRANTED :
+                granted === true;
+                this.setState({ isAuthorized, isAuthorizationChecked: true })
+            })
+        }
+        else {
+            this.setState({ isAuthorized: true, isAuthorizationChecked: true })
+        }
     }
 
     // Make the animated scan bar
@@ -79,18 +152,6 @@ class Scan extends Component {
         }
     }
 
-    static propTypes = {
-        ScanResult: PropTypes.func.isRequired,
-        reactivate: PropTypes.bool,
-        reactivateTimeout: PropTypes.number,
-    };
-
-    static defaultProps = {
-        ScanResult: () => (console.log('QR code scanned!')),
-        reactivate: false,
-        reactivateTimeout: 0,
-    };
-
     render() {
         /*expo scan
         const { hasCameraPermission } = this.state;
@@ -118,21 +179,32 @@ class Scan extends Component {
             );
         }
         */
-        return (
-            <View style={styles.container}>
-                <Camera
-                    style={styles.preview}
-                    onBarCodeRead={this._handleBarCodeRead.bind(this)}>
-                    <View style={styles.rectangleContainer}>
-                        <View style={styles.rectangle}/>
-                        <Animated.View style={[
-                            styles.border,
-                            {transform: [{translateY: this.state.moveAnim}]}]}/>
-                        <Text style={styles.rectangleText}>Scan the QRCode</Text>
-                    </View>
-                </Camera>
-            </View>
-        );
+
+        const { notAuthorizedView, pendingAuthorizationView } = this.props
+        const { isAuthorized, isAuthorizationChecked } = this.state
+        if(isAuthorized) {
+            return (
+                <View style={styles.container}>
+                    <Camera
+                        style={styles.preview}
+                        onBarCodeRead={this._handleBarCodeRead.bind(this)}>
+                        <View style={styles.rectangleContainer}>
+                            <View style={styles.rectangle}/>
+                            <Animated.View style={[
+                                styles.border,
+                                {transform: [{translateY: this.state.moveAnim}]}]}/>
+                            <Text style={styles.rectangleText}>Scan the QRCode</Text>
+                        </View>
+                    </Camera>
+                </View>
+            );
+        }
+        else if (!isAuthorizationChecked) {
+            return pendingAuthorizationView
+        }
+        else {
+            return notAuthorizedView
+        }
     }
 }
 

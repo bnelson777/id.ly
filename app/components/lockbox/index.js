@@ -217,7 +217,6 @@ class Lockbox extends Component {
                 </View>
             );
         }
-        
         else if (this.props.mode === 'decrypt') {
             console.log('In decrypt Mode')
             this.state.jsonString = decodeURI(this.props.message)

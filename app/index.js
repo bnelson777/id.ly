@@ -80,12 +80,10 @@ class Main extends Component {
         const route = url.replace(/.*?:\/\//g, '');
         let id = 'empty';
         id = route.match(/\/([^\/]+)\/?$/)[1];
-        message = id.replace(/\\/g, '');
-        console.log("message" + message);
+        id = id.replace(/\\/g, '');
         const routeName = route.split('/')[0];
-        console.log("routname" + routname);
         if (routeName === 'lockbox') {
-          Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: message})
+          Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
         };
     }
 

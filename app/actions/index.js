@@ -8,6 +8,7 @@ export const CLEAR_ALL = 'CLEAR_ALL';
 export const MESSAGES_AVAILABLE = 'MESSAGES_AVAILABLE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
+export const SET_MESSAGES_AS_READ = 'SET_MESSAGES_AS_READ';
 
 import {AsyncStorage} from 'react-native';
 
@@ -96,6 +97,28 @@ export function updateCard(card){
             }
         });
     };
+}
+
+// Update Message to Read (U)
+export function setMessagesAsRead(keys) {
+    return (dispatch) => {
+        AsyncStorage.getItem('messagedata', (err, messages) => {
+            if(messages !== null) {
+                let key1 = keys._1,
+                    key2 = keys._2;
+                messages = JSON.parse(messages);
+                for(let i = 0; i < messages.length; ++i) {
+                    if((messages[i].to === key1 && messages[i].from === key2) ||
+                       (messages[i].from === key1 && messages[i].to === key2)) {
+                           messages[i].read = true;
+                    }
+                }
+                AsyncStorage.setItem('messagedata', JSON.stringify(messages), () => {
+                    dispatch({type: SET_MESSAGES_AS_READ, keys:keys});
+                });
+            }
+        });
+    }
 }
 
 // Delete Card - DELETE (D)

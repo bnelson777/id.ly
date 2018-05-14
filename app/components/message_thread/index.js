@@ -24,6 +24,7 @@ class MessageThread extends Component {
         this.sendMessage = this.sendMessage.bind(this);
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
+        this.markAsRead = this.markAsRead.bind(this);
         this.state.name = "test";
     };
 
@@ -41,7 +42,14 @@ class MessageThread extends Component {
                 }
             }
 
-        };
+    };
+
+    markAsRead() {
+        this.props.setMessagesAsRead({
+            _1: this.props.pair.sender,
+            _2: this.props.pair.receiver
+        });
+    }
 
     generateID() {
         let d = new Date().getTime();
@@ -68,6 +76,7 @@ class MessageThread extends Component {
         this.props.getMessages();
         this.props.getCards();
         this.retrieveMessages();
+        this.markAsRead();
     }
 
     // TODO: Add logic for sending a message

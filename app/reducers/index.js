@@ -9,7 +9,8 @@ import { CARDS_AVAILABLE, ADD_CARD,
         ADD_MESSAGE, UPDATE_CARD, 
         DELETE_CARD, DELETE_MESSAGE, 
         CLEAR_ALL, MESSAGES_AVAILABLE,
-        ADD_CARD_TO_END, SET_DEFAULT } from "../actions/"
+        ADD_CARD_TO_END, SET_DEFAULT,
+        SET_MESSAGES_AS_READ } from "../actions/"
 
 let dataState = {cards: [], messages: []};
 
@@ -54,6 +55,23 @@ const dataReducer = (state = dataState, action) => {
                 cards[index]['email'] = card.email;
             }
             state = Object.assign({}, state, { cards: cards});
+            return state;
+        }
+
+        case SET_MESSAGES_AS_READ: {
+            let messages = cloneObject(state.messages);
+            if(messages !== null) {
+                let key1 = action.keys._1,
+                    key2 = action.keys._2;
+                
+                for(let i = 0; i < messages.length; ++i) {
+                    if((messages[i].to === key1 && messages[i].from === key2) ||
+                       (messages[i].from === key1 && messages[i].to === key2)) {
+                           messages[i].read = true;
+                    }
+                }
+            }
+            state = Object.assign({}, state, { messages: messages});
             return state;
         }
 

@@ -113,7 +113,7 @@ export function setMessagesAsRead(keys) {
                            messages[i].read = true;
                     }
                 }
-                AsyncStorage.setem('messagedata', JSON.stringify(messages), () => {
+                AsyncStorage.setItem('messagedata', JSON.stringify(messages), () => {
                     dispatch({type: SET_MESSAGES_AS_READ, keys:keys});
                 });
             }

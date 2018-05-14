@@ -106,7 +106,7 @@ export function setMessagesAsRead(keys) {
     return (dispatch) => {
         AsyncStorage.getItem('messagedata', (err, messages) => {
             if(messages !== null) {
-                messages = JSON.parse(cards);
+                messages = JSON.parse(messages);
                 for(let i = 0; i < messages.length; ++i) {
                     if((messages[i].to === key1 && messages[i].from === key2) ||
                        (messages[i].from === key1 && messages[i].to === key2)) {

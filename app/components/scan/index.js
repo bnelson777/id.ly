@@ -66,9 +66,8 @@ class Scan extends Component {
             this._setScanning(true);
             this.props.ScanResult(e);
             var card = JSON.parse(e['data']);
-            this.props.addCard(card);
+            this.props.addCardToEnd(card, Actions.pop());
             console.log(card)
-            Actions.pop();
             if(this.props.reactivate) {
                 setTimeout(() => (this._setScanning(false)), this.props)
             }

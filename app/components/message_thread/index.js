@@ -124,9 +124,7 @@ class MessageThread extends Component {
       let unix = this.generateTimestamp();
       let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
       // add to redux persistant storage
-      this.props.addMessage(message);
-      // bring up screen to send out to reciever
-      Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
+      this.props.addMessage(message, Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"}));
     };
 
     /*  GiftedChat component current options:

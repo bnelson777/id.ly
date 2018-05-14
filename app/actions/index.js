@@ -12,7 +12,7 @@ import SInfo from 'react-native-sensitive-info';
 import AesCrypto from 'react-native-aes-kit';
 
 // Add Card - CREATE (C)
-export function addCard(card){
+export function addCard(card, _callback){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -30,8 +30,10 @@ export function addCard(card){
                             AesCrypto.encrypt(decCards, key, iv)
                             .then(encCards => {
                                 console.log('Encrypted cards: ' + encCards)
-                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8', () => {
-                                    dispatch({type: ADD_CARD, card:card});
+                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
+                                .then(() => {
+                                    dispatch({type: ADD_CARD, card:card})
+                                    .then(() => {_callback()});
                                 });
                             });
                         });
@@ -43,7 +45,7 @@ export function addCard(card){
 }
 
 // Add Card To End - CREATE (C)
-export function addCardToEnd(card){
+export function addCardToEnd(card, _callback){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -61,8 +63,10 @@ export function addCardToEnd(card){
                             AesCrypto.encrypt(decCards, key, iv)
                             .then(encCards => {
                                 console.log('Encrypted cards: ' + encCards)
-                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8', () => {
-                                    dispatch({type: ADD_CARD_TO_END, card:card});
+                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
+                                .then(() => {
+                                    dispatch({type: ADD_CARD_TO_END, card:card})
+                                    .then(() => {_callback()});
                                 });
                             });
                         });
@@ -74,7 +78,7 @@ export function addCardToEnd(card){
 }
 
 // Add Message- CREATE (C)
-export function addMessage(message){
+export function addMessage(message, _callback){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -92,8 +96,10 @@ export function addMessage(message){
                             AesCrypto.encrypt(decMessages, key, iv)
                             .then(encMessages => {
                                 console.log('Encrypted messages: ' + encMessages)
-                                RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages,'utf8', () => {
-                                    dispatch({type: ADD_MESSAGE, message:message});
+                                RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages,'utf8')
+                                .then(() => {
+                                    dispatch({type: ADD_MESSAGE, message:message})
+                                    .then(() => {_callback()});
                                 });
                             });
                         });
@@ -147,7 +153,7 @@ export function getMessages(){
 }
 
 // Set Default Card - SET DEFAULT (D)
-export function setDefault(card){
+export function setDefault(card, _callback){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -169,8 +175,10 @@ export function setDefault(card){
                             AesCrypto.encrypt(decCards, key, iv)
                             .then(encCards => {
                                 console.log('Encrypted cards: ' + encCards)
-                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8', () => {
-                                    dispatch({type: SET_DEFAULT, card:card});
+                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
+                                .then(() => {
+                                    dispatch({type: SET_DEFAULT, card:card})
+                                    .then(() => {_callback()});
                                 });
                             });
                         });

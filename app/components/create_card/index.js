@@ -103,10 +103,8 @@ class CreateCard extends Component {
         // card object to pass into actions redux props.addCard()
         let card = {"id": id, "keys": keys_json, "fields": attributes, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
 
-        this.props.addCardToEnd(card);
-
-        //return us to previus component (wallet)
-        Actions.pop();
+        //add card and return us to previous component (wallet)
+        this.props.addCardToEnd(card, Actions.pop());
       }
 
     render() {

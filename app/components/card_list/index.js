@@ -15,13 +15,6 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Avatar } from 'react-native-elements';
 
-//Buttons for Action Sheet
-const BUTTONS = [
-    "Delete",
-    "Clear All",
-    'Cancel',
-];
-
 class CardList extends Component {
     constructor(props) {
         super(props);

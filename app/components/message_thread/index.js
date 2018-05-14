@@ -101,8 +101,10 @@ class MessageThread extends Component {
                     },
                 };
                 // User _id: 1 for application user, 2 for other party
-                if(item.from === receiver)
+                if(item.from === receiver) {
                     message.user._id = 2;
+                    message.user.avatar = this.props.pair.senderCard.image;
+                }
                 else
                     message.user._id = 1;
                 messageList.push(message);
@@ -143,7 +145,6 @@ class MessageThread extends Component {
                 user= {{
                     _id: 1,
                 }}
-                renderAvatar={null}
                 isAnimated={true}
             />
         )

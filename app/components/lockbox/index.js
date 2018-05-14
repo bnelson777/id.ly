@@ -143,7 +143,7 @@ class Lockbox extends Component {
             // replace copy's body with encrypted message from above
             jsonP.body = encrypted;
             // get it ready for sending
-            var jsonM = "idly://lockbox/" + JSON.stringify(jsonP);
+            var jsonM = "http://rdct.it?site=http://idly.com/app%26app=idly://lockbox/" + JSON.stringify(jsonP);
             // set state variable for use in render (copy to clipboard)
             this.state.jsonM = jsonM;
             console.log('messageobjJsond:', jsonM)
@@ -217,6 +217,7 @@ class Lockbox extends Component {
                 </View>
             );
         }
+        
         else if (this.props.mode === 'decrypt') {
             console.log('In decrypt Mode')
             this.state.jsonString = decodeURI(this.props.message)

@@ -99,13 +99,13 @@ export function updateCard(card){
     };
 }
 
-// Update Message to Read
+// Update Message to Read (U)
 export function setMessagesAsRead(keys) {
-    let key1 = keys._1,
-        key2 = keys._2;
     return (dispatch) => {
         AsyncStorage.getItem('messagedata', (err, messages) => {
             if(messages !== null) {
+                let key1 = keys._1,
+                    key2 = keys._2;
                 messages = JSON.parse(messages);
                 for(let i = 0; i < messages.length; ++i) {
                     if((messages[i].to === key1 && messages[i].from === key2) ||
@@ -114,7 +114,7 @@ export function setMessagesAsRead(keys) {
                     }
                 }
                 AsyncStorage.setem('messagedata', JSON.stringify(messages), () => {
-                    dispatch({type: SET_MESSAGES_AS_READ, messages:messages});
+                    dispatch({type: SET_MESSAGES_AS_READ, keys:keys});
                 });
             }
         });

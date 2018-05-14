@@ -191,11 +191,10 @@ export function setDefault(card, _callback){
 
 // Clear card/messages - CLEAR (D)
 export function clearAll(){
+    removeFiles();
     return (dispatch) => {
-        removeFiles(() => {
-            dispatch({type: CLEAR_ALL});
-        });
-    }
+        dispatch({type: CLEAR_ALL});
+    };
 }
 
 function removeFiles(){

@@ -48,7 +48,7 @@ class Scan extends Component {
           }}>
             <Text style={{
               textAlign: 'center',
-              fontSize: 16,
+              fontSize: 20,
             }}>
               Camera Unauthorized!
             </Text>
@@ -62,9 +62,9 @@ class Scan extends Component {
           }}>
             <Text style={{
               textAlign: 'center',
-              fontSize: 16,
+              fontSize: 20,
             }}>
-              ...
+              Require Camera Permission!
             </Text>
           </View>
         ),

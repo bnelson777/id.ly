@@ -5,13 +5,8 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { StyleSheet, View,
-        Text, Image } from 'react-native';
-=======
 import { StyleSheet, View, 
         Text, Image, Alert } from 'react-native';
->>>>>>> master
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -86,29 +81,18 @@ class CardView extends Component {
                         </Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button}
+                        <Button 
                             title="Share"
                             onPress={() => Actions.share({card: this.props.card})}
+                            buttonStyle={styles.button}
                         />
-                        <Button style={styles.button}
+                        <Button 
                             title="Message"
                             onPress={() => Actions.create_message(args)}
+                            buttonStyle={styles.button}
                         />
                     </View>
                 </View>
-<<<<<<< HEAD
-                <View style={styles.buttonContainer}>
-                    <Button 
-                        title="Share"
-                        onPress={() => Actions.share({card: this.props.card})}
-                        buttonStyle={styles.button}
-                    />
-                    <Button 
-                        title="Message"
-                        onPress={() => Actions.create_message(args)}
-                        buttonStyle={styles.button}
-                    />
-=======
             );
         }
         else{
@@ -137,20 +121,22 @@ class CardView extends Component {
                         </Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button}
+                        <Button 
                             title="Share"
                             onPress={() => Actions.share({card: this.props.card})}
+                            buttonStyle={styles.walletButton}
                         />
-                        <Button style={styles.button}
+                        <Button 
                             title="Message"
                             onPress={() => Actions.create_message(args)}
+                            buttonStyle={styles.walletButton}
                         />
-                        <Button style={styles.button}
-                            title="Set Default"
+                        <Button 
+                            title="Default"
                             onPress={() => this.handleSetDefault()}
+                            buttonStyle={styles.walletButton}
                         />
                     </View>
->>>>>>> master
                 </View>
             );
         }

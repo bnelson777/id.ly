@@ -10,9 +10,7 @@ import { View, AsyncStorage, BackHandler,
 import { Router, Scene,
         ActionConst, Actions } from 'react-native-router-flux';
 import { Icon } from 'react-native-elements';
-import { View, Platform, Linking } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import SInfo from 'react-native-sensitive-info';
 import AesCrypto from 'react-native-aes-kit';

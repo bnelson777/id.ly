@@ -37,7 +37,12 @@ class MessageThread extends Component {
 
             if(state.params != undefined){
                 return {
-                    headerRight: <Button title="You" onPress={() => Actions.card_view({title: state.params.senderCard.name, card: state.params.senderCard})} />
+                    headerRight: <Button title="ME" 
+                    onPress={() => Actions.card_view({
+                        title: state.params.senderCard.name, 
+                        card: state.params.senderCard,
+                        isWallet: true})} 
+                    />
                 }
             }
 

@@ -143,14 +143,14 @@ class Lockbox extends Component {
             // replace copy's body with encrypted message from above
             jsonP.body = encrypted;
             // get it ready for sending
-            var jsonM = "http://rdct.it?site=http://idly.com/app&app=idly://lockbox/" + encodeURI(JSON.stringify(jsonP));
+            var jsonM = "http://joewetton.com/?m=" + encodeURI(JSON.stringify(jsonP));
             // set state variable for use in render (copy to clipboard)
             this.state.jsonM = jsonM;
             console.log('messageobjJsond:', jsonM)
             //uri: mailto:mailto@deniseleeyohn.com?subject=abcdefg&body=body'
-            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + jsonM;
+            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + encodeURI(jsonM);
             //encode for email linking
-            //var res = encodeURI(uri);
+            var res = encodeURI(uri);
             //return it
             return res.toString();
         }

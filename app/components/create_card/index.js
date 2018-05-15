@@ -25,7 +25,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 // Attributes can be added/removed from the form. An image for the card may be specified.
 // FUTURE FUNCTION(S): Send its state to have its card created and stored in the application.
 // EXPECTED PROP(S): N/A
-class CreateCard extends Component {
+export class CreateCard extends Component {
     constructor(props) {
         super(props);
         this.state = {form: [{title: "Label", field: ""}, {title: "Name", field: ""}, {title: "Email", field: ""}], addAttribute: "", buttonPressed: false};

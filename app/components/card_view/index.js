@@ -14,7 +14,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Avatar, Button } from 'react-native-elements';
 
-class CardView extends Component {
+export class CardView extends Component {
     constructor(props) {
         super(props);
         this.state = {

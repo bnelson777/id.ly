@@ -32,7 +32,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 // needs a object to encrypt.
 
 
-class Lockbox extends Component {
+export class Lockbox extends Component {
     constructor(props) {
         super(props);
         this.state = {

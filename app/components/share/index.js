@@ -26,7 +26,7 @@ import {Actions} from 'react-native-router-flux';
 // EXPECTED PROP(S): this.props.card
 // This component will expect a card object to be passed to it when viewed so
 // it knows what to card/key to display in QR/or send over bluetooth.
-class Share extends Component {
+export class Share extends Component {
     constructor(props) {
         super(props);
         this.state = {};

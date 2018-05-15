@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-class MessageThread extends Component {
+export class MessageThread extends Component {
     constructor(props) {
         super(props);
         this.state = {};

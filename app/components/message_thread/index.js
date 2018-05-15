@@ -131,7 +131,7 @@ class MessageThread extends Component {
     sendMessage() {
       let id = this.generateID();
       let unix = this.generateTimestamp();
-      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
+      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": true};
       // add to redux persistant storage
       this.props.addMessage(message);
       // bring up screen to send out to reciever

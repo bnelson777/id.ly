@@ -79,7 +79,7 @@ class CreateMessage extends Component {
     pressButton() {
         let id = this.generateID();
         let unix = this.generateTimestamp();
-        let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
+        let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": true};
         this.props.addMessage(message);
         Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
     }

@@ -1,7 +1,10 @@
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, Dimensions } from 'react-native';
 import { BORDER_WIDTH, FONT_SIZE, IDLY_BLUE,
     BACKGROUND_COLOR, FONT_WEIGHT } from '../styles/common';
-    
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 export default StyleSheet.create({
     container:{
         flex:1,
@@ -32,7 +35,18 @@ export default StyleSheet.create({
 
     button:{
         backgroundColor: IDLY_BLUE,
-        width: 150,
+        width: screenWidth*0.3,
+        height: 45,
+        borderColor: "transparent",
+        borderWidth: 0,
+        borderRadius: 5
+    },
+
+    walletButton:{
+        backgroundColor: IDLY_BLUE,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: screenWidth*0.25,
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,

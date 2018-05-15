@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-class MessageThread extends Component {
+export class MessageThread extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -37,7 +37,12 @@ class MessageThread extends Component {
 
             if(state.params != undefined){
                 return {
-                    headerRight: <Button title="You" onPress={() => Actions.card_view({title: state.params.senderCard.name, card: state.params.senderCard})} />
+                    headerRight: <Button title="ME" 
+                    onPress={() => Actions.card_view({
+                        title: state.params.senderCard.name, 
+                        card: state.params.senderCard,
+                        isWallet: true})} 
+                    />
                 }
             }
 
@@ -101,8 +106,14 @@ class MessageThread extends Component {
                     },
                 };
                 // User _id: 1 for application user, 2 for other party
-                if(item.from === receiver)
+                if(item.from === receiver) {
                     message.user._id = 2;
+                    if(this.props.pair.senderCard.image !== null) {
+                        message.user.avatar = this.props.pair.receiverCard.image;
+                    } else {
+                        message.user.avatar = portrait;
+                    }
+                }
                 else
                     message.user._id = 1;
                 messageList.push(message);
@@ -125,8 +136,9 @@ class MessageThread extends Component {
       let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
       // add to redux persistant storage
       this.props.addMessage(message);
-      // bring up screen to send out to reciever
-      Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
+      setTimeout(function(){
+          Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
+      }, 100);
     };
 
     /*  GiftedChat component current options:
@@ -143,7 +155,6 @@ class MessageThread extends Component {
                 user= {{
                     _id: 1,
                 }}
-                renderAvatar={null}
                 isAnimated={true}
             />
         )

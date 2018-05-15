@@ -18,7 +18,7 @@ import { List, ListItem } from 'react-native-elements';
 // FUNCTION(S): This component serves to display author picture, date, and body
 // of messages which were imported then stored in the application.
 // EXPECTED PROP(S):
-class Inbox extends Component {
+export class Inbox extends Component {
     constructor(props) {
         super(props);
         this.state = {};

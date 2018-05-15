@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { StyleSheet, View, 
-        Text, Image } from 'react-native';
+        Text, Image, Alert } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,16 +14,38 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Avatar, Button } from 'react-native-elements';
 
-class CardView extends Component {
+export class CardView extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            buttonPressed: false
+        };
     }
 
     componentDidMount() {
         this.props.getCards();
     }
     
+    handleSetDefault(){
+        if (!this.state.buttonPressed){
+            this.setState({buttonPressed: true});
+            this.setDefault();
+        }
+    }
+
+    setDefault(){
+        if(this.props.card.id === this.props.cards[0].id)
+        {
+            Alert.alert("This card is already the default!");
+            return;
+        }
+        this.props.setDefault(this.props.card);
+
+        setTimeout(function(){
+            Actions.pop();
+        }, 100);
+    }
+
     //displays card type on top, followed by image and the rest of the card information
     render() {
         var cardFields = [];
@@ -36,42 +58,91 @@ class CardView extends Component {
         var args = this.props.card.owner === true ?
             {sender: this.props.card, recipient: null} :
             {sender: null, recipient: this.props.card};
-        return (
-            <View style={styles.container}>
-                <Text style={styles.header}>
-                    {this.props.card.label}
-                </Text>
-                <View style={styles.cardPosition}>
-                    <Avatar
-                        xlarge
-                        rounded
-                        source = {icon}
-                    />
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.name}>
-                        Name: {this.props.card.name}
+        if(!this.props.isWallet){        
+            //displays card with no option to set default card
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.header}>
+                        {this.props.card.label}
                     </Text>
-                    <Text style={styles.name}>
-                        Email: {this.props.card.email}
-                    </Text>
-                    <Text style={styles.name}>
-                        {cardFields}
-                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Avatar
+                            xlarge
+                            rounded
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
+                        </Text>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
+                        </Text>
+                        <Text style={styles.name}>
+                            {cardFields}
+                        </Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button 
+                            title="Share"
+                            onPress={() => Actions.share({card: this.props.card})}
+                            buttonStyle={styles.button}
+                        />
+                        <Button 
+                            title="Message"
+                            onPress={() => Actions.create_message(args)}
+                            buttonStyle={styles.button}
+                        />
+                    </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button style={styles.button}
-                        title="Share"
-                        onPress={() => Actions.share({card: this.props.card})}
-                    />
-                    <Button style={styles.button}
-                        title="Message"
-                        onPress={() => Actions.create_message(args)}
-                    />
+            );
+        }
+        else{
+            //displays card with option to set the default card
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.header}>
+                        {this.props.card.label}
+                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Avatar
+                            xlarge
+                            rounded
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
+                        </Text>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
+                        </Text>
+                        <Text style={styles.name}>
+                            {cardFields}
+                        </Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button 
+                            title="Share"
+                            onPress={() => Actions.share({card: this.props.card})}
+                            buttonStyle={styles.walletButton}
+                        />
+                        <Button 
+                            title="Message"
+                            onPress={() => Actions.create_message(args)}
+                            buttonStyle={styles.walletButton}
+                        />
+                        <Button 
+                            title="Default"
+                            onPress={() => this.handleSetDefault()}
+                            buttonStyle={styles.walletButton}
+                        />
+                    </View>
                 </View>
-            </View>
-            
-        );
+            );
+        }
     }
 };
 

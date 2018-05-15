@@ -6,9 +6,8 @@
 //Import Libraries
 import {combineReducers} from 'redux';
 import { CARDS_AVAILABLE, ADD_CARD, 
-        ADD_MESSAGE, UPDATE_CARD, 
-        DELETE_CARD, DELETE_MESSAGE, 
-        CLEAR_ALL, MESSAGES_AVAILABLE } from "../actions/"
+        ADD_MESSAGE, CLEAR_ALL, MESSAGES_AVAILABLE,
+        ADD_CARD_TO_END, SET_DEFAULT } from "../actions/"
 
 let dataState = {cards: [], messages: []};
 
@@ -17,6 +16,13 @@ const dataReducer = (state = dataState, action) => {
         case ADD_CARD:{
             let cards =  cloneObject(state.cards) //clone the current state
             cards.unshift(action.card); //add the new card to the top
+            state = Object.assign({}, state, { cards: cards});
+            return state;
+        }
+
+        case ADD_CARD_TO_END:{
+            let cards =  cloneObject(state.cards) //clone the current state
+            cards.push(action.card); //add the new card to the end
             state = Object.assign({}, state, { cards: cards});
             return state;
         }
@@ -36,33 +42,14 @@ const dataReducer = (state = dataState, action) => {
             state = Object.assign({}, state, { messages: action.messages, loading:false });
             return state;
 
-        case UPDATE_CARD:{
-            let card = action.card;
+        case SET_DEFAULT:{
             let cards =  cloneObject(state.cards) //clone the current state
-            let index = getIndex(cards, card.id); //find the index of the card with the card id passed
-            if (index !== -1) {
-                cards[index]['author'] = card.author;
-                cards[index]['text'] = card.text;
-                cards[index]['email'] = card.email;
+            let index = getIndex(cards, action.card.id); //find the index of the card with the id passed
+            if(index !== -1) {
+                cards.splice(index, 1);//if yes, undo, remove the CARD
+                cards.splice(0, 0, action.card);
             }
             state = Object.assign({}, state, { cards: cards});
-            return state;
-        }
-
-        case DELETE_CARD:{
-            let cards =  cloneObject(state.cards) //clone the current state
-            let index = getIndex(cards, action.id); //find the index of the card with the id passed
-            if(index !== -1) cards.splice(index, 1);//if yes, undo, remove the CARD
-            state = Object.assign({}, state, { cards: cards});
-            return state;
-        }
-
-        case DELETE_MESSAGE:{
-            console.log('made it to delete message')
-            let messages =  cloneObject(state.messages) //clone the current state
-            let index = getIndex(messages, action.id); //find the index of the card with the id passed
-            if(index !== -1) messages.splice(index, 1);//if yes, undo, remove the CARD
-            state = Object.assign({}, state, { messages: messages});
             return state;
         }
 

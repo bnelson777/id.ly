@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, FONT_SIZE,
         FONT_WEIGHT, FONT_COLOR, FONT_NORMAL,
-        BACKGROUND_COLOR, BORDER_RADIUS,
+        BACKGROUND_COLOR, BORDER_RADIUS, IDLY_BLUE,
         BORDER_WIDTH } from './../styles/common';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -13,8 +13,12 @@ export default StyleSheet.create({
     },
 
     ButtonContainer: {
-        alignItems: 'center',
-        margin: '10%'
+        backgroundColor: IDLY_BLUE,
+        width: 200,
+        height: 45,
+        borderColor: "transparent",
+        borderWidth: 0,
+        borderRadius: 5
     },
 
     screenContainer: {
@@ -82,6 +86,7 @@ export default StyleSheet.create({
 
     cardPosition: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: 10
     }
 });

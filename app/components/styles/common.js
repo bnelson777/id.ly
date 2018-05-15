@@ -15,3 +15,4 @@ export const FONT_WEIGHT = 'normal';
 export const BORDER_COLOR = COLOR_SECONDARY;
 export const BORDER_RADIUS = 5;
 export const BORDER_WIDTH = 1;
+export const IDLY_BLUE = '#128DC9';

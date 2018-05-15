@@ -80,7 +80,11 @@ class CreateMessage extends Component {
         let id = this.generateID();
         let unix = this.generateTimestamp();
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": true};
+        // add to senders persistant storage
         this.props.addMessage(message);
+        // set read = false for outgoing lockbox message
+        message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
+        // bring up screen to send out to reciever
         Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
     }
 

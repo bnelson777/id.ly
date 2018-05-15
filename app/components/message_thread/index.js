@@ -132,8 +132,10 @@ class MessageThread extends Component {
       let id = this.generateID();
       let unix = this.generateTimestamp();
       let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": true};
-      // add to redux persistant storage
+      // add to senders persistant storage
       this.props.addMessage(message);
+      // set read = false for outgoing lockbox message
+      message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
       // bring up screen to send out to reciever
       Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
     };

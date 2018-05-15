@@ -16,7 +16,7 @@ import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
 import { Avatar } from 'react-native-elements';
 
-class Home extends Component {
+export class Home extends Component {
     static navigationOptions = {
         title: "Home",
         headerLeft: (<View/>),

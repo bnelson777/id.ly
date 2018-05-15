@@ -3,7 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-test-renderer": "16.3.0-alpha.1"
+    "babel-jest": "^22.4.3",
+    "babel-preset-react-native": "^4.0.0",
+    "jest": "^22.4.3",
+    "jest-react-native": "^18.0.0",
+    "jsdom": "11.10.0",
+    "jsdom-global": "3.0.2",
+    "react-dom": "^16.3.2",
+    "react-test-renderer": "^16.3.0-alpha.1",
+    "redux-mock-store": "^1.5.1"
   },
   "scripts": {
     "start": "react-native start",
@@ -12,17 +20,24 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "jest-react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation|@expo/react-native-action-sheet)"
+    ]
   },
   "dependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "prop-types": "^15.6.1",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
     "react-native-actionsheet": "^2.4.2",
+    "react-native-aes-kit": "^1.0.2",
     "react-native-autogrow-textinput": "^5.1.1",
     "react-native-camera": "^0.7.0",
     "react-native-elements": "^0.19.1",
+    "react-native-fetch-blob": "^0.10.8",
     "react-native-gifted-chat": "^0.4.3",
     "react-native-image-picker": "^0.26.7",
     "react-native-keyboard-aware-scroll-view": "^0.5.0",
@@ -30,6 +45,7 @@
     "react-native-qrcode": "^0.2.6",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-rsa": "0.0.3",
+    "react-native-sensitive-info": "^5.1.0",
     "react-native-simple-toast": "0.0.8",
     "react-native-vector-icons": "^4.6.0",
     "react-redux": "^5.0.7",

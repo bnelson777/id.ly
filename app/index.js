@@ -9,8 +9,14 @@ import { View, AsyncStorage, BackHandler,
         Platform, Linking } from 'react-native';
 import { Router, Scene,
         ActionConst, Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
+import { View, Platform, Linking } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import RNFetchBlob from 'react-native-fetch-blob';
+import SInfo from 'react-native-sensitive-info';
+import AesCrypto from 'react-native-aes-kit';
+
 //Component Imports
 import Splash from './components/splash/index';
 import Home from './components/home/index';
@@ -37,24 +43,99 @@ import * as ReduxActions from './actions'; //Import your actions
 import styles from './styles';
 
 class Main extends Component {
+    constructor() {
+        super();
+        this.state = {key: '', iv: ''};
+        this.init();
+        this.getPaths = this.getPaths.bind(this);
+    }
+
+    //Create directory, files, and AES values
+    init(){
+        const dirs = RNFetchBlob.fs.dirs;
+        paths = this.getPaths();
+
+        RNFetchBlob.fs.mkdir(dirs.DocumentDir + '/idly/')
+        .catch((err) => {});
+
+        RNFetchBlob.fs.createFile(
+            paths.cardsPath,
+            '',
+            'utf8'
+        )
+        .catch((err) => {});
+
+        RNFetchBlob.fs.createFile(
+            paths.messagesPath,
+            '',
+            'utf8'
+        )
+        .catch((err) => {});
+
+        SInfo.getItem('key', {})
+        .then((value) => {
+            if (value == null){
+                for(var key = ''; key.length < 16;)
+                    key += Math.random().toString(36).substr(2, 1)
+                SInfo.setItem('key', key, {});
+                this.setState({key: key});
+            }
+            else
+                this.setState({key: value});
+        });
+
+        SInfo.getItem('iv', {})
+        .then((value) => {
+            if (value == null){
+                for(var iv = ''; iv.length < 16;)
+                    iv += Math.random().toString(36).substr(2, 1)
+                SInfo.setItem('iv', iv, {});
+                this.setState({iv: iv});
+            }
+            else
+                this.setState({iv: value});
+        });
+    }
+
+    getPaths(){
+        const dirs = RNFetchBlob.fs.dirs;
+        var cardsPath = '/idly/cards.dat';
+        var messagesPath = '/idly/messages.dat';
+        if (Platform.OS === 'ios') {
+            cardsPath = `${dirs.DocumentDir}${cardsPath}`;
+            messagesPath = `${dirs.DocumentDir}${messagesPath}`;
+        } else {
+            cardsPath = dirs.DocumentDir + cardsPath;
+            messagesPath = dirs.DocumentDir + messagesPath;
+        }
+        return {cardsPath: cardsPath, messagesPath: messagesPath};
+    }
+
     componentDidMount() {
+        var paths = this.getPaths();
         var _this = this;
         //Check if any card data exists
-        AsyncStorage.getItem('carddata', (err, carddata) => {
-            //if it doesn't exist, extract from json file
-            //save the initial data in Async
-            if (carddata === null){
-                AsyncStorage.setItem('carddata', JSON.stringify(CardData.card));
+        RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
+        .then((carddata) => {
+            if (carddata === ''){
+                AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
+                .then(cipher => {
+                    RNFetchBlob.fs.writeFile(paths.cardsPath, cipher,'utf8');
+                    console.log('Encrypted cards: ' + cipher)
+                });
                 _this.props.getCards();
             }
         });
 
         // check if any message data exists
-        AsyncStorage.getItem('messagedata', (err, messagedata) => {
-            //if it doesn't exist, extract from json file
-            //save the initial data in Async
-            if (messagedata === null){
-                AsyncStorage.setItem('messagedata', JSON.stringify(MessageData.message));
+        RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
+        .then((messagedata) => {
+            if (messagedata === ''){
+                AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
+                .then(cipher => {
+                    RNFetchBlob.fs.writeFile(paths.messagesPath, cipher,'utf8');
+                    console.log('Encrypted messages: ' + cipher)
+                });
                 _this.props.getMessages();
             }
         });

@@ -26,7 +26,7 @@ const keyboardVerticalOffset = Platform.OS === 'ios' ? 110 : 70;
 // EXPECTED PROP(S): this.props.sender, this.props.recipient
 // This component will expect a sender or recipient (a card object) to be used as the
 // default selection. If null is passed in instead, no default will be selected.
-class CreateMessage extends Component {
+export class CreateMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -81,7 +81,9 @@ class CreateMessage extends Component {
         let unix = this.generateTimestamp();
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         this.props.addMessage(message);
-        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
+        setTimeout(function(){
+            Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
+        }, 100);
     }
 
     showFromSheet = () => {

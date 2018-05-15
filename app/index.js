@@ -76,12 +76,12 @@ class Main extends Component {
 
     navigate = (url) => {
         //const { navigate } = this.props.navigation;
-
+        
         const route = url.replace(/.*?:\/\//g, '');
         let id = 'empty';
         id = route.match(/\/([^\/]+)\/?$/)[1];
-        id = id.replace(/\\/g, '');
         const routeName = route.split('/')[0];
+        id = id.replace(/%5C/g, '');
         if (routeName === 'lockbox') {
           Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
         };

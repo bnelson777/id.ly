@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { About } from '../about/index';
+import { Splash } from '../splash/index';
 import * as enzyme from 'enzyme';
 import { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -17,7 +17,7 @@ test('Renders correctly', () => {
   let store = mockStore(initialState);
 
   //Captures a snapshot and exports as JSON
-  let wrapper = shallow(<About store = {store} />).dive();
+  let wrapper = shallow(<Splash store = {store} />).dive();
   const tree = renderer.create(wrapper).toJSON();
   expect(tree).toMatchSnapshot();
   })

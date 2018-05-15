@@ -25,7 +25,7 @@ const BUTTONS = [
 
 const CANCEL_INDEX = 2;
 
-class CardList extends Component {
+export class CardList extends Component {
     constructor(props) {
         super(props);
         this.state = {};

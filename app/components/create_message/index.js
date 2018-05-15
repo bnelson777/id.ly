@@ -26,7 +26,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 // EXPECTED PROP(S): this.props.sender, this.props.recipient
 // This component will expect a sender or recipient (a card object) to be used as the
 // default selection. If null is passed in instead, no default will be selected.
-class CreateMessage extends Component {
+export class CreateMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {

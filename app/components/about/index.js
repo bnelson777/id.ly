@@ -13,6 +13,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
+
 export class About extends Component {
     render() {
         return(

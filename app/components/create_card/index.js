@@ -115,49 +115,54 @@ export class CreateCard extends Component {
         
         var icon = this.state.image === "" ? require('../../assets/default_avatar.png') : {uri: this.state.image};
         return (
-            <KeyboardAwareScrollView innerRef={ref => {this.scroll = ref}}>
-            <View style={styles.bodyContainer}>
-                <View style={styles.addImageContainer}/> 
-                    <TouchableOpacity activeOpacity = { .5 } onPress={ () => this.chooseImage() }>
-                        <View style={styles.cardPosition}>
-                        <Avatar
-                            xlarge
-                            rounded
-                            source = {icon} 
-                        />
-                        </View>
-                    </TouchableOpacity>
-                <View style={styles.screenContainer}>
-                    <View style={styles.formContainer}>
-                        <FlatList
-                        data={this.state.form}
-                        keyExtractor={item => item.title} 
-                        renderItem={this.renderItem}/>
-                    <View style={styles.addAttributeContainer}>
-                        <TextInput
-                            style={styles.formInput}
-                            placeholder="Attribute"
-                            underlineColorAndroid="transparent"
-                            value={this.state.addAttribute}
-                            onChangeText={(text) => this.handleAttributeTextChange(text)}
-                        />
-                    <View style={styles.addFieldButton}>
-                        <TouchableOpacity onPress={() => this.addAttributeToForm()} disabled={(this.state.addAttribute != 0) ? false : true}>
-                            <Text style={[styles.buttonText,
-                                {color: (this.state.addAttribute != 0) ? "blue" : "#CCC"
-                            }]}>
-                                Add Attribute
-                            </Text>
+            <KeyboardAwareScrollView style={styles.bodyContainer} innerRef={ref => {this.scroll = ref}}>
+                <View>
+                    <View style={styles.addImageContainer}/> 
+                        <TouchableOpacity activeOpacity = { .5 } 
+                            onPress={ () => this.chooseImage() }>
+                            <View style={styles.cardPosition}>
+                                <Avatar
+                                    xlarge
+                                    rounded
+                                    source = {icon} 
+                                />
+                            </View>
                         </TouchableOpacity>
+                        <View style={styles.screenContainer}>
+                            <View style={styles.formContainer}>
+                                <FlatList
+                                data={this.state.form}
+                                keyExtractor={item => item.title} 
+                                renderItem={this.renderItem}/>
+                                <View style={styles.addAttributeContainer}>
+                                <TextInput
+                                    style={styles.formInput}
+                                    placeholder="Attribute"
+                                    underlineColorAndroid="transparent"
+                                    value={this.state.addAttribute}
+                                    onChangeText={(text) => this.handleAttributeTextChange(text)}
+                                />
+                                <View style={styles.addFieldButton}>
+                                    <TouchableOpacity onPress={() => this.addAttributeToForm()} 
+                                        disabled={(this.state.addAttribute != 0) ? false : true}>
+                                        <Text style={[styles.buttonText,
+                                            {color: (this.state.addAttribute != 0) ? "blue" : "#CCC"
+                                        }]}>
+                                            Add Attribute
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={styles.addFieldButton}>
+                                <Button
+                                    buttonStyle ={styles.ButtonContainer}
+                                    title="Add Card"
+                                    onPress={() => this.handleAddCard()}
+                                />
+                            </View> 
+                        </View>
                     </View>
                 </View>
-                        <Button style ={styles.ButtonContainer}
-                            title="Add Card"
-                            onPress={() => this.handleAddCard()}
-                            /> 
-                    </View>
-                </View>
-            </View>
             </KeyboardAwareScrollView>
         );
     }

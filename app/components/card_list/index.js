@@ -82,7 +82,7 @@ class CardList extends Component {
                         {this.state.initWallet > 0 ? <View style={styles.sepLine}/>:<View/>}
                         <View style={styles.buttonContainer}>
                             <View>
-                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
+                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}>
                                     <Avatar
                                         small
                                         rounded

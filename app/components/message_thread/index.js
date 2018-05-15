@@ -104,7 +104,7 @@ class MessageThread extends Component {
                 if(item.from === receiver) {
                     message.user._id = 2;
                     if(this.props.pair.senderCard.image !== null) {
-                        message.user.avatar = this.props.pair.senderCard.image;
+                        message.user.avatar = this.props.pair.receiverCard.image;
                     } else {
                         message.user.avatar = portrait;
                     }

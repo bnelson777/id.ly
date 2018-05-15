@@ -72,9 +72,9 @@ export class Lockbox extends Component {
             console.log('message object:', jsonStringP)
             // add it to messages!
             this.props.addMessage(jsonStringP);
-            // send user to home screen
+            // send user to inbox view
             Actions.pop();
-            Actions.home();
+            Actions.inbox();
         }
         else {
             // TODO: add error handling alert user can't decrypt message

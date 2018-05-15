@@ -12,7 +12,7 @@ import SInfo from 'react-native-sensitive-info';
 import AesCrypto from 'react-native-aes-kit';
 
 // Add Card - CREATE (C)
-export function addCard(card, _callback){
+export function addCard(card){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -32,8 +32,7 @@ export function addCard(card, _callback){
                                 console.log('Encrypted cards: ' + encCards)
                                 RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
                                 .then(() => {
-                                    dispatch({type: ADD_CARD, card:card})
-                                    .then(() => {_callback()});
+                                    dispatch({type: ADD_CARD, card:card});
                                 });
                             });
                         });
@@ -45,7 +44,7 @@ export function addCard(card, _callback){
 }
 
 // Add Card To End - CREATE (C)
-export function addCardToEnd(card, _callback){
+export function addCardToEnd(card){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -65,8 +64,7 @@ export function addCardToEnd(card, _callback){
                                 console.log('Encrypted cards: ' + encCards)
                                 RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
                                 .then(() => {
-                                    dispatch({type: ADD_CARD_TO_END, card:card})
-                                    .then(() => {_callback()});
+                                    dispatch({type: ADD_CARD_TO_END, card:card});
                                 });
                             });
                         });
@@ -78,7 +76,7 @@ export function addCardToEnd(card, _callback){
 }
 
 // Add Message- CREATE (C)
-export function addMessage(message, _callback){
+export function addMessage(message){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -98,8 +96,7 @@ export function addMessage(message, _callback){
                                 console.log('Encrypted messages: ' + encMessages)
                                 RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages,'utf8')
                                 .then(() => {
-                                    dispatch({type: ADD_MESSAGE, message:message})
-                                    .then(() => {_callback()});
+                                    dispatch({type: ADD_MESSAGE, message:message});
                                 });
                             });
                         });
@@ -153,7 +150,7 @@ export function getMessages(){
 }
 
 // Set Default Card - SET DEFAULT (D)
-export function setDefault(card, _callback){
+export function setDefault(card){
     var paths = getPaths();
     return (dispatch) => {
         SInfo.getItem('key', {})
@@ -177,8 +174,7 @@ export function setDefault(card, _callback){
                                 console.log('Encrypted cards: ' + encCards)
                                 RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
                                 .then(() => {
-                                    dispatch({type: SET_DEFAULT, card:card})
-                                    .then(() => {_callback()});
+                                    dispatch({type: SET_DEFAULT, card:card});
                                 });
                             });
                         });

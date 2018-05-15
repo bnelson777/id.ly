@@ -104,7 +104,11 @@ class CreateCard extends Component {
         let card = {"id": id, "keys": keys_json, "fields": attributes, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
 
         //add card and return us to previous component (wallet)
-        this.props.addCardToEnd(card, Actions.pop());
+        this.props.addCardToEnd(card);
+
+        setTimeout(function(){
+            Actions.pop();
+        }, 100);
       }
 
     render() {

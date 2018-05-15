@@ -39,7 +39,11 @@ class CardView extends Component {
             Alert.alert("This card is already the default!");
             return;
         }
-        this.props.setDefault(this.props.card, Actions.pop());
+        this.props.setDefault(this.props.card);
+
+        setTimeout(function(){
+            Actions.pop();
+        }, 100);
     }
 
     //displays card type on top, followed by image and the rest of the card information

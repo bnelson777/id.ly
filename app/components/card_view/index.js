@@ -40,7 +40,10 @@ class CardView extends Component {
             return;
         }
         this.props.setDefault(this.props.card);
-        Actions.pop();
+
+        setTimeout(function(){
+            Actions.pop();
+        }, 100);
     }
 
     //displays card type on top, followed by image and the rest of the card information

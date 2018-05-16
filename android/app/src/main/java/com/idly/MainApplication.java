@@ -3,6 +3,7 @@ package com.idly;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import it.innove.BleManagerPackage;
 import cc.rocwang.aescrypto.AesCryptoPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new BleManagerPackage(),
             new AesCryptoPackage(),
             new RNSensitiveInfoPackage(),
             new RNFetchBlobPackage(),

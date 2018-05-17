@@ -53,7 +53,7 @@ class Main extends Component {
         const dirs = RNFetchBlob.fs.dirs;
         paths = this.getPaths();
 
-        RNFetchBlob.fs.mkdir(dirs.DocumentDir + '/idly/')
+        RNFetchBlob.fs.mkdir(paths.dirPath)
         .catch((err) => {});
 
         RNFetchBlob.fs.createFile(
@@ -97,16 +97,19 @@ class Main extends Component {
 
     getPaths(){
         const dirs = RNFetchBlob.fs.dirs;
+        var dirPath = '/idly/';
         var cardsPath = '/idly/cards.dat';
         var messagesPath = '/idly/messages.dat';
         if (Platform.OS === 'ios') {
+            dirPath = `${dirs.DocumentDir}${dirPath}`;
             cardsPath = `${dirs.DocumentDir}${cardsPath}`;
             messagesPath = `${dirs.DocumentDir}${messagesPath}`;
         } else {
+            dirPath = dirs.DocumentDir + dirPath;
             cardsPath = dirs.DocumentDir + cardsPath;
             messagesPath = dirs.DocumentDir + messagesPath;
         }
-        return {cardsPath: cardsPath, messagesPath: messagesPath};
+        return {dirPath: dirPath, cardsPath: cardsPath, messagesPath: messagesPath};
     }
 
     componentDidMount() {

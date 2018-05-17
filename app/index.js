@@ -109,6 +109,9 @@ class Main extends Component {
             cardsPath = dirs.DocumentDir + cardsPath;
             messagesPath = dirs.DocumentDir + messagesPath;
         }
+        console.log('dirpath: ' + dirPath);
+        console.log('cardspath: ' + cardsPath);
+        console.log('messagespath: ' + messagesPath);
         return {dirPath: dirPath, cardsPath: cardsPath, messagesPath: messagesPath};
     }
 

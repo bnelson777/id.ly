@@ -221,5 +221,7 @@ function getPaths(){
         cardsPath = dirs.DocumentDir + cardsPath;
         messagesPath = dirs.DocumentDir + messagesPath;
     }
+    console.log('cardspath: ' + cardsPath);
+    console.log('messagespath: ' + messagesPath);
     return {cardsPath: cardsPath, messagesPath: messagesPath};
 }

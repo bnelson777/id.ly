@@ -56,19 +56,29 @@ class Main extends Component {
         RNFetchBlob.fs.mkdir(paths.dirPath)
         .catch((err) => {});
 
-        RNFetchBlob.fs.createFile(
-            paths.cardsPath,
-            '',
-            'utf8'
-        )
-        .catch((err) => {});
+        RNFetchBlob.fs.exists(paths.cardsPath)
+        .then((exist) => {
+            if (exist === false){
+                RNFetchBlob.fs.createFile(
+                    paths.cardsPath,
+                    '',
+                    'utf8'
+                )
+                .catch((err) => {});
+            }
+        });
 
-        RNFetchBlob.fs.createFile(
-            paths.messagesPath,
-            '',
-            'utf8'
-        )
-        .catch((err) => {});
+        RNFetchBlob.fs.exists(paths.messagesPath)
+        .then((exist) => {
+            if (exist === false){
+                RNFetchBlob.fs.createFile(
+                    paths.messagesPath,
+                    '',
+                    'utf8'
+                )
+                .catch((err) => {});
+            }
+        });
 
         SInfo.getItem('key', {})
         .then((value) => {

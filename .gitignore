@@ -35,7 +35,11 @@ local.properties
 
 # node.js
 #
-node_modules/
+node_modules/*
+!node_modules/react-native-camera
+node_modules/react-native-camera/*
+!node_modules/react-native-camera/index.js
+
 npm-debug.log
 yarn-error.log
 

@@ -30,6 +30,7 @@ import Login from './components/login/index';
 import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
+import Bluetooth from './components/bluetooth/index'
 //Dumby Data for Initial App Load
 import CardData from './cards.json';
 import MessageData from './messages.json';
@@ -229,6 +230,7 @@ class Main extends Component {
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />
                     <Scene key="about" component={About} title="About" />
+                    <Scene key="bluetooth" component={Bluetooth} title="Bluetooth" />
                   </Scene>
             </Router>
         );

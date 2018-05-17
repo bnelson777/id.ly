@@ -109,6 +109,13 @@ export class Home extends Component {
                                 </Text>
                             </View>
                         </TouchableHighlight>
+                        <TouchableHighlight onPress={() => Actions.bluetooth()}>
+                            <View style={styles.row}>
+                                <Text style={styles.title}>
+                                    [Dev] Bluetooth
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
                     </View>
                     <View style={styles.thirdRow}>
                         <Avatar 

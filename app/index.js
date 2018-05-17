@@ -168,7 +168,7 @@ class Main extends Component {
 
     navigate = (url) => {
         //const { navigate } = this.props.navigation;
-
+        
         const route = url.replace(/.*?:\/\//g, '');
         let id = 'empty';
         id = route.match(/\/([^\/]+)\/?$/)[1];

@@ -5,10 +5,9 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { Alert, StyleSheet, FlatList,
+import { StyleSheet, FlatList,
         View, Text, TouchableHighlight,
-        TouchableOpacity, Image, Dimensions,
-        ActionSheetIOS } from 'react-native';
+        TouchableOpacity, Image, Dimensions } from 'react-native';
 import styles, { COLORS } from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -25,32 +24,19 @@ const BUTTONS = [
 
 const CANCEL_INDEX = 2;
 
-class CardList extends Component {
+export class CardList extends Component {
+
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            initWallet: -1,
+            initRolodex: -1
+        };
         this.renderItem = this.renderItem.bind(this);
-        this.showOptions = this.showOptions.bind(this);
     }
 
     componentDidMount() {
         this.props.getCards();
-    }
-
-    showOptions(card) {
-        ActionSheetIOS.showActionSheetWithOptions({
-            options: BUTTONS,
-            cancelButtonIndex: CANCEL_INDEX,
-            destructiveButtonIndex: 2,
-        },(buttonIndex) => {
-            if (buttonIndex === 0) this.props.deleteCard(card.id)
-            else if (buttonIndex === 1) this.props.clearAll()
-        });
-    }
-
-    // Dummy function for button presses
-    pressButton(label) {
-        Alert.alert(label);
     }
 
     render() {
@@ -71,13 +57,15 @@ class CardList extends Component {
         if (this.props.isWallet === item.owner) {
             let icon = item.image === "" ? require('../../assets/default_avatar.png') : {uri: item.image};
             if (this.props.isWallet === true) {
+                this.state.initWallet++;
                 return (
                     // Display image, ID button, and share icon
                     // ID buttons are displayed in alternating color based on index
                     <View>
+                        {this.state.initWallet > 0 ? <View style={styles.sepLine}/>:<View/>}
                         <View style={styles.buttonContainer}>
                             <View>
-                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item})}>
+                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}>
                                     <Avatar
                                         small
                                         rounded
@@ -86,10 +74,7 @@ class CardList extends Component {
                                     />
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity
-                                onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}
-                                onLongPress={() => this.showOptions(item)}
-                            >
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}>
                                 <View
                                     style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                                     backgroundColor={COLORS[index % COLORS.length]}
@@ -99,7 +84,7 @@ class CardList extends Component {
                             </TouchableOpacity>
                             <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}/>
                             <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                                <TouchableOpacity onPress={() => Actions.share({card: item})} onLongPress={() => this.showOptions(item)}>
+                                <TouchableOpacity onPress={() => Actions.share({card: item})}>
                                     <Image
                                         style={styles.imageContainer}
                                         source={require('../../assets/share.png')}
@@ -107,19 +92,18 @@ class CardList extends Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.sepLine}/>
                     </View>
                 );
             } else {
+                this.state.initRolodex++;
                 return (
                     // Display image, ID button, message icon, and share icon
                     // ID buttons are displayed in alternating color based on index
                     <View>
+                        {this.state.initRolodex > 0 ? <View style={styles.sepLine}/>:<View/>}
                         <View style={styles.buttonContainer}>
                             <View>
-                                <TouchableOpacity 
-                                    onPress={() => Actions.card_view({title: item.name, card: item, isWallet: false})} 
-                                    onLongPress={() => this.showOptions(item)}>
+                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: false})}>
                                     <Avatar
                                         small
                                         rounded
@@ -129,9 +113,7 @@ class CardList extends Component {
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity
-                                onPress={() => Actions.card_view({title: item.name, card: item})}
-                                onLongPress={() => this.showOptions(item)}
-                            >
+                                onPress={() => Actions.card_view({title: item.name, card: item})}>
                                 <View
                                     style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
                                     backgroundColor={COLORS[index % COLORS.length]}
@@ -156,7 +138,6 @@ class CardList extends Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.sepLine}/>
                     </View>
                 );
             }

@@ -7,17 +7,17 @@
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList,
-        View, Text, TextInput,
+        View, Text, TextInput, Platform,
         TouchableHighlight, TouchableOpacity,
-        Image} from 'react-native';
+        Image, KeyboardAvoidingView } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 110 : 70;
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and
@@ -26,7 +26,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 // EXPECTED PROP(S): this.props.sender, this.props.recipient
 // This component will expect a sender or recipient (a card object) to be used as the
 // default selection. If null is passed in instead, no default will be selected.
-class CreateMessage extends Component {
+export class CreateMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -81,7 +81,9 @@ class CreateMessage extends Component {
         let unix = this.generateTimestamp();
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         this.props.addMessage(message);
-        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
+        setTimeout(function(){
+            Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
+        }, 100);
     }
 
     showFromSheet = () => {
@@ -113,60 +115,59 @@ class CreateMessage extends Component {
             styles.imageContainer : [styles.imageContainer, styles.imageDisabled];
 
         return (
-            <KeyboardAwareScrollView innerRef={ref => {this.scroll = ref}}>
-                <View style={styles.container}>
-                    <View style={styles.midContainer}>
-                        <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
-                        <TouchableOpacity onPress={this.showFromSheet}>
-                            <View style={[styles.button, styles.listButton]}>
-                                <Text style={styles.selectButton}>+</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <ActionSheet
-                            ref={o => {this.fromSheet = o}}
-                            title={'Send from which card?'}
-                            options={labelsFrom}
-                            cancelButtonIndex={0}
-                            onPress={(index) => this.updateSender(index, idFrom[index], labelsFrom[index])}
-                        />
-                    </View>
-                    <View style={styles.midContainer}>
-                        <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
+            <KeyboardAvoidingView style={styles.container} behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
+                <View style={styles.midContainer}>
+                    <Text style={styles.fieldText}>{"Sender: " + this.state.senderLabel}</Text>
+                    <TouchableOpacity onPress={this.showFromSheet}>
+                        <View style={[styles.button, styles.listButton]}>
+                            <Text style={styles.selectButton}>+</Text>
+                        </View>
+                    </TouchableOpacity>
+                <ActionSheet
+                    ref={o => {this.fromSheet = o}}
+                    title={'Send from which card?'}
+                    options={labelsFrom}
+                    cancelButtonIndex={0}
+                    onPress={(index) => this.updateSender(index, idFrom[index], labelsFrom[index])}
+                />
+                </View>
+                <View style={styles.sepLine}/>
+                <View style={styles.midContainer}>
+                    <Text style={styles.fieldText}>{"Recipient: " + this.state.recipientLabel}</Text>
                         <TouchableOpacity onPress={this.showToSheet}>
-                            <View style={[styles.button, styles.listButton]}>
-                                <Text style={styles.selectButton}>+</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <ActionSheet
-                            ref={o => {this.toSheet = o}}
-                            title={'Send to which card?'}
-                            options={labelsTo}
-                            cancelButtonIndex={0}
-                            onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
-                        />
-                    </View>
-                    <View style={styles.textInputContainer}>
-                        <AutoGrowingTextInput
-                            value={this.state.message}
+                        <View style={[styles.button, styles.listButton]}>
+                            <Text style={styles.selectButton}>+</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <ActionSheet
+                        ref={o => {this.toSheet = o}}
+                        title={'Send to which card?'}
+                        options={labelsTo}
+                        cancelButtonIndex={0}
+                        onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
+                    />
+                </View>
+                <View style={[styles.itemContainer, styles.bottomContainer]}>
+                    <View style={styles.messageBox}>
+                        <TextInput
                             ref={input => {this.messageInput = input}}
-                            style={styles.textInput}
+                            style={styles.inputStyle}
                             placeholder=" Enter Text..."
-                            maxHeight={200}
-                            minHeight={45}
-                            enableScrollToCaret
                             onChangeText={(text) => this.setState({message:text})}
+                            underlineColorAndroid='transparent'
+                            multiline={true}
                         />
                     </View>
                     <View style={[styles.button, styles.imageButton]}>
-                            <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
-                                <Image
-                                    style={buttonStyle}
-                                    source={require('../../assets/send.png')}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity onPress={() => this.pressButton()} disabled={(this.state.sender != 0 && this.state.recipient != 0 && this.state.message.length > 0) ? false : true}>
+                            <Image
+                                style={buttonStyle}
+                                source={require('../../assets/send.png')}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </KeyboardAwareScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }

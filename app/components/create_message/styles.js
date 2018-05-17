@@ -2,12 +2,11 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, 
         BACKGROUND_COLOR, BORDER_RADIUS } from './../styles/common';
 
-const {height, width} = Dimensions.get('window');
-const screenWidth = width;
-const screenHeight = height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 const buttonHeight = screenWidth * 0.10;
 const boxBorderWidth = 1;
-const boxWidth = screenWidth * 0.6;
+const boxWidth = screenWidth * 0.8;
 const boxHeight = screenHeight * 0.075;
 const IsIOS = Platform.OS == 'ios';
 export default StyleSheet.create({
@@ -24,16 +23,17 @@ export default StyleSheet.create({
     },
 
     midContainer: {
-        flex: 0.2,
+        height: screenHeight*0.1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
     },
 
     bottomContainer: {
-        flex: 0.5,
+        height: screenHeight*0.78,
         alignItems: 'center',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        paddingTop: screenHeight*0.78*0.4
     },
 
     button: {
@@ -48,14 +48,14 @@ export default StyleSheet.create({
         maxHeight: boxHeight,
         marginTop: screenHeight * 0.3,
         marginBottom: screenHeight * 0.15,
-        marginRight: screenWidth * 0.05,
+        marginRight: screenWidth * 0.01,
         marginLeft: screenWidth * 0.1,
         borderLeftWidth: boxBorderWidth,
         borderRightWidth: boxBorderWidth,
         borderTopWidth: boxBorderWidth,
         borderBottomWidth: boxBorderWidth,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     inputStyle: {
@@ -68,10 +68,10 @@ export default StyleSheet.create({
     imageButton: {
         width: buttonHeight,
         backgroundColor: BACKGROUND_COLOR,
-        marginLeft: screenWidth * 0.05,
-        marginRight: screenWidth * 0.1,
+        marginLeft: screenWidth * 0.02,
+        marginRight: screenWidth * 0.03,
         marginTop: screenHeight * 0.2,
-        marginBottom: screenHeight * 0.05
+        marginBottom: screenHeight * 0.05,
     },
 
     imageContainer: {
@@ -101,6 +101,13 @@ export default StyleSheet.create({
         marginBottom: screenHeight * 0.005
     },
 
+    sepLine: {
+        height: 1,
+        width: "96%",
+        backgroundColor: "#CED0CE",
+        marginLeft: "2%",
+    },
+    
     textInputContainer: {
         flexDirection: 'row',
         paddingLeft: 8,

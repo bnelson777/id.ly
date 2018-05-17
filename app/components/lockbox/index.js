@@ -32,7 +32,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 // needs a object to encrypt.
 
 
-class Lockbox extends Component {
+export class Lockbox extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -72,9 +72,9 @@ class Lockbox extends Component {
             console.log('message object:', jsonStringP)
             // add it to messages!
             this.props.addMessage(jsonStringP);
-            // send user to home screen
+            // send user to inbox view
             Actions.pop();
-            Actions.home();
+            Actions.inbox();
         }
         else {
             // TODO: add error handling alert user can't decrypt message
@@ -143,12 +143,12 @@ class Lockbox extends Component {
             // replace copy's body with encrypted message from above
             jsonP.body = encrypted;
             // get it ready for sending
-            var jsonM = "idly://lockbox/" + JSON.stringify(jsonP);
+            var jsonM = "http://joewetton.com/?m=" + encodeURI(JSON.stringify(jsonP));
             // set state variable for use in render (copy to clipboard)
             this.state.jsonM = jsonM;
             console.log('messageobjJsond:', jsonM)
             //uri: mailto:mailto@deniseleeyohn.com?subject=abcdefg&body=body'
-            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + encodeURI(jsonM)
+            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + encodeURI(jsonM);
             //encode for email linking
             var res = encodeURI(uri);
             //return it

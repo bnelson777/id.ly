@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Platform, AppRegistry, YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
+import RNFetchBlob from 'react-native-fetch-blob';
 import store from './app/store';
 import Main from './app/index';
 
@@ -19,7 +20,7 @@ export default class App extends Component {
           loadingFont: false,
         }
     }
-    
+
     async componentDidMount() {
         this.setState({loadingFont: true});
     }

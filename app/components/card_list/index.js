@@ -15,23 +15,10 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Avatar } from 'react-native-elements';
 
-//Buttons for Action Sheet
-const BUTTONS = [
-    "Delete",
-    "Clear All",
-    'Cancel',
-];
-
-const CANCEL_INDEX = 2;
-
 export class CardList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            initWallet: -1,
-            initRolodex: -1
-        };
         this.renderItem = this.renderItem.bind(this);
     }
 
@@ -40,12 +27,15 @@ export class CardList extends Component {
     }
 
     render() {
+        const cards = this.props.isWallet === true ?
+            this.props.cards.filter(function(obj) {return obj.owner === true}).map(card => card) :
+            this.props.cards.filter(function(obj) {return obj.owner === false}).map(card => card);
         return (
             // Display ID buttons as a list
             <View style={styles.container}>
                 <FlatList
                     ref='listRef'
-                    data={this.props.cards}
+                    data={cards}
                     renderItem={this.renderItem}
                     keyExtractor={(item, index) => index.toString()}
                 />
@@ -54,93 +44,89 @@ export class CardList extends Component {
     }
 
     renderItem({item, index}) {
-        if (this.props.isWallet === item.owner) {
-            let icon = item.image === "" ? require('../../assets/default_avatar.png') : {uri: item.image};
-            if (this.props.isWallet === true) {
-                this.state.initWallet++;
-                return (
-                    // Display image, ID button, and share icon
-                    // ID buttons are displayed in alternating color based on index
-                    <View>
-                        {this.state.initWallet > 0 ? <View style={styles.sepLine}/>:<View/>}
-                        <View style={styles.buttonContainer}>
-                            <View>
-                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}>
-                                    <Avatar
-                                        small
-                                        rounded
-                                        source={icon}
-                                        containerStyle = {styles.toLeft}
-                                    />
-                                </TouchableOpacity>
-                            </View>
+        let icon = item.image === "" ? require('../../assets/default_avatar.png') : {uri: item.image};
+        if (this.props.isWallet === true) {
+            return (
+                // Display image, ID button, and share icon
+                // ID buttons are displayed in alternating color based on index
+                <View>
+                    {index > 0 ? <View style={styles.sepLine}/>:<View/>}
+                    <View style={styles.buttonContainer}>
+                        <View>
                             <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}>
-                                <View
-                                    style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
-                                    backgroundColor={COLORS[index % COLORS.length]}
-                                >
-                                    <Text>{item.label}</Text>
-                                </View>
+                                <Avatar
+                                    small
+                                    rounded
+                                    source={icon}
+                                    containerStyle = {styles.toLeft}
+                                />
                             </TouchableOpacity>
-                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}/>
-                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                                <TouchableOpacity onPress={() => Actions.share({card: item})}>
-                                    <Image
-                                        style={styles.imageContainer}
-                                        source={require('../../assets/share.png')}
-                                    />
-                                </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: true})}>
+                            <View
+                                style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
+                                backgroundColor={COLORS[index % COLORS.length]}
+                            >
+                                <Text>{item.label}</Text>
                             </View>
+                        </TouchableOpacity>
+                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}/>
+                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
+                            <TouchableOpacity onPress={() => Actions.share({card: item})}>
+                                <Image
+                                    style={styles.imageContainer}
+                                    source={require('../../assets/share.png')}
+                                />
+                            </TouchableOpacity>
                         </View>
                     </View>
-                );
-            } else {
-                this.state.initRolodex++;
-                return (
-                    // Display image, ID button, message icon, and share icon
-                    // ID buttons are displayed in alternating color based on index
-                    <View>
-                        {this.state.initRolodex > 0 ? <View style={styles.sepLine}/>:<View/>}
-                        <View style={styles.buttonContainer}>
-                            <View>
-                                <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: false})}>
-                                    <Avatar
-                                        small
-                                        rounded
-                                        source={icon}
-                                        containerStyle = {styles.toLeft}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => Actions.card_view({title: item.name, card: item})}>
-                                <View
-                                    style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
-                                    backgroundColor={COLORS[index % COLORS.length]}
-                                >
-                                    <Text>{item.name} ({item.label})</Text>
-                                </View>
+                </View>
+            );
+        } else {
+            return (
+                // Display image, ID button, message icon, and share icon
+                // ID buttons are displayed in alternating color based on index
+                <View>
+                    {index > 0 ? <View style={styles.sepLine}/>:<View/>}
+                    <View style={styles.buttonContainer}>
+                        <View>
+                            <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: false})}>
+                                <Avatar
+                                    small
+                                    rounded
+                                    source={icon}
+                                    containerStyle = {styles.toLeft}
+                                />
                             </TouchableOpacity>
-                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                                <TouchableOpacity onPress={() => Actions.create_message({sender: null, recipient: item})}>
-                                    <Image
-                                        style={styles.imageContainer}
-                                        source={require('../../assets/mail.png')}
-                                    />
-                                </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity
+                            onPress={() => Actions.card_view({title: item.name, card: item})}>
+                            <View
+                                style={[styles.button, styles.cardButton, styles.cardButtonRolodex]}
+                                backgroundColor={COLORS[index % COLORS.length]}
+                            >
+                                <Text>{item.name} ({item.label})</Text>
                             </View>
-                            <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
-                                <TouchableOpacity onPress={() => Actions.share({card: item})}>
-                                    <Image
-                                        style={styles.imageContainer}
-                                        source={require('../../assets/share.png')}
-                                    />
-                                </TouchableOpacity>
-                            </View>
+                        </TouchableOpacity>
+                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
+                            <TouchableOpacity onPress={() => Actions.create_message({sender: null, recipient: item})}>
+                                <Image
+                                    style={styles.imageContainer}
+                                    source={require('../../assets/mail.png')}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.button, styles.gotoButton, styles.gotoButtonRolodex]}>
+                            <TouchableOpacity onPress={() => Actions.share({card: item})}>
+                                <Image
+                                    style={styles.imageContainer}
+                                    source={require('../../assets/share.png')}
+                                />
+                            </TouchableOpacity>
                         </View>
                     </View>
-                );
-            }
+                </View>
+            );
         }
     }
 }

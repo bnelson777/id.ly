@@ -62,10 +62,12 @@ export default StyleSheet.create({
     },
 
     noBotBorder: {
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        backgroundColor: '#FFFFFF'
     },
 
-    greyedMessage: {
-        backgroundColor: '#f2f2f2',
+    unreadMessage: {
+        borderBottomWidth: 0,
+        backgroundColor: '#b7d9e9'
     }
 });

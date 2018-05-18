@@ -59,27 +59,43 @@ export class Lockbox extends Component {
                 break;
             }
         }
-        if (cardMatch) {
-            console.log('card match key output:', cardMatch.keys)
-            var jsond = JSON.stringify(cardMatch.keys)
-            rsa.setPrivateString(jsond);
-            console.log('the cyperedtext string is:',jsonStringP.body)
-            console.log('the private key is:',jsond)
-            var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
-            console.log('the cyper says:',decrypted)
-            //replace json encrypted text with decrypted text
-            jsonStringP.body = decrypted
-            console.log('message object:', jsonStringP)
-            // add it to messages!
-            this.props.addMessage(jsonStringP);
-            // send user to inbox view
-            Actions.pop();
-            Actions.inbox();
+
+        var notDuplicateMessage = true;
+        for (var i = 0, len = this.props.messages.length; i < len; i++) {
+            console.log('iterating through messages!', i)
+            if(this.props.messages[i].id === jsonStringP.id){
+                notDuplicateMessage = false;
+                break;
+            }
         }
-        else {
-            // TODO: add error handling alert user can't decrypt message
-            console.log("couldnt find a matching public key in users cards")
-            Actions.pop();
+
+        if(notDuplicateMessage){
+            if (cardMatch) {
+                console.log('card match key output:', cardMatch.keys)
+                var jsond = JSON.stringify(cardMatch.keys)
+                rsa.setPrivateString(jsond);
+                console.log('the cyperedtext string is:',jsonStringP.body)
+                console.log('the private key is:',jsond)
+                var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
+                console.log('the cyper says:',decrypted)
+                //replace json encrypted text with decrypted text
+                jsonStringP.body = decrypted
+                console.log('message object:', jsonStringP)
+                // add it to messages!
+                this.props.addMessage(jsonStringP);
+                // send user to inbox view
+                Actions.pop();
+                Actions.inbox();
+            }
+            else {
+                // TODO: add error handling alert user can't decrypt message
+                console.log("couldnt find a matching public key in users cards")
+                Actions.home();
+            }
+        }
+        else{
+            alert("You have already decrypted this message! Check your inbox.");
+            Actions.inbox();
         }
     }
 

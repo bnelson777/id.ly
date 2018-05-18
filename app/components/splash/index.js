@@ -7,14 +7,14 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet,
         Animated, Easing, 
-        Image } from 'react-native';
+        Image, Platform, Linking } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
-const DEBUG = true;
+const DEBUG = treu;
 
 export class Splash extends Component {
     static navigationOptions = {
@@ -24,13 +24,43 @@ export class Splash extends Component {
     constructor(props) {
         super();
         this.fade_in = new Animated.Value(0);
+        this.state = {deeplink: false}
     };
     
     componentDidMount() {
-        this.startAnimation();
-        setTimeout(() => {
-            this.props.navigation.navigate('home');
-        }, (DEBUG ? 0 : 4000));
+        if (Platform.OS === 'android') {
+        Linking.getInitialURL().then(url => {
+          this.navigate(url);
+        });
+        } else {
+            Linking.addEventListener('url', this.handleOpenURL);
+        }
+    }
+
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this.handleOpenURL);
+    }
+
+    handleOpenURL = (event) => {
+        this.navigate(event.url);
+    }
+
+    navigate = (url) => {
+        //if there is no deep link the display splash screen
+        if(!url){
+            this.startAnimation();
+            setTimeout(() => {
+                this.props.navigation.navigate('home');
+            }, (DEBUG ? 0 : 4000));
+        }
+        const route = url.replace(/.*?:\/\//g, '');
+        let id = 'empty';
+        id = route.match(/\/([^\/]+)\/?$/)[1];
+        const routeName = route.split('/')[0];
+        if (routeName === 'lockbox') {
+            this.setState({deeplink: true})
+            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+        }
     }
 
     startAnimation = () => {

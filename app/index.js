@@ -180,7 +180,7 @@ class Main extends Component {
                         panHandlers={null} hideNavBar type={ActionConst.RESET}
                     />
                     <Scene key="scan" component={Scan} title="Scan" />
-                    <Scene key="lockbox" component={Lockbox} title="Lockbox"/>
+                    <Scene key="lockbox" component={Lockbox} title="Lockbox" />
                     <Scene key="rolodex" component={CardList}title="Rolodex"
                         onRight={() => Actions.scan()}
                         rightButtonImage={require('./assets/add_person.png')}

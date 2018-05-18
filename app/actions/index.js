@@ -195,11 +195,8 @@ export function clearAll(){
 
 function removeFiles(){
     var paths = getPaths();
-    RNFetchBlob.fs.unlink(paths.cardsPath)
-    .catch((err) => {});
-
-    RNFetchBlob.fs.unlink(paths.messagesPath)
-    .catch((err) => {});
+    RNFetchBlob.fs.writeFile(paths.cardsPath, '','utf8');
+    RNFetchBlob.fs.writeFile(paths.messagesPath, '','utf8');
 
     SInfo.deleteItem('key', {});
     SInfo.deleteItem('iv', {});
@@ -221,5 +218,7 @@ function getPaths(){
         cardsPath = dirs.DocumentDir + cardsPath;
         messagesPath = dirs.DocumentDir + messagesPath;
     }
+    console.log('cardspath: ' + cardsPath);
+    console.log('messagespath: ' + messagesPath);
     return {cardsPath: cardsPath, messagesPath: messagesPath};
 }

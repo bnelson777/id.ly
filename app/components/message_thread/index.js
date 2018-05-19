@@ -101,9 +101,8 @@ export class MessageThread extends Component {
         (buttonIndex) => {
             switch (buttonIndex) {
                 case 0: {
-                    let message = {"id": msg.id, "to": msg.to, "from": msg.from, "body": msg.body, "time": msg.time, "read": false};
                     setTimeout(function(){
-                        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
+                        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: msg, returnTo: "thread"});
                     }, 100);
                     break;
                 }

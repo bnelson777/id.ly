@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import {Actions} from 'react-native-router-flux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import SInfo from 'react-native-sensitive-info';
 
 // LOCKBOX
 // FUNCTION(S): This component will handle the encryption and decryption of
@@ -38,7 +39,8 @@ export class Lockbox extends Component {
         this.state = {
             jsonString: "",
             jsonM: "",
-            returnTo: ""
+            returnTo: "",
+            privKey: ""
         };
         this.decryptMessage= this.decryptMessage.bind(this);
         this.encryptMessageDone= this.encryptMessageDone.bind(this);
@@ -61,7 +63,22 @@ export class Lockbox extends Component {
         }
         if (cardMatch) {
             console.log('card match key output:', cardMatch.keys)
-            var jsond = JSON.stringify(cardMatch.keys)
+            for (var num = 0; num < this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card).length; num++){
+                var pubStore = 'pubkey' + num;
+                var privStore = 'privkey' + num;
+                SInfo.getItem(pubStore, {})
+                .then((pubkey) => {
+                    if (pubkey === cardMatch.keys){
+                        SInfo.getItem(privStore, {})
+                        .then((privkey) => {
+                            this.setState({privKey: privkey});
+                        });
+                    }
+                });
+                if (this.state.privKey !== "")
+                    break;
+            }
+            var jsond = JSON.stringify(privkey)
             rsa.setPrivateString(jsond);
             console.log('the cyperedtext string is:',jsonStringP.body)
             console.log('the private key is:',jsond)

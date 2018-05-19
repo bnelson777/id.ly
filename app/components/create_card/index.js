@@ -19,6 +19,7 @@ import { Button } from 'react-native-elements';
 import { Avatar } from 'react-native-elements'; 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import SInfo from 'react-native-sensitive-info';
 
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
@@ -41,6 +42,9 @@ export class CreateCard extends Component {
     }
     generateKeys() {
         console.log('RSA public private keys!')
+        var num = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card).length;
+        var pubStore = 'pubkey' + num;
+        var privStore = 'privkey' + num;
         var RSAKey = require('react-native-rsa');
         const bits = 1024;
         const exponent = '10001'; // must be a string. This is hex string. decimal = 65537
@@ -48,8 +52,10 @@ export class CreateCard extends Component {
         rsa.generate(bits, exponent);
         var publicKey = rsa.getPublicString(); // return json encoded string
         var privateKey = rsa.getPrivateString(); // return json encoded string
-        console.log(publicKey)
-        console.log(privateKey)
+        console.log(publicKey);
+        console.log(privateKey);
+        SInfo.setItem(pubStore, publicKey, {});
+        SInfo.setItem(privStore, privateKey, {});
 
         rsa.setPublicString(publicKey);
         var originText = 'sample String Value';
@@ -58,7 +64,7 @@ export class CreateCard extends Component {
         console.log(encrypted)
         var decrypted = rsa.decrypt(encrypted); // decrypted == originText
         console.log(decrypted)
-        return privateKey;
+        return publicKey;
       }
 
       generateID() {

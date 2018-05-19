@@ -9,7 +9,8 @@ import React, { Component } from 'react';
 import styles from './styles';
 import { View, Text, TextInput,
         Button,
-        FlatList } from 'react-native';
+        FlatList,
+        Clipboard } from 'react-native';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
@@ -24,6 +25,8 @@ export class MessageThread extends Component {
         this.sendMessage = this.sendMessage.bind(this);
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
+        this.onLongPress = this.onLongPress.bind(this);
+        this.getMessageByID = this.getMessageByID.bind(this);
         this.state.name = "test";
     };
 
@@ -75,7 +78,42 @@ export class MessageThread extends Component {
         this.retrieveMessages();
     }
 
-    // TODO: Add logic for sending a message
+    getMessageByID(id) {
+        for(let i = 0; i < this.props.messages.length; ++i) {
+            if(this.props.messages[i].id === id) {
+                return this.props.messages[i];
+            }
+        }
+    }
+
+    onLongPress(context, message) {
+        const options = [
+            'Resend',
+            'Copy Text',
+            'Cancel'
+        ];
+        const cancelButtonIndex = options.length - 1;
+        let msg = this.getMessageByID(message._id);
+        context.actionSheet().showActionSheetWithOptions({
+            options,
+            cancelButtonIndex,
+        },
+        (buttonIndex) => {
+            switch (buttonIndex) {
+                case 0: {
+                    let message = {"id": msg.id, "to": msg.to, "from": msg.from, "body": msg.body, "time": msg.time, "read": false};
+                    setTimeout(function(){
+                        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
+                    }, 100);
+                    break;
+                }
+                case 1:
+                    Clipboard.setString(message.text);
+                    break;
+            }
+        });
+    }
+
     onSend(messages = []) {
         this.setState(previousState => (
             {
@@ -155,6 +193,7 @@ export class MessageThread extends Component {
                 user= {{
                     _id: 1,
                 }}
+                onLongPress={this.onLongPress}
                 isAnimated={true}
             />
         )

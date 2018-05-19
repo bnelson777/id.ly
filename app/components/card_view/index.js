@@ -14,7 +14,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Avatar, Button } from 'react-native-elements';
 
-class CardView extends Component {
+export class CardView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,7 +40,10 @@ class CardView extends Component {
             return;
         }
         this.props.setDefault(this.props.card);
-        Actions.pop();
+
+        setTimeout(function(){
+            Actions.pop();
+        }, 100);
     }
 
     //displays card type on top, followed by image and the rest of the card information
@@ -81,13 +84,15 @@ class CardView extends Component {
                         </Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button}
+                        <Button 
                             title="Share"
                             onPress={() => Actions.share({card: this.props.card})}
+                            buttonStyle={styles.button}
                         />
-                        <Button style={styles.button}
+                        <Button 
                             title="Message"
                             onPress={() => Actions.create_message(args)}
+                            buttonStyle={styles.button}
                         />
                     </View>
                 </View>
@@ -119,17 +124,20 @@ class CardView extends Component {
                         </Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button}
+                        <Button 
                             title="Share"
                             onPress={() => Actions.share({card: this.props.card})}
+                            buttonStyle={styles.walletButton}
                         />
-                        <Button style={styles.button}
+                        <Button 
                             title="Message"
                             onPress={() => Actions.create_message(args)}
+                            buttonStyle={styles.walletButton}
                         />
-                        <Button style={styles.button}
-                            title="Set Default"
+                        <Button 
+                            title="Default"
                             onPress={() => this.handleSetDefault()}
+                            buttonStyle={styles.walletButton}
                         />
                     </View>
                 </View>

@@ -16,7 +16,7 @@ import styles from './styles';
 
 const DEBUG = true;
 
-class Splash extends Component {
+export class Splash extends Component {
     static navigationOptions = {
         header: null
     }

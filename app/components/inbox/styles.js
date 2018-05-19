@@ -68,6 +68,6 @@ export default StyleSheet.create({
 
     unreadMessage: {
         borderBottomWidth: 0,
-        backgroundColor: '#b7d9e9'
+        backgroundColor: '#F2F2F2'
     }
 });

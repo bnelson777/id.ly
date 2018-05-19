@@ -152,7 +152,43 @@ export function getMessages(){
 
 // Update Message to Read (U)
 export function setMessagesAsRead(keys) {
+    let paths = getPaths();
     return (dispatch) => {
+        SInfo.getItem('key', {})
+        .then((key) => {
+            SInfo.getItem('iv', {})
+            .then((iv) => {
+                RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
+                .then((messages) => {
+                    if(messages !== '') {
+                        AesCrypto.decrypt(messages, key, iv)
+                        .then(decMessages => {
+                            decMessages = JSON.parse(decMessages);
+                            let key1 = keys._1,
+                                key2 = keys._2;
+                            for(let i = 0; i < decMessages.length; ++i) {
+                                if((decMessages[i].to === key1 && decMessages[i].from === key2) ||
+                                   (decMessages[i].from === key1 && decMessages[i].to === key2)) {
+                                       decMessages[i].read = true;
+                                   }
+                            }
+                            decMessages = JSON.stringify(decMessages);
+                            AesCrypto.encrypt(decMessages, key, iv)
+                            .then(encMessages => {
+                                RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages, 'utf8')
+                                .then(() => {
+                                    dispatch({type: SET_MESSAGES_AS_READ, keys:keys});
+                                });
+                            });
+                        });
+                    }
+                });
+            });
+        });
+    }
+};
+
+/*
         AsyncStorage.getItem('messagedata', (err, messages) => {
             if(messages !== null) {
                 let key1 = keys._1,
@@ -169,8 +205,7 @@ export function setMessagesAsRead(keys) {
                 });
             }
         });
-    }
-}
+*/
 
 // Set Default Card - SET DEFAULT (D)
 export function setDefault(card){

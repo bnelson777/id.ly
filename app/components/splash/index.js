@@ -24,7 +24,7 @@ export class Splash extends Component {
     constructor(props) {
         super();
         this.fade_in = new Animated.Value(0);
-        this.state = {deeplink: false}
+        this.state = {}
     };
     
     componentDidMount() {
@@ -42,7 +42,7 @@ export class Splash extends Component {
     }
 
     navigate = (url) => {
-        //if there is no deep link the display splash screen
+        //if there is no deep link on android the display splash screen
         if(!url){
             this.startAnimation();
             setTimeout(() => {
@@ -54,7 +54,6 @@ export class Splash extends Component {
         id = route.match(/\/([^\/]+)\/?$/)[1];
         const routeName = route.split('/')[0];
         if (routeName === 'lockbox') {
-            this.setState({deeplink: true})
             Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
         }
     }

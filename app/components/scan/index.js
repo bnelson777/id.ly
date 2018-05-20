@@ -95,7 +95,7 @@ class Scan extends Component {
     }
 
     componentDidMount() {
-        //this.startAnimation();
+        this.startAnimation();
         if (Platform.OS === 'ios') {
             Permissions.request(CAMERA_PERMISSION).then(response => {
                 this.setState({
@@ -213,7 +213,7 @@ class Scan extends Component {
     // Try to read the QRCode
     _handleBarCodeRead(e) {
         if(!this.state.scanning) {
-            //Vibration.vibrate();
+            //Vibration.vibrate(); <- issues with permissions on android
             this._setScanning(true);
             this.props.ScanResult(e);
             console.log('scan: peer id ' + e.data);
@@ -233,6 +233,9 @@ class Scan extends Component {
                         onBarCodeRead={this._handleBarCodeRead.bind(this)}>
                         <View style={styles.rectangleContainer}>
                             <View style={styles.rectangle}/>
+                            <Animated.View style={[
+                            styles.border,
+                            {transform: [{translateY: this.state.moveAnim}]}]}/>
                             <Text style={styles.rectangleText}>Scan the QRCode</Text>
                             <Text style={styles.rectangleText}>Scanned ID: {this.state.peerId}</Text>
                             {this.state.peerFound ? <Button title="Acquire" onPress={this.sendMessage}/> : null}

@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 //import { Permissions, BarCodeScanner} from 'expo';
-import { Text, View, StyleSheet,
+import { Text, View, StyleSheet, Button,
         ActivityIndicator, Animated, Easing,
         LayoutAnimation, Image, Platform,
         Vibration, PermissionsAndroid } from 'react-native';
@@ -18,6 +18,8 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import RNCamera from 'react-native-camera';
 import Permissions from 'react-native-permissions';
+import deviceInfo from 'react-native-device-info';
+import BluetoothCP from 'react-native-bluetooth-cross-platform';
 
 const PERMISSION_AUTHORIZED = 'authorized';
 const CAMERA_PERMISSION = 'camera';
@@ -82,13 +84,18 @@ class Scan extends Component {
             scanning: false,
             moveAnim: new Animated.Value(0),
             isAuthorized: false,
-            isAuthorizationChecked: false
+            isAuthorizationChecked: false,
+            peerId: '',
+            peerFound: false
         };
         this.title = 'QRScan';
+
+        this.handleCommunication = this.handleCommunication.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
     }
 
     componentDidMount() {
-        this.startAnimation();
+        //this.startAnimation();
         if (Platform.OS === 'ios') {
             Permissions.request(CAMERA_PERMISSION).then(response => {
                 this.setState({
@@ -111,6 +118,51 @@ class Scan extends Component {
         else {
             this.setState({ isAuthorized: true, isAuthorizationChecked: true })
         }
+        
+        // [bluetooth]: assign listeners for so they can be unsubscribed on unmount
+        this.detectedListener = BluetoothCP.addPeerDetectedListener((peers) => {
+            /* code that runs when other device runs advertise and becomes detected */
+            if (peers.id == this.state.peerId) {
+                console.log('peer detected', peers)
+                console.log(peers);
+
+                this.setState({peerFound: true})
+            }
+        });
+        
+        this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
+            /* code that runs when you recieve a message */
+            console.log('addReceivedMessageListener', peers.message)
+            
+            var card = JSON.parse(peers.message);
+            this.props.addCardToEnd(card);
+            console.log(card);
+
+            setTimeout(function(){
+                Actions.pop();
+            }, 100);
+            if(this.props.reactivate) {
+                setTimeout(() => (this._setScanning(false)), this.props)
+            }
+        });
+        
+        console.log('scan: mounted');
+    }
+    
+    componentWillUnmount() {
+        this.detectedListener.remove();
+        this.messageListener.remove();
+        console.log('unmounting');
+    }
+
+    sendMessage() {
+        let message = this.state.peerId;
+        let peer = this.state.peerId;
+        BluetoothCP.sendMessage(message, peer);
+    }
+
+    advertise() {
+        BluetoothCP.advertise("BT");
     }
 
     // Make the animated scan bar
@@ -136,21 +188,37 @@ class Scan extends Component {
         this._setScanning(false);
     }
 
+    handleCommunication(id) {
+        this.advertise();
+        BluetoothCP.getNearbyPeers((peers) => {
+            console.log(peers)
+            if (Array.isArray(peers) && peers.length) {
+                console.log(id);
+                // if one of the nearby devices is the one scanned
+                let found = peers.find(dev => (dev.id === id));
+                if (typeof found === "undefined") {
+                    console.log('nearby device found was not scanned');
+                }
+                else {
+                    console.log('found scanned device nearby');
+                    this.setState({peerFound: true});
+                }
+            }
+            else {
+                console.log('no nearby peers')
+            }
+        });
+    }
+
     // Try to read the QRCode
     _handleBarCodeRead(e) {
         if(!this.state.scanning) {
-            Vibration.vibrate();
+            //Vibration.vibrate();
             this._setScanning(true);
             this.props.ScanResult(e);
-            var card = JSON.parse(e['data']);
-            this.props.addCardToEnd(card);
-            console.log(card);
-            setTimeout(function(){
-                Actions.pop();
-            }, 100);
-            if(this.props.reactivate) {
-                setTimeout(() => (this._setScanning(false)), this.props)
-            }
+            console.log('scan: peer id ' + e.data);
+            this.setState({peerId: e.data});
+            this.handleCommunication(e.data);
         }
     }
 
@@ -165,10 +233,9 @@ class Scan extends Component {
                         onBarCodeRead={this._handleBarCodeRead.bind(this)}>
                         <View style={styles.rectangleContainer}>
                             <View style={styles.rectangle}/>
-                            <Animated.View style={[
-                                styles.border,
-                                {transform: [{translateY: this.state.moveAnim}]}]}/>
                             <Text style={styles.rectangleText}>Scan the QRCode</Text>
+                            <Text style={styles.rectangleText}>Scanned ID: {this.state.peerId}</Text>
+                            {this.state.peerFound ? <Button title="Acquire" onPress={this.sendMessage}/> : null}
                         </View>
                     </RNCamera>
                 </View>

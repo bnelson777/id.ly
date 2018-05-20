@@ -257,7 +257,7 @@ export class CreateCard extends Component {
         var options = {
         title: 'Add Image',
         mediaType: 'photo',
-        quality: 1.0,
+        quality: 0.5,
         };
 
         /**

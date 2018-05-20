@@ -15,6 +15,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import {Actions} from 'react-native-router-flux';
+import deviceInfo from 'react-native-device-info';
+let BluetoothCP = require("react-native-bluetooth-cross-platform");
+
 
 // SHARE
 // FUNCTION(S): This componenet at the moment will display a JSON card object in QR
@@ -35,6 +38,28 @@ export class Share extends Component {
 
     componentDidMount() {
         this.props.getCards();
+        
+        this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
+            // code that runs when you recieve a message
+            // note: this is currently really insecure - anyone can send a message
+            // and recieve a response that contains the identity
+            // maybe use symetric key encryption with key passed through QR code?
+
+            if (peers.message === deviceInfo.getUniqueID()) {
+                console.log(peers.message);
+                BluetoothCP.sendMessage(this.packageCard(), peers.id);
+        deviceInfo.getUniqueID();
+            }
+        });
+
+        console.log('share: mounted');
+        console.log('share: advertising');
+        BluetoothCP.advertise("BT");
+    }
+
+    componentWillUnmount() {
+        this.messageListener.remove();
+        console.log('unmounting');
     }
 
     packageCard() {
@@ -42,11 +67,8 @@ export class Share extends Component {
         var jsonCard2 = JSON.parse(jsonCard);
         console.log(jsonCard2)
         var jsonKey = jsonCard2.keys.n;
-        console.log(jsonKey)
+        console.log(jsonKey);
         jsonCard2.keys = {};
-        //TODO: base64 too big for QR when we implement sending cards over bluetooth
-        // get rid of this null
-        jsonCard2.image = "";
         // omit private keys from share object
         jsonCard2.keys = {"n": jsonKey};
         // ensure card owner is set to false
@@ -57,17 +79,17 @@ export class Share extends Component {
     }
 
     render() {
-        // call packageCard() function to get card object ready for QR display
-        var packageCard = this.packageCard();
-        console.log(packageCard)
+        let uuid = deviceInfo.getUniqueID();
+
         return (
             // This is where the actual QR is displayed
             <View style={styles.container}>
+                <Text> unique id: {uuid} </Text>
                 <Text style={styles.title}>
                     Have the other user scan with QR Scanner
                 </Text>
                 <QRCode
-                    value={packageCard}
+                    value={uuid}
                     size={350}
                     bgColor='black'
                     fgColor='white'

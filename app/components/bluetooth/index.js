@@ -62,14 +62,8 @@ export default class Bluetooth extends Component<Props> {
         console.log('addConnectedListener', peers)
     });
 
-     rnbt.getNearbyPeers((peers) => {
-        console.log('getNearbyPeers', peers)
-    });
-    /*
-    rnbt.getConnectedPeers((peers) => {
-      console.log('getConnectedPeers', peers)
-    });
-    */
+
+
     console.log('mounted')
   }
 
@@ -103,6 +97,26 @@ export default class Bluetooth extends Component<Props> {
       rnbt.disconnectFromPeer(this.state.peerId);
   }
 
+  stopAdvertising() {
+    rnbt.stopAdvertising();
+  }
+
+  stopBrowsing() {
+    rnbt.stopBrowsing();
+  }
+
+  getConnectedPeers() {
+    rnbt.getConnectedPeers((peers) => {
+        console.log('getConnectedPeers', peers)
+    });
+  }
+
+  getNearbyPeers() {
+    rnbt.getNearbyPeers((peers) => {
+        console.log('getNearbyPeers', peers)
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -115,6 +129,10 @@ export default class Bluetooth extends Component<Props> {
         <Button title='invite peer' onPress={this.inviteUser} />
         <Button title='browse' onPress={this.browse} />
         <Button title='disconnect' onPress={this.disconnect} />
+        <Button title='stop advertising' onPress={this.stopAdvertising} />
+        <Button title='stop browsing' onPress={this.stopBrowsing} />
+        <Button title='getNearbyPeers' onPress={this.getNearbyPeers} />
+        <Button title='getConnectedPeers' onPress={this.getConnectedPeers} />
       </View>
     );
   }

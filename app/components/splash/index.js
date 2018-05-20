@@ -32,17 +32,13 @@ export class Splash extends Component {
         Linking.getInitialURL().then(url => {
           this.navigate(url);
         });
-        } else {
-            Linking.addEventListener('url', this.handleOpenURL);
         }
-    }
-
-    componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
-    }
-
-    handleOpenURL = (event) => {
-        this.navigate(event.url);
+        else{
+            this.startAnimation();
+            setTimeout(() => {
+                this.props.navigation.navigate('home');
+            }, (DEBUG ? 0 : 4000));
+        }
     }
 
     navigate = (url) => {

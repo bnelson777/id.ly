@@ -154,18 +154,42 @@ class Main extends Component {
             }
         });
 
-    }
-    
-    _backAndroidHandler = () => {
-        const scene = Actions.currentScene;
-        // alert(scene)
-        if (scene === 'index' || scene === 'home' || scene === 'main') {
-            BackHandler.exitApp();
-            return true;
-        }
-        Actions.pop();
-        return true;
-    };
+        if (Platform.OS !== 'android') {
+            Linking.addEventListener('url', this.handleOpenURL);
+          }
+  
+      }
+      componentWillUnmount() {
+          Linking.removeEventListener('url', this.handleOpenURL);
+      }
+  
+      handleOpenURL = (event) => {
+          this.navigate(event.url);
+      }
+      
+      _backAndroidHandler = () => {
+          const scene = Actions.currentScene;
+          // alert(scene)
+          if (scene === 'index' || scene === 'home' || scene === 'main') {
+              BackHandler.exitApp();
+              return true;
+          }
+          Actions.pop();
+          return true;
+      };
+  
+      navigate = (url) => {
+          //const { navigate } = this.props.navigation;
+          
+          const route = url.replace(/.*?:\/\//g, '');
+          let id = 'empty';
+          id = route.match(/\/([^\/]+)\/?$/)[1];
+          const routeName = route.split('/')[0];
+          if (routeName === 'lockbox') {
+            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+          };
+      }
+  
 
     render() {
         return (

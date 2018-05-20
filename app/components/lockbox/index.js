@@ -14,6 +14,8 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import {Actions} from 'react-native-router-flux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import AesCrypto from 'react-native-aes-kit';
+import { Buffer } from 'buffer'
 
 // LOCKBOX
 // FUNCTION(S): This component will handle the encryption and decryption of
@@ -38,49 +40,92 @@ export class Lockbox extends Component {
         this.state = {
             jsonString: "",
             jsonM: "",
-            returnTo: ""
+            returnTo: "",
+            key: '',
+            iv: '',
+            email: '',
+            isLoading: true
         };
         this.decryptMessage= this.decryptMessage.bind(this);
         this.encryptMessageDone= this.encryptMessageDone.bind(this);
     }
+    
+    componentDidMount(){
+        this.props.getCards();
+        if (this.props.mode === 'encrypt') {
+        console.log('In encrypt Mode didmount')
+            console.log(this.props.returnTo)
+            console.log(this.props.mode)
+            console.log(this.props.message)
+            // update state variable so we know where to return
+            this.state.returnTo = this.props.returnTo;
+
+            var url = this.encryptMessage();
+        } else if (this.props.mode === 'decrypt') {
+            console.log('In decrypt Mode didmount')
+        } else {
+            console.log('haha sickkkkk')
+        }
+        
+    }
 
     decryptMessage() {
-        jsonStringP = JSON.parse(this.state.jsonString);
-        console.log(jsonStringP.to)
-        console.log(jsonStringP.body)
-        var RSAKey = require('react-native-rsa');
+                var RSAKey = require('react-native-rsa');
         var rsa = new RSAKey();
-
-        var cardMatch = null;
-        for (var i = 0, len = this.props.cards.length; i < len; i++) {
-            console.log('iterating through card public keys!', i)
-            if (this.props.cards[i].keys.n === jsonStringP.to) {
-                cardMatch = this.props.cards[i];
-                break;
+        
+        
+            //decrypt the object we just made
+            var TextTodecrypt = this.state.jsonString;
+            console.log('TextTodecrypt:', TextTodecrypt)
+            var strippedBrackets = TextTodecrypt.replace(/[{}]/g, "");
+            console.log('stripped brakcets decrypt text:', strippedBrackets)
+            var arr = strippedBrackets.split(/\s*\-\s*/g);
+            console.log('arr RSA:', arr[0])
+            console.log('arr BASE64 AES:', arr[1])
+            var base64AESDecode = Buffer.from(arr[1], 'base64').toString('ascii');
+            console.log('arr BASE64 AES decoded:', base64AESDecode)
+        
+            console.log('how many cards on device?', this.props.cards.length)
+            for (var i = 0, len = this.props.cards.length; i < len; i++) {
+                console.log('iterating through cards', i)
+                if (this.props.cards[i].owner === true) {
+                    console.log('user owns this card', i)
+                    var decrypted = null;
+                    try {
+                        var privatekey = JSON.stringify(this.props.cards[i].keys)
+                        console.log('user owned card key', JSON.stringify(this.props.cards[i].keys))
+                        rsa.setPrivateString(privatekey);
+                        console.log('user owned card rsa crypt', arr[0])
+                        decrypted = rsa.decrypt(arr[0]); // decrypted == originText
+                        console.log('decrypt attempt: ', decrypted)
+                    }
+                    catch(err) {
+                        console.log('err attempting to decrypt with this key', i)
+                        // keep trying
+                    }
+                    if (decrypted !== null) {
+                        console.log('decrypt worked so we quit')
+                        break;
+                    }
+                }
             }
-        }
-        if (cardMatch) {
-            console.log('card match key output:', cardMatch.keys)
-            var jsond = JSON.stringify(cardMatch.keys)
-            rsa.setPrivateString(jsond);
-            console.log('the cyperedtext string is:',jsonStringP.body)
-            console.log('the private key is:',jsond)
-            var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
-            console.log('the cyper says:',decrypted)
-            //replace json encrypted text with decrypted text
-            jsonStringP.body = decrypted
-            console.log('message object:', jsonStringP)
-            // add it to messages!
-            this.props.addMessage(jsonStringP);
-            // send user to inbox view
-            Actions.pop();
-            Actions.inbox();
-        }
-        else {
-            // TODO: add error handling alert user can't decrypt message
-            console.log("couldnt find a matching public key in users cards")
-            Actions.pop();
-        }
+            //console.log('the cyperedtext string is:',arr[0])
+            //console.log('the private key is:',jsond)
+            //var decrypted = rsa.decrypt(arr[0]); // decrypted == originText
+            //console.log('SHOULD BE AES KEYS:',decrypted)
+            var aesKEYIV = decrypted.split(',');
+            console.log('decrypt key:',aesKEYIV[0])
+            console.log('decrypt iv:',aesKEYIV[1])
+            
+            AesCrypto.decrypt(base64AESDecode,aesKEYIV[0],aesKEYIV[1]).then(plaintxt=>{
+                    console.log('finally.. the message object: ', JSON.parse(plaintxt));// return a string type plaintxt
+                            this.props.addMessage(JSON.parse(plaintxt));
+                            // send user to inbox view
+                            Actions.pop();
+                            Actions.inbox();
+                }).catch(err=>{
+                    console.log(err);
+                });
     }
 
     encryptMessageDone() {
@@ -130,29 +175,73 @@ export class Lockbox extends Component {
             var rsa = new RSAKey();
             //make obj for RSA react native package function
             var keyObj = new Object();
+            // generate aes iv and key for message, RSA will encrypt these two keys.
+            for(var key = ''; key.length < 16;) {
+                key += Math.random().toString(36).substr(2, 1)       
+            }
+            console.log(key)
+            
+            for(var iv = ''; iv.length < 16;) {
+                iv += Math.random().toString(36).substr(2, 1)
+            }
+            console.log(iv)
+            
+            // this is what object we will RSA encrypt for delivery
+            var decryptkeys = [key, iv];
+            console.log('decrypt keys array', decryptkeys)
+            
+            // use those keys to encrypt the message object which we will send to user
+            var aesMessageObject = 'undefined';
+            
+            console.log('message obj we are bout to aes encrypt:', JSON.stringify(this.props.message))
+            AesCrypto.encrypt(JSON.stringify(this.props.message), key, iv)
+                .then(cipher => {
+                    aesMessageObject = cipher;
+                    console.log('cipher: ' + cipher)
+                    console.log('aes object saved', aesMessageObject)
+                    
+                
+                    // move this stuff eventually out of here
+                    
             keyObj.n = toKey;
             keyObj.e = "10001";
             var publickeyToo= JSON.stringify(keyObj);
             console.log('what we will be set:', publickeyToo)
             rsa.setPublicString(publickeyToo);
-            // encrypt the actual message for the reciever
-            var encrypted = rsa.encrypt(this.props.message.body);
-            // perform a deep copy of the message prop object
-            var jsonN= JSON.stringify(this.props.message);
-            var jsonP = JSON.parse(jsonN)
-            // replace copy's body with encrypted message from above
-            jsonP.body = encrypted;
-            // get it ready for sending
-            var jsonM = "http://joewetton.com/?m=" + encodeURI(JSON.stringify(jsonP));
+                console.log('aes keys in string form:', decryptkeys.toString())
+            // encrypt the AES keys
+            var encrypted = rsa.encrypt(decryptkeys.toString());
+                
+            //var combination = aesMessageObject;
+                
+            combinationBase64 = Buffer.from(aesMessageObject).toString('base64')
+            
+            console.log(Buffer.from(combinationBase64, 'base64').toString('ascii'));
+            // get it ready for sending combine keys with aes message object
+            var jsonM = "http://joewetton.com/?m=" + '{' + encrypted + '-' + combinationBase64 + '}';
+            this.setState({jsonM: jsonM})
+                
+                
+                
+            
+                
+                
+            
             // set state variable for use in render (copy to clipboard)
             this.state.jsonM = jsonM;
             console.log('messageobjJsond:', jsonM)
             //uri: mailto:mailto@deniseleeyohn.com?subject=abcdefg&body=body'
-            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + encodeURI(jsonM);
+            var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + jsonM;
             //encode for email linking
             var res = encodeURI(uri);
             //return it
+                console.log(res)
+                this.setState({email: res})
             return res.toString();
+                
+                    
+                    
+                });
         }
         else {
             console.log("couldnt find a matching public key in users card rolodex")
@@ -169,13 +258,7 @@ export class Lockbox extends Component {
 
         if (this.props.mode === 'encrypt') {
             console.log('In encrypt Mode')
-            console.log(this.props.returnTo)
-            console.log(this.props.mode)
-            console.log(this.props.message)
-            // update state variable so we know where to return
-            this.state.returnTo = this.props.returnTo;
 
-            var url = this.encryptMessage();
             return (
                 <View style={styles.container}>
                     <View style={styles.row}>
@@ -189,7 +272,7 @@ export class Lockbox extends Component {
                         />
                     </View>
                     <TouchableOpacity style={[styles.saveBtn]}
-                        onPress={() => Linking.openURL(url)}>
+                        onPress={() => Linking.openURL(this.state.email)}>
                         <Text style={[styles.buttonText,
                             {color: "#FFF"
                         }]}>

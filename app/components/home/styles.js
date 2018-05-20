@@ -100,9 +100,9 @@ export default StyleSheet.create({
 
     sepLine: {
         height: 2,
-        width: "94%",
+        width: "98%",
         backgroundColor: "#CED0CE",
-        marginLeft: "3%",
+        marginLeft: "1%",
     },
 
     nocard:{
@@ -138,7 +138,7 @@ export default StyleSheet.create({
 
     cardButton:{
         backgroundColor: IDLY_BLUE,
-        width: screenWidth*0.3,
+        width: screenWidth*0.35,
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,

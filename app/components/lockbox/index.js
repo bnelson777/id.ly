@@ -40,10 +40,32 @@ export class Lockbox extends Component {
             jsonString: "",
             jsonM: "",
             returnTo: "",
-            privKey: ""
+            privKey: "",
+            pubKey: ""
         };
         this.decryptMessage= this.decryptMessage.bind(this);
         this.encryptMessageDone= this.encryptMessageDone.bind(this);
+        this.getKeys= this.getKeys.bind(this);
+    }
+
+    getKeys(cardMatch){
+        for (var num = 0; num < this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card).length; num++){
+            var pubStore = 'pubkey' + num;
+            var privStore = 'privkey' + num;
+            SInfo.getItem(pubStore, {})
+            .then((pubkey) => {
+                this.setState({pubKey: pubkey});
+            });
+            SInfo.getItem(privStore, {})
+            .then((privkey) => {
+                this.setState({privKey: privkey});
+            });
+            if (this.state.pubKey === cardMatch.keys){
+                return true;
+            }
+        }
+        this.setState({pubKey: "", privKey: ""});
+        return false;
     }
 
     decryptMessage() {
@@ -63,22 +85,9 @@ export class Lockbox extends Component {
         }
         if (cardMatch) {
             console.log('card match key output:', cardMatch.keys)
-            for (var num = 0; num < this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card).length; num++){
-                var pubStore = 'pubkey' + num;
-                var privStore = 'privkey' + num;
-                SInfo.getItem(pubStore, {})
-                .then((pubkey) => {
-                    if (pubkey === cardMatch.keys){
-                        SInfo.getItem(privStore, {})
-                        .then((privkey) => {
-                            this.setState({privKey: privkey});
-                        });
-                    }
-                });
-                if (this.state.privKey !== "")
-                    break;
-            }
-            var jsond = JSON.stringify(privkey)
+            if (this.getKeys(cardMatch) === false)
+                console.log('Strange, no key match...');
+            var jsond = JSON.stringify(this.state.privKey);
             rsa.setPrivateString(jsond);
             console.log('the cyperedtext string is:',jsonStringP.body)
             console.log('the private key is:',jsond)

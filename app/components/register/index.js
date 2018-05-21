@@ -7,7 +7,11 @@
 import React, { Component } from 'react';
 import { View } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
+import bcrypt from "react-native-bcrypt";
 import { onSignIn } from "../../auth";
+import isaac from "isaac";
+
+
 
 export default class Register extends Component {
 
@@ -16,11 +20,22 @@ export default class Register extends Component {
         this.state = { password1: '', password2: '' };
     }
 
-    confirmPasswordsMatch() {
-        if (this.state.password1 == this.state.password2)
-            alert("Passwords Match!");
-        else
-            alert("Passwords do not match!");
+    registerUser() {
+        if (this.state.password1 != this.state.password2)
+            alert("Passwords do not match, please re-enter.");
+        else {
+            var bcrypt = require('react-native-bcrypt');
+
+            bcrypt.setRandomFallback((len) => {
+                const buf = new Uint8Array(len);
+                return buf.map(() => Math.floor(isaac.random() * 256));
+            });
+
+            var salt = bcrypt.genSaltSync(10);
+            var hash = bcrypt.hashSync(this.state.password1, salt);
+            alert(hash);
+        }
+
     }
 
 
@@ -38,7 +53,7 @@ export default class Register extends Component {
                     <Button buttonStyle={{ marginTop: 20 }}
                         backgroundColor="#03A9F4"
                         title="REGISTER"
-                        onPress={() => this.confirmPasswordsMatch()} />
+                        onPress={() => this.registerUser()} />
                     <Button buttonStyle={{ marginTop: 20 }}
                         backgroundColor="transparent"
                         textStyle={{ color: "#bcbec1" }}

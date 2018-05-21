@@ -11,16 +11,21 @@ import { onSignIn } from "../../auth";
 
 export default class Register extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { password1: '', password2: '' };
+    }
+
     render() {
     return(
   <View style={{ paddingVertical: 20 }}>
     <Card title="Register Your Device">
-      <FormLabel>Name</FormLabel>
-      <FormInput placeholder="Name..." />
       <FormLabel>Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Password..." />
+      <FormInput secureTextEntry placeholder="Password..." 
+        onChangeText={ (password1) => this.setState({password1})} />
       <FormLabel>Confirm Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Confirm Password..." />
+      <FormInput secureTextEntry placeholder="Confirm Password..." 
+       onChangeText={ (password2) => this.setState({password2})} />
 
       <Button
         buttonStyle={{ marginTop: 20 }}
@@ -33,7 +38,7 @@ export default class Register extends Component {
         backgroundColor="transparent"
         textStyle={{ color: "#bcbec1" }}
         title="Sign In"
-        onPress={() => alert("go to sign in screen")}
+        onPress={() => alert(this.state.password1)}
       />
     </Card>
   </View>

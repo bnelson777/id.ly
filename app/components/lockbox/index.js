@@ -109,6 +109,12 @@ export class Lockbox extends Component {
                     }
                 }
             }
+        
+            if (decrypted === null) {
+                alert('This message could not be decrypted.');
+                Actions.pop();
+                return;
+            }
             //console.log('the cyperedtext string is:',arr[0])
             //console.log('the private key is:',jsond)
             //var decrypted = rsa.decrypt(arr[0]); // decrypted == originText

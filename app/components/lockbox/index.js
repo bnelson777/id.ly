@@ -48,6 +48,10 @@ export class Lockbox extends Component {
         this.getKeys= this.getKeys.bind(this);
     }
 
+    componentDidMount(){
+        this.props.getCards();
+    }
+
     getKeys(cardMatch){
         for (var num = 0; num < this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card).length; num++){
             var pubStore = 'pubkey' + num;
@@ -61,11 +65,11 @@ export class Lockbox extends Component {
                 this.setState({privKey: privkey});
             });
             if (this.state.pubKey === cardMatch.keys){
-                return true;
+                return;
             }
         }
         this.setState({pubKey: "", privKey: ""});
-        return false;
+        return;
     }
 
     decryptMessage() {
@@ -76,7 +80,7 @@ export class Lockbox extends Component {
         var rsa = new RSAKey();
 
         var cardMatch = null;
-        for (var i = 0, len = this.props.cards.length; i < len; i++) {
+        for (var i = 0; i < this.props.cards.length; i++) {
             console.log('iterating through card public keys!', i)
             if (this.props.cards[i].keys.n === jsonStringP.to) {
                 cardMatch = this.props.cards[i];
@@ -85,22 +89,22 @@ export class Lockbox extends Component {
         }
         if (cardMatch) {
             console.log('card match key output:', cardMatch.keys)
-            if (this.getKeys(cardMatch) === false)
-                console.log('Strange, no key match...');
-            var jsond = JSON.stringify(this.state.privKey);
-            rsa.setPrivateString(jsond);
-            console.log('the cyperedtext string is:',jsonStringP.body)
-            console.log('the private key is:',jsond)
-            var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
-            console.log('the cyper says:',decrypted)
-            //replace json encrypted text with decrypted text
-            jsonStringP.body = decrypted
-            console.log('message object:', jsonStringP)
-            // add it to messages!
-            this.props.addMessage(jsonStringP);
-            // send user to inbox view
-            Actions.pop();
-            Actions.inbox();
+            this.getKeys(cardMatch);
+            setTimeout(() => {
+                rsa.setPrivateString(this.state.privKey);
+                console.log('the cyperedtext string is:',jsonStringP.body)
+                console.log('the private key is:',this.state.privKey)
+                var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
+                console.log('the cyper says:',decrypted)
+                //replace json encrypted text with decrypted text
+                jsonStringP.body = decrypted
+                console.log('message object:', jsonStringP)
+                // add it to messages!
+                this.props.addMessage(jsonStringP);
+                // send user to inbox view
+                Actions.pop();
+                Actions.inbox();
+            }, 100);
         }
         else {
             // TODO: add error handling alert user can't decrypt message

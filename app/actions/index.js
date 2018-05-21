@@ -195,11 +195,18 @@ export function clearAll(){
 
 function removeFiles(){
     var paths = getPaths();
+    var len = 10;
+    var pubStore = 'pubkey';
+    var privStore = 'privkey';
     RNFetchBlob.fs.writeFile(paths.cardsPath, '','utf8');
     RNFetchBlob.fs.writeFile(paths.messagesPath, '','utf8');
 
     SInfo.deleteItem('key', {});
     SInfo.deleteItem('iv', {});
+    for (var i = 0; i < len; i++){
+        SInfo.deleteItem(pubStore + i, {});
+        SInfo.deleteItem(privStore + i, {});
+    }
 }
 
 function getIndex(card, id){

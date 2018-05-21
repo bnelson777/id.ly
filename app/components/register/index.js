@@ -16,32 +16,36 @@ export default class Register extends Component {
         this.state = { password1: '', password2: '' };
     }
 
-    render() {
-    return(
-  <View style={{ paddingVertical: 20 }}>
-    <Card title="Register Your Device">
-      <FormLabel>Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Password..." 
-        onChangeText={ (password1) => this.setState({password1})} />
-      <FormLabel>Confirm Password</FormLabel>
-      <FormInput secureTextEntry placeholder="Confirm Password..." 
-       onChangeText={ (password2) => this.setState({password2})} />
+    confirmPasswordsMatch() {
+        if (this.state.password1 == this.state.password2)
+            alert("Passwords Match!");
+        else
+            alert("Passwords do not match!");
+    }
 
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="#03A9F4"
-        title="REGISTER"
-        onPress={() => onSignIn()}
-      />
-      <Button
-        buttonStyle={{ marginTop: 20 }}
-        backgroundColor="transparent"
-        textStyle={{ color: "#bcbec1" }}
-        title="Sign In"
-        onPress={() => alert(this.state.password1)}
-      />
-    </Card>
-  </View>
-    );
-}
+
+    render() {
+        return(
+            <View style={{ paddingVertical: 20 }}>
+                <Card title="Register Your Device">
+                    <FormLabel>Password</FormLabel>
+                    <FormInput secureTextEntry placeholder="Password..." 
+                        onChangeText={ (password1) => this.setState({password1})} />
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormInput secureTextEntry placeholder="Confirm Password..." 
+                        onChangeText={ (password2) => this.setState({password2})} />
+
+                    <Button buttonStyle={{ marginTop: 20 }}
+                        backgroundColor="#03A9F4"
+                        title="REGISTER"
+                        onPress={() => this.confirmPasswordsMatch()} />
+                    <Button buttonStyle={{ marginTop: 20 }}
+                        backgroundColor="transparent"
+                        textStyle={{ color: "#bcbec1" }}
+                       title="Sign In"
+                        onPress={() => alert("Hello")} />
+                </Card>
+            </View>
+        );
+    }
 };

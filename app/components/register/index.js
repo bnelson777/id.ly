@@ -2,64 +2,41 @@
  * Create Register Page
  * by id.ly Team
  */
-'use strict';
 
 //Import Libraries
 import React, { Component } from 'react';
-import styles from './styles';
-import { View, Text, TextInput,
-        Button } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { View } from "react-native";
+import { Card, Button, FormLabel, FormInput } from "react-native-elements";
+import { onSignIn } from "../../auth";
 
 export default class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            password: "",
-            passwordVerify: "",
-        };
-    };
-
-    _checkPassword() {
-        alert("Currently in development!");
-    }
 
     render() {
-        // If loading, display the loading animation.
-        if(this.props.loading) {
-            return (
-                <View>
-                    <ActivityIndicator animating={true}/>
-                </View>
-            );
-        }
-        // Otherwise, render the view.
-        else {
-            return (
-                // Container
-                <View style={styles.container}>
-                    <TextInput
-                        style={styles.inputBox}
-                        placeholder="Enter Password"
-                        onChangeText= {(text) => {this.setState({password:text})}}
-                        secureTextEntry={true}
-                    />
-                    <TextInput
-                        style={styles.inputBox}
-                        placeholder="Verify Password"
-                        onChangeText= {(text) => {this.setState({passwordVerify:text})}}
-                        secureTextEntry={true}
-                    />
-                    <Button
-                        style={styles.button}
-                        disabled={(this.state.password != 0 && this.state.passwordVerify != 0) ? false : true}
-                        onPress={this._checkPassword}
-                        title="Register"
-                        color="black"
-                    />
-                    <KeyboardSpacer />
-                </View>
-            );
-        }
-    }
+    return(
+  <View style={{ paddingVertical: 20 }}>
+    <Card title="Register Your Device">
+      <FormLabel>Name</FormLabel>
+      <FormInput placeholder="Name..." />
+      <FormLabel>Password</FormLabel>
+      <FormInput secureTextEntry placeholder="Password..." />
+      <FormLabel>Confirm Password</FormLabel>
+      <FormInput secureTextEntry placeholder="Confirm Password..." />
+
+      <Button
+        buttonStyle={{ marginTop: 20 }}
+        backgroundColor="#03A9F4"
+        title="REGISTER"
+        onPress={() => onSignIn()}
+      />
+      <Button
+        buttonStyle={{ marginTop: 20 }}
+        backgroundColor="transparent"
+        textStyle={{ color: "#bcbec1" }}
+        title="Sign In"
+        onPress={() => alert("go to sign in screen")}
+      />
+    </Card>
+  </View>
+    );
+}
 };

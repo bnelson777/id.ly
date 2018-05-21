@@ -5,53 +5,35 @@
 'use strict';
 
 //Import Libraries
+
 import React, { Component } from 'react';
-import styles from './styles';
-import { View, Text, TextInput, 
-        Button } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { View } from "react-native";
+import { Card, Button, FormLabel, FormInput } from "react-native-elements";
+import { onSignIn } from "../../auth";
 
 export default class Login extends Component {
+    
     constructor(props) {
         super(props);
-        this.state = {
-            input: ""
-        };
-    };
-
-    checkPassword() {
-        alert("Wrong password!");
+        this.state = {};
     }
 
     render() {
-        // If loading, display the loading animation.
-        if(this.props.loading) {
-            return (
-                <View>
-                    <ActivityIndicator animating={true}/>
-                </View>
-            );
-        }
-        // Otherwise, render the view.
-        else {
-            return (
-                // Container
-                <View style={styles.container}>
-                    <TextInput
-                        style={styles.inputBox}
-                        placeholder="Enter Password"
-                        onChangeText= {(text) => {this.setState({input:text})}}
-                        secureTextEntry={true}
-                    />
-                    <Button
-                        onPress={this.checkPassword}
-                        disabled={(this.state.input != 0) ? false : true}
-                        title="Login"
-                        color="black"
-                    />
-                    <KeyboardSpacer />
-                </View>
-            );
-        }
+
+        return (
+            <View style={{ paddingVertical: 20 }}>
+                <Card title="SIGN IN">
+                <FormLabel>Password</FormLabel>
+                <FormInput secureTextEntry placeholder="Password..." />
+
+                <Button
+                    buttonStyle={{ marginTop: 20 }}
+                    backgroundColor="#03A9F4"
+                    title="SIGN IN"
+                    onPress={() => onSignIn()}
+                />
+                </Card>
+            </View>
+        );
     }
 };

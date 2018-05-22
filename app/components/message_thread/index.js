@@ -27,6 +27,7 @@ export class MessageThread extends Component {
         this.generateTimestamp = this.generateTimestamp.bind(this);
         this.onLongPress = this.onLongPress.bind(this);
         this.getMessageByID = this.getMessageByID.bind(this);
+        this.markAsRead = this.markAsRead.bind(this);
         this.state.name = "test";
     };
 
@@ -49,7 +50,14 @@ export class MessageThread extends Component {
                 }
             }
 
-        };
+    };
+
+    markAsRead() {
+        this.props.setMessagesAsRead({
+            _1: this.props.pair.sender,
+            _2: this.props.pair.receiver
+        });
+    }
 
     generateID() {
         let d = new Date().getTime();
@@ -76,6 +84,7 @@ export class MessageThread extends Component {
         this.props.getMessages();
         this.props.getCards();
         this.retrieveMessages();
+        this.markAsRead();
     }
 
     getMessageByID(id) {
@@ -150,8 +159,8 @@ export class MessageThread extends Component {
     sendMessage() {
       let id = this.generateID();
       let unix = this.generateTimestamp();
-      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
-      // add to redux persistant storage
+      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": true};
+      // add to senders persistant storage
       this.props.addMessage(message);
       setTimeout(function(){
           Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});

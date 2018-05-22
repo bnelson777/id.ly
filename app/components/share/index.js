@@ -68,7 +68,7 @@ export class Share extends Component {
                 </Text>
                 <QRCode
                     value={packageCard}
-                    size={350}
+                    size={300}
                     bgColor='black'
                     fgColor='white'
                 />

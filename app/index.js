@@ -31,8 +31,8 @@ import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
 //Dumby Data for Initial App Load
-import CardData from './cards.json';
-import MessageData from './messages.json';
+import CardData from './cards-empty.json';
+import MessageData from './messages-empty.json';
 import { getCards } from './actions';
 import { getMessages } from './actions';
 //Needed for Actions.home() back button on inbox see line 59:121
@@ -128,72 +128,83 @@ class Main extends Component {
     componentDidMount() {
         var paths = this.getPaths();
         var _this = this;
-        //Check if any card data exists
-        RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
-        .then((carddata) => {
-            if (carddata === ''){
-                AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
-                .then(cipher => {
-                    RNFetchBlob.fs.writeFile(paths.cardsPath, cipher,'utf8');
-                    console.log('Encrypted cards: ' + cipher)
-                });
-                _this.props.getCards();
-            }
-        });
+        if (Object.keys(CardData).length === 0) {
+            console.log('cards are empty')
+        }
+        if (Object.keys(CardData).length !== 0) {
+            console.log('cards not empty')
+            //Check if any card data exists
+            RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
+            .then((carddata) => {
+                if (carddata === ''){
+                    AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
+                    .then(cipher => {
+                        RNFetchBlob.fs.writeFile(paths.cardsPath, cipher,'utf8');
+                        console.log('Encrypted cards: ' + cipher)
+                    });
+                    _this.props.getCards();
+                }
+            });
 
-        // check if any message data exists
-        RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
-        .then((messagedata) => {
-            if (messagedata === ''){
-                AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
-                .then(cipher => {
-                    RNFetchBlob.fs.writeFile(paths.messagesPath, cipher,'utf8');
-                    console.log('Encrypted messages: ' + cipher)
-                });
-                _this.props.getMessages();
-            }
-        });
+        }
+        if (Object.keys(MessageData).length === 0) {
+            console.log('messages are empty')
+        }
+        if (Object.keys(MessageData).length !== 0) {
+             console.log('messages not empty')
+            // check if any message data exists
+            RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
+            .then((messagedata) => {
+                if (messagedata === ''){
+                    AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
+                    .then(cipher => {
+                        RNFetchBlob.fs.writeFile(paths.messagesPath, cipher,'utf8');
+                        console.log('Encrypted messages: ' + cipher)
+                    });
+                    _this.props.getMessages();
+                }
+            });
+        }
 
         if (Platform.OS === 'android') {
-          Linking.getInitialURL().then(url => {
-            this.navigate(url);
-          });
-        } else {
-          Linking.addEventListener('url', this.handleOpenURL);
-        }
-
-    }
-    componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
-    }
-
-    handleOpenURL = (event) => {
-        this.navigate(event.url);
-    }
-    
-    _backAndroidHandler = () => {
-        const scene = Actions.currentScene;
-        // alert(scene)
-        if (scene === 'index' || scene === 'home' || scene === 'main') {
-            BackHandler.exitApp();
-            return true;
-        }
-        Actions.pop();
-        return true;
-    };
-
-    navigate = (url) => {
-        //const { navigate } = this.props.navigation;
-        
-        const route = url.replace(/.*?:\/\//g, '');
-        let id = 'empty';
-        id = route.match(/\/([^\/]+)\/?$/)[1];
-        const routeName = route.split('/')[0];
-        if (routeName === 'lockbox') {
-          Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
-        };
-    }
-
+            Linking.getInitialURL().then(url => {
+              this.navigate(url);
+            });
+          } else {
+            Linking.addEventListener('url', this.handleOpenURL);
+          }
+      }
+      componentWillUnmount() {
+          Linking.removeEventListener('url', this.handleOpenURL);
+      }
+  
+      handleOpenURL = (event) => {
+          this.navigate(event.url);
+      }
+      
+      _backAndroidHandler = () => {
+          const scene = Actions.currentScene;
+          // alert(scene)
+          if (scene === 'index' || scene === 'home' || scene === 'main') {
+              BackHandler.exitApp();
+              return true;
+          }
+          Actions.pop();
+          return true;
+      };
+  
+      navigate = (url) => {
+          //const { navigate } = this.props.navigation;
+          
+          const route = url.replace(/.*?:\/\//g, '');
+          let id = 'empty';
+          id = route.match(/\/([^\/]+)\/?$/)[1];
+          const routeName = route.split('/')[0];
+          if (routeName === 'lockbox') {
+            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+          };
+      }
+  
 
     render() {
         return (
@@ -204,7 +215,7 @@ class Main extends Component {
                 rightButtonTextStyle={styles.subtitle}>
                 <Scene key="root">
                     <Scene key="splash" component={Splash} initial={true}/>
-                    <Scene key="home" component={Home} title="Home"
+                    <Scene key="home" component={Home} title="Home" 
                         panHandlers={null} hideNavBar type={ActionConst.RESET}
                     />
                     <Scene key="scan" component={Scan} title="Scan" />
@@ -229,7 +240,7 @@ class Main extends Component {
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />
                     <Scene key="about" component={About} title="About" />
-                  </Scene>
+                </Scene>
             </Router>
         );
     }

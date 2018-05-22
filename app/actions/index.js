@@ -5,6 +5,7 @@ export const SET_DEFAULT = 'SET_DEFAULT';
 export const CLEAR_ALL = 'CLEAR_ALL';
 export const MESSAGES_AVAILABLE = 'MESSAGES_AVAILABLE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const SET_MESSAGES_AS_READ = 'SET_MESSAGES_AS_READ';
 
 import Platform from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -24,9 +25,9 @@ export function addCard(card){
                     if (cards !== ''){
                         AesCrypto.decrypt(cards, key, iv)
                         .then(decCards => {
-                            decCards = JSON.parse(decCards);
-                            decCards.unshift(card); //add the new card to the top
-                            decCards = JSON.stringify(decCards);
+                                decCards = JSON.parse(decCards);
+                                decCards.unshift(card); //add the new card to the top
+                                decCards = JSON.stringify(decCards);
                             AesCrypto.encrypt(decCards, key, iv)
                             .then(encCards => {
                                 console.log('Encrypted cards: ' + encCards)
@@ -56,9 +57,9 @@ export function addCardToEnd(card){
                     if (cards !== ''){
                         AesCrypto.decrypt(cards, key, iv)
                         .then(decCards => {
-                            decCards = JSON.parse(decCards);
-                            decCards.push(card); //add the new card to the top
-                            decCards = JSON.stringify(decCards);
+                                decCards = JSON.parse(decCards);
+                                decCards.push(card); //add the new card to the top
+                                decCards = JSON.stringify(decCards);
                             AesCrypto.encrypt(decCards, key, iv)
                             .then(encCards => {
                                 console.log('Encrypted cards: ' + encCards)
@@ -68,6 +69,20 @@ export function addCardToEnd(card){
                                 });
                             });
                         });
+                    } else
+                    {
+                        //first card case
+                            var firstCard = [];
+                            firstCard.unshift(card);
+                            firstCard = JSON.stringify(firstCard);
+                        AesCrypto.encrypt(firstCard, key, iv)
+                            .then(encCards => {
+                                console.log('Encrypted cards: ' + encCards)
+                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
+                                    .then(() => {
+                                        dispatch({type: ADD_CARD_TO_END, card:card});
+                                        });
+                            });    
                     }
                 });
             });
@@ -100,6 +115,20 @@ export function addMessage(message){
                                 });
                             });
                         });
+                    } else
+                    {
+                        //first message case
+                            var firstMessage = [];
+                            firstMessage.unshift(message);
+                            firstMessage = JSON.stringify(firstMessage);
+                        AesCrypto.encrypt(firstMessage, key, iv)
+                            .then(encMessages => {
+                                console.log('Encrypted messages: ' + encMessages)
+                                RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages,'utf8')
+                                .then(() => {
+                                    dispatch({type: ADD_MESSAGE, message:message});
+                                });
+                            });
                     }
                 });
             });
@@ -148,6 +177,63 @@ export function getMessages(){
         });
     };
 }
+
+// Update Message to Read (U)
+export function setMessagesAsRead(keys) {
+    let paths = getPaths();
+    return (dispatch) => {
+        SInfo.getItem('key', {})
+        .then((key) => {
+            SInfo.getItem('iv', {})
+            .then((iv) => {
+                RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
+                .then((messages) => {
+                    if(messages !== '') {
+                        AesCrypto.decrypt(messages, key, iv)
+                        .then(decMessages => {
+                            decMessages = JSON.parse(decMessages);
+                            let key1 = keys._1,
+                                key2 = keys._2;
+                            for(let i = 0; i < decMessages.length; ++i) {
+                                if((decMessages[i].to === key1 && decMessages[i].from === key2) ||
+                                   (decMessages[i].from === key1 && decMessages[i].to === key2)) {
+                                       decMessages[i].read = true;
+                                   }
+                            }
+                            decMessages = JSON.stringify(decMessages);
+                            AesCrypto.encrypt(decMessages, key, iv)
+                            .then(encMessages => {
+                                RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages, 'utf8')
+                                .then(() => {
+                                    dispatch({type: SET_MESSAGES_AS_READ, keys:keys});
+                                });
+                            });
+                        });
+                    }
+                });
+            });
+        });
+    }
+};
+
+/*
+        AsyncStorage.getItem('messagedata', (err, messages) => {
+            if(messages !== null) {
+                let key1 = keys._1,
+                    key2 = keys._2;
+                messages = JSON.parse(messages);
+                for(let i = 0; i < messages.length; ++i) {
+                    if((messages[i].to === key1 && messages[i].from === key2) ||
+                       (messages[i].from === key1 && messages[i].to === key2)) {
+                           messages[i].read = true;
+                    }
+                }
+                AsyncStorage.setItem('messagedata', JSON.stringify(messages), () => {
+                    dispatch({type: SET_MESSAGES_AS_READ, keys:keys});
+                });
+            }
+        });
+*/
 
 // Set Default Card - SET DEFAULT (D)
 export function setDefault(card){

@@ -10,13 +10,32 @@ import React, { Component } from 'react';
 import { View } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import { onSignIn } from "../../auth";
+import bcrypt from "react-native-bcrypt";
+import isaac from "isaac";
+import SInfo from 'react-native-sensitive-info';
 
 export default class Login extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { attempt: '', password: '' };
     }
+
+    componentDidMount() {
+        SInfo.getItem('password', {}).then(value => {
+            this.setState({password: value});
+        });
+    }
+
+
+    checkPassword() {
+        if (bcrypt.compareSync(this.state.attempt, this.state.password))
+            alert("Success!");
+        else
+            alert("Fail!");
+    }
+
+
 
     render() {
 
@@ -24,13 +43,14 @@ export default class Login extends Component {
             <View style={{ paddingVertical: 20 }}>
                 <Card title="SIGN IN">
                 <FormLabel>Password</FormLabel>
-                <FormInput secureTextEntry placeholder="Password..." />
+                <FormInput secureTextEntry placeholder="Password..."
+                    onChangeText={ (attempt) => this.setState({attempt})} />
 
                 <Button
                     buttonStyle={{ marginTop: 20 }}
                     backgroundColor="#03A9F4"
                     title="SIGN IN"
-                    onPress={() => onSignIn()}
+                    onPress={() => this.checkPassword()}
                 />
                 </Card>
             </View>

@@ -10,6 +10,7 @@ import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import bcrypt from "react-native-bcrypt";
 import { onSignIn } from "../../auth";
 import isaac from "isaac";
+import SInfo from 'react-native-sensitive-info';
 
 
 
@@ -33,7 +34,12 @@ export default class Register extends Component {
 
             var salt = bcrypt.genSaltSync(10);
             var hash = bcrypt.hashSync(this.state.password1, salt);
-            alert(hash);
+            SInfo.setItem('password', hash, {});
+//            alert(hash);
+            SInfo.getItem('password', {}).then(value => {
+                this.setState({password2: value});
+                alert(this.state.password2);
+            });
         }
 
     }

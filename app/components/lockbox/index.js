@@ -110,6 +110,9 @@ export class Lockbox extends Component {
                 alert("This message was meant for someone else and can not be decrypted.");
                 Actions.home();
             }
+            alert("You have already decrypted this message! Check your inbox.");
+                Actions.pop();
+                Actions.inbox();
         }
     }
 

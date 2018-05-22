@@ -76,43 +76,39 @@ export class Lockbox extends Component {
             }
         }
 
-        if(notDuplicateMessage && correctReceiver){
-            if (cardMatch) {
-                console.log('card match key output:', cardMatch.keys)
-                var jsond = JSON.stringify(cardMatch.keys)
-                rsa.setPrivateString(jsond);
-                console.log('the cyperedtext string is:',jsonStringP.body)
-                console.log('the private key is:',jsond)
-                var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
-                console.log('the cyper says:',decrypted)
-                //replace json encrypted text with decrypted text
-                jsonStringP.body = decrypted
-                console.log('message object:', jsonStringP)
-                // add it to messages!
-                this.props.addMessage(jsonStringP);
-                // send user to inbox view
-                Actions.pop();
-                Actions.inbox();
-            }
-            else {
-                // TODO: add error handling alert user can't decrypt message
-                console.log("couldnt find a matching public key in users cards")
-                Actions.home();
-            }
+        if(notDuplicateMessage && correctReceiver && cardMatch){
+            console.log('card match key output:', cardMatch.keys)
+            var jsond = JSON.stringify(cardMatch.keys)
+            rsa.setPrivateString(jsond);
+            console.log('the cyperedtext string is:',jsonStringP.body)
+            console.log('the private key is:',jsond)
+            var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
+            console.log('the cyper says:',decrypted)
+            //replace json encrypted text with decrypted text
+            jsonStringP.body = decrypted
+            console.log('message object:', jsonStringP)
+            // add it to messages!
+            this.props.addMessage(jsonStringP);
+            // send user to inbox view
+            Actions.pop();
+            Actions.inbox();
         }
+        
         else{
             if(!notDuplicateMessage){
                 alert("You have already decrypted this message! Check your inbox.");
                 Actions.pop();
                 Actions.inbox();
             }
-            else{
+            else if(!correctReceiver){
                 alert("This message was meant for someone else and can not be decrypted.");
                 Actions.home();
             }
-            alert("You have already decrypted this message! Check your inbox.");
-                Actions.pop();
-                Actions.inbox();
+            else {
+                // TODO: add error handling alert user can't decrypt message
+                console.log("couldnt find a matching public key in users cards")
+                Actions.home();
+            }
         }
     }
 

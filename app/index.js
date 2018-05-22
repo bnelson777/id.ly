@@ -154,10 +154,13 @@ class Main extends Component {
             }
         });
 
-        if (Platform.OS !== 'android') {
+        if (Platform.OS === 'android') {
+            Linking.getInitialURL().then(url => {
+              this.navigate(url);
+            });
+          } else {
             Linking.addEventListener('url', this.handleOpenURL);
           }
-  
       }
       componentWillUnmount() {
           Linking.removeEventListener('url', this.handleOpenURL);

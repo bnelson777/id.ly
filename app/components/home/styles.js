@@ -1,7 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { BACKGROUND_COLOR, FONT_SIZE, BORDER_WIDTH } from './../styles/common';
+import { BACKGROUND_COLOR, FONT_SIZE,
+        BORDER_WIDTH, IDLY_BLUE } from './../styles/common';
 
 const Height = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     container:{
@@ -18,7 +20,6 @@ export default StyleSheet.create({
     },
 
     row:{
-        borderBottomWidth: BORDER_WIDTH,
         borderColor: "#ccc",
         padding: 10
     },
@@ -30,21 +31,125 @@ export default StyleSheet.create({
     },
 
     firstRow: {
-        height: Height * 0.3,
+        height: Height * 0.2,
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 30
     },
 
     secondRow: {
-        height: Height * 0.5,
+        height: Height * 0.458,
+        backgroundColor: '#F2F2F2'
     },
 
     thirdRow: {
+        height: Height * 0.142,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+
+    forthRow: {
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'flex-end',
         paddingTop: 17,
         paddingRight: 5
+    },
+
+    center: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    triangle: {
+        width: 0,
+        height: 0,
+        backgroundColor: 'transparent',
+        borderStyle: 'solid',
+        borderLeftWidth: 10,
+        borderRightWidth: 10,
+        borderBottomWidth: 20,
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: '#FFFFFF',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    upSideDown: {
+        transform:[{rotate: '180deg'}]
+    },
+
+    cardContainer: {
+        height: Height * 0.4,
+        borderRadius: 5,
+        borderWidth: 0,
+        marginTop: 0
+    },
+
+    button:{
+        backgroundColor: IDLY_BLUE,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: screenWidth * 0.35,
+        height: 45,
+        borderColor: "transparent",
+        borderWidth: 0,
+        borderRadius: 10
+    },
+
+    sepLine: {
+        height: 2,
+        width: "98%",
+        backgroundColor: "#CED0CE",
+        marginLeft: "1%",
+    },
+
+    nocard:{
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginTop: Height * 0.15,
+    },
+
+    CardInner: {
+        height: Height * 0.25,
+        flexDirection: 'row',
+    },
+
+    CardInfo: {
+        height: Height * 0.25,
+        width: screenWidth * 0.43,
+    },
+
+    cardTitle: {
+        paddingTop: Height * 0.09,
+        marginLeft: 5,
+        fontWeight: '500',
+        fontSize: 32,
+        color: '#000000'
+    },
+
+    cardSubTitle: {
+        marginLeft: 10,
+        fontWeight: '500',
+        fontSize: 16,
+        color: '#585858'
+    },
+
+    cardButton:{
+        backgroundColor: IDLY_BLUE,
+        width: screenWidth*0.35,
+        height: 45,
+        borderColor: "transparent",
+        borderWidth: 0,
+        borderRadius: 5
+    },
+
+    cardButtonContainer:{
+        height: Height * 0.15,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 20,
+        backgroundColor: BACKGROUND_COLOR
     }
 });

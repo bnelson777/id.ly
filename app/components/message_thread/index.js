@@ -9,7 +9,8 @@ import React, { Component } from 'react';
 import styles from './styles';
 import { View, Text, TextInput,
         Button,
-        FlatList } from 'react-native';
+        FlatList,
+        Clipboard } from 'react-native';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
@@ -24,6 +25,9 @@ export class MessageThread extends Component {
         this.sendMessage = this.sendMessage.bind(this);
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
+        this.onLongPress = this.onLongPress.bind(this);
+        this.getMessageByID = this.getMessageByID.bind(this);
+        this.markAsRead = this.markAsRead.bind(this);
         this.state.name = "test";
     };
 
@@ -46,7 +50,14 @@ export class MessageThread extends Component {
                 }
             }
 
-        };
+    };
+
+    markAsRead() {
+        this.props.setMessagesAsRead({
+            _1: this.props.pair.sender,
+            _2: this.props.pair.receiver
+        });
+    }
 
     generateID() {
         let d = new Date().getTime();
@@ -73,9 +84,24 @@ export class MessageThread extends Component {
         this.props.getMessages();
         this.props.getCards();
         this.retrieveMessages();
+        this.markAsRead();
     }
 
-    // TODO: Add logic for sending a message
+    getMessageByID(id) {
+        for(let i = 0; i < this.props.messages.length; ++i) {
+            if(this.props.messages[i].id === id) {
+                return this.props.messages[i];
+            }
+        }
+    }
+
+    onLongPress(context, message) {
+        let msg = this.getMessageByID(message._id);
+        setTimeout(function(){
+            Actions.lockbox({title:"Resend Message", mode: "encrypt", message: msg, returnTo: "thread"});
+        }, 100);
+    }
+
     onSend(messages = []) {
         this.setState(previousState => (
             {
@@ -133,8 +159,8 @@ export class MessageThread extends Component {
     sendMessage() {
       let id = this.generateID();
       let unix = this.generateTimestamp();
-      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
-      // add to redux persistant storage
+      let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": true};
+      // add to senders persistant storage
       this.props.addMessage(message);
       setTimeout(function(){
           Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
@@ -155,6 +181,7 @@ export class MessageThread extends Component {
                 user= {{
                     _id: 1,
                 }}
+                onLongPress={this.onLongPress}
                 isAnimated={true}
             />
         )

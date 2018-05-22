@@ -213,7 +213,7 @@ class Scan extends Component {
     // Try to read the QRCode
     _handleBarCodeRead(e) {
         if(!this.state.scanning) {
-            //Vibration.vibrate(); <- issues with permissions on android
+            Vibration.vibrate(); 
             this._setScanning(true);
             this.props.ScanResult(e);
             console.log('scan: peer id ' + e.data);

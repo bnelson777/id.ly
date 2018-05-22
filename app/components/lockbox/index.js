@@ -49,7 +49,7 @@ export class Lockbox extends Component {
         this.decryptMessage= this.decryptMessage.bind(this);
         this.encryptMessageDone= this.encryptMessageDone.bind(this);
     }
-    
+
     componentDidMount(){
         this.props.getCards();
         if (this.props.mode === 'encrypt') {
@@ -62,20 +62,20 @@ export class Lockbox extends Component {
         } else {
             console.log('No props mode passed into Lockbox. This should not happen')
         }
-        
+
     }
 
     decryptMessage() {
         var RSAKey = require('react-native-rsa');
         var rsa = new RSAKey();
-        
-        
+
+
         //decrypt the object we just made
         var TextTodecrypt = this.state.jsonString;
         var strippedBrackets = TextTodecrypt.replace(/[{}]/g, "");
         var arr = strippedBrackets.split(/\s*\-\s*/g);
         var base64AESDecode = Buffer.from(arr[1], 'base64').toString('ascii');
-        
+
         for (var i = 0, len = this.props.cards.length; i < len; i++) {
             if (this.props.cards[i].owner === true) {
                 var decrypted = null;
@@ -94,7 +94,7 @@ export class Lockbox extends Component {
                 }
             }
         }
-        
+
         if (decrypted === null) {
             alert('This message could not be decrypted.');
             Actions.pop();
@@ -102,15 +102,32 @@ export class Lockbox extends Component {
         }
 
         var aesKEYIV = decrypted.split(',');
-            
+
         AesCrypto.decrypt(base64AESDecode,aesKEYIV[0],aesKEYIV[1]).then(plaintxt=>{
-            this.props.addMessage(JSON.parse(plaintxt));
-            // send user to inbox view
-            Actions.pop();
-            Actions.inbox();
-            }).catch(err=>{
-                console.log(err);
-            });
+            var message = JSON.parse(plaintxt);
+            var notDuplicateMessage = true;
+            for (var i = 0, len = this.props.messages.length; i < len; i++) {
+              console.log('iterating through messages!', i)
+                if(this.props.messages[i].id === message.id){
+                    notDuplicateMessage = false;
+                    break;
+                }
+            }
+
+            if(notDuplicateMessage){
+              this.props.addMessage(message);
+              // send user to inbox view
+              Actions.pop();
+              Actions.inbox();
+            }
+            else {
+              alert('This message has been decrypted already, check your inbox.');
+              Actions.pop();
+              return;
+            }
+        }).catch(err=>{
+          console.log(err);
+        });
     }
 
     encryptMessageDone() {
@@ -159,19 +176,19 @@ export class Lockbox extends Component {
             var keyObj = new Object();
             // generate aes iv and key for message, RSA will encrypt these two keys.
             for(var key = ''; key.length < 16;) {
-                key += Math.random().toString(36).substr(2, 1)       
+                key += Math.random().toString(36).substr(2, 1)
             }
-            
+
             for(var iv = ''; iv.length < 16;) {
                 iv += Math.random().toString(36).substr(2, 1)
             }
-            
+
             // this is what object we will RSA encrypt for delivery
             var decryptkeys = [key, iv];
-            
+
             // use those keys to encrypt the message object which we will send to user
             var aesMessageObject = 'undefined';
-            
+
             AesCrypto.encrypt(JSON.stringify(this.props.message), key, iv)
                 .then(cipher => {
                     aesMessageObject = cipher;

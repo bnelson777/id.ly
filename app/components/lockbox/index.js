@@ -45,7 +45,9 @@ export class Lockbox extends Component {
             key: '',
             iv: '',
             email: '',
-            isLoading: true
+            isLoading: true,
+            added: false,
+            duplicate: false
         };
         this.decryptMessage= this.decryptMessage.bind(this);
         this.encryptMessageDone= this.encryptMessageDone.bind(this);
@@ -76,68 +78,64 @@ export class Lockbox extends Component {
         var strippedBrackets = TextTodecrypt.replace(/[{}]/g, "");
         var arr = strippedBrackets.split(/\s*\-\s*/g);
         var base64AESDecode = Buffer.from(arr[1], 'base64').toString('ascii');
-
+        console.log('the cards to loop', this.props.cards[2])
         for (var i = 0, len = this.props.cards.length; i < len; i++) {
             if (this.props.cards[i].owner === true) {
                 var decrypted = null;
                 var privStore = 'privkey' + this.props.cards[i].id;
-                console.log('here is the lookup:',privStore)
                 SInfo.getItem(privStore, {})
-                .then((privkey) => {
+                .then((privkey, i, len) => {
                   try {
-                      console.log('here is the private key:',privkey)
-                      var privatekey = JSON.stringify(privkey)
-                      console.log('here is the private key string:',privatekey)
                       rsa.setPrivateString(privkey);
-                      console.log('after setPrivateKeystring')
                       decrypted = rsa.decrypt(arr[0]); // decrypted == originText
-                      console.log('decrypt?:',decrypted)
-                  }
-                  catch(err) {
-                      console.log('err attempting to decrypt with this key', i)
-                      // keep trying
-                  }
+                      if (decrypted !== null) {
+                        var aesKEYIV = decrypted.split(',');
+                        AesCrypto.decrypt(base64AESDecode,aesKEYIV[0],aesKEYIV[1]).then(plaintxt=>{
+                            var message = JSON.parse(plaintxt);
+                            var notDuplicateMessage = true;
+                            for (var i = 0, len = this.props.messages.length; i < len; i++) {
+                                if(this.props.messages[i].id === message.id){
+                                    notDuplicateMessage = false;
+                                    break;
+                                }
+                            }
+
+                            if(notDuplicateMessage === true){
+                              this.props.addMessage(message);
+                              this.setState({added: true})
+                              // send user to inbox view
+                              Actions.pop();
+                              Actions.inbox();
+                              return;
+                            }
+                            else {
+                              this.setState({duplicate: true})
+                              return;
+                            }
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                    }
+                    catch(err) {
+                        console.log('err attempting to decrypt with this key', i)
+                        // keep trying
+                    }
                 });
 
-                if (decrypted !== null) {
-                    break;
-                }
             }
         }
 
-        if (decrypted === null) {
-            alert('This message could not be decrypted.');
+        setTimeout(() => {
+          if (this.state.added === false && this.state.duplicate === false) {
+            alert('Could not decrypt message.');
             Actions.pop();
-            return;
-        }
-
-        var aesKEYIV = decrypted.split(',');
-
-        AesCrypto.decrypt(base64AESDecode,aesKEYIV[0],aesKEYIV[1]).then(plaintxt=>{
-            var message = JSON.parse(plaintxt);
-            var notDuplicateMessage = true;
-            for (var i = 0, len = this.props.messages.length; i < len; i++) {
-              console.log('iterating through messages!', i)
-                if(this.props.messages[i].id === message.id){
-                    notDuplicateMessage = false;
-                    break;
-                }
-            }
-
-            if(notDuplicateMessage){
-              this.props.addMessage(message);
-              // send user to inbox view
-              Actions.pop();
-              Actions.inbox();
-            }
-            else {
-              alert('This message has been decrypted already, check your inbox.');
-              Actions.pop();
-              return;
-            }
-        }).catch(err=>{
-          console.log(err);
-        });
+          }
+          if (this.state.duplicate === true) {
+            alert('Message already added to inbox.');
+            Actions.pop();
+          }
+        }, 1000);
     }
 
     encryptMessageDone() {

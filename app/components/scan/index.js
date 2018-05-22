@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 //import { Permissions, BarCodeScanner} from 'expo';
-import { Text, View, StyleSheet, Button,
+import { Text, View, StyleSheet, Button, Alert,
         ActivityIndicator, Animated, Easing,
         LayoutAnimation, Image, Platform,
         Vibration, PermissionsAndroid } from 'react-native';
@@ -139,7 +139,14 @@ class Scan extends Component {
             console.log(card);
 
             setTimeout(function(){
-                Actions.pop();
+                Alert.alert(
+                    'Card added',
+                    card.name,
+                    [
+                      {text: 'OK', onPress: () => Actions.pop()},
+                    ],
+                    { cancelable: false }
+                );
             }, 100);
             if(this.props.reactivate) {
                 setTimeout(() => (this._setScanning(false)), this.props)

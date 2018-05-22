@@ -9,7 +9,8 @@ import React, { Component } from 'react';
 import styles from './styles';
 import { View, Text, TextInput,
         Button,
-        FlatList } from 'react-native';
+        FlatList,
+        Clipboard } from 'react-native';
 import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
@@ -24,6 +25,8 @@ export class MessageThread extends Component {
         this.sendMessage = this.sendMessage.bind(this);
         this.generateID = this.generateID.bind(this);
         this.generateTimestamp = this.generateTimestamp.bind(this);
+        this.onLongPress = this.onLongPress.bind(this);
+        this.getMessageByID = this.getMessageByID.bind(this);
         this.markAsRead = this.markAsRead.bind(this);
         this.state.name = "test";
     };
@@ -84,7 +87,21 @@ export class MessageThread extends Component {
         this.markAsRead();
     }
 
-    // TODO: Add logic for sending a message
+    getMessageByID(id) {
+        for(let i = 0; i < this.props.messages.length; ++i) {
+            if(this.props.messages[i].id === id) {
+                return this.props.messages[i];
+            }
+        }
+    }
+
+    onLongPress(context, message) {
+        let msg = this.getMessageByID(message._id);
+        setTimeout(function(){
+            Actions.lockbox({title:"Resend Message", mode: "encrypt", message: msg, returnTo: "thread"});
+        }, 100);
+    }
+
     onSend(messages = []) {
         this.setState(previousState => (
             {
@@ -164,6 +181,7 @@ export class MessageThread extends Component {
                 user= {{
                     _id: 1,
                 }}
+                onLongPress={this.onLongPress}
                 isAnimated={true}
             />
         )

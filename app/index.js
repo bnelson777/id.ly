@@ -155,45 +155,44 @@ class Main extends Component {
         });
 
         if (Platform.OS === 'android') {
-          Linking.getInitialURL().then(url => {
-            this.navigate(url);
-          });
-        } else {
-          Linking.addEventListener('url', this.handleOpenURL);
-        }
-
-    }
-    componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
-    }
-
-    handleOpenURL = (event) => {
-        this.navigate(event.url);
-    }
-    
-    _backAndroidHandler = () => {
-        const scene = Actions.currentScene;
-        // alert(scene)
-        if (scene === 'index' || scene === 'home' || scene === 'main') {
-            BackHandler.exitApp();
-            return true;
-        }
-        Actions.pop();
-        return true;
-    };
-
-    navigate = (url) => {
-        //const { navigate } = this.props.navigation;
-        
-        const route = url.replace(/.*?:\/\//g, '');
-        let id = 'empty';
-        id = route.match(/\/([^\/]+)\/?$/)[1];
-        const routeName = route.split('/')[0];
-        if (routeName === 'lockbox') {
-          Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
-        };
-    }
-
+            Linking.getInitialURL().then(url => {
+              this.navigate(url);
+            });
+          } else {
+            Linking.addEventListener('url', this.handleOpenURL);
+          }
+      }
+      componentWillUnmount() {
+          Linking.removeEventListener('url', this.handleOpenURL);
+      }
+  
+      handleOpenURL = (event) => {
+          this.navigate(event.url);
+      }
+      
+      _backAndroidHandler = () => {
+          const scene = Actions.currentScene;
+          // alert(scene)
+          if (scene === 'index' || scene === 'home' || scene === 'main') {
+              BackHandler.exitApp();
+              return true;
+          }
+          Actions.pop();
+          return true;
+      };
+  
+      navigate = (url) => {
+          //const { navigate } = this.props.navigation;
+          
+          const route = url.replace(/.*?:\/\//g, '');
+          let id = 'empty';
+          id = route.match(/\/([^\/]+)\/?$/)[1];
+          const routeName = route.split('/')[0];
+          if (routeName === 'lockbox') {
+            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+          };
+      }
+  
 
     render() {
         return (
@@ -204,7 +203,7 @@ class Main extends Component {
                 rightButtonTextStyle={styles.subtitle}>
                 <Scene key="root">
                     <Scene key="splash" component={Splash} initial={true}/>
-                    <Scene key="home" component={Home} title="Home"
+                    <Scene key="home" component={Home} title="Home" 
                         panHandlers={null} hideNavBar type={ActionConst.RESET}
                     />
                     <Scene key="scan" component={Scan} title="Scan" />
@@ -229,7 +228,7 @@ class Main extends Component {
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="register" component={Register} title="Register" />
                     <Scene key="about" component={About} title="About" />
-                  </Scene>
+                </Scene>
             </Router>
         );
     }

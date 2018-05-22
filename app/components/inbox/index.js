@@ -167,14 +167,16 @@ export class Inbox extends Component {
 
 
         return (
-            <TouchableOpacity  onPress={() => Actions.message_thread({title: titleLabel, pair: pair})} >
+            <TouchableOpacity
+                onPress={() => Actions.message_thread({
+                title: titleLabel, pair: pair})} >
                 <ListItem
                     roundAvatar
                     title = {titleLabel}
                     rightTitle = {timeStamp}
                     subtitle = {item.body}
                     avatar = {uriflag === true ? {uri: portrait} : portrait}
-                    containerStyle = {readflag == true ? [styles.noBotBorder, styles.greyedMessage] : styles.noBotBorder}
+                    containerStyle = {readflag === false ? styles.unreadMessage : styles.noBotBorder}
                 />
             </TouchableOpacity>
         );

@@ -16,6 +16,7 @@ import {Actions} from 'react-native-router-flux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import AesCrypto from 'react-native-aes-kit';
 import { Buffer } from 'buffer'
+import SInfo from 'react-native-sensitive-info';
 
 // LOCKBOX
 // FUNCTION(S): This component will handle the encryption and decryption of
@@ -79,16 +80,25 @@ export class Lockbox extends Component {
         for (var i = 0, len = this.props.cards.length; i < len; i++) {
             if (this.props.cards[i].owner === true) {
                 var decrypted = null;
-                try {
-                    var privatekey = JSON.stringify(this.props.cards[i].keys)
-                    JSON.stringify(this.props.cards[i].keys);
-                    rsa.setPrivateString(privatekey);
-                    decrypted = rsa.decrypt(arr[0]); // decrypted == originText
-                }
-                catch(err) {
-                    console.log('err attempting to decrypt with this key', i)
-                    // keep trying
-                }
+                var privStore = 'privkey' + this.props.cards[i].id;
+                console.log('here is the lookup:',privStore)
+                SInfo.getItem(privStore, {})
+                .then((privkey) => {
+                  try {
+                      console.log('here is the private key:',privkey)
+                      var privatekey = JSON.stringify(privkey)
+                      console.log('here is the private key string:',privatekey)
+                      rsa.setPrivateString(privkey);
+                      console.log('after setPrivateKeystring')
+                      decrypted = rsa.decrypt(arr[0]); // decrypted == originText
+                      console.log('decrypt?:',decrypted)
+                  }
+                  catch(err) {
+                      console.log('err attempting to decrypt with this key', i)
+                      // keep trying
+                  }
+                });
+
                 if (decrypted !== null) {
                     break;
                 }

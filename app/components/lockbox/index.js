@@ -51,12 +51,19 @@ export class Lockbox extends Component {
         var RSAKey = require('react-native-rsa');
         var rsa = new RSAKey();
 
+        var correctReceiver = null;
         var cardMatch = null;
         for (var i = 0, len = this.props.cards.length; i < len; i++) {
             console.log('iterating through card public keys!', i)
             if (this.props.cards[i].keys.n === jsonStringP.to) {
-                cardMatch = this.props.cards[i];
-                break;
+                if(this.props.cards[i].owner){
+                    correctReceiver = true;
+                    cardMatch = this.props.cards[i];
+                    break;
+                }
+                else{
+                    correctReceiver = false;
+                }
             }
         }
 
@@ -69,7 +76,7 @@ export class Lockbox extends Component {
             }
         }
 
-        if(notDuplicateMessage){
+        if(notDuplicateMessage && correctReceiver){
             if (cardMatch) {
                 console.log('card match key output:', cardMatch.keys)
                 var jsond = JSON.stringify(cardMatch.keys)
@@ -94,8 +101,15 @@ export class Lockbox extends Component {
             }
         }
         else{
-            alert("You have already decrypted this message! Check your inbox.");
-            Actions.inbox();
+            if(!notDuplicateMessage){
+                alert("You have already decrypted this message! Check your inbox.");
+                Actions.pop();
+                Actions.inbox();
+            }
+            else{
+                alert("This message was meant for someone else and can not be decrypted.");
+                Actions.home();
+            }
         }
     }
 

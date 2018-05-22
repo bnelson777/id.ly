@@ -31,7 +31,7 @@ import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
 //Dumby Data for Initial App Load
-import CardData from './cards.json';
+import CardData from './keylesscards.json';
 import MessageData from './messages.json';
 import { getCards } from './actions';
 import { getMessages } from './actions';

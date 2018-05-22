@@ -92,8 +92,10 @@ export class Lockbox extends Component {
         if (cardMatch) {
             console.log('card match key output:', cardMatch.keys)
             var found = this.getKeys(cardMatch);
-            if (found === false)
+            if (found === false){
                 console.log('Couldn\'t find private key');
+                Actions.pop();
+            }
             else{
                 setTimeout(() => {
                     rsa.setPrivateString(this.state.privKey);

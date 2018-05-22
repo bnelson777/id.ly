@@ -87,30 +87,10 @@ export class MessageThread extends Component {
     }
 
     onLongPress(context, message) {
-        const options = [
-            'Resend',
-            'Copy Text',
-            'Cancel'
-        ];
-        const cancelButtonIndex = options.length - 1;
         let msg = this.getMessageByID(message._id);
-        context.actionSheet().showActionSheetWithOptions({
-            options,
-            cancelButtonIndex,
-        },
-        (buttonIndex) => {
-            switch (buttonIndex) {
-                case 0: {
-                    setTimeout(function(){
-                        Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: msg, returnTo: "thread"});
-                    }, 100);
-                    break;
-                }
-                case 1:
-                    Clipboard.setString(message.text);
-                    break;
-            }
-        });
+        setTimeout(function(){
+            Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: msg, returnTo: "thread"});
+        }, 100);
     }
 
     onSend(messages = []) {

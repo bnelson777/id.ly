@@ -98,7 +98,7 @@ export class MessageThread extends Component {
     onLongPress(context, message) {
         let msg = this.getMessageByID(message._id);
         setTimeout(function(){
-            Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: msg, returnTo: "thread"});
+            Actions.lockbox({title:"Resend Message", mode: "encrypt", message: msg, returnTo: "thread"});
         }, 100);
     }
 

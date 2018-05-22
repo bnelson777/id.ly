@@ -95,7 +95,8 @@ export class Lockbox extends Component {
         }
         else{
             alert("You have already decrypted this message! Check your inbox.");
-            Actions.inbox();
+                Actions.pop();
+                Actions.inbox();
         }
     }
 

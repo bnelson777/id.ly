@@ -25,9 +25,9 @@ export function addCard(card){
                     if (cards !== ''){
                         AesCrypto.decrypt(cards, key, iv)
                         .then(decCards => {
-                            decCards = JSON.parse(decCards);
-                            decCards.unshift(card); //add the new card to the top
-                            decCards = JSON.stringify(decCards);
+                                decCards = JSON.parse(decCards);
+                                decCards.unshift(card); //add the new card to the top
+                                decCards = JSON.stringify(decCards);
                             AesCrypto.encrypt(decCards, key, iv)
                             .then(encCards => {
                                 console.log('Encrypted cards: ' + encCards)
@@ -57,9 +57,9 @@ export function addCardToEnd(card){
                     if (cards !== ''){
                         AesCrypto.decrypt(cards, key, iv)
                         .then(decCards => {
-                            decCards = JSON.parse(decCards);
-                            decCards.push(card); //add the new card to the top
-                            decCards = JSON.stringify(decCards);
+                                decCards = JSON.parse(decCards);
+                                decCards.push(card); //add the new card to the top
+                                decCards = JSON.stringify(decCards);
                             AesCrypto.encrypt(decCards, key, iv)
                             .then(encCards => {
                                 console.log('Encrypted cards: ' + encCards)
@@ -69,6 +69,20 @@ export function addCardToEnd(card){
                                 });
                             });
                         });
+                    } else
+                    {
+                        //first card case
+                            var firstCard = [];
+                            firstCard.unshift(card);
+                            firstCard = JSON.stringify(firstCard);
+                        AesCrypto.encrypt(firstCard, key, iv)
+                            .then(encCards => {
+                                console.log('Encrypted cards: ' + encCards)
+                                RNFetchBlob.fs.writeFile(paths.cardsPath, encCards,'utf8')
+                                    .then(() => {
+                                        dispatch({type: ADD_CARD_TO_END, card:card});
+                                        });
+                            });    
                     }
                 });
             });
@@ -101,6 +115,20 @@ export function addMessage(message){
                                 });
                             });
                         });
+                    } else
+                    {
+                        //first message case
+                            var firstMessage = [];
+                            firstMessage.unshift(message);
+                            firstMessage = JSON.stringify(firstMessage);
+                        AesCrypto.encrypt(firstMessage, key, iv)
+                            .then(encMessages => {
+                                console.log('Encrypted messages: ' + encMessages)
+                                RNFetchBlob.fs.writeFile(paths.messagesPath, encMessages,'utf8')
+                                .then(() => {
+                                    dispatch({type: ADD_MESSAGE, message:message});
+                                });
+                            });
                     }
                 });
             });

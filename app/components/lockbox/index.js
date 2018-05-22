@@ -53,7 +53,8 @@ export class Lockbox extends Component {
     }
 
     getKeys(cardMatch){
-        for (var num = 0; num < this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card).length; num++){
+        var len = this.props.cards.filter(function(obj) {return obj.owner == true}).map(card => card).length;
+        for (var num = 0; num < len; num++){
             var pubStore = 'pubkey' + num;
             var privStore = 'privkey' + num;
             SInfo.getItem(pubStore, {})
@@ -64,12 +65,13 @@ export class Lockbox extends Component {
             .then((privkey) => {
                 this.setState({privKey: privkey});
             });
-            if (this.state.pubKey === cardMatch.keys){
-                return;
-            }
+            if (this.state.pubKey === cardMatch.keys)
+                break;
         }
+        if (this.state.privKey !== "")
+            return true;
         this.setState({pubKey: "", privKey: ""});
-        return;
+        return false;
     }
 
     decryptMessage() {
@@ -89,22 +91,25 @@ export class Lockbox extends Component {
         }
         if (cardMatch) {
             console.log('card match key output:', cardMatch.keys)
-            this.getKeys(cardMatch);
-            setTimeout(() => {
-                rsa.setPrivateString(this.state.privKey);
-                console.log('the cyperedtext string is:',jsonStringP.body)
-                console.log('the private key is:',this.state.privKey)
-                var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
-                console.log('the cyper says:',decrypted)
-                //replace json encrypted text with decrypted text
-                jsonStringP.body = decrypted
-                console.log('message object:', jsonStringP)
-                // add it to messages!
-                this.props.addMessage(jsonStringP);
-                // send user to inbox view
-                Actions.pop();
-                Actions.inbox();
-            }, 100);
+            var found = this.getKeys(cardMatch);
+            if (found === false)
+                console.log('Couldn\'t find private key');
+            else{
+                setTimeout(() => {
+                    rsa.setPrivateString(this.state.privKey);
+                    console.log('the cyperedtext string is:',jsonStringP.body)
+                    console.log('the private key is:',this.state.privKey)
+                    var decrypted = rsa.decrypt(jsonStringP.body); // decrypted == originText
+                    console.log('the cyper says:',decrypted)
+                    //replace json encrypted text with decrypted text
+                    jsonStringP.body = decrypted
+                    console.log('message object:', jsonStringP)
+                    // add it to messages!
+                    this.props.addMessage(jsonStringP);
+                    Actions.pop();
+                    Actions.inbox();
+                }, 100);
+            }
         }
         else {
             // TODO: add error handling alert user can't decrypt message

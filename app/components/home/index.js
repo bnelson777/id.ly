@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import { Alert, FlatList, View,
+import { Alert, FlatList, View, Image,
         Text, ActivityIndicator, 
         TouchableOpacity, ListView,
         ActionSheetIOS, RefreshControl } from 'react-native';
@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
 import { Avatar, Card, Button } from 'react-native-elements';
+import { iconSize } from './styles';
 
 export class Home extends Component {
     static navigationOptions = {
@@ -53,9 +54,7 @@ export class Home extends Component {
                 <View>
                     <View style={styles.CardInner}>
                         <View style={styles.CardInfo}>
-                            <Avatar
-                                xlarge
-                                rounded
+                            <Image style={styles.roundedImg}
                                 source = {img}
                             />
                         </View>

@@ -4,6 +4,7 @@ import { BACKGROUND_COLOR, FONT_SIZE,
 
 const Height = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
+export const iconSize = Height * 0.2;
 
 export default StyleSheet.create({
     container:{
@@ -21,7 +22,7 @@ export default StyleSheet.create({
 
     row:{
         borderColor: "#ccc",
-        padding: 10
+        paddingTop: Height * 0.14 * 0.01
     },
 
     title: {
@@ -34,16 +35,16 @@ export default StyleSheet.create({
         height: Height * 0.2,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: 30
+        paddingTop: Height * 0.03
     },
 
     secondRow: {
-        height: Height * 0.458,
+        height: Height * 0.446,
         backgroundColor: '#F2F2F2'
     },
 
     thirdRow: {
-        height: Height * 0.142,
+        height: Height * 0.14,
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
@@ -52,8 +53,8 @@ export default StyleSheet.create({
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        paddingTop: 17,
-        paddingRight: 5
+        paddingTop: Height * 0.05 < 34 ? 0 : Height * 0.035,
+        paddingRight: 5,
     },
 
     center: {
@@ -66,9 +67,9 @@ export default StyleSheet.create({
         height: 0,
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderLeftWidth: 10,
-        borderRightWidth: 10,
-        borderBottomWidth: 20,
+        borderLeftWidth: Height * 0.458 * 0.025,
+        borderRightWidth: Height * 0.458 * 0.025,
+        borderBottomWidth: Height * 0.458 * 0.05,
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderBottomColor: '#FFFFFF',
@@ -91,7 +92,7 @@ export default StyleSheet.create({
         backgroundColor: IDLY_BLUE,
         justifyContent: 'center',
         alignItems: 'center',
-        width: screenWidth * 0.35,
+        width: screenWidth * 0.38,
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,
@@ -125,14 +126,14 @@ export default StyleSheet.create({
         paddingTop: Height * 0.09,
         marginLeft: 5,
         fontWeight: '500',
-        fontSize: 32,
+        fontSize: Height * 0.05,
         color: '#000000'
     },
 
     cardSubTitle: {
         marginLeft: 10,
         fontWeight: '500',
-        fontSize: 16,
+        fontSize: Height * 0.025,
         color: '#585858'
     },
 
@@ -149,7 +150,18 @@ export default StyleSheet.create({
         height: Height * 0.15,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 20,
+        marginTop: Height * 0.02,
         backgroundColor: BACKGROUND_COLOR
+    },
+
+    roundedImg:{
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0)',
+        alignItems:'center',
+        justifyContent:'center',
+        width:screenWidth * 0.387,
+        height:Height * 0.225,
+        backgroundColor:'#FFFFFF',
+        borderRadius:100
     }
 });

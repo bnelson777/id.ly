@@ -137,7 +137,7 @@ export class Home extends Component {
                     </View>
                     <View style={styles.secondRow}>
                         <View style={styles.center}>
-                            <View style={[styles.triangle,styles.upSideDown]}/>
+                            <View style={[styles.upSideDown]}/>
                         </View>
                         <Card containerStyle = {styles.cardContainer}>
                             {this.displayDefault()}

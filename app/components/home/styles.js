@@ -53,7 +53,7 @@ export default StyleSheet.create({
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        paddingTop: Height * 0.05 < 34 ? 0 : Height * 0.035,
+        paddingTop: Height * 0.052 < 34 ? 0 : Height * 0.035,
         paddingRight: 5,
     },
 
@@ -78,7 +78,18 @@ export default StyleSheet.create({
     },
 
     upSideDown: {
-        transform:[{rotate: '180deg'}]
+        width: 0,
+        height: 0,
+        backgroundColor: 'transparent',
+        borderStyle: 'solid',
+        borderLeftWidth: Height * 0.458 * 0.025,
+        borderRightWidth: Height * 0.458 * 0.025,
+        borderTopWidth: Height * 0.458 * 0.05,
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderTopColor: '#FFFFFF',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     cardContainer: {
@@ -159,9 +170,9 @@ export default StyleSheet.create({
         borderColor:'rgba(0,0,0,0)',
         alignItems:'center',
         justifyContent:'center',
-        width:screenWidth * 0.387,
-        height:Height * 0.225,
+        width:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 : Height * 0.225,
+        height:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 : Height * 0.225,
         backgroundColor:'#FFFFFF',
-        borderRadius:100
+        borderRadius:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 / 2 : Height * 0.225 / 2
     }
 });

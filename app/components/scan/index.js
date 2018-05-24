@@ -86,6 +86,7 @@ class Scan extends Component {
             isAuthorized: false,
             isAuthorizationChecked: false,
             peerId: '',
+            peerName: '',
             peerFound: false
         };
         this.title = 'QRScan';
@@ -122,11 +123,11 @@ class Scan extends Component {
         // [bluetooth]: assign listeners for so they can be unsubscribed on unmount
         this.detectedListener = BluetoothCP.addPeerDetectedListener((peers) => {
             /* code that runs when other device runs advertise and becomes detected */
-            if (peers.id == this.state.peerId) {
+            if (peers.name == this.state.peerName) {
                 console.log('peer detected', peers)
                 console.log(peers);
 
-                this.setState({peerFound: true})
+                this.setState({peerFound: true, peerId: peers.id})
             }
         });
         
@@ -163,7 +164,7 @@ class Scan extends Component {
     }
 
     sendMessage() {
-        let message = this.state.peerId;
+        let message = this.state.peerName;
         let peer = this.state.peerId;
         BluetoothCP.sendMessage(message, peer);
     }
@@ -197,18 +198,22 @@ class Scan extends Component {
 
     handleCommunication(id) {
         this.advertise();
+
+        // bluetooth library persists connection even after an unmount
+        // the code below checks to see if the scanned name is still nearby
+        // since peerDetectedListener will not fire off again for the other device
         BluetoothCP.getNearbyPeers((peers) => {
             console.log(peers)
             if (Array.isArray(peers) && peers.length) {
                 console.log(id);
                 // if one of the nearby devices is the one scanned
-                let found = peers.find(dev => (dev.id === id));
+                let found = peers.find(dev => (dev.name === id));
                 if (typeof found === "undefined") {
                     console.log('nearby device found was not scanned');
                 }
                 else {
                     console.log('found scanned device nearby');
-                    this.setState({peerFound: true});
+                    this.setState({peerFound: true, peerId: found.id});
                 }
             }
             else {
@@ -224,7 +229,7 @@ class Scan extends Component {
             this._setScanning(true);
             this.props.ScanResult(e);
             console.log('scan: peer id ' + e.data);
-            this.setState({peerId: e.data});
+            this.setState({peerName: e.data});
             this.handleCommunication(e.data);
         }
     }
@@ -244,7 +249,8 @@ class Scan extends Component {
                             styles.border,
                             {transform: [{translateY: this.state.moveAnim}]}]}/>
                             <Text style={styles.rectangleText}>Scan the QRCode</Text>
-                            <Text style={styles.rectangleText}>Scanned ID: {this.state.peerId}</Text>
+                            <Text style={styles.rectangleText}>Scanned Name: {this.state.peerName}</Text>
+                            <Text style={styles.rectangleText}>Peer id: {this.state.peerId}</Text>
                             {this.state.peerFound ? <Button title="Acquire" onPress={this.sendMessage}/> : null}
                         </View>
                     </RNCamera>

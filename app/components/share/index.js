@@ -40,15 +40,9 @@ export class Share extends Component {
         this.props.getCards();
         
         this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
-            // code that runs when you recieve a message
-            // note: this is currently really insecure - anyone can send a message
-            // and recieve a response that contains the identity
-            // maybe use symetric key encryption with key passed through QR code?
-
-            if (peers.message === deviceInfo.getUniqueID()) {
+            if (peers.message === deviceInfo.getDeviceName()) {
                 console.log(peers.message);
                 BluetoothCP.sendMessage(this.packageCard(), peers.id);
-        deviceInfo.getUniqueID();
             }
         });
 
@@ -79,17 +73,17 @@ export class Share extends Component {
     }
 
     render() {
-        let uuid = deviceInfo.getUniqueID();
+        let devName = deviceInfo.getDeviceName();
 
         return (
             // This is where the actual QR is displayed
             <View style={styles.container}>
-                <Text> unique id: {uuid} </Text>
+                <Text> device name: {devName} </Text>
                 <Text style={styles.title}>
                     Have the other user scan with QR Scanner
                 </Text>
                 <QRCode
-                    value={uuid}
+                    value={devName}
                     size={350}
                     bgColor='black'
                     fgColor='white'

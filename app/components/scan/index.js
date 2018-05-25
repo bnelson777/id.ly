@@ -170,7 +170,7 @@ class Scan extends Component {
     }
 
     advertise() {
-        BluetoothCP.advertise("WIFI-BT");
+        BluetoothCP.advertise("WIFI");
     }
 
     // Make the animated scan bar

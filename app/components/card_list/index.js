@@ -31,11 +31,34 @@ export class CardList extends Component {
             this.props.cards.filter(function(obj) {return obj.owner === true}).map(card => card) :
             this.props.cards.filter(function(obj) {return obj.owner === false}).map(card => card);
         if (cards.length === 0) {
-            return (
-                <View style={[styles.container, styles.emptyTextContainer]}>
-                    <Text style={styles.emptyText}>No cards available</Text>
-                </View>
-            );
+            if (this.props.isWallet){
+                return (
+                    <View style={[styles.container, styles.emptyTextContainer]}>
+                        <Text style={styles.emptyText}>
+                            No cards available{"\n\n"}
+                        </Text>
+                        <TouchableOpacity onPress={() => Actions.create_card()}>
+                            <Text style={[styles.emptyText, styles.tipText]}>
+                                💡 Add a new card
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                );
+            }
+            else {
+                return (
+                    <View style={[styles.container, styles.emptyTextContainer]}>
+                        <Text style={styles.emptyText}>
+                            No contacts available{"\n\n"}
+                        </Text>
+                        <TouchableOpacity onPress={() => Actions.scan()}>
+                            <Text style={[styles.emptyText, styles.tipText]}>
+                                💡 Add a new contact
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                );
+            }
         }
         else {
             return (

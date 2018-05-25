@@ -39,7 +39,14 @@ export class Inbox extends Component {
         if (this.props.messages.length === 0) {
             return (
                 <View style={[styles.container, styles.emptyTextContainer]}>
-                    <Text style={styles.emptyText}>No messages available</Text>
+                    <Text style={styles.emptyText}>
+                        No messages available{"\n\n"}
+                    </Text>
+                    <TouchableOpacity onPress={() => Actions.create_message({sender: null, recipient: null})}>
+                        <Text style={[styles.emptyText, styles.tipText]}>
+                            💡 Try sending a new message
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             );
         }

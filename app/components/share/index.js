@@ -48,7 +48,7 @@ export class Share extends Component {
 
         console.log('share: mounted');
         console.log('share: advertising');
-        BluetoothCP.advertise("BT");
+        BluetoothCP.advertise("WIFI-BT");
     }
 
     componentWillUnmount() {

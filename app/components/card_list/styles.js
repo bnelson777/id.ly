@@ -102,5 +102,15 @@ export default StyleSheet.create({
     toleft: {
         paddingLeft: 2,
         justifyContent: 'flex-start'
+    },
+
+    emptyTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    emptyText: {
+        fontSize: 28
     }
 });

@@ -69,5 +69,15 @@ export default StyleSheet.create({
     unreadMessage: {
         borderBottomWidth: 0,
         backgroundColor: '#F2F2F2'
+    },
+
+    emptyTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    emptyText: {
+        fontSize: 28
     }
 });

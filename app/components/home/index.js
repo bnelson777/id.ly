@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import { Alert, FlatList, View,
+import { Alert, FlatList, View, Image,
         Text, ActivityIndicator, 
         TouchableOpacity, ListView,
         ActionSheetIOS, RefreshControl } from 'react-native';
@@ -15,24 +15,60 @@ import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
 import { Avatar, Card, Button } from 'react-native-elements';
+import SideMenu from 'react-native-side-menu';
+import Menu from './menu';
+
+const menuImg = require('../../assets/menu.png');
 
 export class Home extends Component {
-    static navigationOptions = {
-        title: "Home",
-        headerLeft: (<View/>),
-        hearerRight: (<View/>),
-        headerTintColor: 'white',
-        headerStyle: {
-            backgroundColor: '#128DC9',
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false,
+            selectedItem: 'About',
+        };
+        this.toggle = this.toggle.bind(this);
+    }
+
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state;
+        return{
+            title: "Home",
+            headerLeft: (<TouchableOpacity
+                style={styles.row}
+                onPress={params.toggle}>
+                    <Image
+                        source={menuImg}
+                    />
+                </TouchableOpacity>),
+            headerRight: (<View/>),
+            headerTintColor: 'white',
+            headerStyle: {
+                backgroundColor: '#128DC9',
+            }
         }
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {};
+    toggle() {
+        this.setState({
+          isOpen: !this.state.isOpen,
+        });
     }
+    
+    updateMenuState(isOpen) {
+        this.setState({ isOpen });
+    }
+    
+    onMenuItemSelected = item =>
+        this.setState({
+          isOpen: false,
+          selectedItem: item,
+    });
 
     componentDidMount() {
+        this.props.navigation.setParams({
+            toggle: this.toggle
+        });
         this.props.getCards();
     }
 
@@ -96,6 +132,9 @@ export class Home extends Component {
     // Displays animation if loading, otherwise displays a popup indicating the
     // TouchableOpacity pressed
     render() {
+        const menu = <Menu onItemSelected={this.onMenuItemSelected} 
+            data = {this.props} />;
+
         if (this.props.loading) {
             return (
                 <View style={styles.activityIndicatorContainer}>
@@ -105,6 +144,11 @@ export class Home extends Component {
         } 
         else {
             return (
+                <SideMenu
+                menu={menu}
+                isOpen={this.state.isOpen}
+                onChange={isOpen => this.updateMenuState(isOpen)}
+                >
                 <View style={styles.container}>
                     <View style = {styles.firstRow}>
                         <Avatar 
@@ -191,6 +235,7 @@ export class Home extends Component {
                         />
                     </View>
                 </View>
+                </SideMenu>
             );
         }
     }

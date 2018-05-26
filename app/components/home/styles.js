@@ -20,7 +20,6 @@ export default StyleSheet.create({
     },
 
     row:{
-        borderColor: "#ccc",
         padding: 10
     },
 
@@ -151,5 +150,18 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         marginTop: 20,
         backgroundColor: BACKGROUND_COLOR
-    }
+    },
+
+    menu: {
+        flex: 1,
+        width: screenWidth,
+        height: Height,
+        backgroundColor: '#F2F2F2',
+        padding: 20,
+      },
+      menuItem: {
+        fontSize: 14,
+        fontWeight: '300',
+        paddingTop: 5,
+      },
 });

@@ -53,7 +53,7 @@ export default StyleSheet.create({
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        paddingTop: Height * 0.052 < 34 ? 0 : Height * 0.035,
+        paddingTop: Height * 0.051 < 34 ? 0 : Height * 0.035,
         paddingRight: 5,
     },
 
@@ -151,18 +151,18 @@ export default StyleSheet.create({
     cardButton:{
         backgroundColor: IDLY_BLUE,
         width: screenWidth*0.35,
-        height: 45,
+        height: Height * 0.07,
         borderColor: "transparent",
         borderWidth: 0,
         borderRadius: 5
     },
 
     cardButtonContainer:{
-        height: Height * 0.15,
+        height: Height * 0.1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: Height * 0.02,
-        backgroundColor: BACKGROUND_COLOR
+        paddingTop: Height * 0.02,
+        backgroundColor: '#ff33ff'
     },
 
     roundedImg:{

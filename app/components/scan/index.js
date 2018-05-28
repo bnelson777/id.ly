@@ -20,6 +20,7 @@ import RNCamera from 'react-native-camera';
 import Permissions from 'react-native-permissions';
 import deviceInfo from 'react-native-device-info';
 import BluetoothCP from 'react-native-bluetooth-cross-platform';
+import AesCrypto from 'react-native-aes-kit';
 
 const PERMISSION_AUTHORIZED = 'authorized';
 const CAMERA_PERMISSION = 'camera';
@@ -87,7 +88,9 @@ class Scan extends Component {
             isAuthorizationChecked: false,
             peerId: '',
             peerName: '',
-            peerFound: false
+            peerFound: false,
+            key: '',
+            iv: ''
         };
         this.title = 'QRScan';
 
@@ -133,25 +136,21 @@ class Scan extends Component {
         
         this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
             /* code that runs when you recieve a message */
-            console.log('addReceivedMessageListener', peers.message)
+            console.log('addReceivedMessageListener encrypted', peers.message)
             
-            var card = JSON.parse(peers.message);
-            this.props.addCardToEnd(card);
-            console.log(card);
-
-            setTimeout(function(){
-                Alert.alert(
-                    'Card added',
-                    card.name,
-                    [
-                      {text: 'OK', onPress: () => Actions.pop()},
-                    ],
-                    { cancelable: false }
-                );
-            }, 100);
-            if(this.props.reactivate) {
-                setTimeout(() => (this._setScanning(false)), this.props)
-            }
+            AesCrypto.decrypt(peers.message,this.state.key,this.state.iv).then(plaintxt=>{
+                var message = JSON.parse(plaintxt);
+                console.log('addReceivedMessageListener decrypted', message)
+                this.props.addCardToEnd(message);
+                console.log(message);
+                
+        }).catch(err=>{
+          console.log(err);
+        });
+            
+                Alert.alert('Card Added')
+                Actions.pop();
+            
         });
         
         console.log('scan: mounted');
@@ -228,8 +227,10 @@ class Scan extends Component {
             Vibration.vibrate(); 
             this._setScanning(true);
             this.props.ScanResult(e);
-            console.log('scan: peer id ' + e.data);
-            this.setState({peerName: e.data});
+            console.log('scan: peer id ' + JSON.parse(e.data));
+            this.setState({peerName: JSON.parse(e.data)[0]});
+            this.setState({key: JSON.parse(e.data)[1]});
+            this.setState({iv: JSON.parse(e.data)[2]});
             this.handleCommunication(e.data);
         }
     }

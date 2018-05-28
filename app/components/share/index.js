@@ -17,6 +17,7 @@ import * as ReduxActions from '../../actions'; //Import your actions
 import {Actions} from 'react-native-router-flux';
 import deviceInfo from 'react-native-device-info';
 let BluetoothCP = require("react-native-bluetooth-cross-platform");
+import AesCrypto from 'react-native-aes-kit';
 
 
 // SHARE
@@ -32,17 +33,18 @@ let BluetoothCP = require("react-native-bluetooth-cross-platform");
 export class Share extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {encrypt: '',iv: '',key: ''};
         this.packageCard = this.packageCard.bind(this);
     }
 
     componentDidMount() {
         this.props.getCards();
+        this.packageCard()
         
         this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
             if (peers.message === deviceInfo.getDeviceName()) {
                 console.log(peers.message);
-                BluetoothCP.sendMessage(this.packageCard(), peers.id);
+                BluetoothCP.sendMessage(this.state.encrypt, peers.id);
             }
         });
 
@@ -68,12 +70,32 @@ export class Share extends Component {
         // ensure card owner is set to false
         jsonCard2.owner = false;
         console.log('object to display in QR',jsonCard2)
-        var res = JSON.stringify(jsonCard2);
-        return res;
+        
+        
+        for(var key = ''; key.length < 16;) {
+                key += Math.random().toString(36).substr(2, 1)
+            }
+
+        for(var iv = ''; iv.length < 16;) {
+                iv += Math.random().toString(36).substr(2, 1)
+            }
+        
+        AesCrypto.encrypt(JSON.stringify(jsonCard2), key, iv)
+        .then(cipher => {
+            this.setState({encrypt: cipher})
+        });
+        
+        this.setState({iv: iv})
+        this.setState({key: key})
+        
+        
+        
+        
     }
 
     render() {
         let devName = deviceInfo.getDeviceName();
+        let qrObject = [devName,this.state.key,this.state.iv]
 
         return (
             // This is where the actual QR is displayed
@@ -83,8 +105,8 @@ export class Share extends Component {
                     Have the other user scan with QR Scanner
                 </Text>
                 <QRCode
-                    value={devName}
-                    size={350}
+                    value={JSON.stringify(qrObject)}
+                    size={325}
                     bgColor='black'
                     fgColor='white'
                 />

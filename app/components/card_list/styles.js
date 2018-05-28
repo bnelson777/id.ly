@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, 
-        BACKGROUND_COLOR, BORDER_RADIUS } from './../styles/common';
+        BACKGROUND_COLOR, BORDER_RADIUS, IDLY_BLUE } from './../styles/common';
 
 const {width} = Dimensions.get('window');
 const screenWidth = width;
@@ -102,5 +102,21 @@ export default StyleSheet.create({
     toleft: {
         paddingLeft: 2,
         justifyContent: 'flex-start'
+    },
+
+    emptyTextContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    emptyText: {
+        fontSize: 18,
+        marginLeft: "10%",
+        marginRight: "10%"
+    },
+
+    tipText: {
+        color: IDLY_BLUE
     }
 });

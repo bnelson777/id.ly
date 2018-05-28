@@ -144,16 +144,15 @@ class Scan extends Component {
                 this.props.addCardToEnd(message);
                 console.log(message);
                 
-        }).catch(err=>{
-          console.log(err);
-        });
+            }).catch(err=>{
+            console.log(err);
+            });
+                    Alert.alert('Card Added')
+                    Actions.pop();
+                
+            });
             
-                Alert.alert('Card Added')
-                Actions.pop();
-            
-        });
-        
-        console.log('scan: mounted');
+            console.log('scan: mounted');
     }
     
     componentWillUnmount() {
@@ -231,7 +230,7 @@ class Scan extends Component {
             this.setState({peerName: JSON.parse(e.data)[0]});
             this.setState({key: JSON.parse(e.data)[1]});
             this.setState({iv: JSON.parse(e.data)[2]});
-            this.handleCommunication(e.data);
+            this.handleCommunication(this.state.peerName);
         }
     }
 

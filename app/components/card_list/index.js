@@ -30,17 +30,49 @@ export class CardList extends Component {
         const cards = this.props.isWallet === true ?
             this.props.cards.filter(function(obj) {return obj.owner === true}).map(card => card) :
             this.props.cards.filter(function(obj) {return obj.owner === false}).map(card => card);
-        return (
-            // Display ID buttons as a list
-            <View style={styles.container}>
-                <FlatList
-                    ref='listRef'
-                    data={cards}
-                    renderItem={this.renderItem}
-                    keyExtractor={(item, index) => index.toString()}
-                />
-            </View>
-        );
+        if (cards.length === 0) {
+            if (this.props.isWallet){
+                return (
+                    <View style={[styles.container, styles.emptyTextContainer]}>
+                        <Text style={styles.emptyText}>
+                            No cards available{"\n\n"}
+                        </Text>
+                        <TouchableOpacity onPress={() => Actions.create_card()}>
+                            <Text style={[styles.emptyText, styles.tipText]}>
+                                💡 Add a new card
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                );
+            }
+            else {
+                return (
+                    <View style={[styles.container, styles.emptyTextContainer]}>
+                        <Text style={styles.emptyText}>
+                            No contacts available{"\n\n"}
+                        </Text>
+                        <TouchableOpacity onPress={() => Actions.scan()}>
+                            <Text style={[styles.emptyText, styles.tipText]}>
+                                💡 Add a new contact
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                );
+            }
+        }
+        else {
+            return (
+                // Display ID buttons as a list
+                <View style={styles.container}>
+                    <FlatList
+                        ref='listRef'
+                        data={cards}
+                        renderItem={this.renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+            );
+        }
     }
 
     renderItem({item, index}) {

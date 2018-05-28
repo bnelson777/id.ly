@@ -147,8 +147,13 @@ class Scan extends Component {
             }).catch(err=>{
             console.log(err);
             });
-                    Alert.alert('Card Added')
-                    Actions.pop();
+        setTimeout(function(){
+                       Alert.alert('Card Added');
+                       Actions.pop();
+                   }, 100);
+                   if(this.props.reactivate) {
+                       setTimeout(() => (this._setScanning(false)), this.props)
+                   }
                 
             });
             

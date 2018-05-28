@@ -9,12 +9,13 @@ import styles from './styles';
 import { Alert, FlatList, View, Image,
         Text, ActivityIndicator, 
         TouchableOpacity, ListView,
-        ActionSheetIOS, RefreshControl } from 'react-native';
+        ActionSheetIOS } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
-import { Avatar, Card, Button } from 'react-native-elements';
+import { Avatar, Card, Button,
+        List, ListItem } from 'react-native-elements';
 import SideMenu from 'react-native-side-menu';
 import Menu from './menu';
 
@@ -69,6 +70,7 @@ export class Home extends Component {
         this.props.navigation.setParams({
             toggle: this.toggle
         });
+        this.props.getMessages();
         this.props.getCards();
     }
 
@@ -80,7 +82,6 @@ export class Home extends Component {
     //Display default card
     displayDefault() {
         var myCards = this.props.cards.filter(function(obj) {return obj.owner === true}).map(card => card);
-        console.log(myCards);
         if(myCards[0]) {
             let img = myCards[0].image === "" ? require('../../assets/default_avatar.png') : {uri: myCards[0].image};
             let name = myCards[0].name;
@@ -127,6 +128,21 @@ export class Home extends Component {
                 </View>
             );
         }
+    }
+
+    unreadMsg() {
+        var unread = this.props.messages.filter(function(obj) {return obj.read === false}).map(message => message);
+        console.log(unread);
+        <List containerStyle={{marginBottom: 20}}>
+        {
+            unread.map((item, i) => (
+            <ListItem
+                key={i}
+                subtitle={l.body}
+            />
+            ))
+        }
+        </List>
     }
 
     // Displays animation if loading, otherwise displays a popup indicating the
@@ -192,47 +208,8 @@ export class Home extends Component {
                         </View>
                     </View>
                     <View style={styles.thirdRow}>
-                        <View>
-                            <TouchableOpacity onPress={() => Actions.login()}>
-                                <View style={styles.row}>
-                                    <Text style={styles.title}>
-                                        [Dev] Login
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Actions.register()}>
-                                <View style={styles.row}>
-                                    <Text style={styles.title}>
-                                        [Dev] Register
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity onPress={() => {this.props.clearAll()}}>
-                            <View style={styles.row}>
-                                <Text style={styles.title}>
-                                        [Dev] Clear All Data
-                                </Text>
-                            </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Actions.lockbox({title:"Decrypt Message", mode: "decrypt"})} underlayColor='rgba(0,0,0,.2)'>
-                                <View style={styles.row}>
-                                    <Text style={styles.title}>
-                                        [Dev] Decrypt Message
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={styles.forthRow}>
-                        <Avatar 
-                            small
-                            onPress={() => Actions.about()}
-                            source = {require('../../assets/info.png')}
-                            overlayContainerStyle={{backgroundColor: '#FFFFFF'}}
-                            activeOpacity={0.5}                       
-                        />
+
+
                     </View>
                 </View>
                 </SideMenu>
@@ -247,7 +224,8 @@ export class Home extends Component {
 function mapStateToProps(state, props) {
     return {
         loading: state.dataReducer.loading,
-        cards: state.dataReducer.cards
+        cards: state.dataReducer.cards,
+        messages: state.dataReducer.messages
     }
 }
 

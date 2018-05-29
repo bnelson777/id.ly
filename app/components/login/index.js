@@ -31,7 +31,7 @@ export default class Login extends Component {
 
     checkPassword() {
         if (bcrypt.compareSync(this.state.attempt, this.state.password)) {
-            AsyncStorage.setItem('loggedInStatus', true);
+            AsyncStorage.setItem('loggedInStatus', 'true');
             this.props.navigation.navigate('home');
     }
         else

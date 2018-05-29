@@ -15,25 +15,6 @@ import styles from './styles';
 
 
 export class About extends Component {
-    state = {
-        appState: AppState.currentState
-      }
-    
-      componentDidMount() {
-        AppState.addEventListener('change', this._handleAppStateChange);
-      }
-    
-      componentWillUnmount() {
-        AppState.removeEventListener('change', this._handleAppStateChange);
-      }
-    
-      _handleAppStateChange = (nextAppState) => {
-        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-            this.props.navigation.navigate('login');
-        }
-        this.setState({appState: nextAppState});
-      }
-
     render() {
         return(
             <View style = {styles.container}>

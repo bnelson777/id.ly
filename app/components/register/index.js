@@ -27,8 +27,8 @@ export default class Register extends Component {
             alert("Passwords do not match, please re-enter.");
         else {
             var bcrypt = require('react-native-bcrypt');
-            AsyncStorage.setItem('newUser', false);
-            AsyncStorage.setItem('loggedInStatus', true);
+            AsyncStorage.setItem('newUser', 'false');
+            AsyncStorage.setItem('loggedInStatus', 'true');
             bcrypt.setRandomFallback((len) => {
                 const buf = new Uint8Array(len);
                 return buf.map(() => Math.floor(isaac.random() * 256));

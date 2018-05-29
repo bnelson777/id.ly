@@ -162,6 +162,8 @@ export class MessageThread extends Component {
       let message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": true};
       // add to senders persistant storage
       this.props.addMessage(message);
+      // set same message object but with read set to false for the reciever
+      message = {"id": id, "to": this.props.pair.receiver, "from": this.props.pair.sender, "body": this.state.messages[0].text, "time": unix, "read": false};
       setTimeout(function(){
           Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "thread"});
       }, 100);

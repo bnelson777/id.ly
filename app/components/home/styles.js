@@ -21,8 +21,7 @@ export default StyleSheet.create({
     },
 
     row:{
-        borderColor: "#ccc",
-        paddingTop: Height * 0.14 * 0.01
+        padding: 10
     },
 
     title: {
@@ -44,9 +43,8 @@ export default StyleSheet.create({
     },
 
     thirdRow: {
-        height: Height * 0.14,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        flex: 2,
+        justifyContent: 'center'
     },
 
     forthRow: {
@@ -173,5 +171,57 @@ export default StyleSheet.create({
         height:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 : Height * 0.225,
         backgroundColor:'#FFFFFF',
         borderRadius:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 / 2 : Height * 0.225 / 2
+    },
+
+    menu: {
+        flex: 1,
+        width: screenWidth,
+        height: Height,
+        backgroundColor: '#F2F2F2',
+    },
+
+    devContainer: {
+        height: Height - 115,
+        backgroundColor: '#F2F2F2',
+        padding: 20,
+    },
+
+    infoContainer: {
+        height: 34,
+        justifyContent: 'flex-start',
+        paddingLeft: 5,
+        backgroundColor: '#F2F2F2',
+    },
+
+    menuItem: {
+        fontSize: 14,
+        fontWeight: '300',
+        paddingTop: 5,
+    },
+
+    nonUnread: {
+        fontWeight: '500',
+        fontSize: Height * 0.025,
+        color: '#585858'
+    },
+    
+    unreadMessage: {
+        borderBottomWidth: 0,
+        backgroundColor: '#F2F2F2'
+    },
+
+    listContainer: {
+        backgroundColor: '#FFFFFF',
+        borderTopWidth: 0, 
+        borderBottomWidth: 0,
+        marginTop: 0,
+        paddingTop: 10
+    },
+
+    msgContainer: {
+        flex: 3,
+        paddingLeft: 10,
+        paddingRight: 10,
+        backgroundColor: '#FFFFFF',
     }
 });

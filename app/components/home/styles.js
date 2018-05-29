@@ -130,22 +130,21 @@ export default StyleSheet.create({
 
     CardInfo: {
         height: Height * 0.25,
+        alignItems: 'flex-start',
+        justifyContent: 'center',      
         width: screenWidth * 0.43,
     },
 
     cardTitle: {
-        paddingTop: Height * 0.09,
-        marginLeft: 5,
         fontWeight: '500',
         fontSize: Height * 0.05,
         color: '#000000'
     },
 
     cardSubTitle: {
-        marginLeft: 10,
         fontWeight: '500',
         fontSize: Height * 0.025,
-        color: '#585858'
+        color: '#585858',
     },
 
     cardButton:{

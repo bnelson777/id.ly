@@ -44,7 +44,7 @@ Snapshot testing functionality was built into this project using jest test frame
 * [Enzyme](https://github.com/airbnb/enzyme)
 * [React Native ActionSheet](https://github.com/beefe/react-native-actionsheet)
 * [React Native AES Kit](https://github.com/rocwangv/react-native-aes-kit)
-* [React Native Autogrow Text Input] (https://github.com/wix/react-native-autogrow-textinput)
+* [React Native Autogrow Text Input](https://github.com/wix/react-native-autogrow-textinput)
 * [React Native Camera](https://github.com/react-native-community/react-native-camera)
 * [React Native Elements](https://github.com/react-native-training/react-native-elements)
 * [React Native Fetch Blob](https://github.com/wkh237/react-native-fetch-blob)

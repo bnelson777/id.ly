@@ -30,9 +30,6 @@ import Login from './components/login/index';
 import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
-//Dumby Data for Initial App Load
-import CardData from './cards-empty.json';
-import MessageData from './messages-empty.json';
 import { getCards } from './actions';
 import { getMessages } from './actions';
 //Needed for Actions.home() back button on inbox see line 59:121
@@ -43,7 +40,7 @@ import styles from './styles';
 class Main extends Component {
     constructor() {
         super();
-        this.state = {key: '', iv: ''};
+        this.state = {};
         this.init();
         this.getPaths = this.getPaths.bind(this);
     }
@@ -86,10 +83,7 @@ class Main extends Component {
                 for(var key = ''; key.length < 16;)
                     key += Math.random().toString(36).substr(2, 1)
                 SInfo.setItem('key', key, {});
-                this.setState({key: key});
             }
-            else
-                this.setState({key: value});
         });
 
         SInfo.getItem('iv', {})
@@ -98,10 +92,7 @@ class Main extends Component {
                 for(var iv = ''; iv.length < 16;)
                     iv += Math.random().toString(36).substr(2, 1)
                 SInfo.setItem('iv', iv, {});
-                this.setState({iv: iv});
             }
-            else
-                this.setState({iv: value});
         });
     }
 
@@ -126,46 +117,6 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        var paths = this.getPaths();
-        var _this = this;
-        if (Object.keys(CardData).length === 0) {
-            console.log('cards are empty')
-        }
-        if (Object.keys(CardData).length !== 0) {
-            console.log('cards not empty')
-            //Check if any card data exists
-            RNFetchBlob.fs.readFile(paths.cardsPath, 'utf8')
-            .then((carddata) => {
-                if (carddata === ''){
-                    AesCrypto.encrypt(JSON.stringify(CardData.card), this.state.key, this.state.iv)
-                    .then(cipher => {
-                        RNFetchBlob.fs.writeFile(paths.cardsPath, cipher,'utf8');
-                        console.log('Encrypted cards: ' + cipher)
-                    });
-                    _this.props.getCards();
-                }
-            });
-
-        }
-        if (Object.keys(MessageData).length === 0) {
-            console.log('messages are empty')
-        }
-        if (Object.keys(MessageData).length !== 0) {
-             console.log('messages not empty')
-            // check if any message data exists
-            RNFetchBlob.fs.readFile(paths.messagesPath, 'utf8')
-            .then((messagedata) => {
-                if (messagedata === ''){
-                    AesCrypto.encrypt(JSON.stringify(MessageData.message), this.state.key, this.state.iv)
-                    .then(cipher => {
-                        RNFetchBlob.fs.writeFile(paths.messagesPath, cipher,'utf8');
-                        console.log('Encrypted messages: ' + cipher)
-                    });
-                    _this.props.getMessages();
-                }
-            });
-        }
-
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
               this.navigate(url);

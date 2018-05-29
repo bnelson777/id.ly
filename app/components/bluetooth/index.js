@@ -68,7 +68,7 @@ export default class Bluetooth extends Component<Props> {
   }
 
   advertise() {
-    rnbt.advertise("WIFI");
+    rnbt.advertise("WIFI-BT");
     console.log('advertising')
   }
 
@@ -90,7 +90,7 @@ export default class Bluetooth extends Component<Props> {
   }
 
   browse() {
-      rnbt.browse("WIFI");
+      rnbt.browse("WIFI-BT");
   }
 
   disconnect() {

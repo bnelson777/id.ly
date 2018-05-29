@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { Text, View, Button, TouchableHighlight,
-        StyleSheet, Image, Linking } from 'react-native';
+        StyleSheet, Image, AppState, Linking } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
@@ -15,6 +15,25 @@ import styles from './styles';
 
 
 export class About extends Component {
+    state = {
+        appState: AppState.currentState
+      }
+    
+      componentDidMount() {
+        AppState.addEventListener('change', this._handleAppStateChange);
+      }
+    
+      componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+      }
+    
+      _handleAppStateChange = (nextAppState) => {
+        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+            this.props.navigation.navigate('login');
+        }
+        this.setState({appState: nextAppState});
+      }
+
     render() {
         return(
             <View style = {styles.container}>

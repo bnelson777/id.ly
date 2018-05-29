@@ -42,9 +42,8 @@ export default StyleSheet.create({
     },
 
     thirdRow: {
-        height: Height * 0.142,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        flex: 2,
+        justifyContent: 'center'
     },
 
     forthRow: {
@@ -159,9 +158,29 @@ export default StyleSheet.create({
         backgroundColor: '#F2F2F2',
         padding: 20,
       },
-      menuItem: {
+
+    menuItem: {
         fontSize: 14,
         fontWeight: '300',
         paddingTop: 5,
-      },
+    },
+
+    nonUnread: {
+        fontWeight: '500',
+        fontSize: Height * 0.025,
+        color: '#585858'
+    },
+    
+    unreadMessage: {
+        borderBottomWidth: 0,
+        backgroundColor: '#F2F2F2'
+    },
+
+    listContainer: {
+        backgroundColor: '#FFFFFF',
+        borderTopWidth: 0, 
+        borderBottomWidth: 0,
+        marginTop: 0
+    },
+
 });

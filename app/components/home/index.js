@@ -133,6 +133,8 @@ export class Home extends Component {
     unreadMsg() {
         var unread = this.props.messages.filter(function(obj) {return obj.read === false}).map(message => message);
         console.log(unread);
+        if(unread[0]){
+            return(
         <List containerStyle={{marginBottom: 20}}>
         {
             unread.map((item, i) => (
@@ -142,7 +144,17 @@ export class Home extends Component {
             />
             ))
         }
-        </List>
+        </List>);
+        }
+        else{
+            return(
+            <View style={styles.center}>
+                <Text style={styles.nonUnread}>
+                    No Unread Message
+                </Text>
+            </View>
+            );
+        }
     }
 
     // Displays animation if loading, otherwise displays a popup indicating the
@@ -208,8 +220,7 @@ export class Home extends Component {
                         </View>
                     </View>
                     <View style={styles.thirdRow}>
-
-
+                            {this.unreadMsg()}
                     </View>
                 </View>
                 </SideMenu>

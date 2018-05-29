@@ -162,7 +162,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: Height * 0.02,
-        backgroundColor: '#ff33ff'
+        backgroundColor: '#FFFFFF'
     },
 
     roundedImg:{

@@ -60,11 +60,6 @@ export default class Register extends Component {
                         backgroundColor="#03A9F4"
                         title="REGISTER"
                         onPress={() => this.registerUser()} />
-                    <Button buttonStyle={{ marginTop: 20 }}
-                        backgroundColor="transparent"
-                        textStyle={{ color: "#bcbec1" }}
-                       title="Sign In"
-                        onPress={() => alert("Hello")} />
                 </Card>
             </View>
         );

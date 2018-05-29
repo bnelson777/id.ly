@@ -216,9 +216,9 @@ class Main extends Component {
                 <Scene key="root">
                     <Scene key="splash" component={Splash} initial={true}/>
                     <Scene key="login" component={Login} title="Login" 
-                        panHandlers={null} />
+                        renderLeftButton={<View></View>} />
                     <Scene key="register" component={Register} title="Register" 
-                        panHandlers={null}/>
+                        renderLeftButton={<View></View>} />
                     <Scene key="home" component={Home} title="Home" 
                         panHandlers={null} />
                     <Scene key="scan" component={Scan} title="Scan" />

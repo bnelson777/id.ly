@@ -6,7 +6,7 @@
 //Import Libraries
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
-import { Alert, StyleSheet, FlatList,
+import { Alert, StyleSheet, FlatList, Keyboard,
         View, Text, TextInput, Platform,
         TouchableHighlight, TouchableOpacity,
         Image, KeyboardAvoidingView } from 'react-native';
@@ -17,7 +17,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 110 : 70;
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 70 : 70;
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and
@@ -148,7 +148,11 @@ export class CreateMessage extends Component {
                         onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
                     />
                 </View>
-                <View style={[styles.itemContainer, styles.bottomContainer]}>
+                <TouchableOpacity
+                    style={[styles.itemContainer, styles.bottomContainer]}
+                    activeOpacity={1}
+                    onPress={Keyboard.dismiss}
+                >
                     <View style={styles.messageBox}>
                         <TextInput
                             ref={input => {this.messageInput = input}}
@@ -167,7 +171,7 @@ export class CreateMessage extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableOpacity>
             </KeyboardAvoidingView>
         );
     }

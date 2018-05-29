@@ -82,6 +82,8 @@ export class CreateMessage extends Component {
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": true};
         // add to senders persistant storage
         this.props.addMessage(message);
+        // set same message object but with read set to false for the reciever
+        message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         setTimeout(function(){
             Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
         }, 100);

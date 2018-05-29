@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { Alert, FlatList, View, Image,
-        Text, ActivityIndicator, 
+        Text, ActivityIndicator, ScrollView,
         TouchableOpacity, ListView,
         ActionSheetIOS } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -65,6 +65,12 @@ export class Home extends Component {
           isOpen: false,
           selectedItem: item,
     });
+
+    SeparatedLine = () => {
+        return (
+          <View style = {styles.sepLine}/>
+        );
+    };
 
     componentDidMount() {
         this.props.navigation.setParams({
@@ -132,19 +138,49 @@ export class Home extends Component {
 
     unreadMsg() {
         var unread = this.props.messages.filter(function(obj) {return obj.read === false}).map(message => message);
-        console.log(unread);
+
         if(unread[0]){
-            return(
-        <List containerStyle={{marginBottom: 20}}>
-        {
-            unread.map((item, i) => (
-            <ListItem
-                key={i}
-                subtitle={l.body}
-            />
-            ))
-        }
-        </List>);
+            // array to be filled with valid pairs of sender and receivers
+            var arr = [];
+
+            // sort array of messages by time
+            unread.sort(function (a,b) { return b.time - a.time; });
+
+            // loop through all messages
+            for (var i = 0, len = unread.length; i < len; i++) {
+                // check array for to and from pair
+                var present = false;
+                // check existing pairs we've collected for duplicates
+                for (var j = 0, len2 = arr.length; j < len2; j++ ) {
+                    // if to / from match an existing entry, set present to true
+                    if (arr[j].to === unread[i].to && arr[j].from === unread[i].from) {
+                        present = true;
+                    }
+                    if (arr[j].to === unread[i].from && arr[j].from === unread[i].to) {
+                        present = true;
+                    }
+                }
+                // now add message to array if combination not present
+                if (present == false) {
+                    arr.push(unread[i])
+                }
+                else {
+                    // don't do anything because pair was already in array
+                }
+            }
+
+            return (
+                <ScrollView style = {styles.msgContainer}>
+                    <List containerStyle={styles.listContainer}>
+                        <FlatList
+                            data={arr}
+                            keyExtractor={item => item.id}
+                            renderItem={this.renderItem}
+                            ItemSeparatorComponent={this.SeparatedLine}
+                        />
+                    </List>
+                </ScrollView>
+            );
         }
         else{
             return(
@@ -155,6 +191,105 @@ export class Home extends Component {
             </View>
             );
         }
+    }
+
+    renderItem = ({item, index}) => {
+        /* get author name and portrait for each message */
+        let author = item.from; //display public key if card not found
+        let sender = item.from; // default if card not in rolodex
+        let receiver = item.to; // default if card not in rolodex
+        let senderCard = null; // passed into message thread for card data
+        let receiverCard = null; //passed into message thread for card data
+        let label = "";
+        let portrait = require('../../assets/default_avatar.png');
+        let uriflag = false;
+        for (card of this.props.cards) {
+            // to find display name of receiver of message (owner == false)
+            if (card.keys.n === item.to && card.owner === false) {
+                author = card.name;
+                // set for inbox to know who is who
+                receiver = item.to;
+                receiverCard = card;
+                sender = item.from;
+                label = card.label;
+
+                if(card.image !== ""){
+                    portrait = card.image;
+                }
+                break;
+            }
+            // to find display the contact of message (owner == false)
+            if (card.keys.n === item.from && card.owner === false) {
+                author = card.name;
+                // set for inbox to know who is who
+                receiver = item.from;
+                sender = item.to;
+                receiverCard = card;
+                label = card.label;
+
+                if(card.image !== ""){
+                    portrait = card.image;
+                    uriflag = true;
+                }
+                break;
+            }
+        };
+
+        for (card of this.props.cards) {
+          //look up the senders card info to pass to message_thread
+          // (card.owner=== True)
+          if (card.keys.n === sender && card.owner === true) {
+              senderCard = card;
+              break;
+          }
+        };
+        // object prop that is passed to message_thread
+        let pair = {
+          sender: sender,
+          receiver: receiver,
+          senderCard: senderCard,
+          receiverCard: receiverCard
+        }
+
+        //label included as part of authorText
+        var titleLabel = author + " (" + label + ")";
+
+        //converts the seconds time in messages.json to milliseconds.
+        //if message was received on current date the time will be displayed.
+        //if the message was received before the current date, the date will be displayed.
+        var millisecondTime = item.time*1000;
+        var messageDate = new Date(millisecondTime).toDateString();
+        var today = new Date().toDateString();
+        var timeStamp;
+
+        if (messageDate === today){
+            var period = "AM";
+            var date = new Date(millisecondTime);
+            var hours = date.getHours();
+            if (hours > 12){
+                hours = hours-12;
+                period = "PM";
+            }
+            var minutes = "0" + date.getMinutes();
+            timeStamp = hours + ":" + minutes.substr(-2) + " " + period;
+        }
+        else{
+            timeStamp = messageDate;
+        }
+
+
+        return (
+            <TouchableOpacity  onPress={() => Actions.message_thread({title: titleLabel, pair: pair})} >
+                <ListItem
+                    roundAvatar
+                    title = {titleLabel}
+                    rightTitle = {timeStamp}
+                    subtitle = {item.body}
+                    avatar = {uriflag === true ? {uri: portrait} : portrait}
+                    containerStyle = {styles.unreadMessage}
+                />
+            </TouchableOpacity>
+        );
     }
 
     // Displays animation if loading, otherwise displays a popup indicating the

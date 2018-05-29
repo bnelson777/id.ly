@@ -143,7 +143,7 @@ export default StyleSheet.create({
         borderRadius: 5
     },
 
-    cardButtonContainer:{
+    cardButtonContainer: {
         height: Height * 0.15,
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -156,8 +156,20 @@ export default StyleSheet.create({
         width: screenWidth,
         height: Height,
         backgroundColor: '#F2F2F2',
+    },
+
+    devContainer: {
+        height: Height - 115,
+        backgroundColor: '#F2F2F2',
         padding: 20,
-      },
+    },
+
+    infoContainer: {
+        height: 34,
+        justifyContent: 'flex-start',
+        paddingLeft: 5,
+        backgroundColor: '#F2F2F2',
+    },
 
     menuItem: {
         fontSize: 14,
@@ -180,7 +192,14 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderTopWidth: 0, 
         borderBottomWidth: 0,
-        marginTop: 0
+        marginTop: 0,
+        paddingTop: 10
     },
 
+    msgContainer: {
+        flex: 3,
+        paddingLeft: 10,
+        paddingRight: 10,
+        backgroundColor: '#FFFFFF',
+    }
 });

@@ -1,3 +1,9 @@
+/**
+ * Create Menu funtion
+ * by id.ly Team
+ */
+
+//Import Libraries
 import React from 'react';
 import styles from './styles';
 import PropTypes from 'prop-types';
@@ -7,11 +13,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
+import { Avatar } from 'react-native-elements';
 
 export default function Menu({ onItemSelected, data }) {
     return (
         <ScrollView scrollsToTop={false} style={styles.menu}>
-            <View>
+            <View style={styles.devContainer}>
                 <TouchableOpacity onPress={() => onItemSelected(data.clearAll())}>
                     <View style={styles.row}>
                         <Text style={styles.title}>
@@ -40,6 +47,15 @@ export default function Menu({ onItemSelected, data }) {
                         </Text>
                     </View>
                 </TouchableOpacity>
+            </View>
+            <View style={styles.infoContainer}>
+                <Avatar 
+                    small
+                    onPress={() => onItemSelected(Actions.about())}
+                    source = {require('../../assets/bw_info.png')}
+                    overlayContainerStyle={{backgroundColor: '#F2F2F2'}}
+                    activeOpacity={0.5}                       
+                />
             </View>
         </ScrollView>
   );

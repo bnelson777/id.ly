@@ -17,7 +17,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 110 : 70;
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 70 : 70;
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and

@@ -46,7 +46,7 @@ export default StyleSheet.create({
         backgroundColor: IDLY_BLUE,
         justifyContent: 'center',
         alignItems: 'center',
-        width: screenWidth*0.25,
+        width: screenWidth*0.28,
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,

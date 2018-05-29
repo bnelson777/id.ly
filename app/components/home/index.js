@@ -18,6 +18,7 @@ import { Avatar, Card, Button,
         List, ListItem } from 'react-native-elements';
 import SideMenu from 'react-native-side-menu';
 import Menu from './menu';
+import { iconSize } from './styles';
 
 const menuImg = require('../../assets/menu.png');
 
@@ -96,9 +97,7 @@ export class Home extends Component {
                 <View>
                     <View style={styles.CardInner}>
                         <View style={styles.CardInfo}>
-                            <Avatar
-                                xlarge
-                                rounded
+                            <Image style={styles.roundedImg}
                                 source = {img}
                             />
                         </View>
@@ -345,7 +344,7 @@ export class Home extends Component {
                     </View>
                     <View style={styles.secondRow}>
                         <View style={styles.center}>
-                            <View style={[styles.triangle,styles.upSideDown]}/>
+                            <View style={[styles.upSideDown]}/>
                         </View>
                         <Card containerStyle = {styles.cardContainer}>
                             {this.displayDefault()}

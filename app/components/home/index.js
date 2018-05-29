@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { Alert, FlatList, View,
-        Text, ActivityIndicator, 
+        AppState, Text, ActivityIndicator, 
         TouchableOpacity, ListView,
         ActionSheetIOS, RefreshControl } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -17,6 +17,7 @@ import { Actions } from 'react-native-router-flux';
 import { Avatar, Card, Button } from 'react-native-elements';
 
 export class Home extends Component {
+
     static navigationOptions = {
         title: "Home",
         headerLeft: (<View/>),
@@ -30,10 +31,23 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.state.appState = AppState.currentState;
     }
 
     componentDidMount() {
         this.props.getCards();
+        AppState.addEventListener('change', this._handleAppStateChange);
+    }
+
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+            this.props.navigation.navigate('login');
+        }
+        this.setState({appState: nextAppState});
     }
 
     // Dummy function for button presses

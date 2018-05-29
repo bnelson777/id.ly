@@ -5,8 +5,8 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { StyleSheet, FlatList,
-        View, Text, TouchableHighlight,
+import { StyleSheet, FlatList, View,
+        AppState, Text, TouchableHighlight,
         TouchableOpacity, Image, Dimensions } from 'react-native';
 import styles, { COLORS } from './styles';
 import { bindActionCreators } from 'redux';
@@ -20,10 +20,24 @@ export class CardList extends Component {
     constructor(props) {
         super(props);
         this.renderItem = this.renderItem.bind(this);
+        this.state = {};
+        this.state.appState = AppState.currentState;
     }
 
     componentDidMount() {
         this.props.getCards();
+        AppState.addEventListener('change', this._handleAppStateChange);
+    }
+
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+            this.props.navigation.navigate('login');
+        }
+        this.setState({appState: nextAppState});
     }
 
     render() {

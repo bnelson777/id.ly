@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
+import { COLOR_PRIMARY, COLOR_SECONDARY, IDLY_BLUE } from './../styles/common';
 
 export default StyleSheet.create({
     container: {
@@ -69,5 +69,21 @@ export default StyleSheet.create({
     unreadMessage: {
         borderBottomWidth: 0,
         backgroundColor: '#F2F2F2'
+    },
+
+    emptyTextContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    emptyText: {
+        fontSize: 18,
+        marginLeft: "10%",
+        marginRight: "10%"
+    },
+
+    tipText: {
+        color: IDLY_BLUE
     }
 });

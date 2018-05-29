@@ -21,7 +21,6 @@ export default StyleSheet.create({
     },
 
     button: {
-        flex: 3,
-        backgroundColor: "steelblue",
-    }
+        marginTop: 20 
+    },
 });

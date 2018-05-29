@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import { View, AsyncStorage } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
-import { onSignIn } from "../../auth";
+import styles from './styles';
 import { Actions } from 'react-native-router-flux';
 import bcrypt from "react-native-bcrypt";
 import isaac from "isaac";
@@ -38,8 +38,6 @@ export default class Login extends Component {
             alert("Fail!");
     }
 
-
-
     render() {
 
         return (
@@ -50,7 +48,7 @@ export default class Login extends Component {
                     onChangeText={ (attempt) => this.setState({attempt})} />
 
                 <Button
-                    buttonStyle={{ marginTop: 20 }}
+                    buttonStyle={ styles.button }
                     backgroundColor="#03A9F4"
                     title="SIGN IN"
                     onPress={() => this.checkPassword()}

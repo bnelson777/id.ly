@@ -164,22 +164,6 @@ export class Home extends Component {
                     </View>
                     <View style={styles.thirdRow}>
                         <View>
-                            <TouchableOpacity onPress={() => Actions.login()}>
-                                <View style={styles.row}>
-                                    <Text style={styles.title}>
-                                        [Dev] Login
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Actions.register()}>
-                                <View style={styles.row}>
-                                    <Text style={styles.title}>
-                                        [Dev] Register
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
                             <TouchableOpacity onPress={() => {this.props.clearAll()}}>
                             <View style={styles.row}>
                                 <Text style={styles.title}>

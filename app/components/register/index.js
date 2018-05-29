@@ -6,10 +6,10 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { View, AsyncStorage } from 'react-native';
+import styles from './styles';
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import { Actions } from 'react-native-router-flux';
 import bcrypt from "react-native-bcrypt";
-import { onSignIn } from "../../auth";
 import isaac from "isaac";
 import SInfo from 'react-native-sensitive-info';
 
@@ -57,7 +57,7 @@ export default class Register extends Component {
                     <FormInput secureTextEntry placeholder="Confirm Password..." 
                         onChangeText={ (password2) => this.setState({password2})} />
 
-                    <Button buttonStyle={{ marginTop: 20 }}
+                    <Button buttonStyle={styles.button}
                         backgroundColor="#03A9F4"
                         title="REGISTER"
                         onPress={() => this.registerUser()} />

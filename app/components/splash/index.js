@@ -24,7 +24,7 @@ export class Splash extends Component {
     constructor(props) {
         super();
         this.fade_in = new Animated.Value(0);
-        this.state = { newUser: true, isLogginIn: false };
+        this.state = { newUser: true, isLoggedIn: false };
     };
     
     componentDidMount() {
@@ -34,7 +34,7 @@ export class Splash extends Component {
         });
         AsyncStorage.getItem('loggedInStatus',
         (value) => {
-            this.setState({ loggedInStatus: value });
+            this.setState({ isLoggedIn: value });
         });
         if (Platform.OS === 'android') {
         Linking.getInitialURL().then(url => {
@@ -46,7 +46,7 @@ export class Splash extends Component {
             setTimeout(() => {
                 if (this.state.newUser == true)
                     this.props.navigation.navigate('register');
-                else if (this.state.isLogginIn == false)
+                else if (this.state.isLoggedIn == false)
                     this.props.navigation.navigate('login');
                 else
                     this.props.navigation.navigate('home');
@@ -60,7 +60,7 @@ export class Splash extends Component {
             setTimeout(() => {
                 if (this.state.newUser == true)
                     this.props.navigation.navigate('register');
-                else if (this.state.isLogginIn == false)
+                else if (this.state.isLoggedIn == false)
                     this.props.navigation.navigate('login');
                 else
                     this.props.navigation.navigate('home');

@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import { Alert, FlatList, View,
+import { Alert, FlatList, View, AsyncStorage,
         AppState, Text, ActivityIndicator, 
         TouchableOpacity, ListView,
         ActionSheetIOS, RefreshControl } from 'react-native';

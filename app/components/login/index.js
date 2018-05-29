@@ -7,7 +7,7 @@
 //Import Libraries
 
 import React, { Component } from 'react';
-import { View } from "react-native";
+import { View, AsyncStorage } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import { onSignIn } from "../../auth";
 import { Actions } from 'react-native-router-flux';
@@ -30,8 +30,10 @@ export default class Login extends Component {
 
 
     checkPassword() {
-        if (bcrypt.compareSync(this.state.attempt, this.state.password))
+        if (bcrypt.compareSync(this.state.attempt, this.state.password)) {
+            AsyncStorage.setItem('loggedInStatus', true);
             this.props.navigation.navigate('home');
+    }
         else
             alert("Fail!");
     }

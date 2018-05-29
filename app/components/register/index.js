@@ -5,8 +5,9 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { View } from "react-native";
+import { View, AsyncStorage } from 'react-native';
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
+import { Actions } from 'react-native-router-flux';
 import bcrypt from "react-native-bcrypt";
 import { onSignIn } from "../../auth";
 import isaac from "isaac";
@@ -26,7 +27,7 @@ export default class Register extends Component {
             alert("Passwords do not match, please re-enter.");
         else {
             var bcrypt = require('react-native-bcrypt');
-
+            AsyncStorage.setItem('newUser', 'false');
             bcrypt.setRandomFallback((len) => {
                 const buf = new Uint8Array(len);
                 return buf.map(() => Math.floor(isaac.random() * 256));
@@ -35,11 +36,10 @@ export default class Register extends Component {
             var salt = bcrypt.genSaltSync(10);
             var hash = bcrypt.hashSync(this.state.password1, salt);
             SInfo.setItem('password', hash, {});
-//            alert(hash);
             SInfo.getItem('password', {}).then(value => {
                 this.setState({password2: value});
-                alert(this.state.password2);
             });
+            this.props.navigation.navigate('home');
         }
 
     }

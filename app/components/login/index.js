@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { View } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import { onSignIn } from "../../auth";
+import { Actions } from 'react-native-router-flux';
 import bcrypt from "react-native-bcrypt";
 import isaac from "isaac";
 import SInfo from 'react-native-sensitive-info';
@@ -30,7 +31,7 @@ export default class Login extends Component {
 
     checkPassword() {
         if (bcrypt.compareSync(this.state.attempt, this.state.password))
-            alert("Success!");
+            this.props.navigation.navigate('home');
         else
             alert("Fail!");
     }

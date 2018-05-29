@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { Text, View, StyleSheet,
-        Animated, Easing, 
+        Animated, Easing, AsyncStorage,
         Image, Platform, Linking } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -24,10 +24,18 @@ export class Splash extends Component {
     constructor(props) {
         super();
         this.fade_in = new Animated.Value(0);
-        this.state = {}
+        this.state = { newUser: true, isLogginIn: false };
     };
     
     componentDidMount() {
+        AsyncStorage.getItem('newUser',
+        (value) => {
+            this.setState({ newUser: value });
+        });
+        AsyncStorage.getItem('loggedInStatus',
+        (value) => {
+            this.setState({ loggedInStatus: value });
+        });
         if (Platform.OS === 'android') {
         Linking.getInitialURL().then(url => {
           this.navigate(url);
@@ -36,7 +44,12 @@ export class Splash extends Component {
         else{
             this.startAnimation();
             setTimeout(() => {
-                this.props.navigation.navigate('home');
+                if (this.state.newUser == true)
+                    this.props.navigation.navigate('register');
+                else if (this.state.isLogginIn == false)
+                    this.props.navigation.navigate('login');
+                else
+                    this.props.navigation.navigate('home');
             }, (DEBUG ? 0 : 4000));
         }
     }
@@ -44,9 +57,13 @@ export class Splash extends Component {
     navigate = (url) => {
         //if there is no deep link on android the display splash screen
         if(!url){
-            this.startAnimation();
             setTimeout(() => {
-                this.props.navigation.navigate('home');
+                if (this.state.newUser == true)
+                    this.props.navigation.navigate('register');
+                else if (this.state.isLogginIn == false)
+                    this.props.navigation.navigate('login');
+                else
+                    this.props.navigation.navigate('home');
             }, (DEBUG ? 0 : 4000));
         }
         const route = url.replace(/.*?:\/\//g, '');

@@ -1,4 +1,5 @@
 {
+  "build:ios": "react-native bundle --entry-file='index.ios.js' --bundle-output='./ios/YourAppName/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
   "name": "id-ly",
   "version": "0.1.0",
   "private": true,

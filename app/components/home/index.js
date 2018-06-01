@@ -36,6 +36,7 @@ export class Home extends Component {
         const {params = {}} = navigation.state;
         return{
             title: "Home",
+            gesturesEnabled: false,
             headerLeft: (<TouchableOpacity
                 style={styles.row}
                 onPress={params.toggle}>

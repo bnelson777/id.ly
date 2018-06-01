@@ -29,7 +29,7 @@ export default function Menu({ onItemSelected, data }) {
                 <TouchableOpacity onPress={() => onItemSelected(Actions.lockbox({title:"Decrypt Message", mode: "decrypt"}))} underlayColor='rgba(0,0,0,.2)'>
                     <View style={styles.row}>
                         <Text style={styles.title}>
-                            [Dev] Decrypt Message
+                            Decrypt Message
                         </Text>
                     </View>
                 </TouchableOpacity>

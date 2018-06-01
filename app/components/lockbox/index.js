@@ -279,14 +279,19 @@ export class Lockbox extends Component {
         }
         else if (this.props.mode === 'decrypt') {
             console.log('In decrypt Mode')
-            this.state.jsonString = decodeURI(this.props.message)
+            var placeholder = 'Enter message cipher ex. {54053da33f90c4fa48b658a3c6d9f2569155b3e977b1eab67c4ec940960af40fecc608794bd759c2df8148455168c4e2ab550308357d113b-vSDM4blBzT2NjQlRuNA0KVDlGSUxBNkNCNWR4NldFQUhMRFc4ZTkyeWxzeHM5YlBETEZBZGgzdCtSUlZMaTI1dDV1Rk9KVkJGSTdhWHV0Vg0KT2c0Y3pORlhoOWRxYUZjZjIvNm5EcmcyRHB5RktnV2dDZFNlcnRBRUVkZW91MkxwWU43STRocDkzRXhMN3lXZQ0KMU1Od21wZEFJR2xTN25nV0JxZWkrQi9kL0M1MFQweEpTWHNpSWFWVkJPbXQxYlVSWlY2blRVYnJ4ZkxQM0VLdw0KakNjcG94a0JodWdVMUNVVytWQXdhZkxLOTFZZUhuN2wrNDVkMjZ4WjBYNEx2bzVUbXBSbi9haWxqMW5zaWVtVQ0KbEpBTjdtUWhidHhqczNPOVRlcDhIaE5lYkhETGczS1NpdzVHeDhIeGtwdlJ5Y2JVTnEzZnNmc1QwdFVKMEM2dw0KbUc4QkM4K2RITTl6VnFlZnhITlBweFMybitTd1hoVm56RW5mT280RUxLdTNXWjBWaVlWNmpHaFljVE1BcFNmeQ0KNDZsOStUcjJkaUE5SFRPWUxOemxEZEdxS0drWldHUTNHQ0dKWWhrRWhaR0NveThiZm96U29KMFp5UjhtN29SZg0KMkVlK29pSlE5dGVGZE92dGR4MEhXWEVhdWVPSk5rdWJmUFJianY3Ykl5ST0=}';
+            if (this.props.message) {
+                this.state.jsonString = decodeURI(this.props.message);
+                var placeholder = decodeURI(this.props.message);
+            }
+            
             return (
                 <View style={styles.container}>
                     <View style={styles.row}>
                         <TextInput
                             multiline={true}
                             onChangeText={(text) => this.setState({jsonString: text})}
-                            placeholder={decodeURI(this.props.message)}
+                            placeholder={placeholder}
                             style={[styles.quote]}
                         />
                     </View>

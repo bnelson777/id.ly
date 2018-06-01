@@ -8,7 +8,7 @@ import React from 'react';
 import styles from './styles';
 import PropTypes from 'prop-types';
 import { ScrollView, View, Text,
-        TouchableOpacity } from 'react-native';
+        TouchableOpacity, Alert } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
@@ -19,10 +19,18 @@ export default function Menu({ onItemSelected, data }) {
     return (
         <ScrollView scrollsToTop={false} style={styles.menu}>
             <View style={styles.devContainer}>
-                <TouchableOpacity onPress={() => onItemSelected(data.clearAll())}>
+                <TouchableOpacity onPress={() => Alert.alert(
+          'Are you sure?',
+          'All messages/cards/data will be erased permanently and you will no longer be able to decrypt new messages sent to these identities.',
+          [
+            {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+            {text: 'OK', onPress: () => onItemSelected(data.clearAll())},
+          ],
+          { cancelable: false }
+        )}>
                     <View style={styles.row}>
                         <Text style={styles.title}>
-                            [Dev] Clear All Data
+                            Clear All Data
                         </Text>
                     </View>
                 </TouchableOpacity>

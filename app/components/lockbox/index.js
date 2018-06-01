@@ -47,7 +47,8 @@ export class Lockbox extends Component {
             email: '',
             isLoading: true,
             added: false,
-            duplicate: false
+            duplicate: false,
+            cipher: "",
         };
         this.decryptMessage= this.decryptMessage.bind(this);
         this.encryptMessageDone= this.encryptMessageDone.bind(this);
@@ -212,6 +213,10 @@ export class Lockbox extends Component {
                     var jsonM = "http://joewetton.com/?m=" + '{' + encrypted + '-' + combinationBase64 + '}';
                     // setState of jsonM
                     this.setState({jsonM: jsonM})
+                    // for display in box
+                    var cipher = '{' + encrypted + '-' + combinationBase64 + '}';
+                    // setState of jsonM
+                    this.setState({cipher: cipher})
                     //uri: mailto:mailto@deniseleeyohn.com?subject=abcdefg&body=body'
                     var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + jsonM;
                     //encode for email linking
@@ -226,9 +231,14 @@ export class Lockbox extends Component {
         }
     }
 
-    writeToClipboard = async () => {
+    writeCipherToClipboard = async () => {
+        await Clipboard.setString(this.state.cipher);
+        alert('Copied cipher to Clipboard!');
+    };
+
+    writeLinkToClipboard = async () => {
         await Clipboard.setString(this.state.jsonM);
-        alert('Copied to Clipboard!');
+        alert('Copied link to Clipboard!');
     };
 
     render() {
@@ -241,11 +251,10 @@ export class Lockbox extends Component {
                     <View style={styles.row}>
                         <TextInput
                             multiline={true}
-                            onChangeText={(text) => this.setState({email: text})}
-                            placeholder={this.state.jsonM}
+                            placeholder={this.state.cipher}
                             style={[styles.quote]}
                             editable={false}
-                            value={this.state.jsonM}
+                            value={this.state.cipher}
                         />
                     </View>
                     <TouchableOpacity style={[styles.saveBtn]}
@@ -258,11 +267,20 @@ export class Lockbox extends Component {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={[styles.saveBtn]}
-                        onPress={this.writeToClipboard}>
+                        onPress={this.writeLinkToClipboard}>
                         <Text style={[styles.buttonText,
                             {color: "#FFF"
                         }]}>
-                            Copy to Clipboard
+                            Copy Link to Clipboard
+                        </Text>
+                    </TouchableOpacity>
+        
+                    <TouchableOpacity style={[styles.saveBtn]}
+                        onPress={this.writeCipherToClipboard}>
+                        <Text style={[styles.buttonText,
+                            {color: "#FFF"
+                        }]}>
+                            Copy Cipher to Clipboard
                         </Text>
                     </TouchableOpacity>
 

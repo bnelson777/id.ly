@@ -143,6 +143,8 @@ dependencies {
     compile project(':react-native-sensitive-info')
     compile project(':react-native-aes-kit')
     compile project(':react-native-image-picker')
+    compile project(':react-native-device-info')
+    compile project(':react-native-bluetooth-cross-platform')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules

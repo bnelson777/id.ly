@@ -37,6 +37,7 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* idlyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* idlyTests.m */; };
+		3BB24DC8812E497E9FFA5A94 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB30CD4FFFB49D18F8526FE /* libRNDeviceInfo.a */; };
 		5598E27574B34DFA8E569DC8 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 483F514A096547D9BBC9420C /* Ionicons.ttf */; };
 		59341614745C4D12A4E4B00F /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6747E4A144E4923A69C17AD /* FontAwesome.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -46,11 +47,25 @@
 		7E5DEAB02683489FB6BA1BDB /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C861510741A4D7081B039EB /* SimpleLineIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		87D2A070151A4E66B3C3CEAE /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DAD0D1F0C549ADA602DF1A /* libReactNativePermissions.a */; };
+		923B7A01F6214266BB713330 /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97AE79EA4C644B69A32859E5 /* libRNDeviceInfo-tvOS.a */; };
 		9E3EA6707F754E128D272917 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACBF8AE7EC2840948F32F8AF /* EvilIcons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		AE77BEFB467744CBB9412B31 /* libRCTAesCrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5B5A8767B64E849B2BAA7B /* libRCTAesCrypto.a */; };
 		B16FB471A61E47D08C788B3A /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7FF05197224DA6875C2A90 /* libLRDRCTSimpleToast.a */; };
 		D6E19A52139949869F61684F /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F13468CE2AD54FAB9CDBDFFA /* Foundation.ttf */; };
+		D877C21D20B651F7006F36F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21120B651F5006F36F6 /* User.swift */; };
+		D877C21E20B651F7006F36F6 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D877C21220B651F5006F36F6 /* NetworkManager.m */; };
+		D877C21F20B651F7006F36F6 /* MessageDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21420B651F6006F36F6 /* MessageDecoder.swift */; };
+		D877C22020B651F7006F36F6 /* ReactNearbyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21520B651F6006F36F6 /* ReactNearbyProtocol.swift */; };
+		D877C22120B651F7006F36F6 /* MessageEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21620B651F6006F36F6 /* MessageEncoder.swift */; };
+		D877C22220B651F7006F36F6 /* ParseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21720B651F6006F36F6 /* ParseExtensions.swift */; };
+		D877C22320B651F7006F36F6 /* TransportHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21820B651F6006F36F6 /* TransportHandler.swift */; };
+		D877C22420B651F7006F36F6 /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D877C21920B651F6006F36F6 /* ProtocolBuffers.framework */; };
+		D877C22520B651F7006F36F6 /* Underdark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D877C21A20B651F6006F36F6 /* Underdark.framework */; };
+		D877C22620B651F7006F36F6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21B20B651F7006F36F6 /* NetworkManager.swift */; };
+		D877C22720B651F7006F36F6 /* NetworkCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877C21C20B651F7006F36F6 /* NetworkCommunicator.swift */; };
+		D877C22920B653EE006F36F6 /* ProtocolBuffers.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D877C21920B651F6006F36F6 /* ProtocolBuffers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D877C22A20B653F3006F36F6 /* Underdark.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D877C21A20B651F6006F36F6 /* Underdark.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB55D0B04E104AE0838B4B2B /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAC346EE3B19447C86A2565C /* Entypo.ttf */; };
 		E447F6FD600044279FA0B4B4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D74B99D7FB346AEADF84561 /* Zocial.ttf */; };
 		F82CB65112314C7E9D9006D9 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00D9F4D360B5410FBDE22245 /* MaterialCommunityIcons.ttf */; };
@@ -360,6 +375,20 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		D877C20C20B65155006F36F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D64E0D353C6F459DBA74C6DB /* RNDeviceInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA5891D81BA9A9FC002B4DB2;
+			remoteInfo = RNDeviceInfo;
+		};
+		D877C20E20B65155006F36F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D64E0D353C6F459DBA74C6DB /* RNDeviceInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E72EC1401F7ABB5A0001BC90;
+			remoteInfo = "RNDeviceInfo-tvOS";
+		};
 		D897138720ACB2AD00AA5498 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F96894416A144461B6E2DF75 /* ReactNativePermissions.xcodeproj */;
@@ -389,6 +418,20 @@
 			remoteInfo = RNSensitiveInfo;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D877C22820B653AA006F36F6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D877C22A20B653F3006F36F6 /* Underdark.framework in CopyFiles */,
+				D877C22920B653EE006F36F6 /* ProtocolBuffers.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -427,6 +470,7 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		858CFF79A94E4B9096C5C981 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
+		97AE79EA4C644B69A32859E5 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
 		A359AE45CE44428F9BE2554A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		ACBF8AE7EC2840948F32F8AF /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -436,7 +480,22 @@
 		C31AA7CF2190488395112B45 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		C5DE09DFB3A240A8BF9E0209 /* libRNSensitiveInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSensitiveInfo.a; sourceTree = "<group>"; };
 		D21AA41488DC40A38AAFACBB /* LRDRCTSimpleToast.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = LRDRCTSimpleToast.xcodeproj; path = "../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast.xcodeproj"; sourceTree = "<group>"; };
+		D64E0D353C6F459DBA74C6DB /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
+		D877C21020B651F4006F36F6 /* idly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "idly-Bridging-Header.h"; sourceTree = "<group>"; };
+		D877C21120B651F5006F36F6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/User.swift"; sourceTree = "<group>"; };
+		D877C21220B651F5006F36F6 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkManager.m; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/NetworkManager.m"; sourceTree = "<group>"; };
+		D877C21320B651F6006F36F6 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bridge.h; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/Bridge.h"; sourceTree = "<group>"; };
+		D877C21420B651F6006F36F6 /* MessageDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageDecoder.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/MessageDecoder.swift"; sourceTree = "<group>"; };
+		D877C21520B651F6006F36F6 /* ReactNearbyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReactNearbyProtocol.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/ReactNearbyProtocol.swift"; sourceTree = "<group>"; };
+		D877C21620B651F6006F36F6 /* MessageEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageEncoder.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/MessageEncoder.swift"; sourceTree = "<group>"; };
+		D877C21720B651F6006F36F6 /* ParseExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseExtensions.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/ParseExtensions.swift"; sourceTree = "<group>"; };
+		D877C21820B651F6006F36F6 /* TransportHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransportHandler.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/TransportHandler.swift"; sourceTree = "<group>"; };
+		D877C21920B651F6006F36F6 /* ProtocolBuffers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ProtocolBuffers.framework; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/ProtocolBuffers.framework"; sourceTree = "<group>"; };
+		D877C21A20B651F6006F36F6 /* Underdark.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Underdark.framework; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/Underdark.framework"; sourceTree = "<group>"; };
+		D877C21B20B651F7006F36F6 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/NetworkManager.swift"; sourceTree = "<group>"; };
+		D877C21C20B651F7006F36F6 /* NetworkCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkCommunicator.swift; path = "../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/NetworkCommunicator.swift"; sourceTree = "<group>"; };
 		DF7FF05197224DA6875C2A90 /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLRDRCTSimpleToast.a; sourceTree = "<group>"; };
+		DFB30CD4FFFB49D18F8526FE /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		E6747E4A144E4923A69C17AD /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		F13468CE2AD54FAB9CDBDFFA /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		F1B5B30427C44DBE9D6A9381 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -460,6 +519,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
+				D877C22520B651F7006F36F6 /* Underdark.framework in Frameworks */,
+				D877C22420B651F7006F36F6 /* ProtocolBuffers.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -480,6 +541,7 @@
 				AE77BEFB467744CBB9412B31 /* libRCTAesCrypto.a in Frameworks */,
 				FDCAA8A27C674FF08DB4BA82 /* libRNImagePicker.a in Frameworks */,
 				87D2A070151A4E66B3C3CEAE /* libReactNativePermissions.a in Frameworks */,
+				3BB24DC8812E497E9FFA5A94 /* libRNDeviceInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +557,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
+				923B7A01F6214266BB713330 /* libRNDeviceInfo-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +754,7 @@
 				04793E81A7744093AE4C6916 /* RCTAesCrypto.xcodeproj */,
 				F7E8AFB3C2EF43AB99BBDD8D /* RNImagePicker.xcodeproj */,
 				F96894416A144461B6E2DF75 /* ReactNativePermissions.xcodeproj */,
+				D64E0D353C6F459DBA74C6DB /* RNDeviceInfo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -707,6 +771,18 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D877C21320B651F6006F36F6 /* Bridge.h */,
+				D877C21420B651F6006F36F6 /* MessageDecoder.swift */,
+				D877C21620B651F6006F36F6 /* MessageEncoder.swift */,
+				D877C21C20B651F7006F36F6 /* NetworkCommunicator.swift */,
+				D877C21220B651F5006F36F6 /* NetworkManager.m */,
+				D877C21B20B651F7006F36F6 /* NetworkManager.swift */,
+				D877C21720B651F6006F36F6 /* ParseExtensions.swift */,
+				D877C21920B651F6006F36F6 /* ProtocolBuffers.framework */,
+				D877C21520B651F6006F36F6 /* ReactNearbyProtocol.swift */,
+				D877C21820B651F6006F36F6 /* TransportHandler.swift */,
+				D877C21A20B651F6006F36F6 /* Underdark.framework */,
+				D877C21120B651F5006F36F6 /* User.swift */,
 				13B07FAE1A68108700A75B9A /* idly */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* idlyTests */,
@@ -714,6 +790,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				1CB8C2988B4042068ACFB02F /* Resources */,
 				D820ABD220ACAA7A006123CA /* Recovered References */,
+				D877C21020B651F4006F36F6 /* idly-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -751,6 +828,8 @@
 				C31AA7CF2190488395112B45 /* libRNFetchBlob.a */,
 				C5DE09DFB3A240A8BF9E0209 /* libRNSensitiveInfo.a */,
 				1E5B5A8767B64E849B2BAA7B /* libRCTAesCrypto.a */,
+				DFB30CD4FFFB49D18F8526FE /* libRNDeviceInfo.a */,
+				97AE79EA4C644B69A32859E5 /* libRNDeviceInfo-tvOS.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -783,6 +862,15 @@
 			isa = PBXGroup;
 			children = (
 				D820AC1820ACAA7B006123CA /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D877C20820B65153006F36F6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D877C20D20B65155006F36F6 /* libRNDeviceInfo.a */,
+				D877C20F20B65155006F36F6 /* libRNDeviceInfo-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -848,6 +936,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				D877C22820B653AA006F36F6 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -909,6 +998,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = J76T3FGC86;
+						LastSwiftMigration = 0930;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -996,6 +1086,10 @@
 				{
 					ProductGroup = D897138420ACB2AD00AA5498 /* Products */;
 					ProjectRef = F96894416A144461B6E2DF75 /* ReactNativePermissions.xcodeproj */;
+				},
+				{
+					ProductGroup = D877C20820B65153006F36F6 /* Products */;
+					ProjectRef = D64E0D353C6F459DBA74C6DB /* RNDeviceInfo.xcodeproj */;
 				},
 				{
 					ProductGroup = D8BF987020AD2E5500534AC5 /* Products */;
@@ -1312,6 +1406,20 @@
 			remoteRef = D820AC1A20ACAA7B006123CA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D877C20D20B65155006F36F6 /* libRNDeviceInfo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNDeviceInfo.a;
+			remoteRef = D877C20C20B65155006F36F6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D877C20F20B65155006F36F6 /* libRNDeviceInfo-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNDeviceInfo-tvOS.a";
+			remoteRef = D877C20E20B65155006F36F6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D897138820ACB2AD00AA5498 /* libReactNativePermissions.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1431,8 +1539,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D877C21E20B651F7006F36F6 /* NetworkManager.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				D877C22620B651F7006F36F6 /* NetworkManager.swift in Sources */,
+				D877C22020B651F7006F36F6 /* ReactNearbyProtocol.swift in Sources */,
+				D877C22320B651F7006F36F6 /* TransportHandler.swift in Sources */,
+				D877C22720B651F7006F36F6 /* NetworkCommunicator.swift in Sources */,
+				D877C22220B651F7006F36F6 /* ParseExtensions.swift in Sources */,
+				D877C21F20B651F7006F36F6 /* MessageDecoder.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				D877C22120B651F7006F36F6 /* MessageEncoder.swift in Sources */,
+				D877C21D20B651F7006F36F6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,6 +1601,7 @@
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1498,12 +1616,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-sensitive-infoiosRNSensitiveInfo/**",
 					"$(SRCROOT)..\node_modules\neact-native-aes-kitiosRCTAesCrypto/**",
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
+					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = idlyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1524,6 +1645,7 @@
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				HEADER_SEARCH_PATHS = (
@@ -1535,12 +1657,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-sensitive-infoiosRNSensitiveInfo/**",
 					"$(SRCROOT)..\node_modules\neact-native-aes-kitiosRCTAesCrypto/**",
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
+					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = idlyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1562,6 +1687,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = J76T3FGC86;
@@ -1574,6 +1700,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-sensitive-infoiosRNSensitiveInfo/**",
 					"$(SRCROOT)..\node_modules\neact-native-aes-kitiosRCTAesCrypto/**",
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
+					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = idly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1583,6 +1710,9 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = idly;
+				SWIFT_OBJC_BRIDGING_HEADER = "$SRCROOT/../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/Bridge.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1591,6 +1721,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J76T3FGC86;
 				HEADER_SEARCH_PATHS = (
@@ -1602,6 +1733,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-sensitive-infoiosRNSensitiveInfo/**",
 					"$(SRCROOT)..\node_modules\neact-native-aes-kitiosRCTAesCrypto/**",
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
+					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = idly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1611,6 +1743,8 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = idly;
+				SWIFT_OBJC_BRIDGING_HEADER = "$SRCROOT/../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/Bridge.h";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1636,11 +1770,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-sensitive-infoiosRNSensitiveInfo/**",
 					"$(SRCROOT)..\node_modules\neact-native-aes-kitiosRCTAesCrypto/**",
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
+					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = "idly-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1682,11 +1819,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-sensitive-infoiosRNSensitiveInfo/**",
 					"$(SRCROOT)..\node_modules\neact-native-aes-kitiosRCTAesCrypto/**",
 					"$(SRCROOT)..\node_modules\neact-native-image-pickerios",
+					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = "idly-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1727,6 +1867,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.idly-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1751,6 +1893,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1785,6 +1929,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1827,6 +1972,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-bluetooth-cross-platform/ios/react-native-bluetooth-cross-platform/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

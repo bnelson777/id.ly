@@ -6,7 +6,7 @@
 //Import Libraries
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, { Component } from 'react';
-import { Alert, StyleSheet, FlatList,
+import { Alert, StyleSheet, FlatList, Keyboard,
         View, Text, TextInput, Platform,
         TouchableHighlight, TouchableOpacity,
         Image, KeyboardAvoidingView } from 'react-native';
@@ -17,7 +17,7 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 110 : 70;
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 70 : 70;
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and
@@ -82,6 +82,8 @@ export class CreateMessage extends Component {
         let message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": true};
         // add to senders persistant storage
         this.props.addMessage(message);
+        // set same message object but with read set to false for the reciever
+        message = {"id": id, "to": this.state.recipient, "from": this.state.sender, "body": this.state.message, "time": unix, "read": false};
         setTimeout(function(){
             Actions.lockbox({title:"Encrypt Message", mode: "encrypt", message: message, returnTo: "inbox"});
         }, 100);
@@ -148,7 +150,11 @@ export class CreateMessage extends Component {
                         onPress={(index) => this.updateRecipient(index, idTo[index], labelsTo[index])}
                     />
                 </View>
-                <View style={[styles.itemContainer, styles.bottomContainer]}>
+                <TouchableOpacity
+                    style={[styles.itemContainer, styles.bottomContainer]}
+                    activeOpacity={1}
+                    onPress={Keyboard.dismiss}
+                >
                     <View style={styles.messageBox}>
                         <TextInput
                             ref={input => {this.messageInput = input}}
@@ -167,7 +173,7 @@ export class CreateMessage extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableOpacity>
             </KeyboardAvoidingView>
         );
     }

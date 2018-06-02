@@ -3,6 +3,7 @@ package com.idly;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import cc.rocwang.aescrypto.AesCryptoPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -14,6 +15,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.rctunderdark.NetworkManagerPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,12 +32,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNDeviceInfo(),
             new AesCryptoPackage(),
             new RNSensitiveInfoPackage(),
             new RNFetchBlobPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
-            new RCTCameraPackage()
+            new RCTCameraPackage(),
+            new NetworkManagerPackage()
       );
     }
 

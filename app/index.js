@@ -30,6 +30,10 @@ import Login from './components/login/index';
 import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
+import Bluetooth from './components/bluetooth/index'
+//Dumby Data for Initial App Load
+import CardData from './cards-empty.json';
+import MessageData from './messages-empty.json';
 import { getCards } from './actions';
 import { getMessages } from './actions';
 //Needed for Actions.home() back button on inbox see line 59:121
@@ -192,6 +196,7 @@ class Main extends Component {
                         rightButtonStyle={styles.rightButton} rightButtonIconStyle={styles.rightButtonIcon} />
                     <Scene key="create_card" component={CreateCard} title="Add Information" />
                     <Scene key="about" component={About} title="About" />
+                    <Scene key="bluetooth" component={Bluetooth} title="Bluetooth" />
                 </Scene>
             </Router>
         );

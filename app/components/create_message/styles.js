@@ -30,10 +30,10 @@ export default StyleSheet.create({
     },
 
     bottomContainer: {
-        height: screenHeight*0.78,
+        height: screenHeight*0.63,
         alignItems: 'center',
         justifyContent: 'flex-end',
-        paddingTop: screenHeight*0.78*0.4
+        paddingTop: screenHeight*0.63*0.4
     },
 
     button: {
@@ -47,7 +47,6 @@ export default StyleSheet.create({
         width: boxWidth,
         maxHeight: boxHeight,
         marginTop: screenHeight * 0.3,
-        marginBottom: screenHeight * 0.15,
         marginRight: screenWidth * 0.01,
         marginLeft: screenWidth * 0.1,
         borderLeftWidth: boxBorderWidth,
@@ -70,8 +69,7 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR,
         marginLeft: screenWidth * 0.02,
         marginRight: screenWidth * 0.03,
-        marginTop: screenHeight * 0.2,
-        marginBottom: screenHeight * 0.05,
+        marginTop: screenHeight * 0.3
     },
 
     imageContainer: {

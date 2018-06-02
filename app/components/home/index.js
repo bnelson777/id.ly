@@ -44,7 +44,7 @@ export class Home extends Component {
     }
 
     _handleAppStateChange = (nextAppState) => {
-        if (this.state.appState.match(/background/) && nextAppState === 'active') {
+        if (this.state.appState.match(/background|inactive/) && nextAppState === 'active') {
             AsyncStorage.setItem('loggedInStatus', 'false');
             this.props.navigation.navigate('login');
         }

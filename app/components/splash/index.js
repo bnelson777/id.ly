@@ -44,12 +44,10 @@ export class Splash extends Component {
         else{
             this.startAnimation();
             setTimeout(() => {
-                if (this.state.newUser != 'false')
+                if (this.state.newUser === 'true')
                     this.props.navigation.navigate('register');
-                else if (this.state.isLoggedIn === 'false')
-                    this.props.navigation.navigate('login');
                 else
-                    this.props.navigation.navigate('home');
+                    this.props.navigation.navigate('login');
             }, (DEBUG ? 0 : 4000));
         }
     }
@@ -60,10 +58,8 @@ export class Splash extends Component {
             setTimeout(() => {
                 if (this.state.newUser == 'true')
                     this.props.navigation.navigate('register');
-                else if (this.state.isLoggedIn == 'false')
-                    this.props.navigation.navigate('login');
                 else
-                    this.props.navigation.navigate('home');
+                    this.props.navigation.navigate('login');
             }, (DEBUG ? 0 : 4000));
         }
         const route = url.replace(/.*?:\/\//g, '');

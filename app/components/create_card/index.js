@@ -116,9 +116,8 @@ export class CreateCard extends Component {
                         <TouchableOpacity activeOpacity = { .5 }
                             onPress={ () => this.chooseImage() }>
                             <View style={styles.cardPosition}>
-                                <Avatar
-                                    xlarge
-                                    rounded
+                                <Image
+                                    style={styles.roundedImg}
                                     source = {icon}
                                 />
                             </View>

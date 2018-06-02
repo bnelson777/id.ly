@@ -75,8 +75,8 @@ export default StyleSheet.create({
         borderColor:'rgba(0,0,0,0)',
         alignItems:'center',
         justifyContent:'center',
-        width: screenWidth * 0.5,
-        height: screenWidth * 0.5,
+        width: screenWidth * 0.43,
+        height: screenWidth * 0.43,
         backgroundColor:'#FFFFFF',
         borderRadius: 100
     }

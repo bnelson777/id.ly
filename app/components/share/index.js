@@ -9,7 +9,7 @@ import QRCode from 'react-native-qrcode';
 import styles from './styles';
 import { StyleSheet, FlatList, TextInput,
         View, Text, ActivityIndicator,
-        TouchableHighlight,
+        TouchableHighlight, Dimensions,
         ActionSheetIOS} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -19,6 +19,7 @@ import deviceInfo from 'react-native-device-info';
 let BluetoothCP = require("react-native-bluetooth-cross-platform");
 import AesCrypto from 'react-native-aes-kit';
 
+const screenWidth = Dimensions.get('window').width;
 
 // SHARE
 // FUNCTION(S): This componenet at the moment will display a JSON card object in QR
@@ -106,7 +107,7 @@ export class Share extends Component {
                 </Text>
                 <QRCode
                     value={JSON.stringify(qrObject)}
-                    size={325}
+                    size={screenWidth * 0.9}
                     bgColor='black'
                     fgColor='white'
                 />

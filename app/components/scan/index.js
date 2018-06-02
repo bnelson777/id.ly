@@ -10,7 +10,7 @@ import styles from './styles';
 import { Text, View, StyleSheet, Button, Alert,
         ActivityIndicator, Animated, Easing,
         LayoutAnimation, Image, Platform,
-        Vibration, PermissionsAndroid } from 'react-native';
+        Vibration, PermissionsAndroid, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -24,6 +24,7 @@ import AesCrypto from 'react-native-aes-kit';
 
 const PERMISSION_AUTHORIZED = 'authorized';
 const CAMERA_PERMISSION = 'camera';
+const screenHeight = Dimensions.get('window').height;
 
 class Scan extends Component {
     /* expo permission
@@ -51,7 +52,7 @@ class Scan extends Component {
           }}>
             <Text style={{
               textAlign: 'center',
-              fontSize: 20,
+              fontSize: screenHeight * 0.033,
             }}>
               Camera Unauthorized!
             </Text>
@@ -65,7 +66,7 @@ class Scan extends Component {
           }}>
             <Text style={{
               textAlign: 'center',
-              fontSize: 20,
+              fontSize: screenHeight * 0.033,
             }}>
               Require Camera Permission!
             </Text>

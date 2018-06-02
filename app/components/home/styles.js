@@ -194,7 +194,7 @@ export default StyleSheet.create({
     },
 
     menuItem: {
-        fontSize: 14,
+        fontSize: screenHeight * 0.0231,
         fontWeight: '300',
         paddingTop: screenHeight * 0.0075,
     },

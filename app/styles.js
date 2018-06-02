@@ -3,11 +3,12 @@ import { COLOR_PRIMARY, COLOR_SECONDARY, IDLY_BLUE,
         BACKGROUND_COLOR, BORDER_RADIUS } from './components/styles/common';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     subtitle: {
         fontWeight: '500',
-        fontSize: 22,
+        fontSize: screenHeight * 0.0363,
     },
 
     rightButton: {
@@ -26,7 +27,7 @@ export default StyleSheet.create({
 
     textColor: {
         fontWeight: '500',
-        fontSize: 22,
+        fontSize: screenHeight * 0.0363,
         textAlign: 'center',
         alignSelf: 'center'
     },

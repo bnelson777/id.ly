@@ -1,9 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { } from './../styles/common';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     container: {
-        paddingTop: 20,
+        paddingTop: screenHeight * 0.03,
         alignItems: 'stretch'
     },
 
@@ -28,10 +31,10 @@ export default StyleSheet.create({
     },
 
     inputBox: {
-        height: 40,
+        height: screenHeight * 0.06,
     },
-    
+
     inboxButton: {
-        paddingRight: 100
+        paddingRight: screenWidth * 0.32
     }
 });

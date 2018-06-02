@@ -2,8 +2,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, 
         BACKGROUND_COLOR, BORDER_RADIUS, IDLY_BLUE } from './../styles/common';
 
-const {width} = Dimensions.get('window');
-const screenWidth = width;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 const buttonHeight = screenWidth * 0.1;
 const iconHeight = screenWidth * 0.05;
 const listHeight = screenWidth * 0.13;
@@ -23,7 +23,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         width: screenWidth,
         height: listHeight,
-        marginTop: 10
+        marginTop: screenHeight * 0.015
     },
 
     imageContainer: {
@@ -37,7 +37,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: BORDER_RADIUS,
-        marginTop: 6,
+        marginTop: screenHeight * 0.009,
     },
 
     imageButton: {
@@ -118,5 +118,16 @@ export default StyleSheet.create({
 
     tipText: {
         color: IDLY_BLUE
+    },
+
+    roundedImg:{
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0)',
+        alignItems:'center',
+        justifyContent:'center',
+        width: buttonHeight,
+        height: buttonHeight,
+        backgroundColor:'#FFFFFF',
+        borderRadius: 100
     }
 });

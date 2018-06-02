@@ -95,12 +95,12 @@ export class CardList extends Component {
                 {index > 0 ? <View style={styles.sepLine}/>:<View/>}
                 <View style={styles.buttonContainer}>
                     <View>
-                        <TouchableOpacity onPress={() => Actions.card_view({title: item.name, card: item, isWallet: item.owner})}>
-                            <Avatar
-                                small
-                                rounded
-                                source={icon}
-                                containerStyle = {styles.toLeft}
+                        <TouchableOpacity
+                            style={[styles.toLeft, styles.roundedImg]}
+                            onPress={() => Actions.card_view({title: item.name, card: item, isWallet: item.owner})}>
+                            <Image
+                                style={styles.roundedImg}
+                                source = {icon}
                             />
                         </TouchableOpacity>
                     </View>

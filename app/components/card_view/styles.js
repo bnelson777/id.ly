@@ -11,18 +11,23 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR
     },
 
+    topContainer:{
+        flex:2
+    },
+
     buttonContainer:{
-        flex:1,
+        flex:0.1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 10,
-        backgroundColor: BACKGROUND_COLOR
+        paddingTop: screenHeight * 0.01,
+        backgroundColor: BACKGROUND_COLOR,
+        paddingBottom: screenHeight * 0.01
     },
 
     row:{
         borderBottomWidth: BORDER_WIDTH,
         borderColor: "#ccc",
-        padding: 10
+        padding: screenWidth * 0.032
     },
 
     header:{
@@ -30,13 +35,13 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: FONT_SIZE,
         color: '#FFFFFF',
-        paddingLeft: 10
+        paddingLeft: screenWidth * 0.032
     },
 
     button:{
         backgroundColor: IDLY_BLUE,
         width: screenWidth*0.3,
-        height: 45,
+        height: screenHeight * 0.067,
         borderColor: "transparent",
         borderWidth: 0,
         borderRadius: 5
@@ -47,7 +52,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: screenWidth*0.28,
-        height: 45,
+        height: screenHeight * 0.067,
         borderColor: "transparent",
         borderWidth: 0,
         borderRadius: 5
@@ -56,18 +61,23 @@ export default StyleSheet.create({
     name: {
         fontSize: FONT_SIZE,
         fontWeight: FONT_WEIGHT,
-        marginTop: 8 * 2
+        marginTop: screenHeight * 0.024
     },
 
     cardPosition: {
-        paddingTop: 10,
+        paddingTop: screenHeight * 0.015,
         justifyContent: 'center',
         alignItems: 'center'
     },
 
-    imageStyle: {
-        width: 180,
-        height: 180,
-        resizeMode: Image.resizeMode.contain
+    roundedImg:{
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0)',
+        alignItems:'center',
+        justifyContent:'center',
+        width: screenWidth * 0.5,
+        height: screenWidth * 0.5,
+        backgroundColor:'#FFFFFF',
+        borderRadius: 100
     }
 });

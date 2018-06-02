@@ -2,9 +2,9 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { BACKGROUND_COLOR, FONT_SIZE,
         BORDER_WIDTH, IDLY_BLUE } from './../styles/common';
 
-const Height = Dimensions.get('window').height;
+const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-export const iconSize = Height * 0.2;
+export const iconSize = screenHeight * 0.2;
 
 export default StyleSheet.create({
     container:{
@@ -21,24 +21,24 @@ export default StyleSheet.create({
     },
 
     row:{
-        padding: 10
+        padding: screenWidth * 0.032
     },
 
     title: {
         fontSize: FONT_SIZE,
         fontWeight: "600",
-        marginTop: 8 * 2
+        marginTop: screenHeight * 0.024
     },
 
     firstRow: {
-        height: Height * 0.2,
+        height: screenHeight * 0.2,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: Height * 0.03
+        paddingTop: screenHeight * 0.03
     },
 
     secondRow: {
-        height: Height * 0.446,
+        height: screenHeight * 0.446,
         backgroundColor: '#F2F2F2'
     },
 
@@ -51,8 +51,8 @@ export default StyleSheet.create({
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        paddingTop: Height * 0.051 < 34 ? 0 : Height * 0.035,
-        paddingRight: 5,
+        paddingTop: screenHeight * 0.051 < 34 ? 0 : screenHeight * 0.035,
+        paddingRight: screenWidth * 0.016,
     },
 
     center: {
@@ -65,9 +65,9 @@ export default StyleSheet.create({
         height: 0,
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderLeftWidth: Height * 0.458 * 0.025,
-        borderRightWidth: Height * 0.458 * 0.025,
-        borderBottomWidth: Height * 0.458 * 0.05,
+        borderLeftWidth: screenHeight * 0.458 * 0.025,
+        borderRightWidth: screenHeight * 0.458 * 0.025,
+        borderBottomWidth: screenHeight * 0.458 * 0.05,
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderBottomColor: '#FFFFFF',
@@ -80,9 +80,9 @@ export default StyleSheet.create({
         height: 0,
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderLeftWidth: Height * 0.458 * 0.025,
-        borderRightWidth: Height * 0.458 * 0.025,
-        borderTopWidth: Height * 0.458 * 0.05,
+        borderLeftWidth: screenHeight * 0.458 * 0.025,
+        borderRightWidth: screenHeight * 0.458 * 0.025,
+        borderTopWidth: screenHeight * 0.458 * 0.05,
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderTopColor: '#FFFFFF',
@@ -91,7 +91,7 @@ export default StyleSheet.create({
     },
 
     cardContainer: {
-        height: Height * 0.4,
+        height: screenHeight * 0.4,
         borderRadius: 5,
         borderWidth: 0,
         marginTop: 0
@@ -102,7 +102,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: screenWidth * 0.38,
-        height: 45,
+        height: screenHeight * 0.0675,
         borderColor: "transparent",
         borderWidth: 0,
         borderRadius: 10
@@ -118,16 +118,16 @@ export default StyleSheet.create({
     nocard:{
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginTop: Height * 0.15,
+        marginTop: screenHeight * 0.15,
     },
 
     CardInner: {
-        height: Height * 0.25,
+        height: screenHeight * 0.25,
         flexDirection: 'row',
     },
 
     CardInfo: {
-        height: Height * 0.25,
+        height: screenHeight * 0.25,
         alignItems: 'flex-start',
         justifyContent: 'center',      
         width: screenWidth * 0.43,
@@ -135,30 +135,30 @@ export default StyleSheet.create({
 
     cardTitle: {
         fontWeight: '500',
-        fontSize: Height * 0.05,
+        fontSize: screenHeight * 0.05,
         color: '#000000'
     },
 
     cardSubTitle: {
         fontWeight: '500',
-        fontSize: Height * 0.025,
+        fontSize: screenHeight * 0.025,
         color: '#585858',
     },
 
     cardButton:{
         backgroundColor: IDLY_BLUE,
         width: screenWidth*0.35,
-        height: Height * 0.07,
+        height: screenHeight * 0.07,
         borderColor: "transparent",
         borderWidth: 0,
         borderRadius: 5
     },
 
     cardButtonContainer:{
-        height: Height * 0.1,
+        height: screenHeight * 0.1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: Height * 0.02,
+        paddingTop: screenHeight * 0.02,
         backgroundColor: '#FFFFFF'
     },
 
@@ -167,41 +167,41 @@ export default StyleSheet.create({
         borderColor:'rgba(0,0,0,0)',
         alignItems:'center',
         justifyContent:'center',
-        width:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 : Height * 0.225,
-        height:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 : Height * 0.225,
+        width:screenWidth * 0.387 < screenHeight * 0.225 ? screenWidth * 0.387 : screenHeight * 0.225,
+        height:screenWidth * 0.387 < screenHeight * 0.225 ? screenWidth * 0.387 : screenHeight * 0.225,
         backgroundColor:'#FFFFFF',
-        borderRadius:screenWidth * 0.387 < Height * 0.225 ? screenWidth * 0.387 / 2 : Height * 0.225 / 2
+        borderRadius:screenWidth * 0.387 < screenHeight * 0.225 ? screenWidth * 0.387 / 2 : screenHeight * 0.225 / 2
     },
 
     menu: {
         flex: 1,
         width: screenWidth,
-        height: Height,
+        height: screenHeight,
         backgroundColor: '#F2F2F2',
     },
 
     devContainer: {
-        height: Height - 115,
+        height: screenHeight - 115,
         backgroundColor: '#F2F2F2',
         padding: 20,
     },
 
     infoContainer: {
-        height: 34,
+        height: screenHeight * 0.07,
         justifyContent: 'flex-start',
-        paddingLeft: 5,
+        paddingLeft: screenWidth * 0.016,
         backgroundColor: '#F2F2F2',
     },
 
     menuItem: {
         fontSize: 14,
         fontWeight: '300',
-        paddingTop: 5,
+        paddingTop: screenHeight * 0.0075,
     },
 
     nonUnread: {
         fontWeight: '500',
-        fontSize: Height * 0.025,
+        fontSize: screenHeight * 0.025,
         color: '#585858'
     },
     
@@ -215,13 +215,13 @@ export default StyleSheet.create({
         borderTopWidth: 0, 
         borderBottomWidth: 0,
         marginTop: 0,
-        paddingTop: 10
+        paddingTop: screenHeight * 0.015
     },
 
     msgContainer: {
         flex: 3,
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: screenWidth * 0.032,
+        paddingRight: screenWidth * 0.032,
         backgroundColor: '#FFFFFF',
     }
 });

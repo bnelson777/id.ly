@@ -1,6 +1,8 @@
-import { StyleSheet} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, IDLY_BLUE,
         BACKGROUND_COLOR, BORDER_RADIUS } from './components/styles/common';
+
+const screenWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     subtitle: {
@@ -14,8 +16,8 @@ export default StyleSheet.create({
 
     rightButtonIcon: {
         right: 0,
-        width: 28,
-        height: 28
+        width: screenWidth * 0.0896,
+        height: screenWidth * 0.0896
     },
 
     idlyColor: {

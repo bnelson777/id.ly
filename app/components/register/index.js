@@ -29,11 +29,6 @@ export default class Register extends Component {
             var bcrypt = require('react-native-bcrypt');
             AsyncStorage.setItem('newUser', 'false');
             AsyncStorage.setItem('loggedInStatus', 'true');
-            bcrypt.setRandomFallback((len) => {
-                const buf = new Uint8Array(len);
-                return buf.map(() => Math.floor(isaac.random() * 256));
-            });
-
             var salt = bcrypt.genSaltSync(10);
             var hash = bcrypt.hashSync(this.state.password1, salt);
             SInfo.setItem('password', hash, {});

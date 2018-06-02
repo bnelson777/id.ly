@@ -56,7 +56,7 @@ export class Splash extends Component {
         //if there is no deep link on android the display splash screen
         if(!url){
             setTimeout(() => {
-                if (this.state.newUser == 'true')
+                if (this.state.newUser === 'true')
                     this.props.navigation.navigate('register');
                 else
                     this.props.navigation.navigate('login');

@@ -6,9 +6,9 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import { Alert, FlatList, View, Image,
-        Text, ActivityIndicator, ScrollView,
-        TouchableOpacity, ListView,
+import { Alert, FlatList, View, AsyncStorage,
+        AppState, Text, ActivityIndicator, 
+        Image, ScrollView, TouchableOpacity, ListView,
         ActionSheetIOS } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -23,11 +23,24 @@ import { iconSize } from './styles';
 const menuImg = require('../../assets/menu.png');
 
 export class Home extends Component {
+
+    static navigationOptions = {
+        title: "Home",
+        headerLeft: (<View/>),
+        hearerRight: (<View/>),
+        headerTintColor: 'white',
+        headerStyle: {
+            backgroundColor: '#128DC9',
+        }
+    }
+
     constructor(props) {
-        super(props);
+        super(props);      
+
         this.state = {
             isOpen: false,
             selectedItem: 'About',
+            appState:AppState.currentState,
         };
         this.toggle = this.toggle.bind(this);
     }
@@ -79,6 +92,22 @@ export class Home extends Component {
         });
         this.props.getMessages();
         this.props.getCards();
+        AppState.addEventListener('change', this._handleAppStateChange);
+    }
+
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (this.state.appState.match(/background/) && nextAppState === 'active') {
+            AsyncStorage.setItem('loggedInStatus', 'false');
+            this.props.navigation.navigate('login');
+        } else if (this.state.appState.match(/inactive/) && nextAppState != 'active') {
+            AsyncStorage.setItem('loggedInStatus', 'false');
+            this.props.navigation.navigate('login');
+    }
+        this.setState({appState: nextAppState});
     }
 
     // Dummy function for button presses
@@ -275,7 +304,6 @@ export class Home extends Component {
         else{
             timeStamp = messageDate;
         }
-
 
         return (
             <TouchableOpacity  onPress={() => Actions.message_thread({title: titleLabel, pair: pair})} >

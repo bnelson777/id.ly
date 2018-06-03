@@ -5,8 +5,8 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { StyleSheet, FlatList,
-        View, Text, TouchableHighlight,
+import { StyleSheet, FlatList, View,
+        AppState, Text, TouchableHighlight,
         TouchableOpacity, Image, Dimensions } from 'react-native';
 import styles, { COLORS } from './styles';
 import { bindActionCreators } from 'redux';
@@ -20,6 +20,7 @@ export class CardList extends Component {
     constructor(props) {
         super(props);
         this.renderItem = this.renderItem.bind(this);
+        this.state = {};
     }
 
     componentDidMount() {

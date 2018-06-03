@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { Text, View, Button, TouchableHighlight,
-        StyleSheet, Image, Linking } from 'react-native';
+        StyleSheet, Image, AppState, Linking } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';

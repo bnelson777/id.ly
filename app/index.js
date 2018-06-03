@@ -170,9 +170,12 @@ class Main extends Component {
                 rightButtonTextStyle={styles.subtitle}>
                 <Scene key="root">
                     <Scene key="splash" component={Splash} initial={true}/>
+                    <Scene key="login" component={Login} title="Login" 
+                        renderLeftButton={<View></View>} />
+                    <Scene key="register" component={Register} title="Register" 
+                        renderLeftButton={<View></View>} />
                     <Scene key="home" component={Home} title="Home" 
-                        panHandlers={null} hideNavBar type={ActionConst.RESET}
-                    />
+                        panHandlers={null} />
                     <Scene key="scan" component={Scan} title="Scan" />
                     <Scene key="lockbox" component={Lockbox} title="Lockbox" />
                     <Scene key="rolodex" component={CardList}title="Rolodex"
@@ -192,8 +195,6 @@ class Main extends Component {
                         rightButtonImage={require('./assets/msg.png')}
                         rightButtonStyle={styles.rightButton} rightButtonIconStyle={styles.rightButtonIcon} />
                     <Scene key="create_card" component={CreateCard} title="Add Information" />
-                    <Scene key="login" component={Login} title="Login" />
-                    <Scene key="register" component={Register} title="Register" />
                     <Scene key="about" component={About} title="About" />
                     <Scene key="bluetooth" component={Bluetooth} title="Bluetooth" />
                 </Scene>

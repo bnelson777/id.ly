@@ -5,53 +5,56 @@
 'use strict';
 
 //Import Libraries
+
 import React, { Component } from 'react';
+import { View, AsyncStorage } from "react-native";
+import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 import styles from './styles';
-import { View, Text, TextInput, 
-        Button } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { Actions } from 'react-native-router-flux';
+import bcrypt from "react-native-bcrypt";
+import isaac from "isaac";
+import SInfo from 'react-native-sensitive-info';
 
 export default class Login extends Component {
+    
     constructor(props) {
         super(props);
-        this.state = {
-            input: ""
-        };
-    };
+        this.state = { attempt: '', password: '' };
+    }
+
+    componentDidMount() {
+        SInfo.getItem('password', {}).then(value => {
+            this.setState({password: value});
+        });
+    }
+
 
     checkPassword() {
-        alert("Wrong password!");
+        if (bcrypt.compareSync(this.state.attempt, this.state.password)) {
+            AsyncStorage.setItem('loggedInStatus', 'true');
+            this.props.navigation.navigate('home');
+    }
+        else
+            alert("Fail!");
     }
 
     render() {
-        // If loading, display the loading animation.
-        if(this.props.loading) {
-            return (
-                <View>
-                    <ActivityIndicator animating={true}/>
-                </View>
-            );
-        }
-        // Otherwise, render the view.
-        else {
-            return (
-                // Container
-                <View style={styles.container}>
-                    <TextInput
-                        style={styles.inputBox}
-                        placeholder="Enter Password"
-                        onChangeText= {(text) => {this.setState({input:text})}}
-                        secureTextEntry={true}
-                    />
-                    <Button
-                        onPress={this.checkPassword}
-                        disabled={(this.state.input != 0) ? false : true}
-                        title="Login"
-                        color="black"
-                    />
-                    <KeyboardSpacer />
-                </View>
-            );
-        }
+
+        return (
+            <View style={{ paddingVertical: 20 }}>
+                <Card title="SIGN IN">
+                <FormLabel>Password</FormLabel>
+                <FormInput secureTextEntry placeholder="Password..."
+                    onChangeText={ (attempt) => this.setState({attempt})} />
+
+                <Button
+                    buttonStyle={ styles.button }
+                    backgroundColor="#03A9F4"
+                    title="SIGN IN"
+                    onPress={() => this.checkPassword()}
+                />
+                </Card>
+            </View>
+        );
     }
 };

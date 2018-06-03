@@ -128,6 +128,6 @@ export default StyleSheet.create({
         width: buttonHeight,
         height: buttonHeight,
         backgroundColor:'#FFFFFF',
-        borderRadius: 100
+        borderRadius: buttonHeight / 2
     }
 });

@@ -78,6 +78,6 @@ export default StyleSheet.create({
         width: screenWidth * 0.43,
         height: screenWidth * 0.43,
         backgroundColor:'#FFFFFF',
-        borderRadius: 100
+        borderRadius: screenWidth * 0.215
     }
 });

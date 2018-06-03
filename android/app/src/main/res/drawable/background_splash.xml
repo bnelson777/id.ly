@@ -3,11 +3,13 @@
 
     <item
         android:drawable="@color/white"/>
-
-    <item
-        android:width="200dp"
-        android:height="200dp"
-        android:drawable="@mipmap/id_ly"
-        android:gravity="center" />
+    
+    <item>
+        <nine-patch xmlns:android="http://schemas.android.com/apk/res/android"
+        android:src="@mipmap/idlysplash" 
+        android:tileMode="disabled"
+        android:gravity="center"
+        />
+    </item>
 
 </layer-list>

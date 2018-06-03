@@ -14,13 +14,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
-import { Avatar, Card, Button,
+import { Avatar, Card, Button, Icon,
         List, ListItem } from 'react-native-elements';
 import SideMenu from 'react-native-side-menu';
 import Menu from './menu';
 import { iconSize } from './styles';
 
 const menuImg = require('../../assets/menu.png');
+const onDev = require('../../assets/toggleOn.png');
+const offDev = require('../../assets/toggleOff.png');
 
 export class Home extends Component {
     constructor(props) {
@@ -28,27 +30,61 @@ export class Home extends Component {
         this.state = {
             isOpen: false,
             selectedItem: 'About',
+            showDev: false,
         };
         this.toggle = this.toggle.bind(this);
+        this.changeDev = this.changeDev.bind(this);
     }
 
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state;
-        return{
-            title: "Home",
-            headerLeft: (<TouchableOpacity
-                style={styles.row}
-                onPress={params.toggle}>
-                    <Image
-                        source={menuImg}
+        if (params.showDev) {
+            return {
+                title: "Home",
+                headerLeft: (<TouchableOpacity style={styles.row} onPress={params.toggle}>
+                    <Icon
+                        name= 'menu'
+                        color= '#FFFFFF'
                     />
                 </TouchableOpacity>),
-            headerRight: (<View/>),
-            headerTintColor: 'white',
-            headerStyle: {
-                backgroundColor: '#128DC9',
+                headerRight: (<TouchableOpacity style={styles.row}  onPress={params.changeDev}>
+                    <Icon
+                        name='lock-open'
+                        color='#FC8414'
+                    />
+                </TouchableOpacity>
+                ),
+                headerTintColor: 'white',
+                headerStyle: {
+                    backgroundColor: '#128DC9',
+                }
+            }
+        } else {
+            return {
+                title: "Home",
+                headerLeft: (<View/>),
+                headerRight: (<TouchableOpacity style={styles.row}  onPress={params.changeDev}>
+                    <Icon
+                        name='lock'
+                        color='#FFFFFF'
+                    />
+                </TouchableOpacity> 
+                ),
+                headerTintColor: 'white',
+                headerStyle: {
+                    backgroundColor: '#128DC9',
+                }               
             }
         }
+    }
+
+    changeDev() {
+        this.setState({
+            showDev: !this.state.showDev
+        });
+        this.props.navigation.setParams({
+            showDev: this.state.showDev
+        });
     }
 
     toggle() {
@@ -75,7 +111,9 @@ export class Home extends Component {
 
     componentDidMount() {
         this.props.navigation.setParams({
-            toggle: this.toggle
+            toggle: this.toggle,
+            changeDev: this.changeDev,
+            showDev: this.state.showDev
         });
         this.props.getMessages();
         this.props.getCards();

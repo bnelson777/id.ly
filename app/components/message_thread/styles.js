@@ -13,13 +13,13 @@ export default StyleSheet.create({
     receiverText: {
         color: 'black',
         textAlign: 'left',
-        fontSize: screenHeight * 0.0495
+        fontSize: screenHeight * 0.045
     },
 
     senderText: {
         color: 'white',
         textAlign: 'right',
-        fontSize: screenHeight * 0.0495
+        fontSize: screenHeight * 0.045
     },
 
     sentMessage: {

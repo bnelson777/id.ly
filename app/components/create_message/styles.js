@@ -60,7 +60,7 @@ export default StyleSheet.create({
     inputStyle: {
         width: boxWidth,
         height: boxHeight,
-        fontSize: screenHeight * 0.0297,
+        fontSize: screenHeight * 0.027,
         fontStyle: 'italic'
     },
 
@@ -84,7 +84,7 @@ export default StyleSheet.create({
 
     fieldText: {
         flex: 1,
-        fontSize: screenHeight * 0.033,
+        fontSize: screenHeight * 0.03,
         marginLeft: screenWidth * 0.02
     },
 
@@ -95,7 +95,7 @@ export default StyleSheet.create({
     },
 
     selectButton: {
-        fontSize: screenHeight * 0.0528,
+        fontSize: screenHeight * 0.048,
         marginBottom: screenHeight * 0.005
     },
 
@@ -115,7 +115,7 @@ export default StyleSheet.create({
 
     textInput: {
         paddingLeft: screenWidth * 0.032,
-        fontSize: screenHeight * 0.02805,
+        fontSize: screenHeight * 0.0255,
         flex: 1,
         backgroundColor: 'white',
         borderWidth: 0,

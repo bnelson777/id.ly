@@ -111,7 +111,7 @@ export default StyleSheet.create({
     },
 
     emptyText: {
-        fontSize: screenHeight * 0.0297,
+        fontSize: screenHeight * 0.027,
         marginLeft: "10%",
         marginRight: "10%"
     },

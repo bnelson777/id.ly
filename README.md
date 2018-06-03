@@ -2,6 +2,8 @@
 
 The majority of user data today is stored on massive, server-centric systems that are often vulnerable to data breaches. id.ly is a cross-platform app developed to implement a self-sovereign identity system. id.ly uses an RSA public-key cryptosystem to share business cards and messages using encrypted json files. Users connect to each other via bluetooth and can be assured that the information shared is genuine and verified, since every user has full control over their data and with whom they choose to share it.
 
+![alt text](https://i.imgur.com/npFbDtR.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine. This app has not been released to either the Apple App Store or Google Play so at this time can only be run in development mode.

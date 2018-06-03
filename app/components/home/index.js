@@ -345,6 +345,7 @@ export class Home extends Component {
         else {
             return (
                 <SideMenu
+                disableGestures = {true}
                 menu={menu}
                 isOpen={this.state.isOpen}
                 onChange={isOpen => this.updateMenuState(isOpen)}

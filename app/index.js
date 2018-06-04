@@ -1,8 +1,3 @@
-/**
- * Create Main Page
- * by id.ly Team
- */
-
 //Import Libraries
 import React, { Component } from 'react';
 import { View, AsyncStorage, BackHandler,
@@ -121,6 +116,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
+        //Determine the users platform for deep linking
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
               this.navigate(url);
@@ -129,17 +125,18 @@ class Main extends Component {
             Linking.addEventListener('url', this.handleOpenURL);
           }
       }
+
+      //Remove the deep link listener 
       componentWillUnmount() {
           Linking.removeEventListener('url', this.handleOpenURL);
       }
-  
+
       handleOpenURL = (event) => {
           this.navigate(event.url);
       }
       
       _backAndroidHandler = () => {
           const scene = Actions.currentScene;
-          // alert(scene)
           if (scene === 'index' || scene === 'home' || scene === 'main') {
               BackHandler.exitApp();
               return true;
@@ -148,9 +145,8 @@ class Main extends Component {
           return true;
       };
   
+      //Determine the route of the deep link
       navigate = (url) => {
-          //const { navigate } = this.props.navigation;
-          
           const route = url.replace(/.*?:\/\//g, '');
           let id = 'empty';
           id = route.match(/\/([^\/]+)\/?$/)[1];
@@ -159,7 +155,6 @@ class Main extends Component {
             Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
           };
       }
-  
 
     render() {
         return (
@@ -202,4 +197,5 @@ class Main extends Component {
     }
 };
 
+// Export component to be called elsewhere.
 export default connect(null, {getCards, getMessages})(Main);

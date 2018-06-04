@@ -123,10 +123,10 @@ class Main extends Component {
     componentDidMount() {
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
-              this.navigate(url);
-            });
+                this.navigate(url);
+            }).catch(err => console.error('An error occurred', err));
           } else {
-            Linking.addEventListener('url', this.handleOpenURL);
+              Linking.addEventListener('url', this.handleOpenURL);
           }
       }
       componentWillUnmount() {
@@ -151,13 +151,15 @@ class Main extends Component {
       navigate = (url) => {
           //const { navigate } = this.props.navigation;
           
-          const route = url.replace(/.*?:\/\//g, '');
-          let id = 'empty';
-          id = route.match(/\/([^\/]+)\/?$/)[1];
-          const routeName = route.split('/')[0];
-          if (routeName === 'lockbox') {
-            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
-          };
+        if (url) {
+            const route = url.replace(/.*?:\/\//g, '');
+            let id = 'empty';
+            id = route.match(/\/([^\/]+)\/?$/)[1];
+            const routeName = route.split('/')[0];
+            if (routeName === 'lockbox') {
+                Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+            };
+        }
       }
   
 

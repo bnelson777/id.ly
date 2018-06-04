@@ -29,9 +29,9 @@ export class Splash extends Component {
     
     componentDidMount() {
         if (Platform.OS === 'android') {
-        Linking.getInitialURL().then(url => {
-          this.navigate(url);
-        });
+            Linking.getInitialURL().then(url => {
+                this.navigate(url);
+            }).catch(err => console.error('An error occurred', err));
         }
         else{
             this.startAnimation();
@@ -49,12 +49,15 @@ export class Splash extends Component {
                 this.props.navigation.navigate('home');
             }, (DEBUG ? 0 : 4000));
         }
-        const route = url.replace(/.*?:\/\//g, '');
-        let id = 'empty';
-        id = route.match(/\/([^\/]+)\/?$/)[1];
-        const routeName = route.split('/')[0];
-        if (routeName === 'lockbox') {
-            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+        else
+        {
+            const route = url.replace(/.*?:\/\//g, '');
+            let id = 'empty';
+            id = route.match(/\/([^\/]+)\/?$/)[1];
+            const routeName = route.split('/')[0];
+            if (routeName === 'lockbox') {
+                Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+            }
         }
     }
 

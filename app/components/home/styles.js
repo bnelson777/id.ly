@@ -223,5 +223,9 @@ export default StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         backgroundColor: '#FFFFFF',
+    },
+
+    devOn: {
+        backgroundColor: '#FC8414'
     }
 });

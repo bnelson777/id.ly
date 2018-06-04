@@ -5,22 +5,19 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import styles from './styles';
-import { Alert, FlatList, View, Image,
-        Text, ActivityIndicator, ScrollView,
-        TouchableOpacity, ListView,
-        ActionSheetIOS } from 'react-native';
+import styles, { iconSize }from './styles';
+import { FlatList, View, Image,
+        Text, ActivityIndicator,
+        TouchableOpacity,
+        ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
-import { Avatar, Card, Button,
+import { Avatar, Card, Button, Icon,
         List, ListItem } from 'react-native-elements';
 import SideMenu from 'react-native-side-menu';
 import Menu from './menu';
-import { iconSize } from './styles';
-
-const menuImg = require('../../assets/menu.png');
 
 export class Home extends Component {
     constructor(props) {
@@ -28,28 +25,54 @@ export class Home extends Component {
         this.state = {
             isOpen: false,
             selectedItem: 'About',
+            showDev: true,
         };
         this.toggle = this.toggle.bind(this);
+        this.changeDev = this.changeDev.bind(this);
     }
 
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state;
-        return{
+        return {
             title: "Home",
             gesturesEnabled: false,
-            headerLeft: (<TouchableOpacity
-                style={styles.row}
-                onPress={params.toggle}>
-                    <Image
-                        source={menuImg}
+            headerLeft: (params.showDev === true 
+                ?<TouchableOpacity style={styles.row} onPress={params.toggle}>
+                    <Icon
+                        name= 'menu'
+                        color= '#FFFFFF'
                     />
-                </TouchableOpacity>),
-            headerRight: (<View/>),
+                </TouchableOpacity>
+                : <View/>
+            ),
+            headerRight: (params.showDev === true
+                ?<TouchableOpacity style={styles.row}  onPress={params.changeDev}>
+                    <Icon
+                        name='lock-open'
+                        color='#FC8414'
+                    />
+                </TouchableOpacity>
+                :<TouchableOpacity style={styles.row}  onPress={params.changeDev}>
+                    <Icon
+                        name='lock'
+                        color='#FFFFFF'
+                    />
+                </TouchableOpacity> 
+            ),
             headerTintColor: 'white',
             headerStyle: {
                 backgroundColor: '#128DC9',
             }
         }
+    }
+
+    changeDev() {
+        this.setState({
+            showDev: !this.state.showDev
+        });
+        this.props.navigation.setParams({
+            showDev: this.state.showDev
+        });
     }
 
     toggle() {
@@ -76,15 +99,12 @@ export class Home extends Component {
 
     componentDidMount() {
         this.props.navigation.setParams({
-            toggle: this.toggle
+            toggle: this.toggle,
+            changeDev: this.changeDev,
+            showDev: !this.state.showDev
         });
         this.props.getMessages();
         this.props.getCards();
-    }
-
-    // Dummy function for button presses
-    pressButton(label) {
-        Alert.alert(label);
     }
 
     //Display default card
@@ -308,6 +328,7 @@ export class Home extends Component {
         else {
             return (
                 <SideMenu
+                disableGestures = {true}
                 menu={menu}
                 isOpen={this.state.isOpen}
                 onChange={isOpen => this.updateMenuState(isOpen)}

@@ -5,7 +5,7 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import { FlatList, View, Image, Text,
+import { FlatList, View, Text,
         TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
@@ -17,7 +17,7 @@ import { List, ListItem } from 'react-native-elements';
 // Inbox
 // FUNCTION(S): This component serves to display author picture, date, and body
 // of messages which were imported then stored in the application.
-// EXPECTED PROP(S):
+// EXPECTED PROP(S): NONE
 export class Inbox extends Component {
     constructor(props) {
         super(props);
@@ -36,6 +36,7 @@ export class Inbox extends Component {
     };
 
     render() {
+        // display if no messages yet exist
         if (this.props.messages.length === 0) {
             return (
                 <View style={[styles.container, styles.emptyTextContainer]}>
@@ -51,6 +52,7 @@ export class Inbox extends Component {
             );
         }
         else {
+            // there exists messages, iterate to find threads to display.
             // array to be filled with valid pairs of sender and receivers
             var arr = [];
 

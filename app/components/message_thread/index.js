@@ -28,13 +28,8 @@ export class MessageThread extends Component {
         this.onLongPress = this.onLongPress.bind(this);
         this.getMessageByID = this.getMessageByID.bind(this);
         this.markAsRead = this.markAsRead.bind(this);
-        this.state.name = "test";
     };
 
-    //static navigationOptions = {
-    //  title: this.state.senderCard,
-    //  headerRight: <Button title="TEST" />
-    //}
     static navigationOptions = ({ navigation  }) => {
 
             const {state} = navigation;

@@ -6,8 +6,8 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { StyleSheet, FlatList,
-        View, Text, TouchableHighlight,
-        TouchableOpacity, Image, Dimensions } from 'react-native';
+        View, Text, TouchableOpacity,
+        Image, Dimensions } from 'react-native';
 import styles, { COLORS } from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -15,21 +15,32 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Avatar } from 'react-native-elements';
 
+// CARDLIST
+// FUNCTION(S): This component displays a list of ID cards. The isWallet prop
+// determines whether the cards displayed are the user's cards (Wallet mode)
+// or cards collected from others (Rolodex mode).
+//
+// EXPECTED PROP(S): this.props.isWallet
+// This component will expect a boolean value to be passed in that determines
+// the mode of the component (Wallet or Rolodex).
 export class CardList extends Component {
-
     constructor(props) {
         super(props);
         this.renderItem = this.renderItem.bind(this);
     }
 
+    // Get the cards when the component mounts.
     componentDidMount() {
         this.props.getCards();
     }
 
     render() {
+        // Filter the cards to work with user's cards (Wallet mode) or other cards (Rolodex mode).
         const cards = this.props.isWallet === true ?
             this.props.cards.filter(function(obj) {return obj.owner === true}).map(card => card) :
             this.props.cards.filter(function(obj) {return obj.owner === false}).map(card => card);
+
+        // Display a message instead of cards if there are no cards available.
         if (cards.length === 0) {
             if (this.props.isWallet){
                 return (
@@ -60,9 +71,9 @@ export class CardList extends Component {
                 );
             }
         }
+        // If cards are available, display the cards.
         else {
             return (
-                // Display ID buttons as a list
                 <View style={styles.container}>
                     <FlatList
                         ref='listRef'
@@ -76,8 +87,14 @@ export class CardList extends Component {
     }
 
     renderItem({item, index}) {
+        // If the card has an image, display it. Otherwise, display a placeholder.
         let icon = item.image === "" ? require('../../assets/default_avatar.png') : {uri: item.image};
+
+        // In Wallet mode, display the card's label field as the identifier.
+        // In Rolodex mode, display the card's name and label instead.
         let label = this.props.isWallet === true ? item.label : item.name + ' (' + item.label + ')';
+
+        // Display a button to send a message to an ID in Rolodex mode.
         let messageButton = this.props.isWallet === true ?
             null :
             (
@@ -88,9 +105,10 @@ export class CardList extends Component {
                      />
                  </TouchableOpacity>
             );
+
         return (
-            // Display image, ID button, message icon, and share icon
-            // ID buttons are displayed in alternating color based on index
+            // Display image, ID button, message button (Rolodex mode), and share button.
+            // ID button colors cycle based on COLORS array in card_list/styles.js.
             <View>
                 {index > 0 ? <View style={styles.sepLine}/>:<View/>}
                 <View style={styles.buttonContainer}>
@@ -130,14 +148,17 @@ export class CardList extends Component {
     }
 }
 
+// Link component to redux.
 function mapStateToProps(state, props) {
     return {
         cards: state.dataReducer.cards
     }
 }
 
+// Link component to actions.
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ReduxActions, dispatch);
 }
 
+// Export component to be called elsewhere.
 export default connect(mapStateToProps, mapDispatchToProps)(CardList);

@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import SInfo from 'react-native-sensitive-info';
 import AesCrypto from 'react-native-aes-kit';
-
 //Component Imports
 import Splash from './components/splash/index';
 import Home from './components/home/index';
@@ -109,9 +108,6 @@ class Main extends Component {
             cardsPath = dirs.DocumentDir + cardsPath;
             messagesPath = dirs.DocumentDir + messagesPath;
         }
-        console.log('dirpath: ' + dirPath);
-        console.log('cardspath: ' + cardsPath);
-        console.log('messagespath: ' + messagesPath);
         return {dirPath: dirPath, cardsPath: cardsPath, messagesPath: messagesPath};
     }
 

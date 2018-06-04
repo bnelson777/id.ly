@@ -9,12 +9,22 @@ import styles from './styles';
 import PropTypes from 'prop-types';
 import { ScrollView, View, Text,
         TouchableOpacity } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
 import { Avatar } from 'react-native-elements';
 
+/**
+ * Menu functionn is going to build up 
+ * a side bar for the dev link. There
+ * are two arguments, onItemSelected is
+ * a option which will display on the
+ * side bar.
+ * Line 32-38: clear all info option
+ * Line 39-45: decrypt message option
+ * Line 46-52: login option
+ * Line 53-59: register option
+ * Line 62-68: about button on the left corner 
+ */
 export default function Menu({ onItemSelected, data }) {
     return (
         <ScrollView scrollsToTop={false} style={styles.menu}>

@@ -1,4 +1,9 @@
-//Import Libraries
+/*
+ * Create Card View Page
+ * by id.ly Team
+ */
+
+ //Import Libraries
 import React, { Component } from 'react';
 import { View, AsyncStorage, BackHandler,
         Platform, Linking } from 'react-native';

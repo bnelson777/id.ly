@@ -36,7 +36,7 @@ export class Inbox extends Component {
     };
 
     render() {
-        // display if no messages yet exist
+        // Display if no messages yet exist
         if (this.props.messages.length === 0) {
             return (
                 <View style={[styles.container, styles.emptyTextContainer]}>
@@ -52,20 +52,20 @@ export class Inbox extends Component {
             );
         }
         else {
-            // there exists messages, iterate to find threads to display.
-            // array to be filled with valid pairs of sender and receivers
+            // There exists messages, iterate to find threads to display.
+            // Array to be filled with valid pairs of sender and receivers (won't show duplicate pairs either)
             var arr = [];
 
-            // sort array of messages by time
+            // Sort array of messages by time
             this.props.messages.sort(function (a,b) { return b.time - a.time; });
 
-            // loop through all messages
+            // Loop through all messages
             for (var i = 0, len = this.props.messages.length; i < len; i++) {
                 // check array for to and from pair
                 var present = false;
-                // check existing pairs we've collected for duplicates
+                // Check existing pairs we've collected for duplicates
                 for (var j = 0, len2 = arr.length; j < len2; j++ ) {
-                    // if to / from match an existing entry, set present to true
+                    // If to / from match an existing entry, set present to true
                     if (arr[j].to === this.props.messages[i].to && arr[j].from === this.props.messages[i].from) {
                         present = true;
                     }
@@ -73,12 +73,12 @@ export class Inbox extends Component {
                         present = true;
                     }
                 }
-                // now add message to array if combination not present
+                // Now add message to array if combination not present
                 if (present == false) {
                     arr.push(this.props.messages[i])
                 }
                 else {
-                    // don't do anything because pair was already in array
+                    // Don't do anything because pair was already in array
                 }
             }
 
@@ -98,21 +98,21 @@ export class Inbox extends Component {
     }
 
     renderItem = ({item, index}) => {
-        /* get author name and portrait for each message */
-        let author = item.from; //display public key if card not found
-        let sender = item.from; // default if card not in rolodex
-        let receiver = item.to; // default if card not in rolodex
-        let senderCard = null; // passed into message thread for card data
-        let receiverCard = null; //passed into message thread for card data
+        /* Get author name and portrait for each message */
+        let author = item.from; // Display public key if card not found
+        let sender = item.from; // Default if card not in rolodex
+        let receiver = item.to; // Default if card not in rolodex
+        let senderCard = null; // Passed into message thread for card data
+        let receiverCard = null; // Passed into message thread for card data
         let label = "";
         let portrait = require('../../assets/default_avatar.png');
         let readflag = item.read;
         let uriflag = false;
         for (card of this.props.cards) {
-            // to find display name of receiver of message (owner == false)
+            // To find display name of receiver of message (owner == false)
             if (card.keys.n === item.to && card.owner === false) {
                 author = card.name;
-                // set for inbox to know who is who
+                // Set for inbox to know who is who
                 receiver = item.to;
                 receiverCard = card;
                 sender = item.from;
@@ -123,10 +123,10 @@ export class Inbox extends Component {
                 }
                 break;
             }
-            // to find display the contact of message (owner == false)
+            // To find display the contact of message (owner == false)
             if (card.keys.n === item.from && card.owner === false) {
                 author = card.name;
-                // set for inbox to know who is who
+                // Set for inbox to know who is who
                 receiver = item.from;
                 sender = item.to;
                 receiverCard = card;
@@ -142,14 +142,14 @@ export class Inbox extends Component {
 
 
         for (card of this.props.cards) {
-          //look up the senders card info to pass to message_thread
+          // Look up the senders card info to pass to message_thread
           // (card.owner=== True)
           if (card.keys.n === sender && card.owner === true) {
               senderCard = card;
               break;
           }
         };
-        // object prop that is passed to message_thread
+        // Object prop that is passed to message_thread
         let pair = {
           sender: sender,
           receiver: receiver,
@@ -157,12 +157,12 @@ export class Inbox extends Component {
           receiverCard: receiverCard
         }
 
-        //label included as part of authorText
+        // Label included as part of authorText
         var titleLabel = author + " (" + label + ")";
 
-        //converts the seconds time in messages.json to milliseconds.
-        //if message was received on current date the time will be displayed.
-        //if the message was received before the current date, the date will be displayed.
+        // Converts the seconds time in messages.json to milliseconds.
+        // If message was received on current date the time will be displayed.
+        // If the message was received before the current date, the date will be displayed.
         var millisecondTime = item.time*1000;
         var messageDate = new Date(millisecondTime).toDateString();
         var today = new Date().toDateString();

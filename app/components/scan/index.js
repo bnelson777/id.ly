@@ -118,7 +118,7 @@ class Scan extends Component {
         
         // [bluetooth]: assign listeners for so they can be unsubscribed on unmount
         this.detectedListener = BluetoothCP.addPeerDetectedListener((peers) => {
-            /* code that runs when other device runs advertise and becomes detected */
+            // code that runs when other device runs advertise and becomes detected
             if (peers.name == this.state.peerName) {
                 console.log('peer detected', peers)
                 console.log(peers);
@@ -128,7 +128,7 @@ class Scan extends Component {
         });
         
         this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
-            /* code that runs when you recieve a message */
+            // code that runs when you recieve a message
             console.log('addReceivedMessageListener encrypted', peers.message)
             
             AesCrypto.decrypt(peers.message,this.state.key,this.state.iv).then(plaintxt=>{

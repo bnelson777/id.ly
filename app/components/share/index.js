@@ -39,6 +39,7 @@ export class Share extends Component {
         this.packageCard()
         
         this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
+            // Code that runs when device recieves a message from the scanner
             if (peers.message === deviceInfo.getDeviceName()) {
                 console.log(peers.message);
                 BluetoothCP.sendMessage(this.state.encrypt, peers.id);
@@ -51,6 +52,7 @@ export class Share extends Component {
     }
 
     componentWillUnmount() {
+        // remove listener to stop listening for messages
         this.messageListener.remove();
         console.log('unmounting');
     }
@@ -68,7 +70,6 @@ export class Share extends Component {
         jsonCard2.owner = false;
         console.log('object to display in QR',jsonCard2)
         
-        
         for(var key = ''; key.length < 16;) {
                 key += Math.random().toString(36).substr(2, 1)
             }
@@ -84,10 +85,6 @@ export class Share extends Component {
         
         this.setState({iv: iv})
         this.setState({key: key})
-        
-        
-        
-        
     }
 
     render() {

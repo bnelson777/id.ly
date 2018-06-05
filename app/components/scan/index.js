@@ -37,32 +37,32 @@ class Scan extends Component {
 
     static defaultProps = {
         notAuthorizedView: (
-          <View style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Text style={{
-              textAlign: 'center',
-              fontSize: 20,
+            <View style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
             }}>
-              Camera Unauthorized!
-            </Text>
+                <Text style={{
+                textAlign: 'center',
+                fontSize: 20,
+                }}>
+                    Camera Unauthorized!
+                </Text>
           </View>
         ),
         pendingAuthorizationView: (
-          <View style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Text style={{
-              textAlign: 'center',
-              fontSize: 20,
+            <View style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
             }}>
-              Require Camera Permission!
-            </Text>
-          </View>
+                <Text style={{
+                    textAlign: 'center',
+                    fontSize: 20,
+                }}>
+                    Require Camera Permission!
+                </Text>
+            </View>
         ),
         permissionDialogTitle: "Request",
         permissionDialogMessage: "Camera Permission",
@@ -136,19 +136,17 @@ class Scan extends Component {
                 console.log('addReceivedMessageListener decrypted', message)
                 this.props.addCardToEnd(message);
                 console.log(message);
-                
-            }).catch(err=>{
-            console.log(err);
-            });
-        setTimeout(function(){
-                       Alert.alert('Card Added');
-                       Actions.pop();
-                   }, 100);
-                   if(this.props.reactivate) {
-                       setTimeout(() => (this._setScanning(false)), this.props)
-                   }
-                
-            });
+            }).catch(err=>{console.log(err);});
+
+            setTimeout(function(){
+                Alert.alert('Card Added');
+                Actions.pop();
+            }, 100);
+            
+            if(this.props.reactivate) {
+                setTimeout(() => (this._setScanning(false)), this.props)
+            }
+        });
             
             console.log('scan: mounted');
     }

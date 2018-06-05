@@ -44,6 +44,7 @@ export class CreateMessage extends Component {
         this.updateSender = this.updateSender.bind(this);
     }
 
+    // Generates a unique ID for the new message
     generateID() {
         let d = new Date().getTime();
         let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -54,12 +55,14 @@ export class CreateMessage extends Component {
         return id;
     }
 
+    // Generates the current timestamp for the new message
     generateTimestamp() {
         var time = new Date().getTime()/1000
         var time_round = parseInt(time)
         return time_round
     }
 
+    // Retrieve the cards when the component mounts
     componentDidMount() {
         this.props.getCards();
     }
@@ -76,6 +79,7 @@ export class CreateMessage extends Component {
             this.setState({sender: id, senderLabel: label})
     }
 
+    // Callback function for the send button
     pressButton() {
         let id = this.generateID();
         let unix = this.generateTimestamp();

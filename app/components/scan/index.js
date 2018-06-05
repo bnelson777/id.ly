@@ -6,7 +6,6 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-//import { Permissions, BarCodeScanner} from 'expo';
 import { Text, View, StyleSheet, Button, Alert,
         ActivityIndicator, Animated, Easing,
         LayoutAnimation, Image, Platform,
@@ -25,13 +24,14 @@ import AesCrypto from 'react-native-aes-kit';
 const PERMISSION_AUTHORIZED = 'authorized';
 const CAMERA_PERMISSION = 'camera';
 
+// SCAN
+// FUNCTION(S): This component handles the scanning of qr codes 
+// and the receipt and storage of a card identity from another device 
+// running the id.ly app specifically in the scan screen.
+// EXPECTED PROP(S): this.props.card
+// This component will expect a card object to be passed to it when viewed so
+// it knows what to card/key to display in QR/or send over bluetooth.
 class Scan extends Component {
-    /* expo permission
-    async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({ hasCameraPermission: status === 'granted' });
-    }
-    */
     static propTypes = {
         ScanResult: PropTypes.func.isRequired,
         reactivate: PropTypes.bool,
@@ -44,32 +44,32 @@ class Scan extends Component {
 
     static defaultProps = {
         notAuthorizedView: (
-          <View style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Text style={{
-              textAlign: 'center',
-              fontSize: 20,
+            <View style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
             }}>
-              Camera Unauthorized!
-            </Text>
+                <Text style={{
+                textAlign: 'center',
+                fontSize: 20,
+                }}>
+                    Camera Unauthorized!
+                </Text>
           </View>
         ),
         pendingAuthorizationView: (
-          <View style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Text style={{
-              textAlign: 'center',
-              fontSize: 20,
+            <View style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
             }}>
-              Require Camera Permission!
-            </Text>
-          </View>
+                <Text style={{
+                    textAlign: 'center',
+                    fontSize: 20,
+                }}>
+                    Require Camera Permission!
+                </Text>
+            </View>
         ),
         permissionDialogTitle: "Request",
         permissionDialogMessage: "Camera Permission",
@@ -125,7 +125,7 @@ class Scan extends Component {
         
         // [bluetooth]: assign listeners for so they can be unsubscribed on unmount
         this.detectedListener = BluetoothCP.addPeerDetectedListener((peers) => {
-            /* code that runs when other device runs advertise and becomes detected */
+            // code that runs when other device runs advertise and becomes detected
             if (peers.name == this.state.peerName) {
                 console.log('peer detected', peers)
                 console.log(peers);
@@ -135,7 +135,7 @@ class Scan extends Component {
         });
         
         this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
-            /* code that runs when you recieve a message */
+            // code that runs when you recieve a message
             console.log('addReceivedMessageListener encrypted', peers.message)
             
             AesCrypto.decrypt(peers.message,this.state.key,this.state.iv).then(plaintxt=>{
@@ -143,19 +143,17 @@ class Scan extends Component {
                 console.log('addReceivedMessageListener decrypted', message)
                 this.props.addCardToEnd(message);
                 console.log(message);
-                
-            }).catch(err=>{
-            console.log(err);
-            });
-        setTimeout(function(){
-                       Alert.alert('Card Added');
-                       Actions.pop();
-                   }, 100);
-                   if(this.props.reactivate) {
-                       setTimeout(() => (this._setScanning(false)), this.props)
-                   }
-                
-            });
+            }).catch(err=>{console.log(err);});
+
+            setTimeout(function(){
+                Alert.alert('Card Added');
+                Actions.pop();
+            }, 100);
+            
+            if(this.props.reactivate) {
+                setTimeout(() => (this._setScanning(false)), this.props)
+            }
+        });
             
             console.log('scan: mounted');
     }

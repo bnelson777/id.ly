@@ -1,9 +1,9 @@
-/**
+/*
  * Create Main Page
  * by id.ly Team
  */
 
-//Import Libraries
+ // Import Libraries
 import React, { Component } from 'react';
 import { View, AsyncStorage, BackHandler,
         Platform, Linking } from 'react-native';
@@ -14,8 +14,7 @@ import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import SInfo from 'react-native-sensitive-info';
 import AesCrypto from 'react-native-aes-kit';
-
-//Component Imports
+// Component Imports
 import Splash from './components/splash/index';
 import Home from './components/home/index';
 import Scan from './components/scan/index';
@@ -31,14 +30,9 @@ import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
 import Bluetooth from './components/bluetooth/index'
-//Dumby Data for Initial App Load
-import CardData from './cards-empty.json';
-import MessageData from './messages-empty.json';
-import { getCards } from './actions';
-import { getMessages } from './actions';
-//Needed for Actions.home() back button on inbox see line 59:121
-import * as ReduxActions from './actions'; //Import your actions
-//Style Import
+// Needed for Actions.home() back button on inbox see line 59:121
+import * as ReduxActions from './actions'; // Import your actions
+// Style Import
 import styles from './styles';
 
 class Main extends Component {
@@ -49,7 +43,7 @@ class Main extends Component {
         this.getPaths = this.getPaths.bind(this);
     }
 
-    //Create directory, files, and AES values
+    // Create directory, files, and AES values
     init(){
         const dirs = RNFetchBlob.fs.dirs;
         paths = this.getPaths();
@@ -114,13 +108,11 @@ class Main extends Component {
             cardsPath = dirs.DocumentDir + cardsPath;
             messagesPath = dirs.DocumentDir + messagesPath;
         }
-        console.log('dirpath: ' + dirPath);
-        console.log('cardspath: ' + cardsPath);
-        console.log('messagespath: ' + messagesPath);
         return {dirPath: dirPath, cardsPath: cardsPath, messagesPath: messagesPath};
     }
 
     componentDidMount() {
+        // Determine the users platform for deep linking
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
                 this.navigate(url);
@@ -129,17 +121,18 @@ class Main extends Component {
               Linking.addEventListener('url', this.handleOpenURL);
           }
       }
+
+      // Remove the deep link listener
       componentWillUnmount() {
           Linking.removeEventListener('url', this.handleOpenURL);
       }
-  
+
       handleOpenURL = (event) => {
           this.navigate(event.url);
       }
       
       _backAndroidHandler = () => {
           const scene = Actions.currentScene;
-          // alert(scene)
           if (scene === 'index' || scene === 'home' || scene === 'main') {
               BackHandler.exitApp();
               return true;
@@ -148,20 +141,18 @@ class Main extends Component {
           return true;
       };
   
+      // Determine the route of the deep link
       navigate = (url) => {
-          //const { navigate } = this.props.navigation;
-          
         if (url) {
-            const route = url.replace(/.*?:\/\//g, '');
-            let id = 'empty';
-            id = route.match(/\/([^\/]+)\/?$/)[1];
-            const routeName = route.split('/')[0];
-            if (routeName === 'lockbox') {
+              const route = url.replace(/.*?:\/\//g, '');
+              let id = 'empty';
+              id = route.match(/\/([^\/]+)\/?$/)[1];
+              const routeName = route.split('/')[0];
+              if (routeName === 'lockbox') {
                 Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
-            };
-        }
+              };
+          }
       }
-  
 
     render() {
         return (
@@ -204,4 +195,5 @@ class Main extends Component {
     }
 };
 
-export default connect(null, {getCards, getMessages})(Main);
+// Export component to be called elsewhere.
+export default connect(null)(Main);

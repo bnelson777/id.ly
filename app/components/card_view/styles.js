@@ -12,17 +12,14 @@ export default StyleSheet.create({
     },
 
     buttonContainer:{
-        flex:1,
+        flex:0,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 10,
-        backgroundColor: BACKGROUND_COLOR
-    },
-
-    row:{
-        borderBottomWidth: BORDER_WIDTH,
+        backgroundColor: BACKGROUND_COLOR,
+        borderTopWidth: BORDER_WIDTH,
         borderColor: "#ccc",
-        padding: 10
+        paddingTop: 10,
+        margin: 5
     },
 
     header:{
@@ -56,6 +53,8 @@ export default StyleSheet.create({
     name: {
         fontSize: FONT_SIZE,
         fontWeight: FONT_WEIGHT,
+        marginLeft: 10,
+        marginRight: 10,
         marginTop: 8 * 2
     },
 
@@ -64,10 +63,4 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
-    imageStyle: {
-        width: 180,
-        height: 180,
-        resizeMode: Image.resizeMode.contain
-    }
 });

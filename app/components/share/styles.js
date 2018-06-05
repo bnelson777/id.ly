@@ -9,14 +9,6 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
 
-    input: {
-        height: 40,
-        borderColor: BORDER_COLOR,
-        borderWidth: BORDER_WIDTH,
-        margin: 10,
-        borderRadius: BORDER_RADIUS,
-        padding: 5,
-    },
     title: {
         fontSize: FONT_SIZE,
         fontWeight: "600",

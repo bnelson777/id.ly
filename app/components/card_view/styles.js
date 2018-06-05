@@ -11,23 +11,15 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR
     },
 
-    topContainer:{
-        flex:2
-    },
-
     buttonContainer:{
-        flex:0.1,
+        flex:0,
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: screenHeight * 0.01,
         backgroundColor: BACKGROUND_COLOR,
-        paddingBottom: screenHeight * 0.01
-    },
-
-    row:{
-        borderBottomWidth: BORDER_WIDTH,
-        borderColor: "#ccc",
-        padding: screenWidth * 0.032
+        paddingBottom: screenHeight * 0.01,
+        borderTopWidth: BORDER_WIDTH,
+        borderColor: "#ccc"
     },
 
     header:{

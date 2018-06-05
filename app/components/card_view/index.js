@@ -62,7 +62,7 @@ export class CardView extends Component {
             //displays card with no option to set default card
             return (
                 <View style={styles.container}>
-                    <ScrollView style={styles.topContainer}>
+                    <ScrollView>
                         <Text style={styles.header}>
                             {this.props.card.label}
                         </Text>
@@ -72,7 +72,7 @@ export class CardView extends Component {
                                 source = {icon}
                             />
                         </View>
-                        <View style={styles.row}>
+                        <View>
                             <Text style={styles.name}>
                                 Name: {this.props.card.name}
                             </Text>
@@ -103,7 +103,7 @@ export class CardView extends Component {
             //displays card with option to set the default card
             return (
                 <View style={styles.container}>
-                    <ScrollView style={styles.topContainer}>
+                    <ScrollView>
                         <Text style={styles.header}>
                             {this.props.card.label}
                         </Text>
@@ -113,7 +113,7 @@ export class CardView extends Component {
                                 source = {icon}
                             />
                         </View>
-                        <View style={styles.row}>
+                        <View>
                             <Text style={styles.name}>
                                 Name: {this.props.card.name}
                             </Text>

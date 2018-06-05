@@ -24,6 +24,11 @@ import AesCrypto from 'react-native-aes-kit';
 const PERMISSION_AUTHORIZED = 'authorized';
 const CAMERA_PERMISSION = 'camera';
 
+// SCAN
+// FUNCTION(S): This component handles the scanning of qr codes 
+// and the receipt and storage of a card identity from another device 
+// running the id.ly app specifically in the scan screen.
+// EXPECTED PROP(S): 
 class Scan extends Component {
     static propTypes = {
         ScanResult: PropTypes.func.isRequired,

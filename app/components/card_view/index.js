@@ -6,7 +6,7 @@
 //Import Libraries
 import React, { Component } from 'react';
 import { StyleSheet, View, 
-        Text, Image, Alert, ScrollView } from 'react-native';
+        Text, Image, Alert } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -62,28 +62,26 @@ export class CardView extends Component {
             //displays card with no option to set default card
             return (
                 <View style={styles.container}>
-                    <ScrollView>
-                        <Text style={styles.header}>
-                            {this.props.card.label}
+                    <Text style={styles.header}>
+                        {this.props.card.label}
+                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Image
+                            style={styles.roundedImg}
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
                         </Text>
-                        <View style={styles.cardPosition}>
-                            <Image
-                                style={styles.roundedImg}
-                                source = {icon}
-                            />
-                        </View>
-                        <View>
-                            <Text style={styles.name}>
-                                Name: {this.props.card.name}
-                            </Text>
-                            <Text style={styles.name}>
-                                Email: {this.props.card.email}
-                            </Text>
-                            <Text style={styles.name}>
-                                {cardFields}
-                            </Text>
-                        </View>
-                    </ScrollView>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
+                        </Text>
+                        <Text style={styles.name}>
+                            {cardFields}
+                        </Text>
+                    </View>
                     <View style={styles.buttonContainer}>
                         <Button
                             title="Share"
@@ -103,28 +101,26 @@ export class CardView extends Component {
             //displays card with option to set the default card
             return (
                 <View style={styles.container}>
-                    <ScrollView>
-                        <Text style={styles.header}>
-                            {this.props.card.label}
+                    <Text style={styles.header}>
+                        {this.props.card.label}
+                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Image
+                            style={styles.roundedImg}
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
                         </Text>
-                        <View style={styles.cardPosition}>
-                            <Image
-                                style={styles.roundedImg}
-                                source = {icon}
-                            />
-                        </View>
-                        <View>
-                            <Text style={styles.name}>
-                                Name: {this.props.card.name}
-                            </Text>
-                            <Text style={styles.name}>
-                                Email: {this.props.card.email}
-                            </Text>
-                            <Text style={styles.name}>
-                                {cardFields}
-                            </Text>
-                        </View>
-                    </ScrollView>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
+                        </Text>
+                        <Text style={styles.name}>
+                            {cardFields}
+                        </Text>
+                    </View>
                     <View style={styles.buttonContainer}>
                         <Button
                             title="Share"

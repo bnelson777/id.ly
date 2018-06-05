@@ -12,14 +12,17 @@ export default StyleSheet.create({
     },
 
     buttonContainer:{
-        flex:0,
+        flex:1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: screenHeight * 0.01,
-        backgroundColor: BACKGROUND_COLOR,
-        paddingBottom: screenHeight * 0.01,
-        borderTopWidth: BORDER_WIDTH,
-        borderColor: "#ccc"
+        marginTop: screenHeight * 0.015,
+        backgroundColor: BACKGROUND_COLOR
+    },
+
+    row:{
+        borderBottomWidth: BORDER_WIDTH,
+        borderColor: "#ccc",
+        padding: screenHeight * 0.015
     },
 
     header:{

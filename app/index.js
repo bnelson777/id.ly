@@ -30,11 +30,6 @@ import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
 import Bluetooth from './components/bluetooth/index'
-// Dumby Data for Initial App Load
-import CardData from './cards-empty.json';
-import MessageData from './messages-empty.json';
-import { getCards } from './actions';
-import { getMessages } from './actions';
 // Needed for Actions.home() back button on inbox see line 59:121
 import * as ReduxActions from './actions'; // Import your actions
 // Style Import
@@ -199,4 +194,4 @@ class Main extends Component {
 };
 
 // Export component to be called elsewhere.
-export default connect(null, {getCards, getMessages})(Main);
+export default connect(null)(Main);

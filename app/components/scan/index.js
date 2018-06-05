@@ -28,7 +28,9 @@ const CAMERA_PERMISSION = 'camera';
 // FUNCTION(S): This component handles the scanning of qr codes 
 // and the receipt and storage of a card identity from another device 
 // running the id.ly app specifically in the scan screen.
-// EXPECTED PROP(S): 
+// EXPECTED PROP(S): this.props.card
+// This component will expect a card object to be passed to it when viewed so
+// it knows what to card/key to display in QR/or send over bluetooth.
 class Scan extends Component {
     static propTypes = {
         ScanResult: PropTypes.func.isRequired,

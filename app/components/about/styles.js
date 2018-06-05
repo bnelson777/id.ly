@@ -38,5 +38,6 @@ export default StyleSheet.create({
     words: {
         color: '#909090',
         paddingBottom: 20,
+        textAlign: 'center'
     }
 });

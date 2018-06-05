@@ -55,6 +55,13 @@ export class About extends Component {
                         Powered by id.ly team, MIT license.
                     </Text>
                 </View>
+                <View>
+                    <Text style={styles.words}
+                          onPress={() => Linking.openURL('http://underdark.io')}
+                    >
+                        Bluetooth and Wifi React Native Module by:{"\n"}http://underdark.io
+                    </Text>
+                </View>
             </View>
         );
     }

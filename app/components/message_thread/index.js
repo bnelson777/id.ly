@@ -36,7 +36,8 @@ export class MessageThread extends Component {
 
             if(state.params != undefined){
                 return {
-                    headerRight: <Button title="ME" 
+                    headerRight: <Button title="ME"
+                    color="white"
                     onPress={() => Actions.card_view({
                         title: state.params.senderCard.name, 
                         card: state.params.senderCard,

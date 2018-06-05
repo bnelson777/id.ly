@@ -8,7 +8,7 @@ const screenHeight = Dimensions.get('window').height;
 export default StyleSheet.create({
     subtitle: {
         fontWeight: '500',
-        fontSize: screenHeight * 0.033,
+        fontSize: 22,
     },
 
     rightButton: {
@@ -27,7 +27,7 @@ export default StyleSheet.create({
 
     textColor: {
         fontWeight: '500',
-        fontSize: screenHeight * 0.033,
+        fontSize: 22,
         textAlign: 'center',
         alignSelf: 'center'
     },

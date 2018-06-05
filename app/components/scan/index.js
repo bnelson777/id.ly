@@ -6,7 +6,6 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-//import { Permissions, BarCodeScanner} from 'expo';
 import { Text, View, StyleSheet, Button, Alert,
         ActivityIndicator, Animated, Easing,
         LayoutAnimation, Image, Platform,
@@ -26,12 +25,6 @@ const PERMISSION_AUTHORIZED = 'authorized';
 const CAMERA_PERMISSION = 'camera';
 
 class Scan extends Component {
-    /* expo permission
-    async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({ hasCameraPermission: status === 'granted' });
-    }
-    */
     static propTypes = {
         ScanResult: PropTypes.func.isRequired,
         reactivate: PropTypes.bool,

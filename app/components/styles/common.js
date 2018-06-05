@@ -3,6 +3,11 @@
  * by id.ly Team
  */
 
+// These are global attributes that are used as a basis for
+// every component's companion stylesheet. Individual styles
+// can be overridden in each stylesheet but otherwise global
+// stles will all be changed by modfying these settings.
+
 export const COLOR_PRIMARY = 'white';
 export const COLOR_SECONDARY = 'black';
 export const BACKGROUND_COLOR = COLOR_PRIMARY;

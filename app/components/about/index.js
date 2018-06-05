@@ -42,7 +42,7 @@ export class About extends Component {
                 </View>
                 <View>
                     <Text style = {styles.words}>
-                        Powered by id.ly team.  All right reserved.
+                        Powered by id.ly team, MIT license.
                     </Text>
                 </View>
             </View>

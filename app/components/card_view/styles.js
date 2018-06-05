@@ -18,7 +18,8 @@ export default StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR,
         borderTopWidth: BORDER_WIDTH,
         borderColor: "#ccc",
-        paddingTop: 10
+        paddingTop: 10,
+        margin: 5
     },
 
     header:{
@@ -52,6 +53,8 @@ export default StyleSheet.create({
     name: {
         fontSize: FONT_SIZE,
         fontWeight: FONT_WEIGHT,
+        marginLeft: 10,
+        marginRight: 10,
         marginTop: 8 * 2
     },
 

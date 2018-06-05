@@ -1,5 +1,5 @@
 /*
- * Create Card View Page
+ * Create Main Page
  * by id.ly Team
  */
 

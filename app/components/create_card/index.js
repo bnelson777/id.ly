@@ -10,7 +10,6 @@ import { Text, View, ScrollView, TouchableOpacity,
         Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
 import { RSAKeychain, RSA } from 'react-native-rsa';
-//import { ImagePicker, Permissions } from 'expo';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
@@ -24,6 +23,7 @@ import SInfo from 'react-native-sensitive-info';
 // CreateCard
 // FUNCTION(S): This component presents a form of attributes that allow a user to define their identity.
 // Attributes can be added/removed from the form. An image for the card may be specified.
+// It is required that the user enter at least the card label, name, and email.
 // FUTURE FUNCTION(S): Send its state to have its card created and stored in the application.
 // EXPECTED PROP(S): N/A
 export class CreateCard extends Component {
@@ -46,69 +46,69 @@ export class CreateCard extends Component {
         var privStore = 'privkey' + id;
         var RSAKey = require('react-native-rsa');
         const bits = 1024;
-        const exponent = '10001'; // must be a string. This is hex string. decimal = 65537
+        const exponent = '10001'; // Must be a string. This is hex string. decimal = 65537
         var rsa = new RSAKey();
         rsa.generate(bits, exponent);
-        var publicKey = rsa.getPublicString(); // return json encoded string
-        var privateKey = rsa.getPrivateString(); // return json encoded string
+        var publicKey = rsa.getPublicString(); // Return json encoded string
+        var privateKey = rsa.getPrivateString(); // Return json encoded string
         SInfo.setItem(pubStore, publicKey, {});
         SInfo.setItem(privStore, privateKey, {});
         return publicKey;
-      }
+    }
+    
+    generateID() {
+        let d = new Date().getTime();
+        let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
+        });
+        return id;
+    }
 
-      generateID() {
-          let d = new Date().getTime();
-          let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-              let r = (d + Math.random() * 16) % 16 | 0;
-              d = Math.floor(d / 16);
-              return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(5);
-          });
-          return id;
-      }
+    generateTimestamp() {
+        var time = new Date().getTime()/1000
+        var time_round = parseInt(time)
+        return time_round
+    }
 
-      generateTimestamp() {
-          var time = new Date().getTime()/1000
-          var time_round = parseInt(time)
-          return time_round
-      }
+    addCard() {
+    let id = this.generateID();
+    let keys = this.generateKeys(id);
+    let keys_json = JSON.parse(keys);
+    let time = this.generateTimestamp();
+    let user_attributes = []
 
-      addCard() {
-        let id = this.generateID();
-        let keys = this.generateKeys(id);
-        let keys_json = JSON.parse(keys);
-        let time = this.generateTimestamp();
-        let user_attributes = []
-
-        // create json of user attributes (if any)
-        // check if user added any unique attributes in the first place
-        if (this.state.form.length > 3) {
-          var i, c;
-          // iterate through user defined attributes and add them
-          for (i = 3, c = 0; i < this.state.form.length; i++, c++) {
-              user_attributes[c] = {[capitalizeFirstLetter(this.state.form[i]['title'])] : this.state.form[i]['field']}
-          }
+    // Create json of user attributes (if any)
+    // Check if user added any unique attributes in the first place
+    if (this.state.form.length > 3) {
+        var i, c;
+        // Iterate through user defined attributes and add them
+        for (i = 3, c = 0; i < this.state.form.length; i++, c++) {
+            user_attributes[c] = {[capitalizeFirstLetter(this.state.form[i]['title'])] : this.state.form[i]['field']}
         }
+    }
 
-        //convert to proper syntax
-        var attributes = {};
-        for (var i=0; i<user_attributes.length; i++) {
-          attributes[Object.keys(user_attributes[i])] = Object.values(user_attributes[i])[0];
-        }
+    // Convert to proper syntax
+    var attributes = {};
+    for (var i=0; i<user_attributes.length; i++) {
+        attributes[Object.keys(user_attributes[i])] = Object.values(user_attributes[i])[0];
+    }
 
-        // card object to pass into actions redux props.addCard()
-        let card = {"id": id, "keys": keys_json, "fields": attributes, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
+    // Card object to pass into actions redux props.addCard()
+    let card = {"id": id, "keys": keys_json, "fields": attributes, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
 
-        //add card and return us to previous component (wallet)
-        this.props.addCardToEnd(card);
+    // Add card and return us to previous component (wallet)
+    this.props.addCardToEnd(card);
 
-        setTimeout(function(){
-            Actions.pop();
-        }, 100);
-      }
+    setTimeout(function(){
+        Actions.pop();
+    }, 100);
+    }
 
     render() {
-
         var icon = this.state.image === "" ? require('../../assets/default_avatar.png') : {uri: this.state.image};
+        // Displays the form allowing the user to input information about their card
         return (
             <KeyboardAwareScrollView style={styles.bodyContainer} innerRef={ref => {this.scroll = ref}}>
                 <View>
@@ -211,17 +211,17 @@ export class CreateCard extends Component {
         var emptyFields = 0;
         var i = 0;
         while (this.state.form.length > i) {
-            // iterate through each field to verify if any are empty
+            // Iterate through each field to verify if any are empty
             if (this.state.form[i]['field'] == '' )
                 emptyFields++;
             i++;
         }
 
-        //Pops up alert if there are any empty fields
+        // Pops up alert if there are any empty fields
         if (emptyFields > 0 )
             Alert.alert('Alert', 'Please fill in all fields.', [{text: 'OK'},])
 
-        //Adds card if button has not been pressed and there are no empty fields
+        // Adds card if button has not been pressed and there are no empty fields
         if (!this.state.buttonPressed && emptyFields == 0 ){
             this.setState({buttonPressed: true});
             this.addCard();
@@ -246,6 +246,7 @@ export class CreateCard extends Component {
           });
     }
 
+    // Allows user to choose an image for the card 
     chooseImage = () => {
         var ImagePicker = require('react-native-image-picker');
 
@@ -262,21 +263,9 @@ export class CreateCard extends Component {
          * The second arg is the callback which sends object: response (more info below in README)
          */
         ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-
-        if (response.didCancel) {
-            console.log('User cancelled image picker');
-        }
-        else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-        }
-        else if (response.customButton) {
-            console.log('User tapped custom button: ', response.customButton);
-        }
-        else {
+        if (!response.didCancel && !response.error && ! response.customButton){
             let source = 'data:image/jpeg;base64,' + response.data;
             this.setState({ image: source });
-            console.log("Size of source: " + source.length)
         }
         });
     }
@@ -295,14 +284,21 @@ function capitalizeFirstLetter(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+// The function takes data from the app current state,
+// and insert/links it into the props of our component.
+// This function makes Redux know that this component needs to be passed a piece of the state.
 function mapStateToProps(state, props) {
     return {
         cards: state.dataReducer.cards
     }
 }
 
+// Doing this merges our actions into the component’s props,
+// while wrapping them in dispatch() so that they immediately dispatch an Action.
+// Just by doing this, we will have access to the actions defined in out actions file (action/about.js).
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ReduxActions, dispatch);
 }
 
+// Export component to be called elsewhere.
 export default connect(mapStateToProps, mapDispatchToProps)(CreateCard);

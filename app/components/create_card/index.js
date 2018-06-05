@@ -10,7 +10,6 @@ import { Text, View, ScrollView, TouchableOpacity,
         Picker, Platform, Alert} from 'react-native';
 import styles from './styles';
 import { RSAKeychain, RSA } from 'react-native-rsa';
-//import { ImagePicker, Permissions } from 'expo';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions';
@@ -47,11 +46,11 @@ export class CreateCard extends Component {
         var privStore = 'privkey' + id;
         var RSAKey = require('react-native-rsa');
         const bits = 1024;
-        const exponent = '10001'; // must be a string. This is hex string. decimal = 65537
+        const exponent = '10001'; // Must be a string. This is hex string. decimal = 65537
         var rsa = new RSAKey();
         rsa.generate(bits, exponent);
-        var publicKey = rsa.getPublicString(); // return json encoded string
-        var privateKey = rsa.getPrivateString(); // return json encoded string
+        var publicKey = rsa.getPublicString(); // Return json encoded string
+        var privateKey = rsa.getPrivateString(); // Return json encoded string
         SInfo.setItem(pubStore, publicKey, {});
         SInfo.setItem(privStore, privateKey, {});
         return publicKey;
@@ -80,26 +79,26 @@ export class CreateCard extends Component {
     let time = this.generateTimestamp();
     let user_attributes = []
 
-    // create json of user attributes (if any)
-    // check if user added any unique attributes in the first place
+    // Create json of user attributes (if any)
+    // Check if user added any unique attributes in the first place
     if (this.state.form.length > 3) {
         var i, c;
-        // iterate through user defined attributes and add them
+        // Iterate through user defined attributes and add them
         for (i = 3, c = 0; i < this.state.form.length; i++, c++) {
             user_attributes[c] = {[capitalizeFirstLetter(this.state.form[i]['title'])] : this.state.form[i]['field']}
         }
     }
 
-    //convert to proper syntax
+    // Convert to proper syntax
     var attributes = {};
     for (var i=0; i<user_attributes.length; i++) {
         attributes[Object.keys(user_attributes[i])] = Object.values(user_attributes[i])[0];
     }
 
-    // card object to pass into actions redux props.addCard()
+    // Card object to pass into actions redux props.addCard()
     let card = {"id": id, "keys": keys_json, "fields": attributes, "label": this.state.form[0]['field'],"name": this.state.form[1]['field'], "email": this.state.form[2]['field'], "owner": true, "time": time, "image": this.state.image};
 
-    //add card and return us to previous component (wallet)
+    // Add card and return us to previous component (wallet)
     this.props.addCardToEnd(card);
 
     setTimeout(function(){
@@ -109,7 +108,7 @@ export class CreateCard extends Component {
 
     render() {
         var icon = this.state.image === "" ? require('../../assets/default_avatar.png') : {uri: this.state.image};
-        //Displays the form allowing the user to input information about their card
+        // Displays the form allowing the user to input information about their card
         return (
             <KeyboardAwareScrollView style={styles.bodyContainer} innerRef={ref => {this.scroll = ref}}>
                 <View>
@@ -212,17 +211,17 @@ export class CreateCard extends Component {
         var emptyFields = 0;
         var i = 0;
         while (this.state.form.length > i) {
-            // iterate through each field to verify if any are empty
+            // Iterate through each field to verify if any are empty
             if (this.state.form[i]['field'] == '' )
                 emptyFields++;
             i++;
         }
 
-        //Pops up alert if there are any empty fields
+        // Pops up alert if there are any empty fields
         if (emptyFields > 0 )
             Alert.alert('Alert', 'Please fill in all fields.', [{text: 'OK'},])
 
-        //Adds card if button has not been pressed and there are no empty fields
+        // Adds card if button has not been pressed and there are no empty fields
         if (!this.state.buttonPressed && emptyFields == 0 ){
             this.setState({buttonPressed: true});
             this.addCard();
@@ -247,7 +246,7 @@ export class CreateCard extends Component {
           });
     }
 
-    //Allows user to choose an image for the card 
+    // Allows user to choose an image for the card 
     chooseImage = () => {
         var ImagePicker = require('react-native-image-picker');
 

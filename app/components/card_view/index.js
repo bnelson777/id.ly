@@ -1,9 +1,9 @@
-/**
+/*
  * Create Card View Page
  * by id.ly Team
  */
 
-//Import Libraries
+// Import Libraries
 import React, { Component } from 'react';
 import { StyleSheet, View, 
         Text, Image, Alert } from 'react-native';
@@ -14,15 +14,15 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import { Avatar, Button } from 'react-native-elements';
 
-//CARDVIEW
-//FUNCTION(S): This component displays the selected card
-//with the photo and all information. Contains buttons to share, 
-//create message, and if the card belongs to the user, set as default.
+// CARDVIEW
+// FUNCTION(S): This component displays the selected card
+// with the photo and all information. Contains buttons to share, 
+// create message, and if the card belongs to the user, set as default.
 //
-//EXPECTED PROP(S): this.props.card
+// EXPECTED PROP(S): this.props.card
 //                  this.props.isWallet
-//This component expects the card to be displayed, as well as a 
-//flag on if the card belongs to the user. 
+// This component expects the card to be displayed, as well as a 
+// flag on if the card belongs to the user. 
 export class CardView extends Component {
     constructor(props) {
         super(props);
@@ -55,7 +55,7 @@ export class CardView extends Component {
         }, 100);
     }
 
-    //displays card type on top, followed by image and the rest of the card information
+    // Displays card type on top, followed by image and the rest of the card information
     render() {
         var cardFields = [];
         for (var key in this.props.card.fields)
@@ -67,7 +67,7 @@ export class CardView extends Component {
         var args = this.props.card.owner === true ?
             {sender: this.props.card, recipient: null} :
             {sender: null, recipient: this.props.card};
-        //If the card does not belong to the user: displays card with no option to set default card
+        // If the card does not belong to the user: displays card with no option to set default card
         if(!this.props.isWallet){        
             return (
                 <View style={styles.container}>
@@ -108,7 +108,7 @@ export class CardView extends Component {
             );
         }
         else{
-            //If the card belongs to the user: displays card with option to set the default card
+            // If the card belongs to the user: displays card with option to set the default card
             return (
                 <View style={styles.container}>
                     <Text style={styles.header}>

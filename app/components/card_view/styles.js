@@ -60,10 +60,4 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
-    imageStyle: {
-        width: 180,
-        height: 180,
-        resizeMode: Image.resizeMode.contain
-    }
 });

@@ -47,14 +47,6 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
 
-    forthRow: {
-        flex: 2,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        paddingTop: Height * 0.051 < 34 ? 0 : Height * 0.035,
-        paddingRight: 5,
-    },
-
     center: {
         alignItems: 'center',
         justifyContent: 'center'
@@ -193,12 +185,6 @@ export default StyleSheet.create({
         backgroundColor: '#F2F2F2',
     },
 
-    menuItem: {
-        fontSize: 14,
-        fontWeight: '300',
-        paddingTop: 5,
-    },
-
     nonUnread: {
         fontWeight: '500',
         fontSize: Height * 0.025,
@@ -224,8 +210,4 @@ export default StyleSheet.create({
         paddingRight: 10,
         backgroundColor: '#FFFFFF',
     },
-
-    devOn: {
-        backgroundColor: '#FC8414'
-    }
 });

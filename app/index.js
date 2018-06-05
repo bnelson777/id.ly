@@ -3,7 +3,7 @@
  * by id.ly Team
  */
 
- //Import Libraries
+ // Import Libraries
 import React, { Component } from 'react';
 import { View, AsyncStorage, BackHandler,
         Platform, Linking } from 'react-native';
@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import SInfo from 'react-native-sensitive-info';
 import AesCrypto from 'react-native-aes-kit';
-//Component Imports
+// Component Imports
 import Splash from './components/splash/index';
 import Home from './components/home/index';
 import Scan from './components/scan/index';
@@ -30,14 +30,14 @@ import CreateCard from './components/create_card/index';
 import Register from './components/register/index'
 import About from './components/about/index';
 import Bluetooth from './components/bluetooth/index'
-//Dumby Data for Initial App Load
+// Dumby Data for Initial App Load
 import CardData from './cards-empty.json';
 import MessageData from './messages-empty.json';
 import { getCards } from './actions';
 import { getMessages } from './actions';
-//Needed for Actions.home() back button on inbox see line 59:121
-import * as ReduxActions from './actions'; //Import your actions
-//Style Import
+// Needed for Actions.home() back button on inbox see line 59:121
+import * as ReduxActions from './actions'; // Import your actions
+// Style Import
 import styles from './styles';
 
 class Main extends Component {
@@ -48,7 +48,7 @@ class Main extends Component {
         this.getPaths = this.getPaths.bind(this);
     }
 
-    //Create directory, files, and AES values
+    // Create directory, files, and AES values
     init(){
         const dirs = RNFetchBlob.fs.dirs;
         paths = this.getPaths();
@@ -117,7 +117,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        //Determine the users platform for deep linking
+        // Determine the users platform for deep linking
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
               this.navigate(url);
@@ -127,7 +127,7 @@ class Main extends Component {
           }
       }
 
-      //Remove the deep link listener 
+      // Remove the deep link listener 
       componentWillUnmount() {
           Linking.removeEventListener('url', this.handleOpenURL);
       }
@@ -146,7 +146,7 @@ class Main extends Component {
           return true;
       };
   
-      //Determine the route of the deep link
+      // Determine the route of the deep link
       navigate = (url) => {
           const route = url.replace(/.*?:\/\//g, '');
           let id = 'empty';

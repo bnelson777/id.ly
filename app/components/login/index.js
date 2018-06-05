@@ -6,6 +6,11 @@
 
 //Import Libraries
 
+// This component verifies an attempted login password with
+// a hashed password in SInfo. This is intended to work with
+// the register component but functionality only works with 
+// iOS devices currently.
+
 import React, { Component } from 'react';
 import { View, AsyncStorage } from "react-native";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";

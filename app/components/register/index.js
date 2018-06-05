@@ -1,5 +1,5 @@
 /**
- * Create Register Page
+ * Register Page
  * by id.ly Team
  */
 
@@ -14,6 +14,12 @@ import SInfo from 'react-native-sensitive-info';
 
 
 
+// This component is intended to register a secure password 
+// within the sensitive storage of the app. It uses bcrypt to
+// hash out a salted password and stores within Sinfo.
+// Note that this currently has a bug that
+// only allows iOS devices to use thsi functionality.
+
 export default class Register extends Component {
 
     constructor(props) {
@@ -26,8 +32,12 @@ export default class Register extends Component {
             alert("Passwords do not match, please re-enter.");
         else {
             var bcrypt = require('react-native-bcrypt');
+
+            // Sets new User and loggedInStatus flags in AsyncStorage
             AsyncStorage.setItem('newUser', 'false');
             AsyncStorage.setItem('loggedInStatus', 'true');
+
+            // Generates a salted password and adds to SInfo
             var salt = bcrypt.genSaltSync(10);
             var hash = bcrypt.hashSync(this.state.password1, salt);
             SInfo.setItem('password', hash, {});

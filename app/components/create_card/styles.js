@@ -26,11 +26,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
 
-    inputContainer: {
-        flex: 1,
-        alignSelf: 'center'
-    },
-
     formContainer: {
         flex: 3
     },
@@ -58,11 +53,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
 
-    addButtonImage: {
-        height: 20,
-        width: 20
-    },
-
     addAttributeContainer: {
         flex: 1,
         flexDirection: 'row',
@@ -73,15 +63,6 @@ export default StyleSheet.create({
     buttonText: {
         padding: '5%',
         color: 'blue'
-    },
-
-    imageDropdown: { 
-    },
-    
-    imageStyle: {
-        width: 140,
-        height: 140,
-        alignSelf: 'center'
     },
 
     cardPosition: {

@@ -8,7 +8,7 @@ import React from 'react';
 import styles from './styles';
 import PropTypes from 'prop-types';
 import { ScrollView, View, Text,
-        TouchableOpacity } from 'react-native';
+        TouchableOpacity, Alert } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions

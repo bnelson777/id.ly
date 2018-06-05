@@ -21,11 +21,8 @@ import AesCrypto from 'react-native-aes-kit';
 
 
 // SHARE
-// FUNCTION(S): This componenet at the moment will display a JSON card object in QR
-// readable format (ommiting the private key if present).
-//
-// FUTURE FUNCTION(S): Display public key of card object bluetooth handshake
-// would occur here and deliver the card object over that bridge.
+// FUNCTION(S): This component is responsible for displaying a qr code necessary
+// to transmit a card and symmetric key to another device running the id.ly app in the scan screen. 
 //
 // EXPECTED PROP(S): this.props.card
 // This component will expect a card object to be passed to it when viewed so

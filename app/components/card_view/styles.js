@@ -12,17 +12,13 @@ export default StyleSheet.create({
     },
 
     buttonContainer:{
-        flex:1,
+        flex:0,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 10,
-        backgroundColor: BACKGROUND_COLOR
-    },
-
-    row:{
-        borderBottomWidth: BORDER_WIDTH,
+        backgroundColor: BACKGROUND_COLOR,
+        borderTopWidth: BORDER_WIDTH,
         borderColor: "#ccc",
-        padding: 10
+        paddingTop: 10
     },
 
     header:{

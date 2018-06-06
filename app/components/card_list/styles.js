@@ -40,26 +40,9 @@ export default StyleSheet.create({
         marginTop: screenHeight * 0.009,
     },
 
-    imageButton: {
-        width: buttonHeight,
-        backgroundColor: BACKGROUND_COLOR
-    },
-
-    imageButtonWallet: {
-        marginLeft: screenWidth * 0.05,
-    },
-
-    imageButtonRolodex: {
-        marginLeft: screenWidth * 0.01,
-    },
-
     gotoButton: {
         width: buttonHeight,
         backgroundColor: BACKGROUND_COLOR
-    },
-
-    gotoButtonWallet: {
-        marginRight: screenWidth * 0.05,
     },
 
     gotoButtonRolodex: {
@@ -71,25 +54,9 @@ export default StyleSheet.create({
         width: screenWidth * 0.6,
     },
 
-    cardButtonWallet: {
-        marginLeft: screenWidth * 0.05,
-        marginRight: screenWidth * 0.05
-    },
-
     cardButtonRolodex: {
         marginLeft: screenWidth * 0.03,
         marginRight: screenWidth * 0.01
-    },
-
-    noBotBorder: {
-        flexDirection: 'row',
-    },
-
-    listContainer: {
-        backgroundColor: '#FFFFFF',
-        borderTopWidth: 0, 
-        borderBottomWidth: 0,
-        marginTop: 0
     },
 
     sepLine: {

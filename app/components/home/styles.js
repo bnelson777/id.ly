@@ -198,7 +198,6 @@ export default StyleSheet.create({
         fontWeight: '300',
         paddingTop: screenHeight * 0.0075,
     },
-
     nonUnread: {
         fontWeight: '500',
         fontSize: screenHeight * 0.025,
@@ -223,5 +222,5 @@ export default StyleSheet.create({
         paddingLeft: screenWidth * 0.032,
         paddingRight: screenWidth * 0.032,
         backgroundColor: '#FFFFFF',
-    }
+    },
 });

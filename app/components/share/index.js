@@ -22,11 +22,8 @@ import AesCrypto from 'react-native-aes-kit';
 const screenWidth = Dimensions.get('window').width;
 
 // SHARE
-// FUNCTION(S): This componenet at the moment will display a JSON card object in QR
-// readable format (ommiting the private key if present).
-//
-// FUTURE FUNCTION(S): Display public key of card object bluetooth handshake
-// would occur here and deliver the card object over that bridge.
+// FUNCTION(S): This component is responsible for displaying a qr code necessary
+// to transmit a card and symmetric key to another device running the id.ly app in the scan screen. 
 //
 // EXPECTED PROP(S): this.props.card
 // This component will expect a card object to be passed to it when viewed so
@@ -43,6 +40,7 @@ export class Share extends Component {
         this.packageCard()
         
         this.messageListener = BluetoothCP.addReceivedMessageListener((peers) => {
+            // Code that runs when device recieves a message from the scanner
             if (peers.message === deviceInfo.getDeviceName()) {
                 console.log(peers.message);
                 BluetoothCP.sendMessage(this.state.encrypt, peers.id);
@@ -55,6 +53,7 @@ export class Share extends Component {
     }
 
     componentWillUnmount() {
+        // remove listener to stop listening for messages
         this.messageListener.remove();
         console.log('unmounting');
     }
@@ -72,7 +71,6 @@ export class Share extends Component {
         jsonCard2.owner = false;
         console.log('object to display in QR',jsonCard2)
         
-        
         for(var key = ''; key.length < 16;) {
                 key += Math.random().toString(36).substr(2, 1)
             }
@@ -88,10 +86,6 @@ export class Share extends Component {
         
         this.setState({iv: iv})
         this.setState({key: key})
-        
-        
-        
-        
     }
 
     render() {

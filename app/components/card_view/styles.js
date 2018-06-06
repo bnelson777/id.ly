@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
 
     buttonContainer:{
-        flex:1,
+        flex:0,
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: screenHeight * 0.015,
@@ -56,7 +56,7 @@ export default StyleSheet.create({
     name: {
         fontSize: FONT_SIZE,
         fontWeight: FONT_WEIGHT,
-        marginTop: screenHeight * 0.024
+        marginTop: screenHeight * 0.024,
     },
 
     cardPosition: {

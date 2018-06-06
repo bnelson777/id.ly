@@ -1,37 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { } from './../styles/common';
+import { IDLY_BLUE } from './../styles/common';
 
 export default StyleSheet.create({
-    container: {
-        paddingTop: 20,
-        alignItems: 'stretch'
+    meButton: {
+        right: 0,
+        width: 36,
+        height: 22,
+        backgroundColor: IDLY_BLUE,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
-    receiverText: {
-        color: 'black',
-        textAlign: 'left',
-        fontSize: 30
+    meButtonText: {
+        fontWeight: '500',
+        fontSize: 22,
+        color: "white"
     },
-
-    senderText: {
-        color: 'white',
-        textAlign: 'right',
-        fontSize: 30
-    },
-
-    sentMessage: {
-        backgroundColor: 'skyblue'
-    },
-
-    receivedMessage: {
-        backgroundColor: 'lightgrey'
-    },
-
-    inputBox: {
-        height: 40,
-    },
-    
-    inboxButton: {
-        paddingRight: 100
-    }
 });

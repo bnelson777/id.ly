@@ -5,45 +5,66 @@
 
 //Import Libraries
 import React, { Component } from 'react';
-import styles from './styles';
-import { Alert, FlatList, View, Image,
-        Text, ActivityIndicator, ScrollView,
-        TouchableOpacity, ListView,
-        ActionSheetIOS } from 'react-native';
+import styles, { iconSize }from './styles';
+import { FlatList, View, Image,
+        Text, ActivityIndicator,
+        TouchableOpacity,
+        ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ReduxActions from '../../actions'; //Import your actions
 import { Actions } from 'react-native-router-flux';
-import { Avatar, Card, Button,
+import { Avatar, Card, Button, Icon,
         List, ListItem } from 'react-native-elements';
 import SideMenu from 'react-native-side-menu';
 import Menu from './menu';
-import { iconSize } from './styles';
-
-const menuImg = require('../../assets/menu.png');
 
 export class Home extends Component {
+    // Initialized Variables
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false,
+            isOpen: false, // The status of the side bar 
             selectedItem: 'About',
+            showDev: true, // The status of the dev mode
         };
-        this.toggle = this.toggle.bind(this);
+        this.toggle = this.toggle.bind(this); // Toggle for the side bar
+        this.changeDev = this.changeDev.bind(this); // Toggle for the dev mode
     }
 
+    /** 
+     * Custom the header of Home page
+     * If dev mode is on, show the side bar;
+     * if off, disable the side bar.
+    */
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state;
-        return{
+        return {
             title: "Home",
-            headerLeft: (<TouchableOpacity
-                style={styles.row}
-                onPress={params.toggle}>
-                    <Image
-                        source={menuImg}
+            gesturesEnabled: false, //disable the gestures for IOS, if false.
+            headerLeft: (params.showDev === true 
+                ?<TouchableOpacity style={styles.row} onPress={params.toggle}>
+                    <Icon
+                        name= 'menu'
+                        color= '#FFFFFF'
                     />
-                </TouchableOpacity>),
-            headerRight: (<View/>),
+                </TouchableOpacity>
+                : <View/>
+            ),
+            headerRight: (params.showDev === true
+                ?<TouchableOpacity style={styles.row}  onPress={params.changeDev}>
+                    <Icon
+                        name='lock-open'
+                        color='#FC8414'
+                    />
+                </TouchableOpacity>
+                :<TouchableOpacity style={styles.row}  onPress={params.changeDev}>
+                    <Icon
+                        name='lock'
+                        color='#FFFFFF'
+                    />
+                </TouchableOpacity> 
+            ),
             headerTintColor: 'white',
             headerStyle: {
                 backgroundColor: '#128DC9',
@@ -51,44 +72,67 @@ export class Home extends Component {
         }
     }
 
+    // Update the dev mode's status
+    changeDev() {
+        this.setState({
+            showDev: !this.state.showDev
+        });
+        // the header's parameter should follow the state
+        this.props.navigation.setParams({
+            showDev: this.state.showDev
+        });
+    }
+
+    // Update the side bar's status 
     toggle() {
         this.setState({
           isOpen: !this.state.isOpen,
         });
     }
     
+    // Turn on the side bar
     updateMenuState(isOpen) {
         this.setState({ isOpen });
     }
     
+    /**
+     * When selected an option on the side bar,
+     * it will close the side bar automatically.
+     */
     onMenuItemSelected = item =>
         this.setState({
           isOpen: false,
           selectedItem: item,
     });
 
+    // Print out the line to separate the unread messages
     SeparatedLine = () => {
         return (
           <View style = {styles.sepLine}/>
         );
     };
 
+    // Update the variable/data status
     componentDidMount() {
         this.props.navigation.setParams({
-            toggle: this.toggle
+            toggle: this.toggle,
+            changeDev: this.changeDev,
+            showDev: !this.state.showDev
         });
         this.props.getMessages();
         this.props.getCards();
     }
 
-    // Dummy function for button presses
-    pressButton(label) {
-        Alert.alert(label);
-    }
-
     //Display default card
     displayDefault() {
+        // Filter the owner's cards, and store into myCards
         var myCards = this.props.cards.filter(function(obj) {return obj.owner === true}).map(card => card);
+        /**
+         * Print out the first card on the owner's card, 
+         * because the first card is the default card.
+         * If there is no card, just prompt an user to
+         * add a new card.
+         */
         if(myCards[0]) {
             let img = myCards[0].image === "" ? require('../../assets/default_avatar.png') : {uri: myCards[0].image};
             let name = myCards[0].name;
@@ -135,9 +179,15 @@ export class Home extends Component {
         }
     }
 
+    // Display unread messages
     unreadMsg() {
+        // Filter the unread messages, and store into unread
         var unread = this.props.messages.filter(function(obj) {return obj.read === false}).map(message => message);
 
+        /**
+         * Display the unread messages based on its timeline;
+         * if there is no unread message, just prompt no unread.
+         */
         if(unread[0]){
             // array to be filled with valid pairs of sender and receivers
             var arr = [];
@@ -192,6 +242,7 @@ export class Home extends Component {
         }
     }
 
+    // Display unread messages as a list
     renderItem = ({item, index}) => {
         /* get author name and portrait for each message */
         let author = item.from; //display public key if card not found
@@ -294,6 +345,7 @@ export class Home extends Component {
     // Displays animation if loading, otherwise displays a popup indicating the
     // TouchableOpacity pressed
     render() {
+        // Create a variable for side bar, and pass data from this.props into the menu function
         const menu = <Menu onItemSelected={this.onMenuItemSelected} 
             data = {this.props} />;
 
@@ -305,8 +357,15 @@ export class Home extends Component {
             );
         } 
         else {
+            /**
+             * In Home page, there are three row,
+             * First row, display the four main components (Wallet, Inbox, Rolodex, and Scan)
+             * Second row, display the default card
+             * Thrid row, display unread messages
+             */
             return (
                 <SideMenu
+                disableGestures = {true}
                 menu={menu}
                 isOpen={this.state.isOpen}
                 onChange={isOpen => this.updateMenuState(isOpen)}

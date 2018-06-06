@@ -13,46 +13,6 @@ export default StyleSheet.create({
         borderBottomWidth: 0,
         marginTop: 0
     },
-
-    itemContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: COLOR_PRIMARY,
-        justifyContent: 'center',
-        padding: 10
-    },
-
-    imageContainer: {
-        borderWidth: 1,
-        borderColor: COLOR_SECONDARY
-    },
-
-    textContainer: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-    },
-
-    messageContainer: {
-        flex: 1,
-        justifyContent: 'flex-start'
-    },
-
-    authorText: {
-        fontWeight: 'bold'
-    },
-
-    headerContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start'
-    },
-
-    imageStyle: {
-        width: 80, 
-        height: 80
-    },
     
     sepLine: {
         height: 1,

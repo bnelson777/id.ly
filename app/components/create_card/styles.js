@@ -18,17 +18,14 @@ export default StyleSheet.create({
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,
-        borderRadius: 5
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center"
     },
 
     screenContainer: {
         flex: 10,
         flexDirection: 'row',
-    },
-
-    inputContainer: {
-        flex: 1,
-        alignSelf: 'center'
     },
 
     formContainer: {
@@ -58,11 +55,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
 
-    addButtonImage: {
-        height: 20,
-        width: 20
-    },
-
     addAttributeContainer: {
         flex: 1,
         flexDirection: 'row',
@@ -73,15 +65,6 @@ export default StyleSheet.create({
     buttonText: {
         padding: '5%',
         color: 'blue'
-    },
-
-    imageDropdown: { 
-    },
-    
-    imageStyle: {
-        width: 140,
-        height: 140,
-        alignSelf: 'center'
     },
 
     cardPosition: {

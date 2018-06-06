@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { View, Text, TextInput,
-        Button,
+        TouchableOpacity,
         FlatList,
         Clipboard } from 'react-native';
 import * as ReduxActions from '../../actions';
@@ -50,13 +50,17 @@ export class MessageThread extends Component {
 
             if(state.params != undefined){
                 return {
-                    headerRight: <Button title="ME"
-                    color="white"
-                    onPress={() => Actions.card_view({
-                        title: state.params.senderCard.name, 
-                        card: state.params.senderCard,
-                        isWallet: true})} 
-                    />
+                    headerRight:
+                    <TouchableOpacity
+                        style={styles.meButton}
+                        onPress={() => Actions.card_view({
+                            title: state.params.senderCard.name,
+                            card: state.params.senderCard,
+                            isWallet: true
+                        })}
+                    >
+                    <Text style={styles.meButtonText}>ME</Text>
+                    </TouchableOpacity>
                 }
             }
 

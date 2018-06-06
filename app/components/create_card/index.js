@@ -149,11 +149,10 @@ export class CreateCard extends Component {
                                 </View>
                             </View>
                             <View style={styles.addFieldButton}>
-                                <Button
-                                    buttonStyle ={styles.ButtonContainer}
-                                    title="Add Card"
+                                <TouchableOpacity
+                                    style ={styles.ButtonContainer}
                                     onPress={() => this.handleAddCard()}
-                                />
+                                ><Text style={{ color: "white"}}>Add Card</Text></TouchableOpacity>
                             </View>
                         </View>
                     </View>

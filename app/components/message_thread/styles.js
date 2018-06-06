@@ -36,5 +36,5 @@ export default StyleSheet.create({
 
     inboxButton: {
         paddingRight: screenWidth * 0.32
-    }
+    },
 });

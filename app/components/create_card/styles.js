@@ -18,7 +18,9 @@ export default StyleSheet.create({
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,
-        borderRadius: 5
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center"
     },
 
     screenContainer: {

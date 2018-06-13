@@ -71,9 +71,21 @@ export class CardView extends Component {
         if(!this.props.isWallet){        
             return (
                 <View style={styles.container}>
-                    <ScrollView>
-                        <Text style={styles.header}>
-                            {this.props.card.label}
+                    <Text style={styles.header}>
+                        {this.props.card.label}
+                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Image
+                            style={styles.roundedImg}
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
+                        </Text>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
                         </Text>
                         <View style={styles.cardPosition}>
                             <Avatar
@@ -95,12 +107,12 @@ export class CardView extends Component {
                         </View>
                     </ScrollView>
                     <View style={styles.buttonContainer}>
-                        <Button 
+                        <Button
                             title="Share"
                             onPress={() => Actions.share({card: this.props.card})}
                             buttonStyle={styles.button}
                         />
-                        <Button 
+                        <Button
                             title="Message"
                             onPress={() => Actions.create_message(args)}
                             buttonStyle={styles.button}
@@ -113,9 +125,21 @@ export class CardView extends Component {
             // If the card belongs to the user: displays card with option to set the default card
             return (
                 <View style={styles.container}>
-                    <ScrollView>
-                        <Text style={styles.header}>
-                            {this.props.card.label}
+                    <Text style={styles.header}>
+                        {this.props.card.label}
+                    </Text>
+                    <View style={styles.cardPosition}>
+                        <Image
+                            style={styles.roundedImg}
+                            source = {icon}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>
+                            Name: {this.props.card.name}
+                        </Text>
+                        <Text style={styles.name}>
+                            Email: {this.props.card.email}
                         </Text>
                         <View style={styles.cardPosition}>
                             <Avatar
@@ -137,17 +161,17 @@ export class CardView extends Component {
                         </View>
                     </ScrollView>
                     <View style={styles.buttonContainer}>
-                        <Button 
+                        <Button
                             title="Share"
                             onPress={() => Actions.share({card: this.props.card})}
                             buttonStyle={styles.walletButton}
                         />
-                        <Button 
+                        <Button
                             title="Message"
                             onPress={() => Actions.create_message(args)}
                             buttonStyle={styles.walletButton}
                         />
-                        <Button 
+                        <Button
                             title="Default"
                             onPress={() => this.handleSetDefault()}
                             buttonStyle={styles.walletButton}

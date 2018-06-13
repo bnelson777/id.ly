@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, IDLY_BLUE } from './../styles/common';
+
+const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     container: {

@@ -1,8 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
 
-
-const Height = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     container: {
@@ -13,13 +13,13 @@ export default StyleSheet.create({
     },
 
     image: {
-        width: 236,
-        height: 136,
+        width: screenWidth * 0.48,
+        height: screenWidth * 0.48,
     },
 
     icon: {
-        width: 30,
-        height: 30,
+        width: screenWidth * 0.08,
+        height: screenWidth * 0.08,
     },
 
     row: {
@@ -37,7 +37,6 @@ export default StyleSheet.create({
     
     words: {
         color: '#909090',
-        paddingBottom: 20,
-        textAlign: 'center'
+        paddingBottom: screenHeight * 0.03
     }
 });

@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, FlatList, Keyboard,
         View, Text, TextInput, Platform,
         TouchableHighlight, TouchableOpacity,
-        Image, KeyboardAvoidingView } from 'react-native';
+        Image, KeyboardAvoidingView, Dimensions } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,7 +17,8 @@ import * as ReduxActions from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import ActionSheet from 'react-native-actionsheet';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 70 : 70;
+const screenHeight = Dimensions.get('window').height;
+const keyboardVerticalOffset = screenHeight * 0.14;
 
 // CREATEMESSAGE
 // FUNCTION(S): This component displays a menu to select a message sender and

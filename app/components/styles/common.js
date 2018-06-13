@@ -3,10 +3,14 @@
  * by id.ly Team
  */
 
+import { Dimensions } from 'react-native';
+
+const screenHeight = Dimensions.get('window').height;
 // These are global attributes that are used as a basis for
 // every component's companion stylesheet. Individual styles
 // can be overridden in each stylesheet but otherwise global
 // stles will all be changed by modfying these settings.
+
 
 export const COLOR_PRIMARY = 'white';
 export const COLOR_SECONDARY = 'black';

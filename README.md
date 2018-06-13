@@ -70,7 +70,7 @@ This app is a senior captone project for a group of computer science students at
 ## Acknowledgements
 
 * **Alan Anderson-Priddy** - *Initial work*
-* **Kal Toth, NextGenID** - *Initial work* - http://nexgenid.com/people/
+* **Kal Toth, NextGenID** - *Subject matter expert and consultant*
 
 See also the developers of this project under [contributors](https://github.com/bnelson777/id.ly/graphs/contributors) who participated in this project.
 

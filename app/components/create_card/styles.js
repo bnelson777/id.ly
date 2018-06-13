@@ -27,11 +27,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
 
-    inputContainer: {
-        flex: 1,
-        alignSelf: 'center'
-    },
-
     formContainer: {
         flex: 3
     },

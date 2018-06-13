@@ -121,4 +121,5 @@ export default StyleSheet.create({
         borderWidth: 0,
         borderRadius: IsIOS ? 4 : 0,
     }
+
 });

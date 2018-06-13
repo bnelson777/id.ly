@@ -10,10 +10,10 @@ export default StyleSheet.create({
         alignItems: 'stretch'
     },
 
-    receiverText: {
-        color: 'black',
-        textAlign: 'left',
-        fontSize: 30
+    meButtonText: {
+        fontWeight: '500',
+        fontSize: 22,
+        color: "white"
     },
 
     senderText: {

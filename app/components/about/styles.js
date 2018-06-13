@@ -23,6 +23,7 @@ export default StyleSheet.create({
     },
 
     row: {
+        paddingTop: screenHeight * 0.02,
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'

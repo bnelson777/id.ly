@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
 
     buttonContainer:{
-        flex:1,
+        flex:0,
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: screenHeight * 0.015,

@@ -5,6 +5,10 @@ import { COLOR_PRIMARY, COLOR_SECONDARY, IDLY_BLUE,
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
+// Used for navigation bar components such as icon parameters and colors.
+// These styles are are a companion file to the main index.js for the app.
+
+
 export default StyleSheet.create({
     subtitle: {
         fontWeight: '500',

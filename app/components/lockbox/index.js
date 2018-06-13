@@ -6,12 +6,12 @@
 //Import Libraries
 import React, { Component } from 'react';
 import styles from './styles';
-import {StyleSheet, View, Dimensions,
+import {View, Dimensions,
         Text, TextInput, TouchableOpacity,
         Linking, Clipboard} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as ReduxActions from '../../actions'; //Import your actions
+import * as ReduxActions from '../../actions'; // Import your actions
 import {Actions} from 'react-native-router-flux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import AesCrypto from 'react-native-aes-kit';
@@ -20,18 +20,12 @@ import SInfo from 'react-native-sensitive-info';
 
 // LOCKBOX
 // FUNCTION(S): This component will handle the encryption and decryption of
-// messages (and maybe cards objects in the future).
-//
-// FUTURE FUNCTION(S): Encrypt the entire json structure itself into chunks that
-// fit RSA size limititions. Also will take those chunks of encrypted json and
-// make a zip file for email attachment.
-// decyption will also be expected to take a zip file upon app entry decrypt
-// each chunk and put the chunks back togeather for reading.
+// messages.
 //
 // EXPECTED PROP(S): this.props.mode, this.props.message
 // mode: is always expected so the component knows if it should perform encryption or
 // decryption
-// message is only expected when mode = encryption this is because the LOCKBOX
+// message: is only expected when mode = encryption this is because the LOCKBOX
 // needs a object to encrypt.
 
 
@@ -47,7 +41,8 @@ export class Lockbox extends Component {
             email: '',
             isLoading: true,
             added: false,
-            duplicate: false
+            duplicate: false,
+            cipher: "",
         };
         this.decryptMessage= this.decryptMessage.bind(this);
         this.encryptMessageDone= this.encryptMessageDone.bind(this);
@@ -56,16 +51,10 @@ export class Lockbox extends Component {
     componentDidMount(){
         this.props.getCards();
         if (this.props.mode === 'encrypt') {
-        console.log('Encrypt Mode DidMount()')
-            // update state variable so we know where to return
+            // Update state variable so we know where to return
             this.state.returnTo = this.props.returnTo;
             this.encryptMessage();
-        } else if (this.props.mode === 'decrypt') {
-            console.log('Decrypt Mode DidMount()')
-        } else {
-            console.log('No props mode passed into Lockbox. This should not happen')
         }
-
     }
 
     decryptMessage() {
@@ -73,12 +62,12 @@ export class Lockbox extends Component {
         var rsa = new RSAKey();
 
 
-        //decrypt the object we just made
+        // Decrypt the message
         var TextTodecrypt = this.state.jsonString;
-        var strippedBrackets = TextTodecrypt.replace(/[{}]/g, "");
-        var arr = strippedBrackets.split(/\s*\-\s*/g);
-        var base64AESDecode = Buffer.from(arr[1], 'base64').toString('ascii');
-        console.log('the cards to loop', this.props.cards[2])
+        var strippedBrackets = TextTodecrypt.replace(/[{}]/g, ""); // Removes the {}
+        var arr = strippedBrackets.split(/\s*\-\s*/g); //Get RSA and AES ciphers seperated by -
+        var base64AESDecode = Buffer.from(arr[1], 'base64').toString('ascii'); //Decode AES from base64 representation (url safe)
+        // We don't know what possible identity the message was encoded for, so we loop through each card in the users wallet and attempt to decrypt the message
         for (var i = 0, len = this.props.cards.length; i < len; i++) {
             if (this.props.cards[i].owner === true) {
                 var decrypted = null;
@@ -87,9 +76,10 @@ export class Lockbox extends Component {
                 .then((privkey, i, len) => {
                   try {
                       rsa.setPrivateString(privkey);
-                      decrypted = rsa.decrypt(arr[0]); // decrypted == originText
+                      decrypted = rsa.decrypt(arr[0]); // Attempt to decrypt the RSA cipher
+                      // If decrypt is not empty it was succesful so let's decrypt AES now..
                       if (decrypted !== null) {
-                        var aesKEYIV = decrypted.split(',');
+                        var aesKEYIV = decrypted.split(','); // This grabs the iv and key strings to unlock the AES cipher
                         AesCrypto.decrypt(base64AESDecode,aesKEYIV[0],aesKEYIV[1]).then(plaintxt=>{
                             var message = JSON.parse(plaintxt);
                             var notDuplicateMessage = true;
@@ -103,7 +93,7 @@ export class Lockbox extends Component {
                             if(notDuplicateMessage === true){
                               this.props.addMessage(message);
                               this.setState({added: true})
-                              // send user to inbox view
+                              // Send user to inbox view
                               Actions.pop();
                               Actions.inbox();
                               return;
@@ -118,7 +108,7 @@ export class Lockbox extends Component {
                       }
                     }
                     catch(err) {
-                        console.log('err attempting to decrypt with this key', i)
+                        console.log('Error attempting to decrypt with this key', i)
                         // keep trying
                     }
                 });
@@ -139,50 +129,50 @@ export class Lockbox extends Component {
     }
 
     encryptMessageDone() {
-        // exit lockbox after user hits done button
-        // depends where we came from
+        // Exit lockbox after user hits done button
+        // Depends where we came from
 
         if (this.state.returnTo === 'thread') {
-          // back to thread
+          // Back to thread
           Actions.pop();
           setTimeout(() => {
           Actions.refresh({name:'zzzzar'});
           }, 10);
         }
         else if (this.state.returnTo === 'inbox') {
-          // back to inbox view
+          // Back to inbox view
           Actions.pop();
           Actions.pop();
         }
         else {
-          // all else fails just go home
+          // All else fails just go home
           Actions.home();
         }
     }
 
     encryptMessage() {
         var cardMatch = null;
-        //look up card of the person you are sending to (we need their email later)
+        // Look up card of the person you are sending to (we need their email later)
         for (var i = 0, len = this.props.cards.length; i < len; i++) {
             if (this.props.cards[i].keys.n === this.props.message.to) {
                 cardMatch = this.props.cards[i];
                 break;
             }
         }
-        // if we found who it goes to in rolodex (we always should)
+        // If we found who it goes to in rolodex (we always should)
         if (cardMatch) {
-            // get email so we know who to send it to
+            // Get their email so we know who to send it to
             var email = cardMatch.email
-            // key for encrypt
+            // Key for encrypt
             var toKey = cardMatch.keys.n
-            // for email link
+            // For email link
             var subject = "Id.ly - New Message"
-            // getting ready to encrypt message body
+            // Getting ready to encrypt message body
             var RSAKey = require('react-native-rsa');
             var rsa = new RSAKey();
-            //make obj for RSA react native package function
+            // Make obj for RSA react native package function
             var keyObj = new Object();
-            // generate aes iv and key for message, RSA will encrypt these two keys.
+            // Generate aes iv and key for message, RSA will encrypt these two keys.
             for(var key = ''; key.length < 16;) {
                 key += Math.random().toString(36).substr(2, 1)
             }
@@ -191,10 +181,10 @@ export class Lockbox extends Component {
                 iv += Math.random().toString(36).substr(2, 1)
             }
 
-            // this is what object we will RSA encrypt for delivery
+            // This is what object we will RSA encrypt for delivery
             var decryptkeys = [key, iv];
 
-            // use those keys to encrypt the message object which we will send to user
+            // Use those keys to encrypt the message object which we will send to user
             var aesMessageObject = 'undefined';
 
             AesCrypto.encrypt(JSON.stringify(this.props.message), key, iv)
@@ -206,15 +196,19 @@ export class Lockbox extends Component {
                     rsa.setPublicString(publickeyToo);
                     // RSA encrypted AES keys
                     var encrypted = rsa.encrypt(decryptkeys.toString());
-                    // convert AES message object to base64 (url safe characters)
+                    // Convert AES message object to base64 (url safe characters)
                     combinationBase64 = Buffer.from(aesMessageObject).toString('base64')
-                    // get it ready for sending combine keys with aes message object
-                    var jsonM = "http://joewetton.com/?m=" + '{' + encrypted + '-' + combinationBase64 + '}';
+                    // Get it ready for sending combine keys with aes message object
+                    var jsonM = "http://web.cecs.pdx.edu/~wetton/lockbox/?m=" + '{' + encrypted + '-' + combinationBase64 + '}';
                     // setState of jsonM
                     this.setState({jsonM: jsonM})
-                    //uri: mailto:mailto@deniseleeyohn.com?subject=abcdefg&body=body'
+                    // For display in box
+                    var cipher = '{' + encrypted + '-' + combinationBase64 + '}';
+                    // setState of jsonM
+                    this.setState({cipher: cipher})
+                    // Uri: mailto:mailto@deniseleeyohn.com?subject=abcdefg&body=body'
                     var uri = "mailto:" + email + "?" + "subject=" + subject + "&body=" + jsonM;
-                    //encode for email linking
+                    // Encode for email linking
                     var res = encodeURI(uri);
                     // setState updates the render and the email link
                     this.setState({email: res})
@@ -226,26 +220,28 @@ export class Lockbox extends Component {
         }
     }
 
-    writeToClipboard = async () => {
+    writeCipherToClipboard = async () => {
+        await Clipboard.setString(this.state.cipher);
+        alert('Copied cipher to Clipboard!');
+    };
+
+    writeLinkToClipboard = async () => {
         await Clipboard.setString(this.state.jsonM);
-        alert('Copied to Clipboard!');
+        alert('Copied link to Clipboard!');
     };
 
     render() {
 
         if (this.props.mode === 'encrypt') {
-            console.log('In encrypt Mode')
-
             return (
                 <View style={styles.container}>
                     <View style={styles.row}>
                         <TextInput
                             multiline={true}
-                            onChangeText={(text) => this.setState({email: text})}
-                            placeholder={this.state.jsonM}
+                            placeholder={this.state.cipher}
                             style={[styles.quote]}
                             editable={false}
-                            value={this.state.jsonM}
+                            value={this.state.cipher}
                         />
                     </View>
                     <TouchableOpacity style={[styles.saveBtn]}
@@ -258,11 +254,20 @@ export class Lockbox extends Component {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={[styles.saveBtn]}
-                        onPress={this.writeToClipboard}>
+                        onPress={this.writeLinkToClipboard}>
                         <Text style={[styles.buttonText,
                             {color: "#FFF"
                         }]}>
-                            Copy to Clipboard
+                            Copy Link to Clipboard
+                        </Text>
+                    </TouchableOpacity>
+        
+                    <TouchableOpacity style={[styles.saveBtn]}
+                        onPress={this.writeCipherToClipboard}>
+                        <Text style={[styles.buttonText,
+                            {color: "#FFF"
+                        }]}>
+                            Copy Cipher to Clipboard
                         </Text>
                     </TouchableOpacity>
 
@@ -278,15 +283,19 @@ export class Lockbox extends Component {
             );
         }
         else if (this.props.mode === 'decrypt') {
-            console.log('In decrypt Mode')
-            this.state.jsonString = decodeURI(this.props.message)
+            var placeholder = 'Enter message cipher ex. {54053da33f90c4fa48b658a3c6d9f2569155b3e977b1eab67c4ec940960af40fecc608794bd759c2df8148455168c4e2ab550308357d113b-vSDM4blBzT2NjQlRuNA0KVDlGSUxBNkNCNWR4NldFQUhMRFc4ZTkyeWxzeHM5YlBETEZBZGgzdCtSUlZMaTI1dDV1Rk9KVkJGSTdhWHV0Vg0KT2c0Y3pORlhoOWRxYUZjZjIvNm5EcmcyRHB5RktnV2dDZFNlcnRBRUVkZW91MkxwWU43STRocDkzRXhMN3lXZQ0KMU1Od21wZEFJR2xTN25nV0JxZWkrQi9kL0M1MFQweEpTWHNpSWFWVkJPbXQxYlVSWlY2blRVYnJ4ZkxQM0VLdw0KakNjcG94a0JodWdVMUNVVytWQXdhZkxLOTFZZUhuN2wrNDVkMjZ4WjBYNEx2bzVUbXBSbi9haWxqMW5zaWVtVQ0KbEpBTjdtUWhidHhqczNPOVRlcDhIaE5lYkhETGczS1NpdzVHeDhIeGtwdlJ5Y2JVTnEzZnNmc1QwdFVKMEM2dw0KbUc4QkM4K2RITTl6VnFlZnhITlBweFMybitTd1hoVm56RW5mT280RUxLdTNXWjBWaVlWNmpHaFljVE1BcFNmeQ0KNDZsOStUcjJkaUE5SFRPWUxOemxEZEdxS0drWldHUTNHQ0dKWWhrRWhaR0NveThiZm96U29KMFp5UjhtN29SZg0KMkVlK29pSlE5dGVGZE92dGR4MEhXWEVhdWVPSk5rdWJmUFJianY3Ykl5ST0=}';
+            if (this.props.message) {
+                this.state.jsonString = decodeURI(this.props.message);
+                var placeholder = decodeURI(this.props.message);
+            }
+            
             return (
                 <View style={styles.container}>
                     <View style={styles.row}>
                         <TextInput
                             multiline={true}
                             onChangeText={(text) => this.setState({jsonString: text})}
-                            placeholder={decodeURI(this.props.message)}
+                            placeholder={placeholder}
                             style={[styles.quote]}
                         />
                     </View>
@@ -304,10 +313,9 @@ export class Lockbox extends Component {
             );
         }
         else {
-            console.log('In no mode.. strange')
             return (
                 <View style={styles.container}>
-                    <Text>Weird...</Text>
+                    <Text>Error. No mode found.</Text>
                 </View>
             );
         }
@@ -330,5 +338,5 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ReduxActions, dispatch);
 }
 
-//Connect everything
+// Connect everything
 export default connect(mapStateToProps, mapDispatchToProps)(Lockbox);

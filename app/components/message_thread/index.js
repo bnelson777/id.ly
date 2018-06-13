@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { View, Text, TextInput,
-        Button,
+        TouchableOpacity,
         FlatList,
         Clipboard } from 'react-native';
 import * as ReduxActions from '../../actions';
@@ -17,6 +17,20 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 
+/*  # MessageThread component #
+    Handles the rendering of a message thread between two identities.
+    Uses GiftedChat to handle UI.
+    Allows resending messages through longpress.
+
+    # Expected Props #
+    title: STRING of label to display at the top
+    pair: OBJECT {
+          sender: STRING sender id,
+          receiver: STRING receiver id,
+          senderCard: OBJECT senderCard,
+          receiverCard: OBJECT receiverCard
+    }
+*/
 export class MessageThread extends Component {
     constructor(props) {
         super(props);
@@ -28,30 +42,31 @@ export class MessageThread extends Component {
         this.onLongPress = this.onLongPress.bind(this);
         this.getMessageByID = this.getMessageByID.bind(this);
         this.markAsRead = this.markAsRead.bind(this);
-        this.state.name = "test";
     };
 
-    //static navigationOptions = {
-    //  title: this.state.senderCard,
-    //  headerRight: <Button title="TEST" />
-    //}
     static navigationOptions = ({ navigation  }) => {
 
             const {state} = navigation;
 
             if(state.params != undefined){
                 return {
-                    headerRight: <Button title="ME" 
-                    onPress={() => Actions.card_view({
-                        title: state.params.senderCard.name, 
-                        card: state.params.senderCard,
-                        isWallet: true})} 
-                    />
+                    headerRight:
+                    <TouchableOpacity
+                        style={styles.meButton}
+                        onPress={() => Actions.card_view({
+                            title: state.params.senderCard.name,
+                            card: state.params.senderCard,
+                            isWallet: true
+                        })}
+                    >
+                    <Text style={styles.meButtonText}>ME</Text>
+                    </TouchableOpacity>
                 }
             }
 
     };
 
+    // Calls the function to mark messages as read
     markAsRead() {
         this.props.setMessagesAsRead({
             _1: this.props.pair.sender,
@@ -59,6 +74,7 @@ export class MessageThread extends Component {
         });
     }
 
+    // Generates a unique ID for a new message
     generateID() {
         let d = new Date().getTime();
         let id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -69,6 +85,7 @@ export class MessageThread extends Component {
         return id;
     }
 
+    // Generates a timestamp for new messages
     generateTimestamp() {
         var time = new Date().getTime()/1000
         var time_round = parseInt(time)
@@ -87,6 +104,7 @@ export class MessageThread extends Component {
         this.markAsRead();
     }
 
+    // Retrieves a message by its ID
     getMessageByID(id) {
         for(let i = 0; i < this.props.messages.length; ++i) {
             if(this.props.messages[i].id === id) {
@@ -95,6 +113,8 @@ export class MessageThread extends Component {
         }
     }
 
+    // Longpress callback passed into the GiftedChat for longpress
+    // event handled for each message bubble
     onLongPress(context, message) {
         let msg = this.getMessageByID(message._id);
         setTimeout(function(){
@@ -102,6 +122,7 @@ export class MessageThread extends Component {
         }, 100);
     }
 
+    // Callback function for the send button
     onSend(messages = []) {
         this.setState(previousState => (
             {

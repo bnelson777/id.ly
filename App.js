@@ -11,7 +11,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import store from './app/store';
 import Main from './app/index';
 
-console.ignoredYellowBox = ['Warning: componentWill'];
+console.disableYellowBox = true;
 
 export default class App extends Component {
     constructor() {

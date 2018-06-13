@@ -1,3 +1,4 @@
+
 import { StyleSheet } from 'react-native';
 import { BACKGROUND_COLOR, FONT_SIZE, BORDER_WIDTH } from './../styles/common';
 
@@ -21,6 +22,6 @@ export default StyleSheet.create({
     },
 
     button: {
-        backgroundColor: "steelblue",
-    }
+        marginTop: 20
+    },
 });

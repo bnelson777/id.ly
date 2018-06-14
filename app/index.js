@@ -115,14 +115,14 @@ class Main extends Component {
         // Determine the users platform for deep linking
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
-              this.navigate(url);
-            });
+                this.navigate(url);
+            }).catch(err => console.error('An error occurred', err));
           } else {
-            Linking.addEventListener('url', this.handleOpenURL);
+              Linking.addEventListener('url', this.handleOpenURL);
           }
       }
 
-      // Remove the deep link listener 
+      // Remove the deep link listener
       componentWillUnmount() {
           Linking.removeEventListener('url', this.handleOpenURL);
       }
@@ -143,13 +143,15 @@ class Main extends Component {
   
       // Determine the route of the deep link
       navigate = (url) => {
-          const route = url.replace(/.*?:\/\//g, '');
-          let id = 'empty';
-          id = route.match(/\/([^\/]+)\/?$/)[1];
-          const routeName = route.split('/')[0];
-          if (routeName === 'lockbox') {
-            Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
-          };
+        if (url) {
+              const route = url.replace(/.*?:\/\//g, '');
+              let id = 'empty';
+              id = route.match(/\/([^\/]+)\/?$/)[1];
+              const routeName = route.split('/')[0];
+              if (routeName === 'lockbox') {
+                Actions.lockbox({title:"Decrypt Message", mode: "decrypt", message: id})
+              };
+          }
       }
 
     render() {

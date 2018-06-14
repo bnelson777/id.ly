@@ -3,6 +3,10 @@
  * by id.ly Team
  */
 
+import { Dimensions } from 'react-native';
+
+const screenHeight = Dimensions.get('window').height;
+
 // These are global attributes that are used as a basis for
 // every component's companion stylesheet. Individual styles
 // can be overridden in each stylesheet but otherwise global

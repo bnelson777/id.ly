@@ -15,11 +15,14 @@ export default StyleSheet.create({
         flex:0,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        backgroundColor: BACKGROUND_COLOR,
-        borderTopWidth: BORDER_WIDTH,
+        marginTop: screenHeight * 0.015,
+        backgroundColor: BACKGROUND_COLOR
+    },
+
+    row:{
+        borderBottomWidth: BORDER_WIDTH,
         borderColor: "#ccc",
-        paddingTop: 10,
-        margin: 5
+        padding: screenHeight * 0.015
     },
 
     header:{
@@ -27,13 +30,13 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: FONT_SIZE,
         color: '#FFFFFF',
-        paddingLeft: 10
+        paddingLeft: screenWidth * 0.032
     },
 
     button:{
         backgroundColor: IDLY_BLUE,
         width: screenWidth*0.3,
-        height: 45,
+        height: screenHeight * 0.067,
         borderColor: "transparent",
         borderWidth: 0,
         borderRadius: 5
@@ -44,7 +47,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: screenWidth*0.28,
-        height: 45,
+        height: screenHeight * 0.067,
         borderColor: "transparent",
         borderWidth: 0,
         borderRadius: 5
@@ -53,14 +56,23 @@ export default StyleSheet.create({
     name: {
         fontSize: FONT_SIZE,
         fontWeight: FONT_WEIGHT,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 8 * 2
+        marginTop: screenHeight * 0.024
     },
 
     cardPosition: {
-        paddingTop: 10,
+        paddingTop: screenHeight * 0.015,
         justifyContent: 'center',
         alignItems: 'center'
     },
+
+    roundedImg:{
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0)',
+        alignItems:'center',
+        justifyContent:'center',
+        width: screenWidth * 0.43,
+        height: screenWidth * 0.43,
+        backgroundColor:'#FFFFFF',
+        borderRadius: screenWidth * 0.215
+    }
 });

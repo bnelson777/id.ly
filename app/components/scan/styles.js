@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY } from './../styles/common';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     container: {
@@ -21,8 +24,8 @@ export default StyleSheet.create({
     },
 
     rectangle: {
-        height: 200,
-        width: 200,
+        height: screenWidth * 0.64,
+        width: screenWidth * 0.64,
         borderWidth: 1,
         borderColor: '#128DC9',
         backgroundColor: 'transparent'
@@ -31,12 +34,12 @@ export default StyleSheet.create({
     rectangleText: {
         flex: 0,
         color: '#fff',
-        marginTop: 10
+        marginTop: screenHeight * 0.015
     },
     
     border: {
         flex: 0,
-        width: 200,
+        width: screenWidth * 0.64,
         height: 2,
         backgroundColor: '#128DC9',
     }

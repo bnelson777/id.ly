@@ -105,5 +105,21 @@ export default StyleSheet.create({
         backgroundColor: "#CED0CE",
         marginLeft: "2%",
     },
+    
+    textInputContainer: {
+        flexDirection: 'row',
+        paddingLeft: screenWidth * 0.0256,
+        paddingRight: screenWidth * 0.0256,
+        borderWidth: 3
+    },
+
+    textInput: {
+        paddingLeft: screenWidth * 0.032,
+        fontSize: 17,
+        flex: 1,
+        backgroundColor: 'white',
+        borderWidth: 0,
+        borderRadius: IsIOS ? 4 : 0,
+    }
 
 });

@@ -9,7 +9,7 @@ import styles from './styles';
 import { Text, View, StyleSheet, Button, Alert,
         ActivityIndicator, Animated, Easing,
         LayoutAnimation, Image, Platform,
-        Vibration, PermissionsAndroid } from 'react-native';
+        Vibration, PermissionsAndroid, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -23,6 +23,7 @@ import AesCrypto from 'react-native-aes-kit';
 
 const PERMISSION_AUTHORIZED = 'authorized';
 const CAMERA_PERMISSION = 'camera';
+const screenHeight = Dimensions.get('window').height;
 
 // SCAN
 // FUNCTION(S): This component handles the scanning of qr codes 
@@ -44,28 +45,28 @@ class Scan extends Component {
 
     static defaultProps = {
         notAuthorizedView: (
-            <View style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}>
-                <Text style={{
-                textAlign: 'center',
-                fontSize: 20,
+          <View style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Text style={{
+              textAlign: 'center',
+              fontSize: screenHeight * 0.033,
                 }}>
                     Camera Unauthorized!
                 </Text>
           </View>
         ),
         pendingAuthorizationView: (
-            <View style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}>
-                <Text style={{
-                    textAlign: 'center',
-                    fontSize: 20,
+          <View style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Text style={{
+              textAlign: 'center',
+              fontSize: screenHeight * 0.033,
                 }}>
                     Require Camera Permission!
                 </Text>

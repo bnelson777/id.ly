@@ -16,7 +16,7 @@ export default StyleSheet.create({
 
     saveBtn:{
         width: windowWidth,
-        height: 44,
+        height: windowHeight * 0.07,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor:"#6B9EFA"
